@@ -28,6 +28,13 @@
     return self;
 }
 
+- (IBAction)test:(id)sender
+{
+    NSString *pathStr = @"/Users/babajun/Dropbox/Lab/Research/Dataset/130121-jpnPhoto/P1110612.JPG";
+    
+    
+}
+
 
 #pragma mark -
 #pragma mark Button Action Methods

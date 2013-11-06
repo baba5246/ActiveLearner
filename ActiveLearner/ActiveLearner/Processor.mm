@@ -14,6 +14,12 @@ static Processor* sharedProcessor = nil;
     return sharedProcessor;
 }
 
+- (void) showCvMatImage:(NSString *)filepath
+{
+    
+    //Mycv mycv(filepath);
+}
+
 - (NSImage *)detectEdgesFromFilename:(NSString*)filename
 {
     IplImage *image = cvLoadImage([filename UTF8String]);

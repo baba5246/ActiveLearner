@@ -4,7 +4,6 @@
 
 #include <iostream>
 
-#endif /* defined(__imapro__Features__) */
 
 using namespace std;
 
@@ -18,3 +17,6 @@ private:
     string str;
     
 };
+
+
+#endif /* defined(__imapro__Features__) */
