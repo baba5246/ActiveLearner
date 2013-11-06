@@ -11,9 +11,12 @@
 		875D49EB182A106B00495344 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 875D49E9182A106B00495344 /* InfoPlist.strings */; };
 		875D49ED182A106B00495344 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D49EC182A106B00495344 /* main.m */; };
 		875D49F1182A106B00495344 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 875D49EF182A106B00495344 /* Credits.rtf */; };
-		875D49F4182A106B00495344 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D49F3182A106B00495344 /* AppDelegate.m */; };
+		875D49F4182A106B00495344 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875D49F3182A106B00495344 /* AppDelegate.mm */; };
 		875D49F7182A106B00495344 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 875D49F5182A106B00495344 /* MainMenu.xib */; };
 		875D49FA182A106B00495344 /* ActiveLearner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 875D49F8182A106B00495344 /* ActiveLearner.xcdatamodeld */; };
+		875D4A09182A112F00495344 /* libopencv_core.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D4A06182A112F00495344 /* libopencv_core.2.4.5.dylib */; };
+		875D4A0A182A112F00495344 /* libopencv_highgui.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D4A07182A112F00495344 /* libopencv_highgui.2.4.5.dylib */; };
+		875D4A0B182A112F00495344 /* libopencv_imgproc.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D4A08182A112F00495344 /* libopencv_imgproc.2.4.5.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,9 +31,33 @@
 		875D49EE182A106B00495344 /* ActiveLearner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ActiveLearner-Prefix.pch"; sourceTree = "<group>"; };
 		875D49F0182A106B00495344 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		875D49F2182A106B00495344 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		875D49F3182A106B00495344 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		875D49F3182A106B00495344 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		875D49F6182A106B00495344 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		875D49F9182A106B00495344 /* ActiveLearner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ActiveLearner.xcdatamodel; sourceTree = "<group>"; };
+		875D4A05182A10EE00495344 /* AppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
+		875D4A06182A112F00495344 /* libopencv_core.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_core.2.4.5.dylib; sourceTree = "<group>"; };
+		875D4A07182A112F00495344 /* libopencv_highgui.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_highgui.2.4.5.dylib; sourceTree = "<group>"; };
+		875D4A08182A112F00495344 /* libopencv_imgproc.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_imgproc.2.4.5.dylib; sourceTree = "<group>"; };
+		875D4A0C182A11C000495344 /* Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
+		875D4A0D182A11C000495344 /* Controller.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Controller.mm; sourceTree = "<group>"; };
+		875D4A0E182A11CF00495344 /* FileDialogController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileDialogController.h; sourceTree = "<group>"; };
+		875D4A0F182A11CF00495344 /* FileDialogController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileDialogController.m; sourceTree = "<group>"; };
+		875D4A10182A11EE00495344 /* ImgView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImgView.h; sourceTree = "<group>"; };
+		875D4A11182A11EE00495344 /* ImgView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImgView.m; sourceTree = "<group>"; };
+		875D4A12182A11EE00495344 /* InputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputView.h; sourceTree = "<group>"; };
+		875D4A13182A11EE00495344 /* InputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputView.m; sourceTree = "<group>"; };
+		875D4A14182A11F600495344 /* RectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectView.h; sourceTree = "<group>"; };
+		875D4A15182A11F600495344 /* RectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectView.m; sourceTree = "<group>"; };
+		875D4A16182A120300495344 /* Processor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		875D4A17182A120300495344 /* Processor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Processor.mm; sourceTree = "<group>"; };
+		875D4A18182A120D00495344 /* Features.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Features.cpp; sourceTree = "<group>"; };
+		875D4A19182A120D00495344 /* Features.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Features.h; sourceTree = "<group>"; };
+		875D4A1A182A121D00495344 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		875D4A1B182A121D00495344 /* Model.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		875D4A1C182A122700495344 /* Truth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Truth.h; sourceTree = "<group>"; };
+		875D4A1D182A122700495344 /* Truth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Truth.m; sourceTree = "<group>"; };
+		875D4A1E182A122700495344 /* XmlMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XmlMaker.h; sourceTree = "<group>"; };
+		875D4A1F182A122700495344 /* XmlMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XmlMaker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +65,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				875D4A09182A112F00495344 /* libopencv_core.2.4.5.dylib in Frameworks */,
+				875D4A0A182A112F00495344 /* libopencv_highgui.2.4.5.dylib in Frameworks */,
+				875D4A0B182A112F00495344 /* libopencv_imgproc.2.4.5.dylib in Frameworks */,
 				875D49E1182A106B00495344 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +95,9 @@
 		875D49DF182A106B00495344 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				875D4A06182A112F00495344 /* libopencv_core.2.4.5.dylib */,
+				875D4A07182A112F00495344 /* libopencv_highgui.2.4.5.dylib */,
+				875D4A08182A112F00495344 /* libopencv_imgproc.2.4.5.dylib */,
 				875D49E0182A106B00495344 /* Cocoa.framework */,
 				875D49E2182A106B00495344 /* Other Frameworks */,
 			);
@@ -84,9 +117,15 @@
 		875D49E6182A106B00495344 /* ActiveLearner */ = {
 			isa = PBXGroup;
 			children = (
+				875D4A05182A10EE00495344 /* AppConstants.h */,
 				875D49F2182A106B00495344 /* AppDelegate.h */,
-				875D49F3182A106B00495344 /* AppDelegate.m */,
+				875D49F3182A106B00495344 /* AppDelegate.mm */,
 				875D49F5182A106B00495344 /* MainMenu.xib */,
+				875D4A02182A10C100495344 /* Utilities */,
+				875D4A01182A10BB00495344 /* Controllers */,
+				875D4A00182A10B500495344 /* Views */,
+				875D4A04182A10D300495344 /* AdaBoost */,
+				875D4A03182A10C900495344 /* Processors */,
 				875D49F8182A106B00495344 /* ActiveLearner.xcdatamodeld */,
 				875D49E7182A106B00495344 /* Supporting Files */,
 			);
@@ -103,6 +142,61 @@
 				875D49EF182A106B00495344 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		875D4A00182A10B500495344 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				875D4A10182A11EE00495344 /* ImgView.h */,
+				875D4A11182A11EE00495344 /* ImgView.m */,
+				875D4A14182A11F600495344 /* RectView.h */,
+				875D4A15182A11F600495344 /* RectView.m */,
+				875D4A12182A11EE00495344 /* InputView.h */,
+				875D4A13182A11EE00495344 /* InputView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		875D4A01182A10BB00495344 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				875D4A0C182A11C000495344 /* Controller.h */,
+				875D4A0D182A11C000495344 /* Controller.mm */,
+				875D4A0E182A11CF00495344 /* FileDialogController.h */,
+				875D4A0F182A11CF00495344 /* FileDialogController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		875D4A02182A10C100495344 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				875D4A1A182A121D00495344 /* Model.h */,
+				875D4A1B182A121D00495344 /* Model.m */,
+				875D4A1C182A122700495344 /* Truth.h */,
+				875D4A1D182A122700495344 /* Truth.m */,
+				875D4A1E182A122700495344 /* XmlMaker.h */,
+				875D4A1F182A122700495344 /* XmlMaker.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		875D4A03182A10C900495344 /* Processors */ = {
+			isa = PBXGroup;
+			children = (
+				875D4A16182A120300495344 /* Processor.h */,
+				875D4A17182A120300495344 /* Processor.mm */,
+				875D4A18182A120D00495344 /* Features.cpp */,
+				875D4A19182A120D00495344 /* Features.h */,
+			);
+			name = Processors;
+			sourceTree = "<group>";
+		};
+		875D4A04182A10D300495344 /* AdaBoost */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AdaBoost;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,7 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				875D49ED182A106B00495344 /* main.m in Sources */,
-				875D49F4182A106B00495344 /* AppDelegate.m in Sources */,
+				875D49F4182A106B00495344 /* AppDelegate.mm in Sources */,
 				875D49FA182A106B00495344 /* ActiveLearner.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,10 +361,17 @@
 		875D49FE182A106B00495344 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ActiveLearner/ActiveLearner-Prefix.pch";
+				HEADER_SEARCH_PATHS = /opt/local/include;
 				INFOPLIST_FILE = "ActiveLearner/ActiveLearner-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					/opt/local/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -279,10 +380,17 @@
 		875D49FF182A106B00495344 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ActiveLearner/ActiveLearner-Prefix.pch";
+				HEADER_SEARCH_PATHS = /opt/local/include;
 				INFOPLIST_FILE = "ActiveLearner/ActiveLearner-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					/opt/local/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -307,6 +415,7 @@
 				875D49FF182A106B00495344 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

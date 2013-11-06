@@ -1,10 +1,3 @@
-//
-//  AppDelegate.m
-//  ActiveLearner
-//
-//  Created by 馬場 惇 on 13/11/06.
-//  Copyright (c) 2013年 baba. All rights reserved.
-//
 
 #import "AppDelegate.h"
 
