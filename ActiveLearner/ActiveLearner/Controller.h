@@ -12,6 +12,14 @@
     IBOutlet id rectCountLabel;
     IBOutlet id xmlDataCountLabel;
     
+    IBOutlet id dirPathLbl;
+    IBOutlet id desctiptionLbl;
+    
+    NSTableView *paramTable;
+    NSTableView *performTable;
+    NSTableView *correctRectsTable;
+    NSTableView *roundCharaTable;
+    
     IBOutlet NSComboBox *options;
 }
 
@@ -25,6 +33,11 @@
 -(IBAction)onRightButtonClicked:(id)sender;
 -(IBAction)onDoneButtonClicked:(id)sender;
 -(IBAction)onSaveButtonClicked:(id)sender;
+
+-(IBAction)onStartLearningClicked:(id)sender;
+-(IBAction)onComputePerformanceClicked:(id)sender;
+-(IBAction)onSelectRectsClicked:(id)sender;
+-(IBAction)onRoundCharactersClicked:(id)sender;
 
 
 #pragma mark -
