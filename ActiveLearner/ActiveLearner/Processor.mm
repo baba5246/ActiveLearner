@@ -1,5 +1,6 @@
 
 #import "Processor.h"
+#import "Mycv.h"
 
 @implementation Processor
 
@@ -16,8 +17,7 @@ static Processor* sharedProcessor = nil;
 
 - (void) showCvMatImage:(NSString *)filepath
 {
-    
-    //Mycv mycv(filepath);
+    Mycv mycv([filepath cStringUsingEncoding:NSUTF8StringEncoding]);
 }
 
 - (NSImage *)detectEdgesFromFilename:(NSString*)filename

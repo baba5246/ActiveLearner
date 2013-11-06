@@ -30,9 +30,9 @@
 
 - (IBAction)test:(id)sender
 {
-    NSString *pathStr = @"/Users/babajun/Dropbox/Lab/Research/Dataset/130121-jpnPhoto/P1110612.JPG";
-    
-    
+    NSString *pathStr = @"/Users/BBBookAir/Dropbox/Lab/Research/Dataset/130121-jpnPhoto/P1110612.JPG";
+    Processor *pro = [Processor sharedManager];
+    [pro showCvMatImage:pathStr];
 }
 
 

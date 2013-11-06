@@ -4,7 +4,10 @@
 // コンストラクタ
 Mycv::Mycv(const string&  filepath)
 {
-    Mat image;
-    image = imread(filepath, CV_LOAD_IMAGE_COLOR);
-    Draw draw(image);
+    src = imread(filepath, CV_LOAD_IMAGE_COLOR);
+    //Draw draw(src);
 }
+
+//
+
+

@@ -34,6 +34,7 @@
 -(IBAction)onDoneButtonClicked:(id)sender;
 -(IBAction)onSaveButtonClicked:(id)sender;
 
+-(IBAction)test:(id)sender;
 -(IBAction)onStartLearningClicked:(id)sender;
 -(IBAction)onComputePerformanceClicked:(id)sender;
 -(IBAction)onSelectRectsClicked:(id)sender;

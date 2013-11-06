@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		874F6890182AF6E5004FA324 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A0D182A11C000495344 /* Controller.m */; };
+		874F6891182AF6EC004FA324 /* XmlMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1F182A122700495344 /* XmlMaker.m */; };
+		874F6892182AF6F1004FA324 /* Truth.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1D182A122700495344 /* Truth.m */; };
+		874F6893182AF714004FA324 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1B182A121D00495344 /* Model.m */; };
+		874F6894182AF722004FA324 /* FileDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A0F182A11CF00495344 /* FileDialogController.m */; };
+		874F6895182AF729004FA324 /* ImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A11182A11EE00495344 /* ImgView.m */; };
+		874F6896182AF72E004FA324 /* RectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A15182A11F600495344 /* RectView.m */; };
+		874F6897182AF731004FA324 /* InputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A13182A11EE00495344 /* InputView.m */; };
+		874F6898182AF738004FA324 /* Processor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A17182A120300495344 /* Processor.mm */; };
+		874F6899182AF748004FA324 /* Features.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A18182A120D00495344 /* Features.cpp */; };
+		874F689C182AFEBD004FA324 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689A182AFEBD004FA324 /* Object.cpp */; };
+		874F689F182AFECD004FA324 /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689D182AFECD004FA324 /* Text.cpp */; };
 		875D49E1182A106B00495344 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D49E0182A106B00495344 /* Cocoa.framework */; };
 		875D49EB182A106B00495344 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 875D49E9182A106B00495344 /* InfoPlist.strings */; };
 		875D49ED182A106B00495344 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D49EC182A106B00495344 /* main.m */; };
@@ -22,6 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		874F689A182AFEBD004FA324 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
+		874F689B182AFEBD004FA324 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
+		874F689D182AFECD004FA324 /* Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text.cpp; sourceTree = "<group>"; };
+		874F689E182AFECD004FA324 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
 		875D49DD182A106B00495344 /* ActiveLearner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActiveLearner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		875D49E0182A106B00495344 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		875D49E3182A106B00495344 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -192,12 +208,16 @@
 			children = (
 				875D4A16182A120300495344 /* Processor.h */,
 				875D4A17182A120300495344 /* Processor.mm */,
-				875D4A18182A120D00495344 /* Features.cpp */,
-				875D4A19182A120D00495344 /* Features.h */,
-				FE46B396182A36B00070725A /* Draw.cpp */,
-				FE46B397182A36B00070725A /* Draw.h */,
-				FE46B393182A362C0070725A /* Mycv.cpp */,
 				FE46B394182A362C0070725A /* Mycv.h */,
+				FE46B393182A362C0070725A /* Mycv.cpp */,
+				875D4A19182A120D00495344 /* Features.h */,
+				875D4A18182A120D00495344 /* Features.cpp */,
+				874F689B182AFEBD004FA324 /* Object.h */,
+				874F689A182AFEBD004FA324 /* Object.cpp */,
+				874F689E182AFECD004FA324 /* Text.h */,
+				874F689D182AFECD004FA324 /* Text.cpp */,
+				FE46B397182A36B00070725A /* Draw.h */,
+				FE46B396182A36B00070725A /* Draw.cpp */,
 			);
 			name = Processors;
 			sourceTree = "<group>";
@@ -278,6 +298,18 @@
 				875D49FA182A106B00495344 /* ActiveLearner.xcdatamodeld in Sources */,
 				FE46B395182A362C0070725A /* Mycv.cpp in Sources */,
 				FE46B398182A36B00070725A /* Draw.cpp in Sources */,
+				874F6890182AF6E5004FA324 /* Controller.m in Sources */,
+				874F6891182AF6EC004FA324 /* XmlMaker.m in Sources */,
+				874F6892182AF6F1004FA324 /* Truth.m in Sources */,
+				874F6893182AF714004FA324 /* Model.m in Sources */,
+				874F6894182AF722004FA324 /* FileDialogController.m in Sources */,
+				874F6895182AF729004FA324 /* ImgView.m in Sources */,
+				874F6896182AF72E004FA324 /* RectView.m in Sources */,
+				874F6897182AF731004FA324 /* InputView.m in Sources */,
+				874F6898182AF738004FA324 /* Processor.mm in Sources */,
+				874F6899182AF748004FA324 /* Features.cpp in Sources */,
+				874F689C182AFEBD004FA324 /* Object.cpp in Sources */,
+				874F689F182AFECD004FA324 /* Text.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
