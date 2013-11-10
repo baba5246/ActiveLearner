@@ -9,16 +9,22 @@ class Object
 {
 public:
     
-    Object(const string& filepath);
+    Object(const string& filepath, const vector<cv::Point>& contour);
+    ~Object();
+    
     string filename;
     
-    CvPoint origin;
-    CvSize size;
-    CvPoint centroid;
+    cv::Point origin;
+    cv::Size size;
+    int width, height;
+    cv::Point centroid;
     double aspectRatio;
-    CvRect rect;
-    int64 rectArea;
-    CvScalar color;
+    cv::Rect rect;
+    int rectArea;
+    int contourArea;
+    Scalar color;
+    
+    int mserIndex;
     
     double rectRatio;
     int nearestIndex;
@@ -26,8 +32,8 @@ public:
     vector<int> parents;
     vector<int> children;
     
-    vector<CvPoint> contourPixels;
-    vector<CvPoint> corrPairPixels;
+    vector<cv::Point> contourPixels;
+    vector<cv::Point> corrPairPixels;
     vector<double> thetas;
     vector<double> thetasWtoB;
     vector<double> thetasBtoW;
@@ -42,6 +48,12 @@ public:
     double neighborDistance;
     
 #pragma mark -
+#pragma mark Set Methods
+    
+#pragma mark -
+#pragma mark Get Methods
+    
+#pragma mark -
 #pragma mark Inclusion Relationship Methods
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
@@ -52,9 +64,8 @@ private:
 #pragma mark -
 #pragma mark Compute Properties Methods
     void computeProperties();
-    void computeCentroid();
-    void computeContourArea();
     void computeColor();
+    void computeContourArea(int gridSize);
     
     
 };

@@ -19,6 +19,9 @@
 		874F6899182AF748004FA324 /* Features.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A18182A120D00495344 /* Features.cpp */; };
 		874F689C182AFEBD004FA324 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689A182AFEBD004FA324 /* Object.cpp */; };
 		874F689F182AFECD004FA324 /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689D182AFECD004FA324 /* Text.cpp */; };
+		874F68A1182F6691004FA324 /* libopencv_nonfree.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 874F68A0182F6691004FA324 /* libopencv_nonfree.2.4.5.dylib */; };
+		874F68A3182F66E2004FA324 /* libopencv_features2d.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 874F68A2182F66E2004FA324 /* libopencv_features2d.2.4.5.dylib */; };
+		874F68A7182F88AC004FA324 /* MSERegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F68A4182F873A004FA324 /* MSERegion.cpp */; };
 		875D49E1182A106B00495344 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D49E0182A106B00495344 /* Cocoa.framework */; };
 		875D49EB182A106B00495344 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 875D49E9182A106B00495344 /* InfoPlist.strings */; };
 		875D49ED182A106B00495344 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D49EC182A106B00495344 /* main.m */; };
@@ -38,6 +41,10 @@
 		874F689B182AFEBD004FA324 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
 		874F689D182AFECD004FA324 /* Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text.cpp; sourceTree = "<group>"; };
 		874F689E182AFECD004FA324 /* Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Text.h; sourceTree = "<group>"; };
+		874F68A0182F6691004FA324 /* libopencv_nonfree.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_nonfree.2.4.5.dylib; path = ../../../../../opt/local/lib/libopencv_nonfree.2.4.5.dylib; sourceTree = "<group>"; };
+		874F68A2182F66E2004FA324 /* libopencv_features2d.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_features2d.2.4.5.dylib; path = ../../../../../opt/local/lib/libopencv_features2d.2.4.5.dylib; sourceTree = "<group>"; };
+		874F68A4182F873A004FA324 /* MSERegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSERegion.cpp; sourceTree = "<group>"; };
+		874F68A5182F873A004FA324 /* MSERegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSERegion.h; sourceTree = "<group>"; };
 		875D49DD182A106B00495344 /* ActiveLearner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActiveLearner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		875D49E0182A106B00495344 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		875D49E3182A106B00495344 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -87,6 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				874F68A3182F66E2004FA324 /* libopencv_features2d.2.4.5.dylib in Frameworks */,
+				874F68A1182F6691004FA324 /* libopencv_nonfree.2.4.5.dylib in Frameworks */,
 				875D4A09182A112F00495344 /* libopencv_core.2.4.5.dylib in Frameworks */,
 				875D4A0A182A112F00495344 /* libopencv_highgui.2.4.5.dylib in Frameworks */,
 				875D4A0B182A112F00495344 /* libopencv_imgproc.2.4.5.dylib in Frameworks */,
@@ -100,6 +109,8 @@
 		875D49D4182A106B00495344 = {
 			isa = PBXGroup;
 			children = (
+				874F68A2182F66E2004FA324 /* libopencv_features2d.2.4.5.dylib */,
+				874F68A0182F6691004FA324 /* libopencv_nonfree.2.4.5.dylib */,
 				875D49E6182A106B00495344 /* ActiveLearner */,
 				875D49DF182A106B00495344 /* Frameworks */,
 				875D49DE182A106B00495344 /* Products */,
@@ -212,6 +223,8 @@
 				FE46B393182A362C0070725A /* Mycv.cpp */,
 				875D4A19182A120D00495344 /* Features.h */,
 				875D4A18182A120D00495344 /* Features.cpp */,
+				874F68A5182F873A004FA324 /* MSERegion.h */,
+				874F68A4182F873A004FA324 /* MSERegion.cpp */,
 				874F689B182AFEBD004FA324 /* Object.h */,
 				874F689A182AFEBD004FA324 /* Object.cpp */,
 				874F689E182AFECD004FA324 /* Text.h */,
@@ -310,6 +323,7 @@
 				874F6899182AF748004FA324 /* Features.cpp in Sources */,
 				874F689C182AFEBD004FA324 /* Object.cpp in Sources */,
 				874F689F182AFECD004FA324 /* Text.cpp in Sources */,
+				874F68A7182F88AC004FA324 /* MSERegion.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

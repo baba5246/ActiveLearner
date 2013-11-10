@@ -4,6 +4,9 @@
 
 #ifdef __cplusplus
 #import <opencv2/opencv.hpp>
+#import <opencv2/nonfree/nonfree.hpp>
+#import <opencv2/nonfree/features2d.hpp>
+#import <opencv2/features2d/features2d.hpp>
 #endif
 
 #ifdef __OBJC__

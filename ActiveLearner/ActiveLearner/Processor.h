@@ -5,7 +5,7 @@
 
 + (Processor*)sharedManager;
 
-- (void) showCvMatImage:(NSString *)filepath;
+- (void) featuresFromImage:(NSString *)filepath;
 
 - (NSImage *)detectEdgesWithNSImage:(NSString*)filename;
 - (NSImage*)detectControursFromFilename:(NSString*)filename;

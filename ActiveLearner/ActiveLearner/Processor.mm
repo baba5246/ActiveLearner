@@ -15,9 +15,10 @@ static Processor* sharedProcessor = nil;
     return sharedProcessor;
 }
 
-- (void) showCvMatImage:(NSString *)filepath
+- (void) featuresFromImage:(NSString *)filepath
 {
     Mycv mycv([filepath cStringUsingEncoding:NSUTF8StringEncoding]);
+    mycv.detector();
 }
 
 - (NSImage *)detectEdgesFromFilename:(NSString*)filename

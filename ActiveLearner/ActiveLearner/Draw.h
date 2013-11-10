@@ -5,6 +5,7 @@
 #pragma once
 
 #include <iostream>
+#include "Object.h"
 
 using namespace std;
 using namespace cv;
@@ -12,13 +13,14 @@ using namespace cv;
 class Draw
 {
 public:
-    Mat src;
-    
-    
-    Draw(Mat src);
+    static void draw(const Mat& src);
+    static void drawContours(const Mat& src, const vector<vector<cv::Point>>& contours, const vector<cv::Vec4i>& hierarchy);
+    static void drawMSERs(const Mat& src, const vector<vector<cv::Point>>& mser_features);
+    static void drawObjects(const Mat& src, const vector<Object> objects);
     
 private:
-    
+    static Mat srcImage;
+    static void drawImage(const Mat& src);
 };
 
 

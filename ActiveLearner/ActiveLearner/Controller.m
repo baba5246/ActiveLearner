@@ -30,9 +30,9 @@
 
 - (IBAction)test:(id)sender
 {
-    NSString *pathStr = @"/Users/BBBookAir/Dropbox/Lab/Research/Dataset/130121-jpnPhoto/P1110612.JPG";
+    NSString *pathStr = @"/Users/BBBookAir/Desktop/AL/en-dataset/102.jpg";
     Processor *pro = [Processor sharedManager];
-    [pro showCvMatImage:pathStr];
+    [pro featuresFromImage:pathStr];
 }
 
 
