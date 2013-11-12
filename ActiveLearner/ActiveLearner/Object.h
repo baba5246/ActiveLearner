@@ -8,13 +8,17 @@ using namespace cv;
 class Object
 {
 public:
-    
+    Object();
     Object(const string& filepath, const vector<cv::Point>& contour);
     ~Object();
     
+#pragma mark -
+#pragma Attribute Variables
+public:
     string filename;
     
     cv::Point origin;
+    cv::Point tp, lp, rp, bp;
     cv::Size size;
     int width, height;
     cv::Point centroid;
@@ -39,6 +43,7 @@ public:
     vector<double> thetasBtoW;
     vector<double> corrThetas;
     
+    bool isPositive = true;
     double Gangle, Fcorr, Vwidth;
     double Echar;
     vector<double> features;
@@ -47,14 +52,10 @@ public:
     vector<Object> neighbors;
     double neighborDistance;
     
-#pragma mark -
-#pragma mark Set Methods
-    
-#pragma mark -
-#pragma mark Get Methods
     
 #pragma mark -
 #pragma mark Inclusion Relationship Methods
+    static bool IsLeftLarge(Object obj1, Object obj2);
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
     void mergeObject(Object obj);
@@ -66,6 +67,6 @@ private:
     void computeProperties();
     void computeColor();
     void computeContourArea(int gridSize);
-    
+    void computeTLRB();
     
 };

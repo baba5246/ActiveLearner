@@ -5,6 +5,10 @@
 
 #pragma mark -
 #pragma mark Constructor
+Object::Object()
+{
+    
+}
 
 Object::Object(const string& filepath, const vector<cv::Point>& contour)
 {
@@ -20,6 +24,7 @@ Object::Object(const string& filepath, const vector<cv::Point>& contour)
 void Object::computeProperties()
 {
     rect = boundingRect(contourPixels);
+    //computeTLRB();
     
     origin = Point(rect.x, rect.y);
     width = rect.width;
@@ -29,6 +34,7 @@ void Object::computeProperties()
     
     rectArea = rect.area();
     computeContourArea(GRID_SIZE);
+    
     
     computeColor();
 }
@@ -58,6 +64,28 @@ void Object::computeContourArea(int gridSize)
     contourArea = (int)area * gridWidth * gridHeight;
 }
 
+void Object::computeTLRB()
+{
+    cv::Point p;
+    int t = INFINITY, l = INFINITY, r = 0, b = 0;
+    for (int i = 0; i < contourPixels.size(); i++) {
+        p = contourPixels[i];
+        if (p.x < l) {
+            l = p.x;
+            lp = p;
+        } else if (p.x > r) {
+            r = p.x;
+            rp = p;
+        }
+        if (p.y < t) {
+            t = p.y;
+            tp = p;
+        } else if (p.y > b) {
+            b = p.y;
+            bp = p;
+        }
+    }
+}
 
 void Object::computeColor()
 {
@@ -68,6 +96,11 @@ void Object::computeColor()
 
 #pragma mark -
 #pragma mark Inclusion Relationship Methods
+
+bool Object::IsLeftLarge(Object obj1, Object obj2)
+{
+    return obj1.rectArea >= obj2.rectArea;
+}
 
 bool isParentOf(Object obj)
 {
@@ -90,6 +123,7 @@ void Object::mergeObject(Object obj)
     contourPixels.insert(contourPixels.end(), obj.contourPixels.begin(), obj.contourPixels.end());
     computeProperties();
 }
+
 
 
 Object::~Object()

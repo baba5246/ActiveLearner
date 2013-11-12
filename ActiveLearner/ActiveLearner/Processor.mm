@@ -1,8 +1,12 @@
 
 #import "Processor.h"
-#import "Mycv.h"
+#include "Mycv.h"
+#include "AdaBoost.h"
 
 @implementation Processor
+{
+    Model *model;
+}
 
 static Processor* sharedProcessor = nil;
 
@@ -10,9 +14,15 @@ static Processor* sharedProcessor = nil;
     @synchronized(self) {
         if (sharedProcessor == nil) {
             sharedProcessor = [[self alloc] init];
+            [sharedProcessor prepare];
         }
     }
     return sharedProcessor;
+}
+
+- (void) prepare
+{
+    model = [Model sharedManager];
 }
 
 - (void) featuresFromImage:(NSString *)filepath
@@ -20,6 +30,36 @@ static Processor* sharedProcessor = nil;
     Mycv mycv([filepath cStringUsingEncoding:NSUTF8StringEncoding]);
     mycv.detector();
 }
+
+- (void) learnFeaturesWithAdaBoost:(NSArray *)files
+{
+    // サンプル作成
+//    vector<Sample> samples;
+//    
+//    // 特徴抽出
+//    for (NSString *filepath in files) {
+//        Mycv mycv([filepath cStringUsingEncoding:NSUTF8StringEncoding]);
+//        vector<Object> objects = mycv.detectObjects();
+//        
+//        for (int i = 0; i < objects.size(); i++) {
+//            
+//            Sample s = *new Sample(objects[i]);
+//            samples.push_back(s);
+//        }
+//    }
+    
+    // XMLの情報からサンプルの判定
+    NSMutableDictionary *xmlData = [model getXMLData];
+    
+    
+    // AdaBoost learning
+    
+    
+    
+    
+}
+
+
 
 - (NSImage *)detectEdgesFromFilename:(NSString*)filename
 {

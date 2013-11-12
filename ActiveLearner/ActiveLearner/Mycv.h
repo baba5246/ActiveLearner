@@ -1,11 +1,6 @@
-
-//#ifndef __ActiveLearner__Mycv__
-//#define __ActiveLearner__Mycv__
-
 #pragma once
 
 #include <iostream>
-#include "Features.h"
 #include "Object.h"
 #include "MSERegion.h"
 #include "Text.h"
@@ -27,15 +22,24 @@ public:
     void grayscale(const Mat& src, Mat& dst);
     void unsharpMasking(const Mat& src, Mat& dst, float k);
     void canny(const Mat &src, Mat &dst);
-    void contours(const Mat &src, vector<vector<cv::Point>> &contours, vector<cv::Vec4i>& hierarchy, int mode, int method);
+    void contours(const Mat &src, vector<vector<cv::Point> > &contours, vector<cv::Vec4i>& hierarchy, int mode, int method);
+    void sobelFiltering(const Mat& graySrc, Mat_<double>& gradients);
     
+    // Contour Interpolating Methods
     void MSERs(const Mat& src, vector<MSERegion>& msers);
+    void createObjects(const vector<vector<cv::Point> > &contours, vector<Object> &objects);
+    void mergeApartContours(vector<Object>& objects, vector<MSERegion>& msers);
+    void mergeIncludedObjects(vector<Object>& objects);
+    
+    // Gradient Feature Methods
+    void gradientOfObjects(vector<Object>& objects, const Mat_<double>& gradients);
+    bool isPositiveDirection(const Object& object);
+    void findCorrPairs(vector<Object>& objects);
+    void gradientOfCorrPairs(vector<Object>& objects, const Mat_<double>& gradients);
+    void computeEchar(vector<Object>& objects);
+    
     
     //
-    void createObjects(const vector<vector<cv::Point>> &contours, vector<Object> &objects);
-    void mergeApartContours(vector<Object>& objects, vector<MSERegion>& msers);
-    
-    // 
     vector<Object>  detectObjects();
     vector<Text>    detectTexts();
     
@@ -43,8 +47,7 @@ private:
     Mat srcImage;
     string filename;
     
+    int** createImageTable(const vector<Object>& objects);
     cv::Rect* intersect(const cv::Rect& rect1, const cv::Rect& rect2);
     
 };
-
-//#endif /* defined(__ActiveLearner__Mycv__) */

@@ -7,6 +7,7 @@
 #import <opencv2/nonfree/nonfree.hpp>
 #import <opencv2/nonfree/features2d.hpp>
 #import <opencv2/features2d/features2d.hpp>
+#import "CppConstants.h"
 #endif
 
 #ifdef __OBJC__

@@ -30,7 +30,7 @@
 
 - (IBAction)test:(id)sender
 {
-    NSString *pathStr = @"/Users/BBBookAir/Desktop/AL/en-dataset/102.jpg";
+    NSString *pathStr = @"/Users/BBBookAir/Desktop/AL/en-dataset/122.jpg";
     Processor *pro = [Processor sharedManager];
     [pro featuresFromImage:pathStr];
 }
@@ -112,7 +112,7 @@
     NSString *item = [options itemObjectValueAtIndex:index];
     NSLog(@"selected index: %ld, item:%@", (long)index, item);
     
-    [self imageProcessing:index];
+    //[self imageProcessing:index];
 }
 
 
@@ -201,27 +201,7 @@
 #pragma mark -
 #pragma mark Image Processing Methods
 
-- (void) imageProcessing:(NSInteger)index
-{
-    switch (index) {
-        case 0: // エッジ検出
-            imgView.image = [processor detectEdgesWithNSImage:model.imagePath.path];
-            break;
-        case 1: // 輪郭検出
-            imgView.image = [processor detectControursFromFilename:model.imagePath.path];
-            break;
-        case 2: // MSER検出
-            break;
-        case 3: // 提案手法1
-            break;
-        case 4: // 勾配ベクトル算出
-            break;
-        case 5: // Etext算出
-            break;
-            
-        default:
-            break;
-    }
-}
+
+
 
 @end

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		87259FE1183246BF00DBEEF3 /* AdaBoost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FDF183246BF00DBEEF3 /* AdaBoost.cpp */; };
+		87259FE4183246F600DBEEF3 /* AdaBoostResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FE2183246F600DBEEF3 /* AdaBoostResult.cpp */; };
+		87259FE71832472C00DBEEF3 /* WeakClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FE51832472C00DBEEF3 /* WeakClassifier.cpp */; };
+		87259FEA1832475900DBEEF3 /* StrongClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FE81832475900DBEEF3 /* StrongClassifier.cpp */; };
+		87259FED1832479A00DBEEF3 /* Sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FEB1832479A00DBEEF3 /* Sample.cpp */; };
 		874F6890182AF6E5004FA324 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A0D182A11C000495344 /* Controller.m */; };
 		874F6891182AF6EC004FA324 /* XmlMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1F182A122700495344 /* XmlMaker.m */; };
 		874F6892182AF6F1004FA324 /* Truth.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1D182A122700495344 /* Truth.m */; };
@@ -16,7 +21,6 @@
 		874F6896182AF72E004FA324 /* RectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A15182A11F600495344 /* RectView.m */; };
 		874F6897182AF731004FA324 /* InputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A13182A11EE00495344 /* InputView.m */; };
 		874F6898182AF738004FA324 /* Processor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A17182A120300495344 /* Processor.mm */; };
-		874F6899182AF748004FA324 /* Features.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A18182A120D00495344 /* Features.cpp */; };
 		874F689C182AFEBD004FA324 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689A182AFEBD004FA324 /* Object.cpp */; };
 		874F689F182AFECD004FA324 /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689D182AFECD004FA324 /* Text.cpp */; };
 		874F68A1182F6691004FA324 /* libopencv_nonfree.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 874F68A0182F6691004FA324 /* libopencv_nonfree.2.4.5.dylib */; };
@@ -37,6 +41,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		87259FDF183246BF00DBEEF3 /* AdaBoost.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdaBoost.cpp; sourceTree = "<group>"; };
+		87259FE0183246BF00DBEEF3 /* AdaBoost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdaBoost.h; sourceTree = "<group>"; };
+		87259FE2183246F600DBEEF3 /* AdaBoostResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdaBoostResult.cpp; sourceTree = "<group>"; };
+		87259FE3183246F600DBEEF3 /* AdaBoostResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdaBoostResult.h; sourceTree = "<group>"; };
+		87259FE51832472C00DBEEF3 /* WeakClassifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WeakClassifier.cpp; sourceTree = "<group>"; };
+		87259FE61832472C00DBEEF3 /* WeakClassifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeakClassifier.h; sourceTree = "<group>"; };
+		87259FE81832475900DBEEF3 /* StrongClassifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StrongClassifier.cpp; sourceTree = "<group>"; };
+		87259FE91832475900DBEEF3 /* StrongClassifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrongClassifier.h; sourceTree = "<group>"; };
+		87259FEB1832479A00DBEEF3 /* Sample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sample.cpp; sourceTree = "<group>"; };
+		87259FEC1832479A00DBEEF3 /* Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
 		874F689A182AFEBD004FA324 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
 		874F689B182AFEBD004FA324 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
 		874F689D182AFECD004FA324 /* Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text.cpp; sourceTree = "<group>"; };
@@ -75,14 +89,13 @@
 		875D4A15182A11F600495344 /* RectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectView.m; sourceTree = "<group>"; };
 		875D4A16182A120300495344 /* Processor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
 		875D4A17182A120300495344 /* Processor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Processor.mm; sourceTree = "<group>"; };
-		875D4A18182A120D00495344 /* Features.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Features.cpp; sourceTree = "<group>"; };
-		875D4A19182A120D00495344 /* Features.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Features.h; sourceTree = "<group>"; };
 		875D4A1A182A121D00495344 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		875D4A1B182A121D00495344 /* Model.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		875D4A1C182A122700495344 /* Truth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Truth.h; sourceTree = "<group>"; };
 		875D4A1D182A122700495344 /* Truth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Truth.m; sourceTree = "<group>"; };
 		875D4A1E182A122700495344 /* XmlMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XmlMaker.h; sourceTree = "<group>"; };
 		875D4A1F182A122700495344 /* XmlMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XmlMaker.m; sourceTree = "<group>"; };
+		878D27C61830B172002F1EB0 /* CppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CppConstants.h; sourceTree = "<group>"; };
 		FE46B393182A362C0070725A /* Mycv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mycv.cpp; sourceTree = "<group>"; };
 		FE46B394182A362C0070725A /* Mycv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mycv.h; sourceTree = "<group>"; };
 		FE46B396182A36B00070725A /* Draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Draw.cpp; sourceTree = "<group>"; };
@@ -157,7 +170,6 @@
 				875D4A02182A10C100495344 /* Utilities */,
 				875D4A01182A10BB00495344 /* Controllers */,
 				875D4A00182A10B500495344 /* Views */,
-				875D4A04182A10D300495344 /* AdaBoost */,
 				875D4A03182A10C900495344 /* Processors */,
 				875D49F8182A106B00495344 /* ActiveLearner.xcdatamodeld */,
 				875D49E7182A106B00495344 /* Supporting Files */,
@@ -219,18 +231,13 @@
 			children = (
 				875D4A16182A120300495344 /* Processor.h */,
 				875D4A17182A120300495344 /* Processor.mm */,
+				878D27C61830B172002F1EB0 /* CppConstants.h */,
 				FE46B394182A362C0070725A /* Mycv.h */,
 				FE46B393182A362C0070725A /* Mycv.cpp */,
-				875D4A19182A120D00495344 /* Features.h */,
-				875D4A18182A120D00495344 /* Features.cpp */,
-				874F68A5182F873A004FA324 /* MSERegion.h */,
-				874F68A4182F873A004FA324 /* MSERegion.cpp */,
-				874F689B182AFEBD004FA324 /* Object.h */,
-				874F689A182AFEBD004FA324 /* Object.cpp */,
-				874F689E182AFECD004FA324 /* Text.h */,
-				874F689D182AFECD004FA324 /* Text.cpp */,
 				FE46B397182A36B00070725A /* Draw.h */,
 				FE46B396182A36B00070725A /* Draw.cpp */,
+				8778A7BB18321CBF00824EE6 /* Components */,
+				875D4A04182A10D300495344 /* AdaBoost */,
 			);
 			name = Processors;
 			sourceTree = "<group>";
@@ -238,8 +245,31 @@
 		875D4A04182A10D300495344 /* AdaBoost */ = {
 			isa = PBXGroup;
 			children = (
+				87259FE0183246BF00DBEEF3 /* AdaBoost.h */,
+				87259FDF183246BF00DBEEF3 /* AdaBoost.cpp */,
+				87259FE3183246F600DBEEF3 /* AdaBoostResult.h */,
+				87259FE2183246F600DBEEF3 /* AdaBoostResult.cpp */,
+				87259FE61832472C00DBEEF3 /* WeakClassifier.h */,
+				87259FE51832472C00DBEEF3 /* WeakClassifier.cpp */,
+				87259FE91832475900DBEEF3 /* StrongClassifier.h */,
+				87259FE81832475900DBEEF3 /* StrongClassifier.cpp */,
+				87259FEC1832479A00DBEEF3 /* Sample.h */,
+				87259FEB1832479A00DBEEF3 /* Sample.cpp */,
 			);
 			name = AdaBoost;
+			sourceTree = "<group>";
+		};
+		8778A7BB18321CBF00824EE6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				874F68A5182F873A004FA324 /* MSERegion.h */,
+				874F68A4182F873A004FA324 /* MSERegion.cpp */,
+				874F689B182AFEBD004FA324 /* Object.h */,
+				874F689A182AFEBD004FA324 /* Object.cpp */,
+				874F689E182AFECD004FA324 /* Text.h */,
+				874F689D182AFECD004FA324 /* Text.cpp */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,10 +350,14 @@
 				874F6896182AF72E004FA324 /* RectView.m in Sources */,
 				874F6897182AF731004FA324 /* InputView.m in Sources */,
 				874F6898182AF738004FA324 /* Processor.mm in Sources */,
-				874F6899182AF748004FA324 /* Features.cpp in Sources */,
 				874F689C182AFEBD004FA324 /* Object.cpp in Sources */,
 				874F689F182AFECD004FA324 /* Text.cpp in Sources */,
 				874F68A7182F88AC004FA324 /* MSERegion.cpp in Sources */,
+				87259FE1183246BF00DBEEF3 /* AdaBoost.cpp in Sources */,
+				87259FE4183246F600DBEEF3 /* AdaBoostResult.cpp in Sources */,
+				87259FE71832472C00DBEEF3 /* WeakClassifier.cpp in Sources */,
+				87259FEA1832475900DBEEF3 /* StrongClassifier.cpp in Sources */,
+				87259FED1832479A00DBEEF3 /* Sample.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
