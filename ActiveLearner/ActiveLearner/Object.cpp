@@ -23,6 +23,8 @@ Object::Object(const string& filepath, const vector<cv::Point>& contour)
 
 void Object::computeProperties()
 {
+    if (contourPixels.size() == 0) return;
+    
     uniqueContour();
     rect = boundingRect(contourPixels);
     

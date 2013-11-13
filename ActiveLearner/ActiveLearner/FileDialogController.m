@@ -7,34 +7,41 @@
     Model *model;
 }
 
-- (IBAction)onSelectImport:(id)sender
+- (IBAction)importDataset:(id)sender
 {
     NSOpenPanel *openPanel	= [NSOpenPanel openPanel];
-    NSArray *allowedFileTypes = [NSArray arrayWithObjects:@"jpeg", @"'JPEG'", @"jpg", @"JPG", @"png", @"PNG", nil];
-    [openPanel setAllowedFileTypes:allowedFileTypes];
+    [openPanel setCanChooseDirectories:YES];
     NSInteger pressedButton = [openPanel runModal];
     
     model = [Model sharedManager];
     
     if( pressedButton == NSOKButton ){
         
-        NSURL * filePath = [openPanel URL];
-        Processor *pro = [Processor sharedManager];
-        [pro featuresFromImage:filePath.path];
-        /*
-        NSArray *parts = [filePath.path componentsSeparatedByString:@"/"];
-        NSString *filename = [parts objectAtIndex:[parts count]-1];
-        NSString *subpath = [filePath.path substringToIndex:filePath.path.length-filename.length];
-        [model setDirectory:subpath];
-       
-        NSFileManager *manager = [NSFileManager defaultManager];
-        NSArray *files = [manager contentsOfDirectoryAtPath:subpath error:nil];
-        [model setFiles:files];
+        NSURL * dirPath = [openPanel URL];
+        [model setDirectory:dirPath.path];
         
-        // nameを先に保存
-        [model setFilename:filename];
-        [model setImagePath:filePath];
-        */
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSArray *files = [manager contentsOfDirectoryAtPath:dirPath.path error:nil];
+        NSMutableArray *imagePaths = [[NSMutableArray alloc] init];
+        NSMutableArray *xmlPaths = [[NSMutableArray alloc] init];
+        
+        NSString *fullPath;
+        for (NSString *path in files) {
+            NSArray *components = [path componentsSeparatedByString:@"."];
+            if ([components[components.count-1] isEqualToString:@"jpg"] ||
+                [components[components.count-1] isEqualToString:@"JPG"]) {
+                fullPath = [dirPath.path stringByAppendingFormat:@"/%@", path];
+                [imagePaths addObject:fullPath];
+            } else if ([components[components.count-1] isEqualToString:@"xml"]) {
+                fullPath = [dirPath.path stringByAppendingFormat:@"/%@", path];
+                [xmlPaths addObject:fullPath];
+            }
+        }
+
+        [model setFiles:files];
+        [model setImagePaths:imagePaths];
+        [model setXmlPaths:xmlPaths];
+        
     }else if( pressedButton == NSCancelButton ){
      	NSLog(@"Cancel button was pressed.");
     }else{

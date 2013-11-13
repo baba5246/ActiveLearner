@@ -13,12 +13,14 @@ Mycv::Mycv(const string& filepath)
 #pragma mark -
 #pragma mark Interface Methods
 
-void Mycv::detector()
+void Mycv::detector(vector<Object>& objects)
 {
     // Detect contours
     Mat imgGray, imgCanny;
     Mycv::grayscale(srcImage, imgGray);
     Mycv::canny(imgGray, imgCanny);
+    
+    // Draw::draw(imgCanny);
     
     cv::vector<cv::Vec4i> hierarchy;
     cv::vector<cv::vector<cv::Point> > contours;
@@ -26,8 +28,8 @@ void Mycv::detector()
     
     
     // Create objects
-    vector<Object> objects;
     Mycv::createObjects(contours, objects);
+    cout << "create objects:" << objects.size() << endl;
     
     // Detect MSERs
     Mat imgUnsharp;
@@ -38,16 +40,18 @@ void Mycv::detector()
     
     // Interpolate contours with MSERs and Inclusion Relationship
     Mycv::mergeApartContours(objects, msers);
+    cout << "merge apart contours:" << objects.size() << endl;
+    if (objects.size() == 0) return;
     Mycv::mergeIncludedObjects(objects);
     
-    Draw::drawObjects(srcImage, objects); // オブジェクト描画
+    // Draw::drawObjects(srcImage, objects); // オブジェクト描画
     
     // Compute gradients
     Mat_<double> gradients = Mat_<double>(srcImage.rows, srcImage.cols);
     Mycv::sobelFiltering(imgGray, gradients);
     Mycv::gradientOfObjects(objects, gradients);
     
-    Draw::drawGradients(objects, gradients); // 勾配方向描画
+    // Draw::drawGradients(objects, gradients); // 勾配方向描画
     
     // Find corresponding pairs
     Mycv::findCorrPairs(objects, gradients);
@@ -55,7 +59,7 @@ void Mycv::detector()
     
     // Compute edge gradient features
     Mycv::computeEchar(objects);
-    Draw::drawEchars(srcImage, objects); // Echar描画
+    // Draw::drawEchars(srcImage, objects); // Echar描画
     
     // Compute edge smooth features
     
@@ -248,6 +252,7 @@ void Mycv::mergeIncludedObjects(vector<Object>& objects)
     double wratio = 0, hratio = 0;
     vector<int> removeIndexes;
     
+    cout << "merge included objects:" << objects.size() << endl;
     for (int i = 0; i < objects.size()-1; i++)
     {
         largeRect = objects[i].rect;
@@ -712,6 +717,10 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
         objects[i].corrPairPixels = corrPixels;
         objects[i].isPositive = isPositive;
     }
+    for (int i = 0; i < srcImage.rows; ++i) {
+        delete [] table[i];
+    }
+    delete [] table;
 }
 
 int** Mycv::createImageTable(const vector<Object>& objects)
@@ -825,4 +834,10 @@ cv::Rect* Mycv::intersect(const cv::Rect& rect1, const cv::Rect& rect2)
     return rect;
 }
 
+
+
+Mycv::~Mycv()
+{
+    
+}
 

@@ -1357,7 +1357,7 @@
 											<string key="NSFrameSize">{328, 214}</string>
 											<reference key="NSSuperview" ref="756211708"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="430489936"/>
+											<reference key="NSNextKeyView" ref="479929288"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="377030760">
@@ -1560,7 +1560,7 @@
 							<string key="NSFrame">{{32, 347}, {327, 232}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="756211708"/>
+							<reference key="NSNextKeyView" ref="430489936"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133810</int>
 							<reference key="NSVScroller" ref="479929288"/>
@@ -1584,7 +1584,7 @@
 											<string key="NSFrameSize">{325, 242}</string>
 											<reference key="NSSuperview" ref="85400344"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="841478818"/>
+											<reference key="NSNextKeyView" ref="992141808"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="893454697">
@@ -1733,7 +1733,7 @@
 							<string key="NSFrame">{{32, 20}, {327, 260}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="85400344"/>
+							<reference key="NSNextKeyView" ref="841478818"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="992141808"/>
@@ -2006,6 +2006,7 @@
 							<string key="NSFrame">{{1101, 19}, {218, 66}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="529304902">
@@ -2073,7 +2074,7 @@
 															<string key="NSFrameSize">{218, 139}</string>
 															<reference key="NSSuperview" ref="784515974"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="156964155"/>
+															<reference key="NSNextKeyView" ref="1035003895"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="77230986">
@@ -2220,7 +2221,7 @@
 											<string key="NSFrame">{{18, 14}, {220, 157}}</string>
 											<reference key="NSSuperview" ref="935279232"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="784515974"/>
+											<reference key="NSNextKeyView" ref="156964155"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="1035003895"/>
@@ -2267,7 +2268,7 @@
 															<string key="NSFrameSize">{218, 142}</string>
 															<reference key="NSSuperview" ref="970684683"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="892417977"/>
+															<reference key="NSNextKeyView" ref="621428129"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTableHeaderView" key="NSHeaderView" id="549101257">
@@ -2414,7 +2415,7 @@
 											<string key="NSFrame">{{18, 247}, {220, 160}}</string>
 											<reference key="NSSuperview" ref="935279232"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="970684683"/>
+											<reference key="NSNextKeyView" ref="892417977"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="621428129"/>
@@ -3202,11 +3203,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">onSelectImport:</string>
-						<reference key="source" ref="276411396"/>
+						<string key="label">startLearning:</string>
+						<reference key="source" ref="170444138"/>
 						<reference key="destination" ref="599864367"/>
 					</object>
-					<int key="connectionID">943</int>
+					<int key="connectionID">947</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">importDataset:</string>
+						<reference key="source" ref="276411396"/>
+						<reference key="destination" ref="666703200"/>
+					</object>
+					<int key="connectionID">946</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6517,7 +6526,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">943</int>
+			<int key="maxID">947</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -6563,7 +6572,7 @@
 						<string key="onSaveButtonClicked:">id</string>
 						<string key="onSelectRectsClicked:">id</string>
 						<string key="onStartLearningClicked:">id</string>
-						<string key="test:">id</string>
+						<string key="startLearning:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="onComputePerformanceClicked:">
@@ -6598,8 +6607,8 @@
 							<string key="name">onStartLearningClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="test:">
-							<string key="name">test:</string>
+						<object class="IBActionInfo" key="startLearning:">
+							<string key="name">startLearning:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
@@ -6656,21 +6665,21 @@
 					<string key="className">FileDialogController</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="importDataset:">id</string>
 						<string key="onBrowzeDirectory:">id</string>
 						<string key="onExportXMLButtonClicked:">id</string>
-						<string key="onSelectImport:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="importDataset:">
+							<string key="name">importDataset:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="onBrowzeDirectory:">
 							<string key="name">onBrowzeDirectory:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="onExportXMLButtonClicked:">
 							<string key="name">onExportXMLButtonClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="onSelectImport:">
-							<string key="name">onSelectImport:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

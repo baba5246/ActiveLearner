@@ -21,12 +21,12 @@ private:
     void initializeWeight();
     void normalizeWeight();
     
-public:
-    double *weights;
-    StrongClassifier sc;
-    
 private:
     vector<Sample> train;
     vector<WeakClassifier> wcs;
-    
+
+public:
+    vector<double> weights;
+    StrongClassifier sc;
+        
 };

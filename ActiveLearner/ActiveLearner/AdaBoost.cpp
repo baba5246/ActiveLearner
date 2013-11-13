@@ -8,12 +8,13 @@ AdaBoost::AdaBoost(vector<Sample>& samples, vector<WeakClassifier>& classifiers)
     this->wcs = classifiers;
     this->sc = *new StrongClassifier();
     
+    weights = vector<double>(train.size(), 1);
     initializeWeight();
 }
 
 AdaBoostResult AdaBoost::next()
 {
-    double *errors = new double[wcs.size()];
+    vector<double> errors(wcs.size(), 0);
  
     // Normalize
     normalizeWeight();
@@ -38,9 +39,6 @@ AdaBoostResult AdaBoost::next()
             lIndex = e;
         }
     }
-    
-    // release
-    delete[] errors;
     
     // Compute b and update sample weights
     double beta = lerror / (1 - lerror);
@@ -69,21 +67,21 @@ void AdaBoost::initializeWeight()
     int nega = 0;
     for (int i = 0; i < train.size(); i++)
     {
-        if (train[i].label) nega++;
+        if (train[i].label == 0) nega++;
         else posi++;
     }
     
-    weights = new double[train.size()];
-    for (int i = 0; i < LENGTH(weights); i++)
+    for (int i = 0; i < train.size(); i++)
     {
-        if (train[i].label == 0) weights[i] = (double)1 / 2 * nega;
-        else weights[i] = (double)1 / 2 * posi;
+        if (train[i].label == 0) weights[i] = (double)1 / (2 * nega);
+        else weights[i] = (double)1 / (2 * posi);
     }
 }
 
 void AdaBoost::normalizeWeight()
 {
     double total = 0;
-    for (int w = 0; w < LENGTH(weights); w++) total += weights[w];
-    for (int w = 0; w < LENGTH(weights); w++) weights[w] = weights[w] / total;
+    for (int w = 0; w < train.size(); w++) total += weights[w];
+    if (total == 0) return;
+    for (int w = 0; w < train.size(); w++) weights[w] = weights[w] / total;
 }

@@ -229,9 +229,9 @@
 		875D4A03182A10C900495344 /* Processors */ = {
 			isa = PBXGroup;
 			children = (
+				878D27C61830B172002F1EB0 /* CppConstants.h */,
 				875D4A16182A120300495344 /* Processor.h */,
 				875D4A17182A120300495344 /* Processor.mm */,
-				878D27C61830B172002F1EB0 /* CppConstants.h */,
 				FE46B394182A362C0070725A /* Mycv.h */,
 				FE46B393182A362C0070725A /* Mycv.cpp */,
 				FE46B397182A36B00070725A /* Draw.h */,

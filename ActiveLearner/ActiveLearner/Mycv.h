@@ -14,9 +14,10 @@ class Mycv
 public:
     // コンストラクタ
     Mycv(const string& filepath);
+    ~Mycv();
     
     // Interface Methods
-    void detector();
+    void detector(vector<Object>& objects);
     
     // Image Processing Methods
     void grayscale(const Mat& src, Mat& dst);

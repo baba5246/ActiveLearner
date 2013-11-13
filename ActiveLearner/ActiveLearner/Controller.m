@@ -28,11 +28,13 @@
     return self;
 }
 
-- (IBAction)test:(id)sender
+- (IBAction)startLearning:(id)sender
 {
-    NSString *pathStr = @"/Users/BBBookAir/Desktop/AL/en-dataset/159.jpg";//P1110619.JPG";
-    Processor *pro = [Processor sharedManager];
-    [pro featuresFromImage:pathStr];
+    // make samples
+    [processor makeSamples];
+    
+    // AdaBoost Learning
+    [processor learnFeaturesWithAdaBoost];
 }
 
 

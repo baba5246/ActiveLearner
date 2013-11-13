@@ -6,7 +6,8 @@
 + (Processor*)sharedManager;
 
 - (void) prepare;
-- (void) featuresFromImage:(NSString *)filepath;
+- (void) makeSamples;
+- (void) learnFeaturesWithAdaBoost;
 
 
 @end
