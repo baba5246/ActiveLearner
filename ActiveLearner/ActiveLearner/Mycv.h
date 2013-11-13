@@ -33,8 +33,8 @@ public:
     
     // Gradient Feature Methods
     void gradientOfObjects(vector<Object>& objects, const Mat_<double>& gradients);
-    bool isPositiveDirection(const Object& object);
-    void findCorrPairs(vector<Object>& objects);
+    bool isPositiveDirection(Object& object);
+    void findCorrPairs(vector<Object>& objects, const Mat& gradients);
     void gradientOfCorrPairs(vector<Object>& objects, const Mat_<double>& gradients);
     void computeEchar(vector<Object>& objects);
     

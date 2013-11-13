@@ -9,6 +9,7 @@ void Draw::drawImage(const Mat& src)
         namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
         imshow( "Display window", src);
         waitKey(0);
+        destroyWindow("Display window");
     }
 }
 
@@ -26,7 +27,7 @@ void Draw::drawContours(const Mat& src, const vector<vector<Point> >& contours, 
     for( ; idx >= 0; idx = hierarchy[idx][0] )
     {
         Scalar color( rand()&255, rand()&255, rand()&255 );
-        cv::drawContours(dst, contours, idx, color, CV_FILLED, 8, hierarchy );
+        cv::drawContours(dst, contours, idx, color, CV_FILLED, 8, hierarchy);
     }
     
     drawImage(dst);
@@ -48,18 +49,32 @@ void Draw::drawMSERs(const Mat& src, const vector<vector<Point> >& mser_features
     drawImage(dst);
 }
 
-void Draw::drawObjects(const Mat& src, const vector<Object> objects)
+void Draw::drawObjects(const Mat& src, vector<Object>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
+    int count = 0;
+    
     for (int i = 0; i < objects.size(); i++)
     {
+        count = 0;
+        vector<cv::Point> contour = *new vector<cv::Point>();
         vector<cv::Point> pixels = objects[i].contourPixels;
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
+        
         for (int j = 0; j < pixels.size(); j++)
         {
+            unsigned long a = pixels[j].y * dst.step + pixels[j].x * dst.channels();
+            if (dst.data[a+0] != 0 || dst.data[a+1] != 0 || dst.data[a+2] != 0) {
+                count++;
+                cout<< "i:" << i << ", j:" << j << ", count:" << count << " / " << pixels.size() <<endl;
+                continue;
+            }
             circle(dst, pixels[j], 0.1f, color);
+            contour.push_back(pixels[j]);
         }
+        
+        objects[i].contourPixels = contour;
     }
     
     drawImage(dst);
@@ -100,7 +115,7 @@ void Draw::drawGradients(const vector<Object>& objects, const Mat_<double>& grad
         for (int j = 0; j < objects[i].contourPixels.size(); j++) {
             p = objects[i].contourPixels[j];
             g = gradients.at<double>(p.y, p.x);
-            color = *colorOfRadian(g);
+            color = *colorOfRadian(objects[i].thetas[j]);
             int a  = (int)(p.y * dst.step + p.x * dst.channels());
             dst.data[a+0] = color[0];
             dst.data[a+1] = color[1];
@@ -115,15 +130,15 @@ cv::Scalar* Draw::colorOfRadian(double radian)
 {
     cv::Scalar *color;
     
-    if (radian <= M_PI && radian > M_PI_7_8) color = new cv::Scalar(255, 0, 0);
-    else if (radian <= M_PI_7_8 && radian > M_PI_5_8) color = new cv::Scalar(255, 127, 0);
-    else if (radian <= M_PI_5_8 && radian > M_PI_3_8) color = new cv::Scalar(255, 255, 0);
+    if (radian <= M_PI && radian > M_PI_7_8) color = new cv::Scalar(0, 0, 255);
+    else if (radian <= M_PI_7_8 && radian > M_PI_5_8) color = new cv::Scalar(0, 127, 255);
+    else if (radian <= M_PI_5_8 && radian > M_PI_3_8) color = new cv::Scalar(0, 255, 255);
     else if (radian <= M_PI_3_8 && radian > M_PI_1_8) color = new cv::Scalar(0, 255, 0);
-    else if (radian <= M_PI_1_8 && radian > -M_PI_1_8) color = new cv::Scalar(0, 255, 255);
-    else if (radian <= -M_PI_1_8 && radian > -M_PI_3_8) color = new cv::Scalar(0, 0, 255);
-    else if (radian <= -M_PI_3_8 && radian > -M_PI_5_8) color = new cv::Scalar(127, 0, 255);
-    else if (radian <= -M_PI_5_8 && radian > -M_PI_7_8) color = new cv::Scalar(255, 0, 127);
-    else color = new cv::Scalar(255, 0, 0);
+    else if (radian <= M_PI_1_8 && radian > -M_PI_1_8) color = new cv::Scalar(255, 255, 0);
+    else if (radian <= -M_PI_1_8 && radian > -M_PI_3_8) color = new cv::Scalar(255, 0, 0);
+    else if (radian <= -M_PI_3_8 && radian > -M_PI_5_8) color = new cv::Scalar(255, 0, 127);
+    else if (radian <= -M_PI_5_8 && radian > -M_PI_7_8) color = new cv::Scalar(127, 0, 255);
+    else color = new cv::Scalar(0, 0, 255);
     
     return color;
 }
@@ -137,6 +152,7 @@ void Draw::drawEchars(const Mat& src, const vector<Object>& objects)
     {
         vector<cv::Point> pixels = objects[i].contourPixels;
         Scalar color;
+        if (objects[i].Echar < 0.75) continue;
         if (objects[i].isPositive) color = CV_RGB(objects[i].Echar*BRIGHTNESS, objects[i].Echar*BRIGHTNESS, 0);
         else color = CV_RGB(0, objects[i].Echar*BRIGHTNESS, objects[i].Echar*BRIGHTNESS);
         
@@ -144,7 +160,7 @@ void Draw::drawEchars(const Mat& src, const vector<Object>& objects)
         for (int j = 0; j < pixels.size(); j++)
         {
             circle(dst, pixels[j], 0.1f, color);
-            if (corrPixels[j].x >= 0 && corrPixels[j].y >= 0) line(dst, pixels[j], corrPixels[j], color);
+            if (corrPixels.size()>0 && corrPixels[j].x >= 0 && corrPixels[j].y >= 0) line(dst, pixels[j], corrPixels[j], color);
         }
     }
     
@@ -152,4 +168,47 @@ void Draw::drawEchars(const Mat& src, const vector<Object>& objects)
 }
 
 
+void Draw::drawGradientLine(const Mat& src, const vector<Object>& objects, double a, double b)
+{
+    Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
+    
+    int count = 0;
+    
+    for (int i = 0; i < objects.size(); i++)
+    {
+        count = 0;
+        vector<cv::Point> pixels = objects[i].contourPixels;
+        vector<cv::Point> corrPixels = objects[i].corrPairPixels;
+        Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
+        
+        for (int j = 0; j < pixels.size(); j++)
+        {
+            circle(dst, pixels[j], 0.1f, color);
+            if (corrPixels.size()>0 && corrPixels[j].x >= 0 && corrPixels[j].y >= 0)
+                line(dst, pixels[j], corrPixels[j], color);
+        }
+    }
+    
+    drawImage(dst);
+}
+
+void Draw::drawSurroundings(const Mat& src, const vector<Object>& objects)
+{
+    Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
+    
+    for (int i = 0; i < objects.size(); i++)
+    {
+        vector<cv::Point> pixels = objects[i].surroundings;
+        vector<double> thetas = objects[i].surrThetas;
+        Scalar color;
+        
+        for (int j = 0; j < pixels.size(); j++)
+        {
+            color = *colorOfRadian(thetas[j]);
+            circle(dst, pixels[j], 0.1f, color);
+        }
+    }
+    
+    drawImage(dst);
+}
 

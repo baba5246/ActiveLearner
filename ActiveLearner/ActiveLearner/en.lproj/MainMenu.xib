@@ -3202,11 +3202,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">test:</string>
-						<reference key="source" ref="170444138"/>
+						<string key="label">onSelectImport:</string>
+						<reference key="source" ref="276411396"/>
 						<reference key="destination" ref="599864367"/>
 					</object>
-					<int key="connectionID">942</int>
+					<int key="connectionID">943</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -6517,7 +6517,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">942</int>
+			<int key="maxID">943</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

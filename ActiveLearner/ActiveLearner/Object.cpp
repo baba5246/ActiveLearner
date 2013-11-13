@@ -23,8 +23,8 @@ Object::Object(const string& filepath, const vector<cv::Point>& contour)
 
 void Object::computeProperties()
 {
+    uniqueContour();
     rect = boundingRect(contourPixels);
-    //computeTLRB();
     
     origin = Point(rect.x, rect.y);
     width = rect.width;
@@ -92,15 +92,24 @@ void Object::computeColor()
     
 }
 
+void Object::uniqueContour()
+{
+    vector<cv::Point> pixels;
+    for (int i = 0; i < contourPixels.size(); i++)
+    {
+        if (find(pixels.begin(), pixels.end(), contourPixels[i]) != pixels.end())
+            continue;
+        
+        cv::Point p = contourPixels[i];
+        pixels.push_back(p);
+    }
+    
+    contourPixels = pixels;
+}
 
 
 #pragma mark -
 #pragma mark Inclusion Relationship Methods
-
-bool Object::IsLeftLarge(Object obj1, Object obj2)
-{
-    return obj1.rectArea >= obj2.rectArea;
-}
 
 bool isParentOf(Object obj)
 {

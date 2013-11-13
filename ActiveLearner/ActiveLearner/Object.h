@@ -36,12 +36,14 @@ public:
     vector<int> parents;
     vector<int> children;
     
+    vector<cv::Point> surroundings;
     vector<cv::Point> contourPixels;
     vector<cv::Point> corrPairPixels;
     vector<double> thetas;
     vector<double> thetasWtoB;
     vector<double> thetasBtoW;
     vector<double> corrThetas;
+    vector<double> surrThetas;
     
     bool isPositive = true;
     double Gangle, Fcorr, Vwidth;
@@ -55,18 +57,21 @@ public:
     
 #pragma mark -
 #pragma mark Inclusion Relationship Methods
-    static bool IsLeftLarge(Object obj1, Object obj2);
+public:
+    static int isLeftLarge(Object obj1, Object obj2) {
+        return (obj1.rectArea > obj2.rectArea);
+    }
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
     void mergeObject(Object obj);
     
-private:
-    
 #pragma mark -
 #pragma mark Compute Properties Methods
+private:
     void computeProperties();
     void computeColor();
     void computeContourArea(int gridSize);
     void computeTLRB();
+    void uniqueContour();
     
 };

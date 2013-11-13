@@ -50,7 +50,7 @@ void Mycv::detector()
     Draw::drawGradients(objects, gradients); // 勾配方向描画
     
     // Find corresponding pairs
-    Mycv::findCorrPairs(objects);
+    Mycv::findCorrPairs(objects, gradients);
     Mycv::gradientOfCorrPairs(objects, gradients);
     
     // Compute edge gradient features
@@ -149,7 +149,7 @@ void Mycv::sobelFiltering(const Mat& graySrc, Mat_<double>& gradients)
             dy = graySrc.data[yi[0]] + 2 * graySrc.data[yi[1]] + graySrc.data[yi[2]]
                     - graySrc.data[yi[3]] - 2 * graySrc.data[yi[4]] - graySrc.data[yi[5]];
             dy *= -1;
-            g = atan2(dx, dy);
+            g = atan2(dy, dx);
             gradients.at<double>(y, x) = g;
         }
     }
@@ -242,7 +242,7 @@ void Mycv::mergeApartContours(vector<Object>& objects, vector<MSERegion>& msers)
 // Inclusion Relationship
 void Mycv::mergeIncludedObjects(vector<Object>& objects)
 {
-    sort(objects.begin(), objects.end(), Object::IsLeftLarge);
+    sort(objects.begin(), objects.end(), Object::isLeftLarge);
     
     cv::Rect largeRect, smallRect, interRect;
     double wratio = 0, hratio = 0;
@@ -274,8 +274,6 @@ void Mycv::mergeIncludedObjects(vector<Object>& objects)
             objects[i].mergeObject(objects[index]);
         }
     }
-    
-    
     
     sort(removeIndexes.begin(), removeIndexes.end());
     vector<int>::iterator  uniqued = unique(removeIndexes.begin(), removeIndexes.end());
@@ -309,14 +307,16 @@ void Mycv::gradientOfObjects(vector<Object>& objects, const Mat_<double>& gradie
 }
 
 // Decide the gradient direction
-bool Mycv::isPositiveDirection(const Object& object)
+bool Mycv::isPositiveDirection(Object& object)
 {
-    long posi = 0, nega = 0;
+    long posi = 0, nega = 0, t = 0, l = 0, r = 0, b = 0;
     double theta = 0;
     cv::Point p, tl, br;
     
     tl = object.rect.tl();
     br = object.rect.br();
+    vector<cv::Point> *tempsurr = new vector<cv::Point>();
+    vector<double> *tempThetas = new vector<double>();
     
     for (int j = 0; j < object.contourPixels.size(); j++)
     {
@@ -324,36 +324,51 @@ bool Mycv::isPositiveDirection(const Object& object)
         
         if (p.y == tl.y) // TOP
         {
-            theta = tan(object.thetas[j]);
+            theta = object.thetas[j];
             if (theta >= 0) nega++;
             else posi++;
+            t++;
+            tempsurr->push_back(p);
+            tempThetas->push_back(theta);
         }
         else if (p.x == tl.x) // LEFT
         {
-            theta = tan(object.thetas[j]);
+            theta = object.thetas[j];
             if (fabs(theta) >= M_PI_2) nega++;
             else posi++;
+            l++;
+            tempsurr->push_back(p);
+            tempThetas->push_back(theta);
         }
-        else if (p.x == br.x) //RIGHT
+        else if (p.x == br.x-1) //RIGHT
         {
-            theta = tan(object.thetas[j]);
+            theta = object.thetas[j];
             if (fabs(theta) >= M_PI_2) posi++;
             else nega++;
+            r++;
+            tempsurr->push_back(p);
+            tempThetas->push_back(theta);
         }
-        else if (p.y == br.y) // BOTTOM
+        else if (p.y == br.y-1) // BOTTOM
         {
-            theta = tan(object.thetas[j]);
+            theta = object.thetas[j];
             if (theta >= 0) posi++;
             else nega++;
+            b++;
+            tempsurr->push_back(p);
+            tempThetas->push_back(theta);
         }
     }
+    
+    object.surroundings = *tempsurr;
+    object.surrThetas = *tempThetas;
     
     if (posi >= nega) return true;
     else return false;
 }
 
 // Find Corresponding Pairs
-void Mycv::findCorrPairs(vector<Object>& objects)
+void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
 {
     int** table = createImageTable(objects);
     vector<double> thetas;
@@ -362,7 +377,7 @@ void Mycv::findCorrPairs(vector<Object>& objects)
     
     bool isPositive = false;
     double a = 0, b = 0;
-    int X = 0, Y = 0, ty = 0, by = 0, lx = 0, rx = 0, count = 0;
+    int X = 0, Y = 0, ty = 0, by = 0, lx = 0, rx = 0;
     cv::Point bp;
     
     for (int i = 0; i < objects.size(); i++)
@@ -380,13 +395,15 @@ void Mycv::findCorrPairs(vector<Object>& objects)
         {
             // 直線式計算
             bp = pixels[j];
-            a = tan(thetas[i]);
+            a = - tan(thetas[j]);
             
+            // 探索
             if (fabs(a) <= 1) {
                 b = bp.y - a * bp.x;
                 if (a >= 0) {   // a>=0
                     if (isPositive) {   // 勾配方向に探索
-                        for (int x = bp.x-2; x > lx; x--) {
+                        if (thetas[j] >= 0) {
+                            for (int x = bp.x-2; x > lx; x--) {
                             Y = (int)round(a * x + b);
                             if (Y < ty || Y > by) break;
                             if (x > lx && x < rx) {
@@ -402,8 +419,27 @@ void Mycv::findCorrPairs(vector<Object>& objects)
                                 }
                             }
                         }   // xが減る方向
+                        } else {
+                            for (int x = bp.x+2; x < rx; x++) {
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        break;
+                                    }
+                                }
+                            }   // xが増える方向
+                        }
                     } else {            // 勾配方向と逆に探索
-                        for (int x = bp.x+2; x < rx; x++) {
+                        if (thetas[j] >= 0) {
+                            for (int x = bp.x+2; x < rx; x++) {
                             Y = (int)round(a * x + b);
                             if (Y < ty || Y > by) break;
                             if (x > lx && x < rx) {
@@ -419,10 +455,29 @@ void Mycv::findCorrPairs(vector<Object>& objects)
                                 }
                             }
                         }   // xが増える方向
+                        } else {
+                            for (int x = bp.x-2; x > lx; x--) {
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        break;
+                                    }
+                                }
+                            }   // xが減る方向
+                        }
                     }
                 } else {        // a<0
                     if (isPositive) {   // 勾配方向に探索
-                        for (int x = bp.x+2; x < rx; x++) {
+                        if (thetas[j] >= 0) {
+                            for (int x = bp.x+2; x < rx; x++) {
                             Y = (int)round(a * x + b);
                             if (Y < ty || Y > by) break;
                             if (x > lx && x < rx) {
@@ -438,8 +493,27 @@ void Mycv::findCorrPairs(vector<Object>& objects)
                                 }
                             }
                         }   // xが増える方向
+                        } else {
+                            for (int x = bp.x-2; x > lx; x--) {
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        break;
+                                    }
+                                }
+                            }   // xが減る方向
+                        }
                     } else {            // 勾配方向と逆に探索
-                        for (int x = bp.x-2; x > lx; x--) {
+                        if (thetas[j] >= 0) {
+                            for (int x = bp.x-2; x > lx; x--) {
                             Y = (int)round(a * x + b);
                             if (Y < ty || Y > by) break;
                             if (x > lx && x < rx) {
@@ -455,6 +529,24 @@ void Mycv::findCorrPairs(vector<Object>& objects)
                                 }
                             }
                         }   // xが減る方向
+                        } else {
+                            for (int x = bp.x+2; x < rx; x++) {
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        break;
+                                    }
+                                }
+                            }   // xが増える方向
+                        }
                     }
                 }
             } else {
@@ -462,7 +554,8 @@ void Mycv::findCorrPairs(vector<Object>& objects)
                 b = bp.x - a * bp.y;
                 if (a >= 0) {   // a>=0
                     if (isPositive) {   // 勾配方向に探索
-                        for (int y = bp.y-2; y > ty; y--) {
+                        if (thetas[j] >= 0) {
+                            for (int y = bp.y-2; y > ty; y--) {
                             X = (int)round(a * y + b);
                             if (X < lx || X > rx) break;
                             if (y > ty && y < by) {
@@ -478,8 +571,27 @@ void Mycv::findCorrPairs(vector<Object>& objects)
                                 }
                             }
                         }   // yが減る方向
+                        } else {
+                            for (int y = bp.y+2; y < by; y++) {
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        break;
+                                    }
+                                }
+                            }   // yが増える方向
+                        }
                     } else {            // 勾配方向と逆に探索
-                        for (int y = bp.y+2; y < by; y++) {
+                        if (thetas[j] >= 0) {
+                            for (int y = bp.y+2; y < by; y++) {
                             X = (int)round(a * y + b);
                             if (X < lx || X > rx) break;
                             if (y > ty && y < by) {
@@ -495,52 +607,108 @@ void Mycv::findCorrPairs(vector<Object>& objects)
                                 }
                             }
                         }   // yが増える方向
+                        } else {
+                            for (int y = bp.y-2; y > ty; y--) {
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        break;
+                                    }
+                                }
+                            }   // yが減る方向
+                        }
                     }
                 } else {        // a<0
                     if (isPositive) {   // 勾配方向に探索
-                        for (int y = bp.y+2; y < by; y++) {
-                            X = (int)round(a * y + b);
-                            if (X < lx || X > rx) break;
-                            if (y > ty && y < by) {
-                                if (table[y][X] == i) {
-                                    corrPixels[j] = Point(X, y);
-                                    break;
-                                } else if (table[y-1][X] == i) {
-                                    corrPixels[j] = Point(X, y-1);
-                                    break;
-                                } else if (table[y+1][X] == i) {
-                                    corrPixels[j] = Point(X, y+1);
-                                    break;
+                        if (thetas[j] >= 0) {
+                            for (int y = bp.y-2; y > ty; y--) {
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        break;
+                                    }
                                 }
-                            }
-                        }   // yが増える方向
+                            }   // yが減る方向
+                        } else {
+                            for (int y = bp.y+2; y < by; y++) {
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        break;
+                                    }
+                                }
+                            }   // yが増える方向
+                        }
                     } else {            // 勾配方向と逆に探索
-                        for (int y = bp.y-2; y > ty; y--) {
-                            X = (int)round(a * y + b);
-                            if (X < lx || X > rx) break;
-                            if (y > ty && y < by) {
-                                if (table[y][X] == i) {
-                                    corrPixels[j] = Point(X, y);
-                                    break;
-                                } else if (table[y-1][X] == i) {
-                                    corrPixels[j] = Point(X, y-1);
-                                    break;
-                                } else if (table[y+1][X] == i) {
-                                    corrPixels[j] = Point(X, y+1);
-                                    break;
+                        if (thetas[j] >= 0) {
+                            for (int y = bp.y+2; y < by; y++) {
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        break;
+                                    }
                                 }
-                            }
-                        }   // yが減る方向
+                            }   // yが増える方向
+                        } else {
+                            for (int y = bp.y-2; y > ty; y--) {
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        break;
+                                    }
+                                }
+                            }   // yが減る方向
+                        }
                     }
                 }
             }
+            
             if (pixels[j] == corrPixels[j]) {
                 corrPixels[j] = Point(-1, -1);
-                count++;
             }
+            objects[i].corrPairPixels = corrPixels;
         }
-        cout<< "corr ratio:" << corrPixels.size()-count << " / " << corrPixels.size() <<endl;
-        count = 0;
+        
         objects[i].corrPairPixels = corrPixels;
         objects[i].isPositive = isPositive;
     }

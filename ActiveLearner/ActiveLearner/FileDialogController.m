@@ -1,5 +1,6 @@
 
 #import "FileDialogController.h"
+#import "Processor.h"
 
 @implementation FileDialogController
 {
@@ -18,6 +19,9 @@
     if( pressedButton == NSOKButton ){
         
         NSURL * filePath = [openPanel URL];
+        Processor *pro = [Processor sharedManager];
+        [pro featuresFromImage:filePath.path];
+        /*
         NSArray *parts = [filePath.path componentsSeparatedByString:@"/"];
         NSString *filename = [parts objectAtIndex:[parts count]-1];
         NSString *subpath = [filePath.path substringToIndex:filePath.path.length-filename.length];
@@ -30,7 +34,7 @@
         // nameを先に保存
         [model setFilename:filename];
         [model setImagePath:filePath];
-        
+        */
     }else if( pressedButton == NSCancelButton ){
      	NSLog(@"Cancel button was pressed.");
     }else{
