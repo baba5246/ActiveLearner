@@ -1102,7 +1102,7 @@ void Mycv::setFeatures(vector<Object>& objects)
 void Mycv::groupingObjects(Text& text, Object& obj, vector<double>& distance, vector<Object>& objects)
 {
     recursive_count++;
-    cout<< "Recursive Count:" << recursive_count << endl;
+    //cout<< "Recursive Count:" << recursive_count << endl;
     
     vector<Object*> neighbors;
     findNeighbors(neighbors, obj, distance, objects);
@@ -1165,10 +1165,16 @@ double Mycv::distanceOfObjects(const Object& obj1, const Object& obj2)
     int pattern1 = patternOfRadian(t1);
     int pattern2 = patternOfRadian(t2);
     
-    cv::Point rep1 = findRepresentativePoint(obj1, a, pattern1);
-    cv::Point rep2 = findRepresentativePoint(obj2, a, pattern2);
+    cv::Point rep1;
+    findRepresentativePoint(rep1, obj1, a, pattern1);
+    cv::Point rep2;
+    findRepresentativePoint(rep2, obj2, a, pattern2);
     
-    return distanceOfPoints(rep1, rep2);
+    double d = distanceOfPoints(rep1, rep2);
+    cout << "Obj1:" << obj1.centroid << ", Rep1:" << rep1 << ", Obj2:" << obj2.centroid << ", Rep2:"
+         << rep2 << ", D:" << d << endl;
+    
+    return d;
 }
 
 int Mycv::patternOfRadian(const double radian)
@@ -1188,7 +1194,7 @@ double Mycv::distanceOfPoints(const cv::Point& p1, const cv::Point& p2)
     return sqrt(diff.x*diff.x+diff.y*diff.y);
 }
 
-cv::Point Mycv::pointApartFromCentroid(const cv::Point& centroid, const cv::Point& p1, const cv::Point& p2, const double a)
+void Mycv::pointApartFromCentroid(cv::Point& rep, const cv::Point& centroid, const cv::Point& p1, const cv::Point& p2, const double a)
 {
     double b = centroid.y - a * centroid.x;
     cv::Point tmp_p1, tmp_p2;
@@ -1203,27 +1209,27 @@ cv::Point Mycv::pointApartFromCentroid(const cv::Point& centroid, const cv::Poin
     tmp_p2.x = - (b - tmp_b2) / (a - tmp_a);
     tmp_p2.y = a * tmp_p2.x + b;
     
-    if (distanceOfPoints(tmp_p1, centroid) > distanceOfPoints(tmp_p2, centroid)) return tmp_p1;
-    else return tmp_p2;
+    cout << "centroid:" << centroid << ", rep1:" << tmp_p1 << ", rep2:" << tmp_p2 << endl;
+    if (distanceOfPoints(tmp_p1, centroid) > distanceOfPoints(tmp_p2, centroid)) rep = tmp_p1;
+    else rep = tmp_p2;
 }
 
-cv::Point Mycv::findRepresentativePoint(const Object& obj, const double a, const int pattern)
+void Mycv::findRepresentativePoint(cv::Point& rep, const Object& obj, const double a, const int pattern)
 {
     switch (pattern) {
         case 1: // tp か rp を採用
-            return pointApartFromCentroid(obj.centroid, obj.tp, obj.rp, a);
+            pointApartFromCentroid(rep, obj.centroid, obj.tp, obj.rp, a);
             break;
         case 2: // tp - lp を採用
-            return pointApartFromCentroid(obj.centroid, obj.tp, obj.lp, a);
+            pointApartFromCentroid(rep, obj.centroid, obj.tp, obj.lp, a);
             break;
         case 3: // lp - bp を採用
-            return pointApartFromCentroid(obj.centroid, obj.bp, obj.lp, a);
+            pointApartFromCentroid(rep, obj.centroid, obj.bp, obj.lp, a);
             break;
         case 4: // rp - bp を採用
-            return pointApartFromCentroid(obj.centroid, obj.bp, obj.rp, a);
+            pointApartFromCentroid(rep, obj.centroid, obj.bp, obj.rp, a);
             break;
     }
-    return cv::Point();
 }
 
 void Mycv::adding(Text& text, vector<Object*>& neighbors)

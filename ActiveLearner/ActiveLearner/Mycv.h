@@ -66,7 +66,7 @@ private:
     double distanceOfObjects(const Object& obj1, const Object& obj2);
     int patternOfRadian(const double radian);
     double distanceOfPoints(const cv::Point& p1, const cv::Point& p2);
-    cv::Point pointApartFromCentroid(const cv::Point& centroid, const cv::Point& p1, const cv::Point& p2, const double a);
-    cv::Point findRepresentativePoint(const Object& obj, const double a, const int pattern);
+    void pointApartFromCentroid(cv::Point& rep, const cv::Point& centroid, const cv::Point& p1, const cv::Point& p2, const double a);
+    void findRepresentativePoint(cv::Point& rep, const Object& obj, const double a, const int pattern);
     
 };
