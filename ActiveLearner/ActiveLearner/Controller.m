@@ -30,11 +30,27 @@
 
 - (IBAction)startLearning:(id)sender
 {
-    // make samples
-    [processor makeSamples];
+    // show progress
+    [desctiptionLbl setStringValue:@"特徴量の抽出中... "];
     
-    // AdaBoost Learning
-    [processor learnFeaturesWithAdaBoost];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // make samples
+        [processor makeSamples];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [desctiptionLbl setStringValue:@"特徴量の抽出完了！学習開始！"];
+        });
+        
+        // AdaBoost Learning
+        [processor learnFeaturesWithAdaBoost];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [desctiptionLbl setStringValue:@"学習終了！"];
+        });
+    });
+    
+    
 }
 
 
@@ -198,6 +214,11 @@
     [alert setAlertStyle:NSWarningAlertStyle];
     
     return alert;
+}
+
+- (NSAlert *) progressAlertView
+{
+    
 }
 
 #pragma mark -

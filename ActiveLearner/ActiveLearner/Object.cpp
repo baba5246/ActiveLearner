@@ -10,10 +10,12 @@ Object::Object()
     
 }
 
-Object::Object(const string& filepath, const vector<cv::Point>& contour)
+Object::Object(const string Id, const string& filepath, const vector<cv::Point>& contour, const cv::Size size)
 {
+    ID = Id;
     filename = filepath;
     contourPixels = contour;
+    srcSize = size;
     computeProperties();
 }
 
@@ -27,18 +29,22 @@ void Object::computeProperties()
     
     uniqueContour();
     rect = boundingRect(contourPixels);
+    rectArea = rect.area();
+    rectRatio = rectArea / srcSize.area();
     
     origin = Point(rect.x, rect.y);
     width = rect.width;
     height = rect.height;
+    longLength = MAX(width, height);
+    longLengthRatio = longLength / MAX(srcSize.width,srcSize.height);
     size = Size(width, height);
-    centroid = Point((origin.x+width)*0.5f, (origin.y+height)*0.5f);
+    if (centroid.x < 0) centroid = Point((origin.x+width)*0.5f, (origin.y+height)*0.5f);
+    strokeWidth = 0;
     
-    rectArea = rect.area();
+    computeTLRB();
+    
     computeContourArea(GRID_SIZE);
-    
-    
-    computeColor();
+    areaRatio = contourArea / srcSize.area();
 }
 
 void Object::computeContourArea(int gridSize)
@@ -89,13 +95,33 @@ void Object::computeTLRB()
     }
 }
 
-void Object::computeColor()
+void Object::computeColor(vector<Scalar>& colors)
 {
+    this->colors = colors;
+    long r = 0, g = 0, b = 0;
+    int size = (int)colors.size();
+    for (int i = 0; i < size; i++) {
+        r += colors[i][0];
+        g += colors[i][1];
+        b += colors[i][2];
+    }
+    if (size != 0) {
+        r = r / colors.size();
+        g = g / colors.size();
+        b = b / colors.size();
+    } else {
+        r = BRIGHTNESS-1;
+        g = BRIGHTNESS-1;
+        b = BRIGHTNESS-1;
+    }
     
+    this->color = Scalar(r, g, b);
 }
 
 void Object::uniqueContour()
 {
+    int cx = 0, cy = 0;
+    
     vector<cv::Point> pixels;
     for (int i = 0; i < contourPixels.size(); i++)
     {
@@ -104,7 +130,12 @@ void Object::uniqueContour()
         
         cv::Point p = contourPixels[i];
         pixels.push_back(p);
+        
+        cx += p.x;
+        cy += p.y;
     }
+    
+    if (pixels.size()>0) centroid = cv::Point(cx/pixels.size(), cy/pixels.size());
     
     contourPixels = pixels;
 }

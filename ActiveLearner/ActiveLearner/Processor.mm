@@ -28,6 +28,11 @@ static Processor* sharedProcessor = nil;
 
 - (void) makeSamples
 {
+    // 出力
+    cout<< " " <<endl;
+    cout<< "---- Start Xml Data Loading! ----" <<endl;
+    cout<< " " <<endl;
+    
     // XML data
     XmlMaker *xml = [[XmlMaker alloc] init];
     NSURL *url = [NSURL fileURLWithPath:model.xmlPaths[0]];
@@ -35,8 +40,16 @@ static Processor* sharedProcessor = nil;
     [xml readXmlAndAddData:doc];
     NSDictionary *xmldata = [model getXMLData];
     
+    
+    // 出力
+    cout<< " " <<endl;
+    cout<< "---- Start Feature Detection! ----" <<endl;
+    cout<< " " <<endl;
+    
     for (NSString *path in model.imagePaths)
     {
+        long count = samples.size();
+        
         // 特徴量抽出
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
         Mycv mycv(filepath);
@@ -45,7 +58,8 @@ static Processor* sharedProcessor = nil;
         
         // filename
         NSArray *comp = [path componentsSeparatedByString:@"/"];
-        string filename = [comp[comp.count-1] cStringUsingEncoding:NSUTF8StringEncoding];
+        NSString *nsfilename = comp[comp.count-1];
+        string filename = [nsfilename cStringUsingEncoding:NSUTF8StringEncoding];
         
         // サンプル作成
         for (int i = 0; i < objects.size(); i++)
@@ -57,7 +71,7 @@ static Processor* sharedProcessor = nil;
             NSRect rect = NSMakeRect(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
             
             bool findFlag = NO;
-            NSArray *truths = xmldata[comp[comp.count-1]];
+            NSArray *truths = xmldata[nsfilename];
             for (Truth *t in truths) {
                 if (NSContainsRect(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
                     findFlag = YES;
@@ -71,20 +85,25 @@ static Processor* sharedProcessor = nil;
             samples.push_back(s);
         }
         
-        cout<< "---- Filename:" << filename << ", Samples:" << samples.size() << " ----" <<endl;
+        cout<< "---- Filename:" << filename << ", Samples:" << samples.size()-count << " ----" <<endl;
     }
 
 }
 
 - (void) learnFeaturesWithAdaBoost
 {
+    // 出力
+    cout<< " " <<endl;
+    cout<< "---- Start AdaBoost Learning! ----" <<endl;
+    cout<< " " <<endl;
+    
+    
     // ラベルデータと非ラベルデータ
     vector<Sample>::const_iterator first = samples.begin();
     vector<Sample>::const_iterator half = samples.begin() + (int)(samples.size()*0.5f);
     vector<Sample>::const_iterator end = samples.end();
     vector<Sample> labeled(first, half);
     vector<Sample> unlabeled(half, end);
-    
     
     // AdaBoost learning
     vector<WeakClassifier> classifiers;
@@ -108,7 +127,6 @@ static Processor* sharedProcessor = nil;
     }
     double precision = (double)correct / unlabeled.size();
     cout << "Correct:" << correct << "/" << unlabeled.size() << ", Precision:" << precision << endl;
-
 }
 
 

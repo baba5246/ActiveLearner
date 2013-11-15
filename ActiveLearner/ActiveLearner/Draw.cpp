@@ -8,7 +8,7 @@ void Draw::drawImage(const Mat& src)
     } else {
         namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
         imshow( "Display window", src);
-        waitKey(0);
+        waitKey(3000);
         destroyWindow("Display window");
     }
 }
@@ -53,28 +53,16 @@ void Draw::drawObjects(const Mat& src, vector<Object>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
-    int count = 0;
-    
     for (int i = 0; i < objects.size(); i++)
     {
-        count = 0;
-        vector<cv::Point> contour = *new vector<cv::Point>();
         vector<cv::Point> pixels = objects[i].contourPixels;
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
+        if (objects[i].colors.size()>0) color = objects[i].color;
         
         for (int j = 0; j < pixels.size(); j++)
         {
-            unsigned long a = pixels[j].y * dst.step + pixels[j].x * dst.channels();
-            if (dst.data[a+0] != 0 || dst.data[a+1] != 0 || dst.data[a+2] != 0) {
-                count++;
-                cout<< "i:" << i << ", j:" << j << ", count:" << count << " / " << pixels.size() <<endl;
-                continue;
-            }
             circle(dst, pixels[j], 0.1f, color);
-            contour.push_back(pixels[j]);
         }
-        
-        objects[i].contourPixels = contour;
     }
     
     drawImage(dst);
@@ -152,7 +140,9 @@ void Draw::drawEchars(const Mat& src, const vector<Object>& objects)
     {
         vector<cv::Point> pixels = objects[i].contourPixels;
         Scalar color;
-        if (objects[i].Echar < 0.75) continue;
+        
+        //if (objects[i].Echar < 0.75) continue;
+        
         if (objects[i].isPositive) color = CV_RGB(objects[i].Echar*BRIGHTNESS, objects[i].Echar*BRIGHTNESS, 0);
         else color = CV_RGB(0, objects[i].Echar*BRIGHTNESS, objects[i].Echar*BRIGHTNESS);
         
@@ -212,3 +202,19 @@ void Draw::drawSurroundings(const Mat& src, const vector<Object>& objects)
     drawImage(dst);
 }
 
+void Draw::drawTexts(const Mat& src, const vector<Text>& texts)
+{
+    Mat dst = Mat(src);
+    
+    Scalar color;
+    for (int i = 0; i < texts.size(); i++) {
+        color = CV_RGB(rand()&BRIGHTNESS, rand()&BRIGHTNESS, rand()&BRIGHTNESS);
+        rectangle(dst, texts[i].rect, color);
+        
+        for (int j = 0; j < texts[i].objects.size(); j++) {
+            rectangle(dst, texts[i].objects[j].rect, color);
+        }
+    }
+    
+    drawImage(dst);
+}

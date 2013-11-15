@@ -1,13 +1,24 @@
 
 #include "Mycv.h"
 
+vector<string> Mycv::split(const string& str, char delim)
+{
+    istringstream iss(str); string tmp; vector<string> res;
+    while(getline(iss, tmp, delim)) res.push_back(tmp);
+    return res;
+}
+
 #pragma mark -
 #pragma mark Constructor
 
 Mycv::Mycv(const string& filepath)
 {
-    filename = filepath;
     srcImage = imread(filepath, CV_LOAD_IMAGE_COLOR);
+    srcIplImage = srcImage;
+    
+    vector<string> comps = split(filepath, '/');
+    filename = comps[comps.size()-1];
+    id_count = 0;
 }
 
 #pragma mark -
@@ -59,12 +70,48 @@ void Mycv::detector(vector<Object>& objects)
     
     // Compute edge gradient features
     Mycv::computeEchar(objects);
-    // Draw::drawEchars(srcImage, objects); // Echar描画
+    Mycv::computeStrokeWidth(objects);
+    Mycv::setFeatures(objects);
     
-    // Compute edge smooth features
+    Draw::drawEchars(srcImage, objects); // Echar描画
     
+    // Grouping objects
+    vector<Text> texts = *new vector<Text>();
+    Mycv::detectTexts(objects, texts);
     
+    Draw::drawTexts(srcImage, texts);
+}
+
+void Mycv::detectTexts(vector<Object>& objects, vector<Text>& texts)
+{
+    // Sort
+    sort(objects.begin(), objects.end(), Object::isLeftSmall);
     
+    // Grouping アルゴリズム
+    long length = objects.size();
+    for (int i = 0; i < length; i++)
+    {
+        Object obj = objects[i];
+        if (obj.grouped) continue;
+        
+        Text text = *new Text(/*obj*/);
+        obj.grouped = true;
+        vector<double> distance;
+        double initd = 2 * distanceWithNearestNeighbor(obj, objects);
+        distance.push_back(MIN(initd, obj.longLength));
+        
+        recursive_count = 0;
+        groupingObjects(text, obj, distance, objects);
+        
+        if (text.aspectRatio >= 0.8 && text.aspectRatio <= 1.2)
+        {
+            distance.clear();
+            distance.push_back(text.width);
+            groupingObjects(text, obj, distance, objects);
+        }
+        
+        texts.push_back(text);
+    }
 }
 
 
@@ -169,7 +216,14 @@ void Mycv::createObjects(const vector<vector<cv::Point> >& contours, vector<Obje
     int imgArea = srcImage.rows*srcImage.cols;
     double ratio = 0;
     for (int i = 0; i < contours.size(); i++) {
-        Object obj = *new Object(filename, contours[i]);
+        
+        // ID生成
+        id_count++;
+        stringstream Id;
+        Id << filename << id_count;
+        
+        // Object生成
+        Object obj = *new Object(Id.str(), filename, contours[i], cv::Size(srcImage.cols, srcImage.rows));
         ratio = (double)obj.contourArea / obj.rectArea;
         
         if (obj.rectArea>30 && obj.rectArea < imgArea*0.25f &&
@@ -249,7 +303,7 @@ void Mycv::mergeIncludedObjects(vector<Object>& objects)
     sort(objects.begin(), objects.end(), Object::isLeftLarge);
     
     cv::Rect largeRect, smallRect, interRect;
-    double wratio = 0, hratio = 0;
+    double wratio = 0, hratio = 0, lratio = 0;
     vector<int> removeIndexes;
     
     cout << "merge included objects:" << objects.size() << endl;
@@ -264,8 +318,9 @@ void Mycv::mergeIncludedObjects(vector<Object>& objects)
             
             wratio = (double)max(smallRect.width, largeRect.width) / min(smallRect.width, largeRect.width);
             hratio = (double)max(smallRect.height, largeRect.height) / min(smallRect.height, largeRect.height);
+            lratio = objects[i].longLength / objects[j].longLength;
             
-            if (wratio < 4 || hratio < 4)
+            if (lratio < 4)//wratio < 4 || hratio < 4)
             {
                 objects[i].children.push_back(j);
                 removeIndexes.push_back(j);
@@ -372,6 +427,18 @@ bool Mycv::isPositiveDirection(Object& object)
     else return false;
 }
 
+Scalar Mycv::getColor(int x, int y)
+{
+    unsigned char r, g, b;
+    
+    int index = srcIplImage.widthStep * y + srcIplImage.nChannels * x;
+    b = srcIplImage.imageData[index + 0];
+    g = srcIplImage.imageData[index + 1];
+    r = srcIplImage.imageData[index + 2];
+    
+    return Scalar(r, g, b);
+}
+
 // Find Corresponding Pairs
 void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
 {
@@ -379,6 +446,8 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
     vector<double> thetas;
     vector<cv::Point> pixels, corrPixels;
     vector<int> candidates;
+    
+    vector<Scalar> colors;
     
     bool isPositive = false;
     double a = 0, b = 0;
@@ -391,6 +460,8 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
         pixels = objects[i].contourPixels;
         thetas = objects[i].thetas;
         corrPixels = *new vector<Point>(pixels.begin(), pixels.end());
+        colors = *new vector<Scalar>();
+        
         ty = objects[i].rect.tl().y;
         lx = objects[i].rect.tl().x;
         rx = objects[i].rect.br().x;
@@ -398,6 +469,9 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
         
         for (int j = 0; j < pixels.size(); j++)
         {
+            // Color保存用
+            vector<Scalar> tmp_colors;
+            
             // 直線式計算
             bp = pixels[j];
             a = - tan(thetas[j]);
@@ -409,34 +483,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     if (isPositive) {   // 勾配方向に探索
                         if (thetas[j] >= 0) {
                             for (int x = bp.x-2; x > lx; x--) {
-                            Y = (int)round(a * x + b);
-                            if (Y < ty || Y > by) break;
-                            if (x > lx && x < rx) {
-                                if (table[Y][x] == i) {
-                                    corrPixels[j] = Point(x, Y);
-                                    break;
-                                } else if (table[Y][x-1] == i) {
-                                    corrPixels[j] = Point(x-1, Y);
-                                    break;
-                                } else if (table[Y][x+1] == i) {
-                                    corrPixels[j] = Point(x+1, Y);
-                                    break;
-                                }
-                            }
-                        }   // xが減る方向
-                        } else {
-                            for (int x = bp.x+2; x < rx; x++) {
+                                
                                 Y = (int)round(a * x + b);
                                 if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
                                 if (x > lx && x < rx) {
                                     if (table[Y][x] == i) {
                                         corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x-1] == i) {
                                         corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x+1] == i) {
                                         corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    }
+                                }
+                            }   // xが減る方向
+                        } else {
+                            for (int x = bp.x+2; x < rx; x++) {
+                                
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -445,34 +535,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     } else {            // 勾配方向と逆に探索
                         if (thetas[j] >= 0) {
                             for (int x = bp.x+2; x < rx; x++) {
-                            Y = (int)round(a * x + b);
-                            if (Y < ty || Y > by) break;
-                            if (x > lx && x < rx) {
-                                if (table[Y][x] == i) {
-                                    corrPixels[j] = Point(x, Y);
-                                    break;
-                                } else if (table[Y][x-1] == i) {
-                                    corrPixels[j] = Point(x-1, Y);
-                                    break;
-                                } else if (table[Y][x+1] == i) {
-                                    corrPixels[j] = Point(x+1, Y);
-                                    break;
-                                }
-                            }
-                        }   // xが増える方向
-                        } else {
-                            for (int x = bp.x-2; x > lx; x--) {
+                                
                                 Y = (int)round(a * x + b);
                                 if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
                                 if (x > lx && x < rx) {
                                     if (table[Y][x] == i) {
                                         corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x-1] == i) {
                                         corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x+1] == i) {
                                         corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    }
+                                }
+                            }   // xが増える方向
+                        } else {
+                            for (int x = bp.x-2; x > lx; x--) {
+                                
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -483,34 +589,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     if (isPositive) {   // 勾配方向に探索
                         if (thetas[j] >= 0) {
                             for (int x = bp.x+2; x < rx; x++) {
-                            Y = (int)round(a * x + b);
-                            if (Y < ty || Y > by) break;
-                            if (x > lx && x < rx) {
-                                if (table[Y][x] == i) {
-                                    corrPixels[j] = Point(x, Y);
-                                    break;
-                                } else if (table[Y][x-1] == i) {
-                                    corrPixels[j] = Point(x-1, Y);
-                                    break;
-                                } else if (table[Y][x+1] == i) {
-                                    corrPixels[j] = Point(x+1, Y);
-                                    break;
-                                }
-                            }
-                        }   // xが増える方向
-                        } else {
-                            for (int x = bp.x-2; x > lx; x--) {
+                                
                                 Y = (int)round(a * x + b);
                                 if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
                                 if (x > lx && x < rx) {
                                     if (table[Y][x] == i) {
                                         corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x-1] == i) {
                                         corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x+1] == i) {
                                         corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    }
+                                }
+                            }   // xが増える方向
+                        } else {
+                            for (int x = bp.x-2; x > lx; x--) {
+                                
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -519,34 +641,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     } else {            // 勾配方向と逆に探索
                         if (thetas[j] >= 0) {
                             for (int x = bp.x-2; x > lx; x--) {
-                            Y = (int)round(a * x + b);
-                            if (Y < ty || Y > by) break;
-                            if (x > lx && x < rx) {
-                                if (table[Y][x] == i) {
-                                    corrPixels[j] = Point(x, Y);
-                                    break;
-                                } else if (table[Y][x-1] == i) {
-                                    corrPixels[j] = Point(x-1, Y);
-                                    break;
-                                } else if (table[Y][x+1] == i) {
-                                    corrPixels[j] = Point(x+1, Y);
-                                    break;
-                                }
-                            }
-                        }   // xが減る方向
-                        } else {
-                            for (int x = bp.x+2; x < rx; x++) {
+                                
                                 Y = (int)round(a * x + b);
                                 if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
                                 if (x > lx && x < rx) {
                                     if (table[Y][x] == i) {
                                         corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x-1] == i) {
                                         corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[Y][x+1] == i) {
                                         corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    }
+                                }
+                            }   // xが減る方向
+                        } else {
+                            for (int x = bp.x+2; x < rx; x++) {
+                                
+                                Y = (int)round(a * x + b);
+                                if (Y < ty || Y > by) break;
+                                
+                                Scalar color = getColor(x, Y);
+                                tmp_colors.push_back(color);
+                                
+                                if (x > lx && x < rx) {
+                                    if (table[Y][x] == i) {
+                                        corrPixels[j] = Point(x, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x-1] == i) {
+                                        corrPixels[j] = Point(x-1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[Y][x+1] == i) {
+                                        corrPixels[j] = Point(x+1, Y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -561,34 +699,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     if (isPositive) {   // 勾配方向に探索
                         if (thetas[j] >= 0) {
                             for (int y = bp.y-2; y > ty; y--) {
-                            X = (int)round(a * y + b);
-                            if (X < lx || X > rx) break;
-                            if (y > ty && y < by) {
-                                if (table[y][X] == i) {
-                                    corrPixels[j] = Point(X, y);
-                                    break;
-                                } else if (table[y-1][X] == i) {
-                                    corrPixels[j] = Point(X, y-1);
-                                    break;
-                                } else if (table[y+1][X] == i) {
-                                    corrPixels[j] = Point(X, y+1);
-                                    break;
-                                }
-                            }
-                        }   // yが減る方向
-                        } else {
-                            for (int y = bp.y+2; y < by; y++) {
+                                
                                 X = (int)round(a * y + b);
                                 if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
                                 if (y > ty && y < by) {
                                     if (table[y][X] == i) {
                                         corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y-1][X] == i) {
                                         corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y+1][X] == i) {
                                         corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    }
+                                }
+                            }   // yが減る方向
+                        } else {
+                            for (int y = bp.y+2; y < by; y++) {
+                                
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -597,34 +751,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     } else {            // 勾配方向と逆に探索
                         if (thetas[j] >= 0) {
                             for (int y = bp.y+2; y < by; y++) {
-                            X = (int)round(a * y + b);
-                            if (X < lx || X > rx) break;
-                            if (y > ty && y < by) {
-                                if (table[y][X] == i) {
-                                    corrPixels[j] = Point(X, y);
-                                    break;
-                                } else if (table[y-1][X] == i) {
-                                    corrPixels[j] = Point(X, y-1);
-                                    break;
-                                } else if (table[y+1][X] == i) {
-                                    corrPixels[j] = Point(X, y+1);
-                                    break;
-                                }
-                            }
-                        }   // yが増える方向
-                        } else {
-                            for (int y = bp.y-2; y > ty; y--) {
+                                
                                 X = (int)round(a * y + b);
                                 if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
                                 if (y > ty && y < by) {
                                     if (table[y][X] == i) {
                                         corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y-1][X] == i) {
                                         corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y+1][X] == i) {
                                         corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    }
+                                }
+                            }   // yが増える方向
+                        } else {
+                            for (int y = bp.y-2; y > ty; y--) {
+                                
+                                X = (int)round(a * y + b);
+                                if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
+                                if (y > ty && y < by) {
+                                    if (table[y][X] == i) {
+                                        corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[y-1][X] == i) {
+                                        corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                                        break;
+                                    } else if (table[y+1][X] == i) {
+                                        corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -635,34 +805,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     if (isPositive) {   // 勾配方向に探索
                         if (thetas[j] >= 0) {
                             for (int y = bp.y-2; y > ty; y--) {
+                                
                                 X = (int)round(a * y + b);
                                 if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
                                 if (y > ty && y < by) {
                                     if (table[y][X] == i) {
                                         corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y-1][X] == i) {
                                         corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y+1][X] == i) {
                                         corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
                             }   // yが減る方向
                         } else {
                             for (int y = bp.y+2; y < by; y++) {
+                                
                                 X = (int)round(a * y + b);
                                 if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
                                 if (y > ty && y < by) {
                                     if (table[y][X] == i) {
                                         corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y-1][X] == i) {
                                         corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y+1][X] == i) {
                                         corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -671,34 +857,50 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                     } else {            // 勾配方向と逆に探索
                         if (thetas[j] >= 0) {
                             for (int y = bp.y+2; y < by; y++) {
+                                
                                 X = (int)round(a * y + b);
                                 if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
                                 if (y > ty && y < by) {
                                     if (table[y][X] == i) {
                                         corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y-1][X] == i) {
                                         corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y+1][X] == i) {
                                         corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
                             }   // yが増える方向
                         } else {
                             for (int y = bp.y-2; y > ty; y--) {
+                                
                                 X = (int)round(a * y + b);
                                 if (X < lx || X > rx) break;
+                                
+                                Scalar color = getColor(X, y);
+                                tmp_colors.push_back(color);
+                                
                                 if (y > ty && y < by) {
                                     if (table[y][X] == i) {
                                         corrPixels[j] = Point(X, y);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y-1][X] == i) {
                                         corrPixels[j] = Point(X, y-1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     } else if (table[y+1][X] == i) {
                                         corrPixels[j] = Point(X, y+1);
+                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
                                         break;
                                     }
                                 }
@@ -712,10 +914,12 @@ void Mycv::findCorrPairs(vector<Object>& objects, const Mat& gradients)
                 corrPixels[j] = Point(-1, -1);
             }
             objects[i].corrPairPixels = corrPixels;
+            tmp_colors.clear();
         }
         
         objects[i].corrPairPixels = corrPixels;
         objects[i].isPositive = isPositive;
+        objects[i].computeColor(colors);
     }
     for (int i = 0; i < srcImage.rows; ++i) {
         delete [] table[i];
@@ -765,7 +969,6 @@ void Mycv::gradientOfCorrPairs(vector<Object>& objects, const Mat_<double>& grad
     }
 }
 
-
 // Compute Features
 void Mycv::computeEchar(vector<Object>& objects)
 {
@@ -809,13 +1012,259 @@ void Mycv::computeEchar(vector<Object>& objects)
     }
 }
 
+// Compute Stroke Width
+void Mycv::computeStrokeWidth(vector<Object>& objects)
+{
+    const int sampling = 2;
+    
+    int max = 0;
+    double tmp_w = 0;
+    vector<int> hist;
+    vector<cv::Point> basePixels, pairPixels;
+    cv::Point diff;
+    
+    for (int i = 0; i < objects.size(); i++) {
+        
+        max = MAX(objects[i].width, objects[i].height);
+        
+        hist = *new vector<int>(max, 0);
+        basePixels = objects[i].contourPixels;
+        pairPixels = objects[i].corrPairPixels;
+        
+        for (int j = 0; j < basePixels.size(); j++) {
+            if (pairPixels[j].x>=0 && pairPixels[j].y>=0) {
+                diff = basePixels[j] - pairPixels[j];
+                tmp_w = round(sqrt(diff.x*diff.x+diff.y*diff.y));
+                hist[(int)floor(tmp_w / sampling)]++;
+            }
+        }
+        
+        int peak = 0, maxK = 0;
+        for (int k = 0; k < max; k++) {
+            if (hist[k] > peak) {
+                peak = hist[k];
+                maxK = k;
+            }
+        }
+        
+        objects[i].strokeWidth = maxK*sampling;
+    }
+}
+
+// Set Features to the Object
+void Mycv::setFeatures(vector<Object>& objects)
+{
+    for (int i = 0; i < objects.size(); i++) {
+        
+        vector<double> features;
+        
+        // Echar
+        /* 0 */ features.push_back(objects[i].Gangle / M_PI);
+        /* 1 */ features.push_back(objects[i].Fcorr);
+        /* 2 */ features.push_back(objects[i].Echar);
+        
+        // Color
+        /* 3 */ features.push_back((double)objects[i].color[0]/BRIGHTNESS);
+        /* 4 */ features.push_back((double)objects[i].color[1]/BRIGHTNESS);
+        /* 5 */ features.push_back((double)objects[i].color[2]/BRIGHTNESS);
+        
+        // Stroke width
+        /* 6 */ features.push_back(objects[i].strokeWidth/objects[i].longLength);
+        
+        
+        // TODO: Stroke width の分散
+        
+        // TODO: Contour roughness
+        
+        
+        // Rect ratio
+        /* 7 */ features.push_back(objects[i].rectRatio);
+        
+        // Aspect ratio
+        /* 8 */ features.push_back(objects[i].aspectRatio);
+        
+        // Long length ratio
+        /* 9 */ features.push_back(objects[i].longLengthRatio);
+        
+        // Area ratio
+        /* 10 */ features.push_back(objects[i].areaRatio);
+        
+        
+        // Set features
+        objects[i].features = features;
+    }
+}
 
 
+#pragma mark -
+#pragma mark Grouping Objects Methods
 
+void Mycv::groupingObjects(Text& text, Object& obj, vector<double>& distance, vector<Object>& objects)
+{
+    recursive_count++;
+    cout<< "Recursive Count:" << recursive_count << endl;
+    
+    vector<Object*> neighbors;
+    findNeighbors(neighbors, obj, distance, objects);
+    adding(text, neighbors);
+    
+    for (int i = 0; i < neighbors.size(); i++) {
+        groupingObjects(text, *neighbors[i], distance, objects);
+    }
+}
+
+double Mycv::distanceWithNearestNeighbor(Object& obj, vector<Object>& objects)
+{
+    double min = INFINITY;
+    for (int i = 0; i < objects.size(); i++)
+    {
+        if (obj.ID == objects[i].ID) continue;
+        double d = distanceOfObjects(obj, objects[i]);
+        if (min > d) min = d;
+    }
+    return min;
+}
+
+void Mycv::findNeighbors(vector<Object*>& neighbors, Object& obj, vector<double>& distance, vector<Object>& objects)
+{
+    double temp_dist = 0, average = 0;
+    
+    for (int i = 0; i < objects.size(); i++)
+    {
+        average = 0;
+        cout << objects[i].grouped << endl;
+        if (obj != objects[i] && !(objects[i].grouped))
+        {
+            average = accumulate(distance.begin(), distance.end(), 0);
+            average /= (double)distance.size();
+            temp_dist = distanceOfObjects(obj, objects[i]);
+            
+            if (temp_dist < average) {
+                if (obj.neighborDistance > temp_dist) {
+                    obj.neighborDistance = temp_dist;
+                    if (obj.neighbors.size() > 0) obj.neighbors.pop_back();
+                    obj.neighbors.push_back(objects[i]);
+                }
+                neighbors.push_back(&objects[i]);
+                distance.push_back(temp_dist);
+            }
+        }
+    }
+}
+
+double Mycv::distanceOfObjects(const Object& obj1, const Object& obj2)
+{
+    cv::Point diff1 = obj2.centroid - obj1.centroid;
+    cv::Point diff2 = obj1.centroid - obj2.centroid;
+    
+    double a = (double)diff1.y / diff1.x;
+    
+    double t1 = atan2(-diff1.y, diff1.x);
+    double t2 = atan2(-diff2.y, diff2.x);
+    
+    int pattern1 = patternOfRadian(t1);
+    int pattern2 = patternOfRadian(t2);
+    
+    cv::Point rep1 = findRepresentativePoint(obj1, a, pattern1);
+    cv::Point rep2 = findRepresentativePoint(obj2, a, pattern2);
+    
+    return distanceOfPoints(rep1, rep2);
+}
+
+int Mycv::patternOfRadian(const double radian)
+{
+    int n = 0;
+    if (radian <= M_PI && radian > M_PI_2) n = 2;
+    else if (radian <= M_PI_2 && radian > 0) n = 1;
+    else if (radian <= 0 && radian > -M_PI_2) n = 4;
+    else  n = 3;
+    
+    return n;
+}
+
+double Mycv::distanceOfPoints(const cv::Point& p1, const cv::Point& p2)
+{
+    cv::Point diff = p1 - p2;
+    return sqrt(diff.x*diff.x+diff.y*diff.y);
+}
+
+cv::Point Mycv::pointApartFromCentroid(const cv::Point& centroid, const cv::Point& p1, const cv::Point& p2, const double a)
+{
+    double b = centroid.y - a * centroid.x;
+    cv::Point tmp_p1, tmp_p2;
+    double tmp_a = 1 / a;
+    double tmp_b1 = 0, tmp_b2 = 0;
+    
+    tmp_b1 = p1.y - tmp_a * p1.x;
+    tmp_p1.x = - (b - tmp_b1) / (a - tmp_a);
+    tmp_p1.y = a * tmp_p1.x + b;
+    
+    tmp_b2 = p2.y - tmp_a * p2.x;
+    tmp_p2.x = - (b - tmp_b2) / (a - tmp_a);
+    tmp_p2.y = a * tmp_p2.x + b;
+    
+    if (distanceOfPoints(tmp_p1, centroid) > distanceOfPoints(tmp_p2, centroid)) return tmp_p1;
+    else return tmp_p2;
+}
+
+cv::Point Mycv::findRepresentativePoint(const Object& obj, const double a, const int pattern)
+{
+    switch (pattern) {
+        case 1: // tp か rp を採用
+            return pointApartFromCentroid(obj.centroid, obj.tp, obj.rp, a);
+            break;
+        case 2: // tp - lp を採用
+            return pointApartFromCentroid(obj.centroid, obj.tp, obj.lp, a);
+            break;
+        case 3: // lp - bp を採用
+            return pointApartFromCentroid(obj.centroid, obj.bp, obj.lp, a);
+            break;
+        case 4: // rp - bp を採用
+            return pointApartFromCentroid(obj.centroid, obj.bp, obj.rp, a);
+            break;
+    }
+    return cv::Point();
+}
+
+void Mycv::adding(Text& text, vector<Object*>& neighbors)
+{
+//    vector<int> rmIndex;
+    for (int i = 0; i < neighbors.size(); i++)
+    {
+        Object* n = neighbors[i];
+        if (n->grouped) continue;
+        
+        text.add(*n);
+        n->grouped = true;
+        
+//        if (isSimilar(text.color, n->color))
+//        {
+//            text.add(*n);
+//            n->grouped = true;
+//        }
+//        else
+//        {
+//            rmIndex.push_back(i);
+//        }
+    }
+//    for (int i = (int)rmIndex.size()-1; i > -1; i--) {
+//        neighbors.erase(neighbors.begin()+rmIndex[i]);
+//    }
+}
+
+bool Mycv::isSimilar(Scalar c1, Scalar c2)
+{
+    Scalar diff = c1 - c2;
+    double dist = sqrt(diff[0]*diff[0]+diff[1]*diff[1]+diff[2]*diff[2]);
+    if (dist <= 50) return true;
+    
+    return false;
+}
 
 
 #pragma mark -
 #pragma mark Utility Methods
+
 cv::Rect* Mycv::intersect(const cv::Rect& rect1, const cv::Rect& rect2)
 {
     cv::Rect *rect = new cv::Rect(0,0,0,0);

@@ -32,7 +32,7 @@ AdaBoostResult AdaBoost::next()
     // Choose lowest error classifiers
     int lIndex = 0;
     double lerror = errors[lIndex];
-    for (int e = 0; e < LENGTH(errors); e++)
+    for (int e = 0; e < errors.size(); e++)
     {
         if (lerror > errors[e]) {
             lerror = errors[e];
@@ -57,7 +57,6 @@ AdaBoostResult AdaBoost::next()
     sc.wcs.push_back(lwc);
     
     return AdaBoostResult(sc, lwc);
-    
 }
 
 

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Object.h"
+#include "Text.h"
 
 using namespace std;
 using namespace cv;
@@ -19,6 +20,7 @@ public:
     static void drawEchars(const Mat& src, const vector<Object>& objects);
     static void drawGradientLine(const Mat& src, const vector<Object>& objects, double a, double b);
     static void drawSurroundings(const Mat& src, const vector<Object>& objects);
+    static void drawTexts(const Mat& src, const vector<Text>& texts);
     
 private:
     static Mat srcImage;
