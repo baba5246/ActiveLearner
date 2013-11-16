@@ -49,15 +49,15 @@ void Draw::drawMSERs(const Mat& src, const vector<vector<Point> >& mser_features
     drawImage(dst);
 }
 
-void Draw::drawObjects(const Mat& src, vector<Object>& objects)
+void Draw::drawObjects(const Mat& src, vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
     for (int i = 0; i < objects.size(); i++)
     {
-        vector<cv::Point> pixels = objects[i].contourPixels;
+        vector<cv::Point> pixels = objects[i]->contourPixels;
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
-        if (objects[i].colors.size()>0) color = objects[i].color;
+        if (objects[i]->colors.size()>0) color = objects[i]->color;
         
         for (int j = 0; j < pixels.size(); j++)
         {
@@ -67,7 +67,6 @@ void Draw::drawObjects(const Mat& src, vector<Object>& objects)
     
     drawImage(dst);
 }
-
 
 void Draw::drawGradients(const Mat& src, const Mat_<double>& gradients)
 {
@@ -91,8 +90,7 @@ void Draw::drawGradients(const Mat& src, const Mat_<double>& gradients)
     drawImage(dst);
 }
 
-
-void Draw::drawGradients(const vector<Object>& objects, const Mat_<double>& gradients)
+void Draw::drawGradients(const vector<Object*>& objects, const Mat_<double>& gradients)
 {
     Mat dst = Mat::zeros(gradients.rows, gradients.cols, CV_8UC3);
     
@@ -100,10 +98,10 @@ void Draw::drawGradients(const vector<Object>& objects, const Mat_<double>& grad
     double g = 0;
     Scalar color;
     for (int i = 0; i < objects.size(); i++) {
-        for (int j = 0; j < objects[i].contourPixels.size(); j++) {
-            p = objects[i].contourPixels[j];
+        for (int j = 0; j < objects[i]->contourPixels.size(); j++) {
+            p = objects[i]->contourPixels[j];
             g = gradients.at<double>(p.y, p.x);
-            color = *colorOfRadian(objects[i].thetas[j]);
+            color = *colorOfRadian(objects[i]->thetas[j]);
             int a  = (int)(p.y * dst.step + p.x * dst.channels());
             dst.data[a+0] = color[0];
             dst.data[a+1] = color[1];
@@ -131,22 +129,21 @@ cv::Scalar* Draw::colorOfRadian(double radian)
     return color;
 }
 
-
-void Draw::drawEchars(const Mat& src, const vector<Object>& objects)
+void Draw::drawEchars(const Mat& src, const vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
     for (int i = 0; i < objects.size(); i++)
     {
-        vector<cv::Point> pixels = objects[i].contourPixels;
+        vector<cv::Point> pixels = objects[i]->contourPixels;
         Scalar color;
         
         //if (objects[i].Echar < 0.75) continue;
         
-        if (objects[i].isPositive) color = CV_RGB(objects[i].Echar*BRIGHTNESS, objects[i].Echar*BRIGHTNESS, 0);
-        else color = CV_RGB(0, objects[i].Echar*BRIGHTNESS, objects[i].Echar*BRIGHTNESS);
+        if (objects[i]->isPositive) color = CV_RGB(objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS, 0);
+        else color = CV_RGB(0, objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS);
         
-        vector<cv::Point> corrPixels = objects[i].corrPairPixels;
+        vector<cv::Point> corrPixels = objects[i]->corrPairPixels;
         for (int j = 0; j < pixels.size(); j++)
         {
             circle(dst, pixels[j], 0.1f, color);
@@ -157,8 +154,7 @@ void Draw::drawEchars(const Mat& src, const vector<Object>& objects)
     drawImage(dst);
 }
 
-
-void Draw::drawGradientLine(const Mat& src, const vector<Object>& objects, double a, double b)
+void Draw::drawGradientLine(const Mat& src, const vector<Object*>& objects, double a, double b)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
@@ -167,8 +163,8 @@ void Draw::drawGradientLine(const Mat& src, const vector<Object>& objects, doubl
     for (int i = 0; i < objects.size(); i++)
     {
         count = 0;
-        vector<cv::Point> pixels = objects[i].contourPixels;
-        vector<cv::Point> corrPixels = objects[i].corrPairPixels;
+        vector<cv::Point> pixels = objects[i]->contourPixels;
+        vector<cv::Point> corrPixels = objects[i]->corrPairPixels;
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
         
         for (int j = 0; j < pixels.size(); j++)
@@ -182,14 +178,14 @@ void Draw::drawGradientLine(const Mat& src, const vector<Object>& objects, doubl
     drawImage(dst);
 }
 
-void Draw::drawSurroundings(const Mat& src, const vector<Object>& objects)
+void Draw::drawSurroundings(const Mat& src, const vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
     for (int i = 0; i < objects.size(); i++)
     {
-        vector<cv::Point> pixels = objects[i].surroundings;
-        vector<double> thetas = objects[i].surrThetas;
+        vector<cv::Point> pixels = objects[i]->surroundings;
+        vector<double> thetas = objects[i]->surrThetas;
         Scalar color;
         
         for (int j = 0; j < pixels.size(); j++)
@@ -206,10 +202,11 @@ void Draw::drawTexts(const Mat& src, const vector<Text>& texts)
 {
     Mat dst = Mat(src);
     
+    srand((unsigned int)time(NULL));
     Scalar color;
     for (int i = 0; i < texts.size(); i++) {
         color = CV_RGB(rand()&BRIGHTNESS, rand()&BRIGHTNESS, rand()&BRIGHTNESS);
-        rectangle(dst, texts[i].rect, color);
+        rectangle(dst, texts[i].rect, color, 3);
         
         for (int j = 0; j < texts[i].objects.size(); j++) {
             rectangle(dst, texts[i].objects[j].rect, color);

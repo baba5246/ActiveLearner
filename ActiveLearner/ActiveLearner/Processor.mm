@@ -1,6 +1,6 @@
 
 #import "Processor.h"
-#include "Mycv.h"
+#include "ObjectDetector.h"
 #include "AdaBoost.h"
 
 @implementation Processor
@@ -52,9 +52,10 @@ static Processor* sharedProcessor = nil;
         
         // 特徴量抽出
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
-        Mycv mycv(filepath);
-        vector<Object> objects;
-        mycv.detector(objects);
+        
+        vector<Object*> objects;
+        ObjectDetector detector(filepath);
+        detector.detect(objects);
         
         // filename
         NSArray *comp = [path componentsSeparatedByString:@"/"];
@@ -64,8 +65,8 @@ static Processor* sharedProcessor = nil;
         // サンプル作成
         for (int i = 0; i < objects.size(); i++)
         {
-            Object obj = objects[i];
-            Sample s(obj);
+            Object *obj = objects[i];
+            Sample s(*obj);
             
             cv::Rect obj_rect = s.object.rect;
             NSRect rect = NSMakeRect(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);

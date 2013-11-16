@@ -12,6 +12,8 @@
 		87259FE71832472C00DBEEF3 /* WeakClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FE51832472C00DBEEF3 /* WeakClassifier.cpp */; };
 		87259FEA1832475900DBEEF3 /* StrongClassifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FE81832475900DBEEF3 /* StrongClassifier.cpp */; };
 		87259FED1832479A00DBEEF3 /* Sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FEB1832479A00DBEEF3 /* Sample.cpp */; };
+		87259FF01837C9CD00DBEEF3 /* ObjectDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FEE1837C9CC00DBEEF3 /* ObjectDetector.cpp */; };
+		87259FF31837D1EB00DBEEF3 /* TextDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87259FF11837D1EA00DBEEF3 /* TextDetector.cpp */; };
 		874F6890182AF6E5004FA324 /* Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A0D182A11C000495344 /* Controller.m */; };
 		874F6891182AF6EC004FA324 /* XmlMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1F182A122700495344 /* XmlMaker.m */; };
 		874F6892182AF6F1004FA324 /* Truth.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1D182A122700495344 /* Truth.m */; };
@@ -51,6 +53,10 @@
 		87259FE91832475900DBEEF3 /* StrongClassifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrongClassifier.h; sourceTree = "<group>"; };
 		87259FEB1832479A00DBEEF3 /* Sample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sample.cpp; sourceTree = "<group>"; };
 		87259FEC1832479A00DBEEF3 /* Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
+		87259FEE1837C9CC00DBEEF3 /* ObjectDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjectDetector.cpp; sourceTree = "<group>"; };
+		87259FEF1837C9CD00DBEEF3 /* ObjectDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectDetector.h; sourceTree = "<group>"; };
+		87259FF11837D1EA00DBEEF3 /* TextDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextDetector.cpp; sourceTree = "<group>"; };
+		87259FF21837D1EB00DBEEF3 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		874F689A182AFEBD004FA324 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
 		874F689B182AFEBD004FA324 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
 		874F689D182AFECD004FA324 /* Text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Text.cpp; sourceTree = "<group>"; };
@@ -273,6 +279,10 @@
 			children = (
 				FE46B394182A362C0070725A /* Mycv.h */,
 				FE46B393182A362C0070725A /* Mycv.cpp */,
+				87259FEF1837C9CD00DBEEF3 /* ObjectDetector.h */,
+				87259FEE1837C9CC00DBEEF3 /* ObjectDetector.cpp */,
+				87259FF21837D1EB00DBEEF3 /* TextDetector.h */,
+				87259FF11837D1EA00DBEEF3 /* TextDetector.cpp */,
 				FE46B397182A36B00070725A /* Draw.h */,
 				FE46B396182A36B00070725A /* Draw.cpp */,
 				8778A7BB18321CBF00824EE6 /* Components */,
@@ -366,6 +376,8 @@
 				87259FE71832472C00DBEEF3 /* WeakClassifier.cpp in Sources */,
 				87259FEA1832475900DBEEF3 /* StrongClassifier.cpp in Sources */,
 				87259FED1832479A00DBEEF3 /* Sample.cpp in Sources */,
+				87259FF01837C9CD00DBEEF3 /* ObjectDetector.cpp in Sources */,
+				87259FF31837D1EB00DBEEF3 /* TextDetector.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

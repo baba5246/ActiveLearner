@@ -59,11 +59,11 @@ public:
 #pragma mark -
 #pragma mark Inclusion Relationship Methods
 public:
-    static int isLeftLarge(Object obj1, Object obj2) {
-        return (obj1.rectArea > obj2.rectArea);
+    static int isLeftLarge(Object* obj1, Object* obj2) {
+        return (obj1->rectArea > obj2->rectArea);
     }
-    static int isLeftSmall(Object obj1, Object obj2) {
-        return (obj1.rectArea < obj2.rectArea);
+    static int isLeftSmall(Object* obj1, Object* obj2) {
+        return (obj1->rectArea < obj2->rectArea);
     }
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
