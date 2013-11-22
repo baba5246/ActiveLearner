@@ -121,13 +121,13 @@ static Processor* sharedProcessor = nil;
     }
 
     int correct = 0;
-    for (int i = 0; i < unlabeled.size(); i++) {
-        Sample s = unlabeled[i];
+    for (int i = 0; i < labeled.size(); i++) {
+        Sample s = labeled[i];
         int test = adaboost.sc.test(s);
         if (test == s.label) correct++;
     }
-    double precision = (double)correct / unlabeled.size();
-    cout << "Correct:" << correct << "/" << unlabeled.size() << ", Precision:" << precision << endl;
+    double precision = (double)correct / labeled.size();
+    cout << "Correct:" << correct << "/" << labeled.size() << ", Precision:" << precision << endl;
 }
 
 

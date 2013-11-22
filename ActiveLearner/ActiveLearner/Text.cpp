@@ -21,6 +21,7 @@ Text::Text(Object& obj)
 void Text::add(Object& obj)
 {
     objects.push_back(obj);
+    computeGradient(obj);
     computeProperties();
 }
 
@@ -73,4 +74,18 @@ void Text::computeColor()
     }
     
     color = Scalar(r, g, b);
+}
+
+void Text::computeGradient(Object& obj)
+{
+    if (objects.size() < 2) return;
+    
+    cv::Point diff = obj.centroid - objects[objects.size()-2].centroid;
+    double theta = atan2(-diff.y, diff.x);
+    gradients.push_back(theta);
+    
+    double temp = 0;
+    for (int i = 0; i < gradients.size(); i++) temp += gradients[i];
+    gradient = temp / gradients.size();
+    
 }

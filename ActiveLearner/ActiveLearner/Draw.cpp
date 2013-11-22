@@ -205,7 +205,9 @@ void Draw::drawTexts(const Mat& src, const vector<Text>& texts)
     srand((unsigned int)time(NULL));
     Scalar color;
     for (int i = 0; i < texts.size(); i++) {
-        color = CV_RGB(rand()&BRIGHTNESS, rand()&BRIGHTNESS, rand()&BRIGHTNESS);
+        color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
+                       (double)rand() / RAND_MAX * BRIGHTNESS,
+                       (double)rand() / RAND_MAX * BRIGHTNESS);
         rectangle(dst, texts[i].rect, color, 3);
         
         for (int j = 0; j < texts[i].objects.size(); j++) {

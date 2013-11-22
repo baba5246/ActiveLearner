@@ -65,6 +65,9 @@ public:
     static int isLeftSmall(Object* obj1, Object* obj2) {
         return (obj1->rectArea < obj2->rectArea);
     }
+    static int leftToRight(Object* obj1, Object* obj2) {
+        return (obj1->lp.x < obj2->lp.x);
+    }
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
     void mergeObject(Object obj);

@@ -11,9 +11,10 @@ class Text
     
 public:
     vector<Object> objects;
+    vector<double> gradients;
     
     int width = 0, height = 0;
-    double aspectRatio = 0;
+    double aspectRatio = 0, gradient = 0;
     cv::Rect rect;
     cv::Point centroid;
     Scalar color;
@@ -31,5 +32,6 @@ public:
 private:
     void computeProperties();
     void computeColor();
+    void computeGradient(Object& obj);
     
 };
