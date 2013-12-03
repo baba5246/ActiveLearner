@@ -7,13 +7,9 @@
 {
     Model *model;
     
-    IBOutlet id fileNameLabel;
-    IBOutlet id rectLabel;
-    IBOutlet id rectCountLabel;
-    IBOutlet id xmlDataCountLabel;
-    
     IBOutlet id dirPathLbl;
-    IBOutlet id desctiptionLbl;
+    IBOutlet id fileNameLbl;
+    IBOutlet id console;
     
     NSTableView *paramTable;
     NSTableView *performTable;

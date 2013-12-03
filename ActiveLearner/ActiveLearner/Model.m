@@ -52,57 +52,6 @@ static Model* sharedModel = nil;
     return fname;
 }
 
-
-- (void) setPreviousFileInfo
-{
-    fileIndex--;
-    filename = [files objectAtIndex:fileIndex];
-    NSString *pathString = [directory stringByAppendingString:filename];
-    imagePath = [NSURL fileURLWithPath:pathString];
-}
-
-- (void)setNextFileInfo
-{
-    fileIndex++;
-    filename = [files objectAtIndex:fileIndex];
-    NSString *pathString = [directory stringByAppendingString:filename];
-    imagePath = [NSURL fileURLWithPath:pathString];
-}
-
-
-- (void) addTruth:(Truth *)truth
-{
-    [rectangles addObject:truth];
-    [self willChangeValueForKey:RECTANGLES_KEY];
-    [self didChangeValueForKey:RECTANGLES_KEY];
-}
-
-- (void) resetRectangles
-{
-    [self willChangeValueForKey:RECTANGLES_KEY];
-    [rectangles removeAllObjects];
-    [self didChangeValueForKey:RECTANGLES_KEY];
-}
-
-- (BOOL) saveRectangles
-{
-    if (rectangles.count > 0)
-    {
-        NSArray *rects = [[NSArray alloc] initWithArray:rectangles];
-        [xmlData setObject:rects forKey:filename];
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
-}
-
-- (NSMutableArray *) getRectangles
-{
-    return rectangles;
-}
-
 - (NSMutableDictionary *) getXMLData
 {
     return xmlData;

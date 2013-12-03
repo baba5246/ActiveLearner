@@ -16,14 +16,13 @@
     if (self) {
         
         model = [Model sharedManager];
-        [model addObserver:self forKeyPath:IMAGE_PATH_KEY
-                   options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionPrior)
-                   context:nil];
-        [model addObserver:self forKeyPath:RECTANGLES_KEY
-                   options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionPrior)
-                   context:nil];
-        
         processor = [Processor sharedManager];
+        
+        // Notification設定
+        Notification *n = [Notification sharedManager];
+        [n.nc addObserver:self selector:@selector(updateViewDidLoad) name:DID_LOAD_DIRECTORY object:nil];
+        [n.nc addObserver:self selector:@selector(showLoadErrorAlert) name:ERROR_LOAD_DIRECTORY object:nil];
+        
     }
     return self;
 }
@@ -31,7 +30,7 @@
 - (IBAction)startLearning:(id)sender
 {
     // show progress
-    [desctiptionLbl setStringValue:@"特徴量の抽出中... "];
+    [self console:@"特徴量の抽出中... "];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -39,169 +38,29 @@
         [processor makeSamples];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [desctiptionLbl setStringValue:@"特徴量の抽出完了！学習開始！"];
+            [self console:@"特徴量の抽出完了！学習開始！"];
         });
         
         // AdaBoost Learning
         [processor learnFeaturesWithAdaBoost];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [desctiptionLbl setStringValue:@"学習終了！"];
+            [self console:@"学習終了！"];
         });
     });
     
     
 }
 
-
-#pragma mark -
-#pragma mark Button Action Methods
-
--(IBAction)onLeftButtonClicked:(id)sender
-{
-    if (model.fileIndex > 0 && model.files.count > 0)
-    {
-        // アラート表示
-        if ([[model getRectangles] count] > 0)
-        {
-            NSAlert *alert = [self deleteRectangleAlertView];
-            if ([alert runModal] == NSAlertFirstButtonReturn) // OKボタン
-            {
-                // rectanglesを消す
-                [model resetRectangles];
-                
-                // 前の画像の準備
-                [model setPreviousFileInfo];
-                
-                // 画像をセット
-                [self setImageFromFilePath];
-            }
-        } else {
-            // rectanglesを消す
-            [model resetRectangles];
-            
-            // 前の画像の準備
-            [model setPreviousFileInfo];
-            
-            // 画像をセット
-            [self setImageFromFilePath];
-        }
-        
-
-    }
-}
-
--(IBAction)onRightButtonClicked:(id)sender
-{
-    if (model.fileIndex < [model.files count]-1 && model.files.count > 0)
-    {
-        // アラート表示
-        if ([[model getRectangles] count] > 0) {
-            NSAlert *alert = [self deleteRectangleAlertView];
-            if ([alert runModal] == NSAlertFirstButtonReturn) // OKボタン
-            {
-                // rectanglesを消す
-                [model resetRectangles];
-                
-                // 次の画像の準備
-                [model setNextFileInfo];
-                
-                // 画像をセット
-                [self setImageFromFilePath];
-            }
-        }
-        else
-        {
-            // rectanglesを消す
-            [model resetRectangles];
-            
-            // 次の画像の準備
-            [model setNextFileInfo];
-            
-            // 画像をセット
-            [self setImageFromFilePath];
-        }
-    }
-}
-
-- (IBAction)onDoneButtonClicked:(id)sender
-{
-    NSInteger index = [options indexOfSelectedItem];
-    NSString *item = [options itemObjectValueAtIndex:index];
-    NSLog(@"selected index: %ld, item:%@", (long)index, item);
-    
-    //[self imageProcessing:index];
-}
-
-
--(IBAction)onSaveButtonClicked:(id)sender
-{
-    model = [Model sharedManager];
-    
-    if ([model saveRectangles])
-    {
-        [imgView changeRectanglesState];
-        [xmlDataCountLabel setIntegerValue:[[model.getXMLData allKeys] count]];
-        
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert addButtonWithTitle:@"OK"];
-        [alert setMessageText:@"Succeeded!"];
-        [alert setInformativeText:@"Saving operation finished successfully!"];
-        [alert setAlertStyle:NSWarningAlertStyle];
-        
-        [alert runModal];
-    }
-    else
-    {
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert addButtonWithTitle:@"OK"];
-        [alert setMessageText:@"Failed!"];
-        [alert setInformativeText:@"Saving operation was failed because there are no rectangles..."];
-        [alert setAlertStyle:NSWarningAlertStyle];
-        
-        [alert runModal];
-    }
-}
-
-
-#pragma mark -
-#pragma mark Observer Methods
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
-{
-    if ([keyPath isEqual:IMAGE_PATH_KEY])
-    {
-        // imgViewの準備
-        [imgView prepare];
-        
-        // 画像をセット
-        [self setImageFromFilePath];
-    }
-    else if ([keyPath isEqual:RECTANGLES_KEY])
-    {
-        [rectCountLabel setIntegerValue:[[model getRectangles] count]];
-    }
-    else if ([keyPath isEqual:@""])
-    {
-        
-    
-    }
-    
-}
-
-
 #pragma mark -
 #pragma mark Set View Methods
 
-- (void) setImageFromFilePath
+
+- (void) updateViewDidLoad
 {
-    if (model.filename.length>0) [fileNameLabel setStringValue:model.filename];
-    
-    NSImage *image = [[NSImage alloc] initWithContentsOfURL:model.imagePath];
-    imgView.image = image;
+    [dirPathLbl setStringValue:model.directory];
+    [self console:@"読み込みが完了しました."];
+    [self console:@"あ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\n"];
 }
 
 - (NSAlert *) deleteRectangleAlertView
@@ -216,15 +75,33 @@
     return alert;
 }
 
-- (NSAlert *) progressAlertView
+- (void) showLoadErrorAlert
 {
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setMessageText:@"Loading Error!"];
+    [alert setInformativeText:@"Select a directory."];
+    [alert setAlertStyle:NSWarningAlertStyle];
     
+    if ([alert runModal] == NSAlertFirstButtonReturn) // OKボタン
+    {
+        
+    }
 }
 
+
 #pragma mark -
-#pragma mark Image Processing Methods
+#pragma mark Console Writing Methods
 
-
+- (void) console:(NSString *) output
+{
+    [console string];
+    
+    NSTextStorage *con = [console textStorage];
+    NSString *text = [[console textContainer].textView string];
+    text = [text stringByAppendingFormat:@"%@\n", output];
+    [console setStringValue:text];
+}
 
 
 @end
