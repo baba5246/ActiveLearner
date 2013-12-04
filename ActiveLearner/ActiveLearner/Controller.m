@@ -6,6 +6,8 @@
 @implementation Controller
 {
     Processor *processor;
+    
+    int count;
 }
 
 @synthesize imgView;
@@ -17,6 +19,8 @@
         
         model = [Model sharedManager];
         processor = [Processor sharedManager];
+        
+        count = 0;
         
         // Notification設定
         Notification *n = [Notification sharedManager];
@@ -30,21 +34,17 @@
 
 - (IBAction)onWholeClicked:(id)sender
 {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [processor excuteWhole:TYPE_TRAINING];
+    });
     
 }
 
 - (IBAction)onCCDClicked:(id)sender
 {
-    // show progress
-    [self console:@"\n --- 候補オブジェクト抽出開始 --- \n"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       
-        // make samples
-        [processor makeSamples];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self console:@"特徴量の抽出完了！学習開始！"];
-        });
+        //[processor debugCCD];
         
     });
 }
@@ -77,7 +77,7 @@
 - (void) updateViewDidLoad
 {
     [dirPathLbl setStringValue:model.directory];
-    [self console:@"読み込みが完了しました."];
+    [self console:@"読み込みが完了しました．"];
 }
 
 - (NSAlert *) deleteRectangleAlertView
@@ -118,11 +118,12 @@
 
 - (void) console:(NSString *) output
 {
-    NSString *text = [console string];
-    text = [text stringByAppendingFormat:@"%@\n", output];
-    [console setString:text];
-    
-    [console scrollRangeToVisible: NSMakeRange([console string].length, 0)];
+    NSString *text = [NSString stringWithFormat:@"%@\n", output];
+    [[console textStorage] appendAttributedString:[[NSAttributedString alloc] initWithString:text]];
+
+//    NSRange range = NSMakeRange([[console string] length], 0);
+    [console scrollToBeginningOfDocument:[console string]];
+    [console scrollToEndOfDocument:[console string]];
 }
 
 

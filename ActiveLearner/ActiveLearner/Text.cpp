@@ -9,8 +9,9 @@ Text::Text()
     
 }
 
-Text::Text(Object& obj)
+Text::Text(string name, Object& obj)
 {
+    filename = name;
     add(obj);
 }
 

@@ -10,6 +10,8 @@ class Text
 {
     
 public:
+    
+    string filename;
     vector<Object> objects;
     vector<double> gradients;
     
@@ -19,12 +21,14 @@ public:
     cv::Point centroid;
     Scalar color;
     
+    vector<double> features;
+    
 private:
     
     
 public:
     Text();
-    Text(Object& obj);
+    Text(string name, Object& obj);
     
     void add(Object& obj);
     bool areAllGrouped();

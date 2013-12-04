@@ -16,4 +16,6 @@ public:
     WeakClassifier();
     WeakClassifier(int index);
     int test(Sample& s);
+    int test(Object* o);
+    int test(Text* t);
 };

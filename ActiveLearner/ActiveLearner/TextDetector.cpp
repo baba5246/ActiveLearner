@@ -36,7 +36,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text>& texts)
         Object *obj = objects[i];
         if (obj->grouped) continue;
         
-        Text text = *new Text(*obj);
+        Text text = *new Text(obj->filename, *obj);
         obj->grouped = true;
         
         vector<double> distance;

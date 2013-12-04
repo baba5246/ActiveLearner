@@ -15,5 +15,7 @@ public:
 public:
     StrongClassifier();
     int test(Sample& s);
+    int test(Object* o);
+    int test(Text* t);
     
 };

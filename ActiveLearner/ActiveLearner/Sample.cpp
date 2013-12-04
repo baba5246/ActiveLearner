@@ -7,3 +7,10 @@ Sample::Sample(const Object& obj)
     features = obj.features;
     filename = obj.filename;
 }
+
+Sample::Sample(const Text& t)
+{
+    text = t;
+    features = t.features;
+    filename = t.filename;
+}

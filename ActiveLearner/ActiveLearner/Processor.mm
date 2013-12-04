@@ -7,12 +7,21 @@
 {
     Model *model;
     Notification *n;
-    vector<Sample> samples;
+    
+    NSDictionary *xmldata;
+    
+    BOOL isTraining;
+    AdaBoost *ccvAdaBoost, *cgvAdaBoost;
 }
+
+
+#pragma mark -
+#pragma mark Initialize Methods
 
 static Processor* sharedProcessor = nil;
 
-+ (Processor*)sharedManager {
++ (Processor*)sharedManager
+{
     @synchronized(self) {
         if (sharedProcessor == nil) {
             sharedProcessor = [[self alloc] init];
@@ -28,35 +37,140 @@ static Processor* sharedProcessor = nil;
     n = [Notification sharedManager];
 }
 
-- (void) makeSamples
+
+#pragma mark -
+#pragma mark Excute Methods
+
+- (void) excuteWhole:(BOOL)type
 {
-    // 出力
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- Start Xml Data Loading! ---", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** 全プロセス実行 開始！ ********** \n", OUTPUT, nil];
     
-    // XML data
+    isTraining = type;
+    
+    [self loadXMLData];
+    
+    vector<Object*> ccs = [self excuteCCD];
+    vector<Object*> components = [self excuteCCV:ccs];
+    vector<Text*> cgs = [self excuteCGD:components];
+    vector<Text*> texts = [self excuteCGV:cgs];
+    
+    // TODO: 抽出したTextsを評価
+    // TODO: 抽出したTextsの表示
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
+}
+
+- (void) loadXMLData
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- XMLファイル読み込み開始 ---", OUTPUT, nil];
+    
     XmlMaker *xml = [[XmlMaker alloc] init];
     NSURL *url = [NSURL fileURLWithPath:model.xmlPaths[0]];
     NSString *doc = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
     [xml readXmlAndAddData:doc];
-    NSDictionary *xmldata = [model getXMLData];
+    xmldata = [model getXMLData];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+}
+
+- (vector<Object*>) excuteCCD
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
     
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- Start Feature Detection! --- \n", OUTPUT, nil];
+    vector<Object*> ccs;
     
     for (NSString *path in model.imagePaths)
     {
-        long count = samples.size();
+        long count = ccs.size();
         
         // 特徴量抽出
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
-        cout << "Filepath:" << filepath << endl;
         
         vector<Object*> objects;
         ObjectDetector detector(filepath);
         detector.detect(objects);
         
-        // filename
+        ccs.insert(ccs.end(), objects.begin(), objects.end());
+
+        NSString *output = [NSString stringWithFormat:@"---- Filename:%@, Samples:%ld", path, ccs.size()-count];
+        [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
+    }
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    return ccs;
+}
+
+- (vector<Object*>) excuteCCV:(vector<Object*>) ccs
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- オブジェクト分類開始 --- \n", OUTPUT, nil];
+    
+    vector<Object *> components;
+    
+    if (isTraining)
+    {
+        vector<Sample> samples = [self makeCCSamples:ccs];
+        AdaBoost adaboost = [self learnFeaturesWithAdaBoost:samples];
+        ccvAdaBoost = &adaboost;
+        components = [self ccClassify:ccs adaboost:adaboost];
+    }
+    else
+    {
+        components = [self ccClassify:ccs adaboost:*(ccvAdaBoost)];
+    }
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    return  components;
+}
+
+- (vector<Text*>) excuteCGD:(vector<Object*>) components
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
+    
+    vector<Text*> cgs;
+    
+    
+    // TODO: Grouping実装
+    
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    return cgs;
+}
+
+- (vector<Text*>) excuteCGV:(vector<Text*>) cgs
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- グループ分類開始 --- \n", OUTPUT, nil];
+    
+    vector<Text *> texts;
+    
+    if (isTraining)
+    {
+        vector<Sample> samples = [self makeCGSamples:cgs];
+        AdaBoost adaboost = [self learnFeaturesWithAdaBoost:samples];
+        cgvAdaBoost = &adaboost;
+        texts = [self cgClassify:cgs adaboost:adaboost];
+    }
+    else
+    {
+        texts = [self cgClassify:cgs adaboost:*(cgvAdaBoost)];
+    }
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    return texts;
+}
+
+
+#pragma mark -
+#pragma mark Assistant Methods
+
+- (vector<Sample>) makeCCSamples:(vector<Object*>) objects
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
+    
+    vector<Sample> samples;
+    
+    for (NSString *path in model.imagePaths)
+    {
+        // filename 抽出
         NSArray *comp = [path componentsSeparatedByString:@"/"];
         NSString *nsfilename = comp[comp.count-1];
         string filename = [nsfilename cStringUsingEncoding:NSUTF8StringEncoding];
@@ -84,20 +198,57 @@ static Processor* sharedProcessor = nil;
             
             samples.push_back(s);
         }
-
-        NSString *output = [NSString stringWithFormat:@"---- Filename:%s, Samples:%ld", filename.c_str(), samples.size()-count];
-        [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
-
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    return samples;
 }
 
-- (void) learnFeaturesWithAdaBoost
+- (vector<Sample>) makeCGSamples:(vector<Text*>) groups
 {
-    // 出力
-    cout<< " " <<endl;
-    cout<< "---- Start AdaBoost Learning! ----" <<endl;
-    cout<< " " <<endl;
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
     
+    vector<Sample> samples;
+    
+    for (NSString *path in model.imagePaths)
+    {
+        // filename 抽出
+        NSArray *comp = [path componentsSeparatedByString:@"/"];
+        NSString *nsfilename = comp[comp.count-1];
+        string filename = [nsfilename cStringUsingEncoding:NSUTF8StringEncoding];
+        
+        // サンプル作成
+        for (int i = 0; i < groups.size(); i++)
+        {
+            Text *text = groups[i];
+            Sample s(*text);
+            
+            cv::Rect obj_rect = s.object.rect;
+            NSRect rect = NSMakeRect(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
+            
+            bool findFlag = NO;
+            NSArray *truths = xmldata[nsfilename];
+            for (Truth *t in truths) {
+                if (NSContainsRect(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
+                    findFlag = YES;
+                    break;
+                }
+            }
+            // objのlabel付け
+            if (findFlag) s.label = 1;
+            else s.label = 0;
+            
+            samples.push_back(s);
+        }
+    }
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    return samples;
+}
+
+- (AdaBoost) learnFeaturesWithAdaBoost:(vector<Sample>) samples
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- AdaBoost学習開始 --- \n", OUTPUT, nil];
     
     // ラベルデータと非ラベルデータ
     vector<Sample>::const_iterator first = samples.begin();
@@ -120,14 +271,55 @@ static Processor* sharedProcessor = nil;
         cout << "t:" << t << ", wc index:" << selected.featureIndex << ", alpha:" << selected.alpha << endl;
     }
 
-    int correct = 0;
-    for (int i = 0; i < labeled.size(); i++) {
-        Sample s = labeled[i];
+    return adaboost;
+}
+
+- (vector<Object*>) ccClassify:(vector<Object*>) ccs adaboost:(AdaBoost) adaboost
+{
+    vector<Object*> components;
+    
+    for (int i = 0; i < ccs.size(); i++)
+    {
+        Object *s = ccs[i];
         int test = adaboost.sc.test(s);
-        if (test == s.label) correct++;
+        
+        if (test == 1) {
+            components.push_back(s);
+        }
+        
+        // TODO: ここでの精度はかる
     }
-    double precision = (double)correct / labeled.size();
-    cout << "Correct:" << correct << "/" << labeled.size() << ", Precision:" << precision << endl;
+    
+    return components;
+}
+
+- (vector<Text*>) cgClassify:(vector<Text *>) cgs adaboost:(AdaBoost) adaboost
+{
+    vector<Text*> texts;
+    
+    for (int i = 0; i < cgs.size(); i++)
+    {
+        Text *t = cgs[i];
+        int test = adaboost.sc.test(t);
+        
+        if (test == 1) {
+            texts.push_back(t);
+        }
+        
+        // TODO: ここでの精度はかる
+    }
+    
+    return texts;
+}
+
+
+
+#pragma mark -
+#pragma mark Evaluate Methods
+
+- (void) evaluateTexts:(vector<Text *>)texts
+{
+    
 }
 
 
