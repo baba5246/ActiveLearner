@@ -10,6 +10,11 @@ AdaBoost::AdaBoost(vector<Sample>& samples, vector<WeakClassifier>& classifiers)
     
     weights = vector<double>(train.size(), 1);
     initializeWeight();
+    
+    // Training
+    for (int c = 0; c < wcs.size(); c++) {
+        wcs[c].train(samples);
+    }
 }
 
 AdaBoostResult AdaBoost::next()

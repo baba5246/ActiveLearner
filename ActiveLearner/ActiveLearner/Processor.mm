@@ -60,19 +60,6 @@ static Processor* sharedProcessor = nil;
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
 }
 
-- (void) loadXMLData
-{
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- XMLファイル読み込み開始 ---", OUTPUT, nil];
-    
-    XmlMaker *xml = [[XmlMaker alloc] init];
-    NSURL *url = [NSURL fileURLWithPath:model.xmlPaths[0]];
-    NSString *doc = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    [xml readXmlAndAddData:doc];
-    xmldata = [model getXMLData];
-    
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
-}
-
 - (vector<Object*>) excuteCCD
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
@@ -162,6 +149,19 @@ static Processor* sharedProcessor = nil;
 #pragma mark -
 #pragma mark Assistant Methods
 
+- (void) loadXMLData
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- XMLファイル読み込み開始 ---", OUTPUT, nil];
+    
+    XmlMaker *xml = [[XmlMaker alloc] init];
+    NSURL *url = [NSURL fileURLWithPath:model.xmlPaths[0]];
+    NSString *doc = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    [xml readXmlAndAddData:doc];
+    xmldata = [model getXMLData];
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+}
+
 - (vector<Sample>) makeCCSamples:(vector<Object*>) objects
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
@@ -178,6 +178,9 @@ static Processor* sharedProcessor = nil;
         // サンプル作成
         for (int i = 0; i < objects.size(); i++)
         {
+            if (objects[i]->filename.compare(filename) != 0)
+                continue;
+            
             Object *obj = objects[i];
             Sample s(*obj);
             

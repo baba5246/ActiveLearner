@@ -118,12 +118,12 @@
 
 - (void) console:(NSString *) output
 {
-    NSString *text = [NSString stringWithFormat:@"%@\n", output];
-    [[console textStorage] appendAttributedString:[[NSAttributedString alloc] initWithString:text]];
-
-//    NSRange range = NSMakeRange([[console string] length], 0);
-    [console scrollToBeginningOfDocument:[console string]];
-    [console scrollToEndOfDocument:[console string]];
+//    NSString *text = [NSString stringWithFormat:@"%@\n", output];
+//    [[console textStorage] appendAttributedString:[[NSAttributedString alloc] initWithString:text]];
+//
+////    NSRange range = NSMakeRange([[console string] length], 0);
+//    [console scrollToBeginningOfDocument:[console string]];
+//    [console scrollToEndOfDocument:[console string]];
 }
 
 
