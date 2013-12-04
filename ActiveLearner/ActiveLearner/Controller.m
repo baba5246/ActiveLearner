@@ -22,18 +22,23 @@
         Notification *n = [Notification sharedManager];
         [n.nc addObserver:self selector:@selector(updateViewDidLoad) name:DID_LOAD_DIRECTORY object:nil];
         [n.nc addObserver:self selector:@selector(showLoadErrorAlert) name:ERROR_LOAD_DIRECTORY object:nil];
+        [n.nc addObserver:self selector:@selector(consoleMethod:) name:CONSOLE_OUTPUT object:nil];
         
     }
     return self;
 }
 
-- (IBAction)startLearning:(id)sender
+- (IBAction)onWholeClicked:(id)sender
+{
+    
+}
+
+- (IBAction)onCCDClicked:(id)sender
 {
     // show progress
-    [self console:@"特徴量の抽出中... "];
-    
+    [self console:@"\n --- 候補オブジェクト抽出開始 --- \n"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
+      
         // make samples
         [processor makeSamples];
         
@@ -41,16 +46,29 @@
             [self console:@"特徴量の抽出完了！学習開始！"];
         });
         
-        // AdaBoost Learning
-        [processor learnFeaturesWithAdaBoost];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self console:@"学習終了！"];
-        });
     });
-    
+}
+
+- (IBAction)onCCVClicked:(id)sender
+{
     
 }
+
+- (IBAction)onCGDClicked:(id)sender
+{
+    
+}
+
+- (IBAction)onCGVClicked:(id)sender
+{
+    
+}
+
+- (IBAction)onTestingClicked:(id)sender
+{
+    
+}
+
 
 #pragma mark -
 #pragma mark Set View Methods
@@ -60,7 +78,6 @@
 {
     [dirPathLbl setStringValue:model.directory];
     [self console:@"読み込みが完了しました."];
-    [self console:@"あ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\nあ\n"];
 }
 
 - (NSAlert *) deleteRectangleAlertView
@@ -93,14 +110,19 @@
 #pragma mark -
 #pragma mark Console Writing Methods
 
+- (void) consoleMethod:(NSNotification *) n
+{
+    NSString *output = [n userInfo][@"output"];
+    [self console:output];
+}
+
 - (void) console:(NSString *) output
 {
-    [console string];
-    
-    NSTextStorage *con = [console textStorage];
-    NSString *text = [[console textContainer].textView string];
+    NSString *text = [console string];
     text = [text stringByAppendingFormat:@"%@\n", output];
-    [console setStringValue:text];
+    [console setString:text];
+    
+    [console scrollRangeToVisible: NSMakeRange([console string].length, 0)];
 }
 
 

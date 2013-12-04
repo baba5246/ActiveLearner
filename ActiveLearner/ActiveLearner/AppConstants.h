@@ -9,3 +9,5 @@
 
 #define DID_LOAD_DIRECTORY      @"did-load-directory"
 #define ERROR_LOAD_DIRECTORY    @"error-load-directory"
+#define CONSOLE_OUTPUT          @"console-output"
+#define OUTPUT                  @"output"

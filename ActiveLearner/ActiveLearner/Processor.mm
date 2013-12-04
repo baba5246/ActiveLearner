@@ -6,6 +6,7 @@
 @implementation Processor
 {
     Model *model;
+    Notification *n;
     vector<Sample> samples;
 }
 
@@ -24,14 +25,13 @@ static Processor* sharedProcessor = nil;
 - (void) prepare
 {
     model = [Model sharedManager];
+    n = [Notification sharedManager];
 }
 
 - (void) makeSamples
 {
     // 出力
-    cout<< " " <<endl;
-    cout<< "---- Start Xml Data Loading! ----" <<endl;
-    cout<< " " <<endl;
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- Start Xml Data Loading! ---", OUTPUT, nil];
     
     // XML data
     XmlMaker *xml = [[XmlMaker alloc] init];
@@ -40,11 +40,9 @@ static Processor* sharedProcessor = nil;
     [xml readXmlAndAddData:doc];
     NSDictionary *xmldata = [model getXMLData];
     
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     
-    // 出力
-    cout<< " " <<endl;
-    cout<< "---- Start Feature Detection! ----" <<endl;
-    cout<< " " <<endl;
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- Start Feature Detection! --- \n", OUTPUT, nil];
     
     for (NSString *path in model.imagePaths)
     {
@@ -52,6 +50,7 @@ static Processor* sharedProcessor = nil;
         
         // 特徴量抽出
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
+        cout << "Filepath:" << filepath << endl;
         
         vector<Object*> objects;
         ObjectDetector detector(filepath);
@@ -85,8 +84,9 @@ static Processor* sharedProcessor = nil;
             
             samples.push_back(s);
         }
-        
-        cout<< "---- Filename:" << filename << ", Samples:" << samples.size()-count << " ----" <<endl;
+
+        NSString *output = [NSString stringWithFormat:@"---- Filename:%s, Samples:%ld", filename.c_str(), samples.size()-count];
+        [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
 
 }
