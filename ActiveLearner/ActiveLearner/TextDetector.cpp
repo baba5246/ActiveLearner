@@ -23,7 +23,7 @@ TextDetector::~TextDetector()
 #pragma mark -
 #pragma mark Interface Methods
 
-void TextDetector::detect(vector<Object*>& objects, vector<Text>& texts)
+void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
 {
     // Sort
     sort(objects.begin(), objects.end(), Object::leftToRight);
@@ -31,35 +31,58 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text>& texts)
     // Grouping アルゴリズム
     for (int i = 0; i < objects.size(); i++)
     {
-        if (objects[i]->Echar < 0.70f) continue;
+        // Echarが低すぎるやつは排除
+        if (objects[i]->Echar < 0.50f) continue;
         
-        Object *obj = objects[i];
-        if (obj->grouped) continue;
+        Object *init = objects[i];
         
-        Text text = *new Text(obj->filename, *obj);
-        obj->grouped = true;
+        // Find neighbors
+        vector<Object*> neighbors = findInitNeighbors(init);
         
-        vector<double> distance;
-        
-        recursive_count = 0;
-        groupingObjects(text, *obj, distance, objects);
-        
-//        if (text.aspectRatio >= 0.8 && text.aspectRatio <= 1.2)
-//        {
-//            distance.clear();
-//            distance.push_back(MIN(text.width, text.height));
-//            groupingObjects(text, *obj, distance, objects);
-//        }
-        
-        texts.push_back(text);
-        
-        //Draw::drawTexts(srcImage, texts);
+        // For all neighbors
+        for (int j = 0; j < neighbors.size(); j++) {
+            
+            // Create groups
+            Text *text = new Text(init->filename, init);
+            text->add(neighbors[j]);
+            
+            // Grouping
+            groupingObjects(text, objects);
+            
+            // Add as a candidate
+            texts.push_back(text);
+        }
     }
 }
 
 
 #pragma mark -
 #pragma mark Grouping Objects Methods
+
+
+vector<Object*> TextDetector::findInitNeighbors(Object* init)
+{
+    vector<Object*> neighbors;
+    
+    
+    
+    return neighbors;
+}
+
+vector<double> TextDetector::distanceObjects(vector<Object*> objects)
+{
+    vector<double> distance;
+    
+    
+    
+    return distance;
+}
+
+void TextDetector::groupingObjects(Text*& text, vector<Object*>objects)
+{
+    
+}
+
 
 void TextDetector::groupingObjects(Text& text, Object& obj, vector<double>& distance, vector<Object*>& objects)
 {
@@ -124,13 +147,13 @@ void TextDetector::adding(Text& text, vector<Object*>& neighbors, vector<double>
         Object* n = neighbors[i];
         if (n->grouped) continue;
         
-        if (n->isPositive == text.objects[0].isPositive &&
+        if (n->isPositive == text.objects[0]->isPositive &&
             !isLeftContained(n->rect, text.rect) &&
             isSimilarGradient(text, *n)) //&& isSimilarStrokeWidth(text, *n))
         {
-            text.add(*n);
-            distance.push_back(distanceBetweenObjects(text.objects[text.objects.size()-1], *n));
-            n->grouped = true;
+//            text.add(n);
+//            distance.push_back(distanceBetweenObjects(text.objects[text.objects.size()-1], *n));
+//            n->grouped = true;
         }
         else
         {
@@ -270,7 +293,7 @@ bool TextDetector::isSimilarGradient(Text& text, Object& obj)
 {
     if (text.gradients.size() == 0) return true;
     
-    cv::Point diff = obj.centroid - text.objects[text.objects.size()-1].centroid;
+    cv::Point diff = obj.centroid - text.objects[text.objects.size()-1]->centroid;
     double theta = atan2(-diff.y, diff.x);
     double diff_t = fabs(text.gradient - theta);
     if (diff_t > M_PI) diff_t = 2*M_PI - diff_t;

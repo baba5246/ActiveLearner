@@ -12,7 +12,8 @@ class Text
 public:
     
     string filename;
-    vector<Object> objects;
+    vector<Object*> objects;
+    vector<double> distances;
     vector<double> gradients;
     
     int width = 0, height = 0;
@@ -28,14 +29,15 @@ private:
     
 public:
     Text();
-    Text(string name, Object& obj);
+    Text(string name, Object* obj);
     
-    void add(Object& obj);
+    void add(Object* obj);
     bool areAllGrouped();
     
 private:
     void computeProperties();
     void computeColor();
-    void computeGradient(Object& obj);
+    void computeDistances();
+    void computeGradient(Object* obj);
     
 };

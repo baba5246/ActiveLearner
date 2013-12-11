@@ -25,9 +25,14 @@ public:
     ~TextDetector();
     
     // Grouping Methods
-    void detect(vector<Object*>& objects, vector<Text>& texts);
+    void detect(vector<Object*>& objects, vector<Text*>& texts);
     
 private:
+    
+    vector<Object*> findInitNeighbors(Object* init);
+    vector<double> distanceObjects(vector<Object*> objects);
+    void groupingObjects(Text*& text, vector<Object*> objects);
+    
     
     void groupingObjects(Text& text, Object& obj, vector<double>& distance, vector<Object*>& objects);
     void findNeighbors(vector<Object*>& neighbors, Object& obj, vector<double>& distance, vector<Object*>& objects);

@@ -8,7 +8,7 @@ WeakClassifier::WeakClassifier()
 
 WeakClassifier::WeakClassifier(int index)
 {
-    featureIndex = index;
+    this->featureIndex = index;
 }
 
 void WeakClassifier::train(vector<Sample> samples)
