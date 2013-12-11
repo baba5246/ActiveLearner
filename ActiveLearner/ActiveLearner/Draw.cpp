@@ -198,7 +198,7 @@ void Draw::drawSurroundings(const Mat& src, const vector<Object*>& objects)
     drawImage(dst);
 }
 
-void Draw::drawTexts(const Mat& src, const vector<Text>& texts)
+void Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
 {
     Mat dst = Mat(src);
     
@@ -208,10 +208,10 @@ void Draw::drawTexts(const Mat& src, const vector<Text>& texts)
         color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
                        (double)rand() / RAND_MAX * BRIGHTNESS,
                        (double)rand() / RAND_MAX * BRIGHTNESS);
-        rectangle(dst, texts[i].rect, color, 3);
+        rectangle(dst, texts[i]->rect, color, 3);
         
-        for (int j = 0; j < texts[i].objects.size(); j++) {
-            rectangle(dst, texts[i].objects[j].rect, color);
+        for (int j = 0; j < texts[i]->objects.size(); j++) {
+            rectangle(dst, texts[i]->objects[j]->rect, color);
         }
     }
     

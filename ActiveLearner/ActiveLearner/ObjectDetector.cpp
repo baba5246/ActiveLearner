@@ -90,11 +90,11 @@ void ObjectDetector::detect(vector<Object*>& objects)
 //    Draw::drawEchars(srcImage, objects); // Echar描画
     
     
-//    vector<Text> texts;
-//    TextDetector detector(srcImage);
-//    detector.detect(objects, texts);
-//    
-//    Draw::drawTexts(srcImage, texts);
+    vector<Text*> texts;
+    TextDetector detector(srcImage);
+    detector.detect(objects, texts);
+    
+    Draw::drawTexts(srcImage, texts);
     
 }
 
