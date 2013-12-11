@@ -5,7 +5,11 @@
 #include "Object.h"
 #include "Text.h"
 #include "Draw.h"
+#include "Distancer.h"
 
+
+#define LOW_GRADIENT_THRESHOLD  M_PI_5
+#define HIGH_GRADIENT_THRESHOLD  M_PI_4_5
 
 using namespace std;
 using namespace cv;
@@ -29,25 +33,10 @@ public:
     
 private:
     
-    vector<Object*> findInitNeighbors(Object* init);
+    vector<Object*> findInitNeighbors(Object* init, vector<Object*> objects);
     vector<double> distanceObjects(vector<Object*> objects);
     void groupingObjects(Text*& text, vector<Object*> objects);
+    void addNeighbors(Text* text, vector<Object*> objects);
     
-    
-    void groupingObjects(Text& text, Object& obj, vector<double>& distance, vector<Object*>& objects);
-    void findNeighbors(vector<Object*>& neighbors, Object& obj, vector<double>& distance, vector<Object*>& objects);
-    void adding(Text& text, vector<Object*>& neighbors, vector<double>& distance);
-    bool isSimilar(Scalar c1, Scalar c2);
-    
-    double distanceWithNearestNeighbor(Object& base, Object*& nearest, vector<Object*>& objects);
-    double distanceBetweenObjects(const Object& obj1, const Object& obj2);
-    double distanceOfObjects(const Object& obj1, const Object& obj2);
-    double distanceOfPoints(const cv::Point& p1, const cv::Point& p2);
-    int patternOfRadian(const double radian);
-    void pointApartFromCentroid(cv::Point& rep, const cv::Point& centroid, const cv::Point& p1, const cv::Point& p2, const double a);
-    void findRepresentativePoint(cv::Point& rep, const Object& obj, const double a, const int pattern);
-    
-    bool isLeftContained(cv::Rect s, cv::Rect l);
-    bool isSimilarGradient(Text& text, Object& obj);
-    cv::Rect* intersect(const cv::Rect& rect1, const cv::Rect& rect2);
+    double computeGradient(Object* obj1, Object* obj2);
 };

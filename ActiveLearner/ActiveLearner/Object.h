@@ -51,7 +51,7 @@ public:
     vector<Scalar> colors;
     Scalar color;
     
-    bool grouped = false;
+    bool didFocused = false;
     vector<Object> neighbors;
     double neighborDistance = INFINITY;
     

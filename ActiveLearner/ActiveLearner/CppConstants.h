@@ -10,6 +10,9 @@
 #define M_PI_3_8    M_PI*0.375
 #define M_PI_1_8    M_PI*0.125
 
+#define M_PI_5      M_PI*0.20
+#define M_PI_4_5    M_PI*0.80
+
 #define FEATURES    10
 
 

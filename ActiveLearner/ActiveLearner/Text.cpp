@@ -12,27 +12,39 @@ Text::Text()
 Text::Text(string name, Object* obj)
 {
     filename = name;
-    add(obj);
+    add(obj, 0);
 }
 
 
 #pragma mark -
 #pragma mark Public Methods
 
-void Text::add(Object* obj)
+void Text::add(Object* obj, double distance)
 {
     objects.push_back(obj);
+    distances.push_back(distance);
+    originIndexes.push_back(focusedIndex);
     computeGradient(obj);
     computeProperties();
+    computeAverageDistance();
 }
 
-bool Text::areAllGrouped()
+bool Text::areAllFocused()
 {
     for (int i = 0; i < objects.size(); i++) {
-        if (!objects[i]->grouped) return false;
+        if (!objects[i]->didFocused) return false;
     }
     
     return true;
+}
+
+bool Text::contains(Object *obj)
+{
+    for (int i = 0; i < objects.size(); i++) {
+        if (obj->ID == objects[i]->ID) return true;
+    }
+    
+    return false;
 }
 
 
@@ -54,7 +66,6 @@ void Text::computeProperties()
     rect = cv::Rect(minx, miny, width, height);
     aspectRatio = (double) width / height;
     computeColor();
-    computeDistances();
 }
 
 void Text::computeColor()
@@ -78,9 +89,15 @@ void Text::computeColor()
     color = Scalar(r, g, b);
 }
 
-void Text::computeDistances()
+void Text::computeAverageDistance()
 {
+    averaveDistance = 0;
+    if (distances.size() == 0) return;
     
+    for (int i = 0; i < distances.size(); i++) {
+        averaveDistance += distances[i];
+    }
+    averaveDistance /= distances.size();
 }
 
 void Text::computeGradient(Object* obj)

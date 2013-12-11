@@ -39,6 +39,7 @@
 		FE46B395182A362C0070725A /* Mycv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE46B393182A362C0070725A /* Mycv.cpp */; };
 		FE46B398182A36B00070725A /* Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE46B396182A36B00070725A /* Draw.cpp */; };
 		FEB4BFFA184E7244004CD5B5 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB4BFF9184E7244004CD5B5 /* Notification.m */; };
+		FEB4BFFD1858D558004CD5B5 /* Distancer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */; };
 		FEBDFFD41834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBDFFD21834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib */; };
 		FEBDFFD51834F3D90037BC64 /* libopencv_nonfree.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBDFFD31834F3D90037BC64 /* libopencv_nonfree.2.4.5.dylib */; };
 /* End PBXBuildFile section */
@@ -107,6 +108,8 @@
 		FE46B397182A36B00070725A /* Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draw.h; sourceTree = "<group>"; };
 		FEB4BFF8184E7244004CD5B5 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
 		FEB4BFF9184E7244004CD5B5 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
+		FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Distancer.cpp; sourceTree = "<group>"; };
+		FEB4BFFC1858D558004CD5B5 /* Distancer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Distancer.h; sourceTree = "<group>"; };
 		FEBDFFD21834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_features2d.2.4.5.dylib; sourceTree = "<group>"; };
 		FEBDFFD31834F3D90037BC64 /* libopencv_nonfree.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_nonfree.2.4.5.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -288,6 +291,8 @@
 				87259FEE1837C9CC00DBEEF3 /* ObjectDetector.cpp */,
 				87259FF21837D1EB00DBEEF3 /* TextDetector.h */,
 				87259FF11837D1EA00DBEEF3 /* TextDetector.cpp */,
+				FEB4BFFC1858D558004CD5B5 /* Distancer.h */,
+				FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */,
 				FE46B397182A36B00070725A /* Draw.h */,
 				FE46B396182A36B00070725A /* Draw.cpp */,
 				8778A7BB18321CBF00824EE6 /* Components */,
@@ -384,6 +389,7 @@
 				87259FF01837C9CD00DBEEF3 /* ObjectDetector.cpp in Sources */,
 				87259FF31837D1EB00DBEEF3 /* TextDetector.cpp in Sources */,
 				FEB4BFFA184E7244004CD5B5 /* Notification.m in Sources */,
+				FEB4BFFD1858D558004CD5B5 /* Distancer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
