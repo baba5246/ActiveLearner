@@ -47,8 +47,9 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
             text->focusedIndex = 0;
             
             // Find surroundings
-            text->add(neighbors[j], Distancer::distanceOfObjects(*init, *neighbors[j]));
-            text->gradients.push_back(computeGradient(init, neighbors[i]));
+            text->add(neighbors[j], Distancer::distanceOfCentroids(init->centroid, neighbors[j]->centroid));
+            double gradient = computeGradient(*init, *neighbors[j]);
+            text->gradients.push_back(gradient);
             text->focusedIndex = 1;
             
             // Grouping
@@ -140,8 +141,8 @@ void TextDetector::addNeighbors(Text* text, vector<Object*> objects)
 }
 
 
-double TextDetector::computeGradient(Object* obj1, Object* obj2)
+double TextDetector::computeGradient(Object obj1, Object obj2)
 {
-    cv::Point diff = obj1->centroid - obj2->centroid;
+    cv::Point diff = obj1.centroid - obj2.centroid;
     return atan2(-diff.y, diff.x);
 }

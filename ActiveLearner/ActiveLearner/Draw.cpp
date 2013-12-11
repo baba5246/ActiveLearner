@@ -8,7 +8,7 @@ void Draw::drawImage(const Mat& src)
     } else {
         namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
         imshow( "Display window", src);
-        waitKey(3000);
+        waitKey(10000);
         destroyWindow("Display window");
     }
 }

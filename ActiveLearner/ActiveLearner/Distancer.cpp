@@ -49,10 +49,6 @@ double Distancer::distanceOfObjects(const Object& obj1, const Object& obj2)
     
     double d = distanceOfPoints(rep1, rep2);
     
-    cout << "Obj1:{c:" << obj1.centroid << ", (" << obj1.width << ", " << obj1.height << ")}" << ", Rep1:" << rep1 << endl;
-    cout << "Obj2:{c:" << obj2.centroid << ", (" << obj2.width << ", " << obj2.height << ")}" << ", Rep2:" << rep2 << endl;
-    cout << "Distance:" << d << endl;
-    
     return d;
 }
 
