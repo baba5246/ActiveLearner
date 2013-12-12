@@ -50,10 +50,10 @@ static Processor* sharedProcessor = nil;
     [self loadXMLData];
     
     vector<Object*> ccs = [self excuteCCD];
-    vector<Object*> components = [self excuteCCV:ccs];
+//    vector<Object*> components = [self excuteCCV:ccs];
     
+    vector<Text*> cgs = [self excuteCGD:ccs];
     
-//    vector<Text*> cgs = [self excuteCGD:ccs];
 //    vector<Text*> texts = [self excuteCGV:cgs];
     
     // TODO: 抽出したTextsを評価

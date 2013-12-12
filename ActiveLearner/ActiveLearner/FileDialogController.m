@@ -24,15 +24,14 @@
         
         NSURL * dirPath = [openPanel URL];
         
+        NSArray *files;
         NSMutableArray *imagePaths = [[NSMutableArray alloc] init];
         NSMutableArray *xmlPaths = [[NSMutableArray alloc] init];
         
-        if ([self isDirectory:dirPath]) {
-        
-            [model setDirectory:dirPath.path];
-        
+        if ([self isDirectory:dirPath])
+        {
             NSFileManager *manager = [NSFileManager defaultManager];
-            NSArray *files = [manager contentsOfDirectoryAtPath:dirPath.path error:nil];
+            files = [manager contentsOfDirectoryAtPath:dirPath.path error:nil];
         
             NSString *fullPath;
             for (NSString *path in files)
@@ -48,8 +47,31 @@
                     [xmlPaths addObject:fullPath];
                 }
             }
-
+            
+            [model setDirectory:dirPath.path];
             [model setFiles:files];
+            [model setImagePaths:imagePaths];
+            [model setXmlPaths:xmlPaths];
+            
+            // 通知
+            [n sendNotification:DID_LOAD_DIRECTORY];
+        }
+        else if ([self isImage:dirPath.path])
+        {
+            [imagePaths addObject:dirPath.path];
+            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            NSString *directory = dirPath.path.stringByDeletingLastPathComponent;
+            files = [manager contentsOfDirectoryAtPath:directory error:nil];
+            NSString *fullPath;
+            for (NSString *path in files) {
+                if ([self isXMLDocument:path]) {
+                    fullPath = [directory stringByAppendingFormat:@"/%@", path];
+                    [xmlPaths addObject:fullPath];
+                }
+            }
+            
+            [model setDirectory:dirPath.path];
             [model setImagePaths:imagePaths];
             [model setXmlPaths:xmlPaths];
             
