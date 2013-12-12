@@ -20,6 +20,7 @@ public:
     static void drawEchars(const Mat& src, const vector<Object*>& objects);
     static void drawGradientLine(const Mat& src, const vector<Object*>& objects, double a, double b);
     static void drawSurroundings(const Mat& src, const vector<Object*>& objects);
+    static void drawText(const Mat& src, Text*& text);
     static void drawTexts(const Mat& src, const vector<Text*>& texts);
     
 private:

@@ -18,7 +18,7 @@ public:
     vector<int> originIndexes;
     
     int width = 0, height = 0;
-    double aspectRatio = 0, gradient = 0;
+    double aspectRatio = 0, gradient = 0, objectAreaRatio = 0;
     cv::Rect rect;
     cv::Point centroid;
     Scalar color;

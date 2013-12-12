@@ -57,6 +57,8 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
             
             // Add as a candidate
             texts.push_back(text);
+            
+            //Draw::drawTexts(srcImage, texts);
         }
     }
 }
@@ -69,17 +71,36 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
 vector<Object*> TextDetector::findInitNeighbors(Object* init, vector<Object*> objects)
 {
     vector<Object*> neighbors;
-    double temp_dist = 0;
-    double threshold = init->longLength*2;
+    double temp_dist = 0, gradient = 0;
+    double threshold = init->longLength;
+    cv::Point vec1, vec2;
+    bool exist = 0;
     
     for (int i = 0; i < objects.size(); i++)
     {
+        // ID等しくないなら
         if (init->ID != objects[i]->ID)
         {
-            temp_dist = Distancer::distanceOfCentroids(init->centroid, objects[i]->centroid);
+            temp_dist = Distancer::distanceOfObjects(*init, *objects[i]);
+            //distanceOfCentroids(init->centroid, objects[i]->centroid);
             
+            // 閾値以下なら
             if (temp_dist < threshold) {
-                neighbors.push_back(objects[i]);
+                
+                // 既に見つけたものと同じ方向かどうか判定
+                exist = false;
+                vec1 = objects[i]->centroid - init->centroid;
+                for (int n = 0; n < neighbors.size(); n++) {
+                    vec2 = neighbors[n]->centroid - init->centroid;
+                    gradient = acos(vec1.ddot(vec2) / (pointSize(vec1) * pointSize(vec2)));
+                    if (fabs(gradient) < M_PI_1_8) {
+                        exist = true;
+                        break;
+                    }
+                }
+                
+                if (!exist) neighbors.push_back(objects[i]);
+                else continue;
             }
         }
     }
@@ -114,10 +135,10 @@ void TextDetector::addNeighbors(Text* text, vector<Object*> objects)
         if (text->contains(objects[i])) continue;
         
         // 閾値計算
-        threshold = text->averaveDistance*2;
+        threshold = text->averaveDistance*1.5;
         
         // 距離計算
-        distance = Distancer::distanceOfCentroids(focus->centroid, objects[i]->centroid);
+        distance = Distancer::distanceOfObjects(*focus, *objects[i]);//distanceOfCentroids(focus->centroid, objects[i]->centroid);
         
         // 閾値内判定
         if (distance < threshold) {
@@ -125,16 +146,17 @@ void TextDetector::addNeighbors(Text* text, vector<Object*> objects)
             // ベクトル勾配計算
             newVector = objects[i]->centroid - focus->centroid;
             oldVector = text->objects[text->originIndexes[text->focusedIndex]]->centroid - focus->centroid;
-            diff = newVector - oldVector;
-            gradient = fabs(atan2(-diff.y, diff.x));
+            gradient = acos(newVector.ddot(oldVector) / (pointSize(newVector)*pointSize(oldVector)));
             
             // 条件判定
             if (gradient < LOW_GRADIENT_THRESHOLD ||
                 gradient > HIGH_GRADIENT_THRESHOLD)
             {
                 // 追加
+                cout << threshold << endl;
                 text->add(objects[i], distance);
                 text->gradients.push_back(gradient);
+                //Draw::drawText(srcImage, text);
             }
         }
     }
@@ -145,4 +167,9 @@ double TextDetector::computeGradient(Object obj1, Object obj2)
 {
     cv::Point diff = obj1.centroid - obj2.centroid;
     return atan2(-diff.y, diff.x);
+}
+
+double TextDetector::pointSize(cv::Point p)
+{
+    return sqrt(p.x*p.x+p.y*p.y);
 }

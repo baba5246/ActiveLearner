@@ -8,8 +8,8 @@
 #include "Distancer.h"
 
 
-#define LOW_GRADIENT_THRESHOLD  M_PI_5
-#define HIGH_GRADIENT_THRESHOLD  M_PI_4_5
+#define LOW_GRADIENT_THRESHOLD  M_PI_6
+#define HIGH_GRADIENT_THRESHOLD  M_PI_5_6
 
 using namespace std;
 using namespace cv;
@@ -39,4 +39,5 @@ private:
     void addNeighbors(Text* text, vector<Object*> objects);
     
     double computeGradient(Object obj1, Object obj2);
+    double pointSize(cv::Point p);
 };

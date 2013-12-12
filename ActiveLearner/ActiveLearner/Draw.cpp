@@ -8,7 +8,7 @@ void Draw::drawImage(const Mat& src)
     } else {
         namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
         imshow( "Display window", src);
-        waitKey(10000);
+        waitKey(4000);
         destroyWindow("Display window");
     }
 }
@@ -20,7 +20,7 @@ void Draw::draw(const Mat& src)
 
 void Draw::drawContours(const Mat& src, const vector<vector<Point> >& contours, const vector<cv::Vec4i>& hierarchy)
 {
-    srand((unsigned int)time(NULL));
+    //srand((unsigned int)time(NULL));
     
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     int idx = 0;
@@ -198,11 +198,33 @@ void Draw::drawSurroundings(const Mat& src, const vector<Object*>& objects)
     drawImage(dst);
 }
 
+void Draw::drawText(const cv::Mat &src, Text *&text)
+{
+    Mat dst = src.clone();
+    
+    srand((unsigned int)1);
+    Scalar red = CV_RGB(BRIGHTNESS,0,0);
+    Scalar blue = CV_RGB(0, 0, BRIGHTNESS);
+    rectangle(dst, text->rect, red, 3);
+    
+    for (int j = 0; j < text->objects.size(); j++) {
+        if (j == 0) circle(dst, text->objects[j]->centroid, 3, red, 3);
+        else if (j == text->focusedIndex) circle(dst, text->objects[j]->centroid, 3, blue);
+        else circle(dst, text->objects[j]->centroid, 3, red);
+        
+        if (text->originIndexes[j] >= 0) {
+            line(dst, text->objects[j]->centroid, text->objects[text->originIndexes[j]]->centroid, red);
+        }
+    }
+    
+    drawImage(dst);
+}
+
 void Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
 {
     Mat dst = Mat(src);
     
-    srand((unsigned int)time(NULL));
+    srand((unsigned int)1);
     Scalar color;
     for (int i = 0; i < texts.size(); i++) {
         color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
@@ -211,7 +233,8 @@ void Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
         rectangle(dst, texts[i]->rect, color, 3);
         
         for (int j = 0; j < texts[i]->objects.size(); j++) {
-            rectangle(dst, texts[i]->objects[j]->rect, color);
+            if (j == 0) circle(dst, texts[i]->objects[j]->centroid, 3, color, 3);
+            else circle(dst, texts[i]->objects[j]->centroid, 3, color, 1);
         }
     }
     

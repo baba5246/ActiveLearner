@@ -66,6 +66,7 @@ void Text::computeProperties()
     rect = cv::Rect(minx, miny, width, height);
     aspectRatio = (double) width / height;
     computeColor();
+    
 }
 
 void Text::computeColor()
