@@ -69,14 +69,14 @@ void ObjectDetector::detect(vector<Object*>& objects)
     if (objects.size() == 0) return;
     mergeIncludedObjects(objects);
     
-//    Draw::drawObjects(srcImage, objects); // オブジェクト描画
+    Draw::drawObjects(srcImage, objects); // オブジェクト描画
     
     // Compute gradients
     Mat_<double> gradients = Mat_<double>(srcImage.rows, srcImage.cols);
     mycv.sobelFiltering(imgGray, gradients);
     gradientOfObjects(objects, gradients);
     
-//    Draw::drawGradients(objects, gradients); // 勾配方向描画
+    Draw::drawGradients(objects, gradients); // 勾配方向描画
     
     // Find corresponding pairs
     findCorrPairs(objects, gradients);
@@ -87,7 +87,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
     computeStrokeWidth(objects);
     setFeatures(objects);
     
-//    Draw::drawEchars(srcImage, objects); // Echar描画
+    Draw::drawEchars(srcImage, objects); // Echar描画
     
     
     vector<Text*> texts;
