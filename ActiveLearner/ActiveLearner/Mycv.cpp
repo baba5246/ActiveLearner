@@ -16,13 +16,43 @@ Mycv::Mycv(Mat& src)
 // Gray Scale
 void Mycv::grayscale(const Mat &src, Mat &dst)
 {
-    cvtColor(src, dst, COLOR_BGR2GRAY);
+    Mat temp;
+    cvtColor(src, temp, COLOR_BGR2BGR565);
+    cvtColor(temp, dst, COLOR_BGR5652GRAY);
+}
+
+
+void Mycv::grayscale(const Mat &src, Mat &dst, int type)
+{
+    for (int y = 0; y < src.rows; y++) {
+        for (int x = 0; x < src.cols; x++) {
+            cv::Vec3b bgr = src.at<cv::Vec3b>(y, x);
+            dst.at<Vec3b>(y, x) = cv::Vec3b(bgr[type],bgr[type],bgr[type]);
+        }
+    }
 }
 
 // Canny Edge Detector
 void Mycv::canny(const Mat &src, Mat &dst)
 {
     cv::Canny(src, dst, 50, 200);
+}
+
+void Mycv::mergeEdges(const Mat &r, const Mat &g, const Mat &b, Mat &dst)
+{
+    for (int y = 0; y < r.rows; y++) {
+        for (int x = 0; x < r.cols; x++) {
+            int rp = r.at<int>(y, x);
+            int gp = g.at<int>(y, x);
+            int bp = b.at<int>(y, x);
+            
+            if (rp == gp || rp == bp) {
+                dst.at<int>(y, x) = rp;
+            } else if (gp == bp) {
+                dst.at<int>(y, x) = gp;
+            }
+        }
+    }
 }
 
 // Contours
@@ -46,7 +76,7 @@ void Mycv::unsharpMasking(const Mat& src, Mat& dst, float k)
 // MSER
 void Mycv::MSERs(const Mat& src, vector<MSERegion>& msers)
 {
-    int delta = 5, min_area = 0, max_area = 60000;
+    int delta = 10, min_area = 0, max_area = 100000;
     float max_variation = 0.25f, min_diversity = 0.20f;
     int max_evolution = 200;
     double area_threshold = 1.01, min_margin = 0.0030;
@@ -101,6 +131,39 @@ void Mycv::sobelFiltering(const Mat& graySrc, Mat_<double>& gradients)
     }
 }
 
+void Mycv::decreaseColors(const Mat& src, Mat& dst)
+{
+    const int cluster_count = 8; /* number of cluster */
+    
+    // (2)reshape the image to be a 1 column matrix
+    Mat points;
+    src.convertTo(points, CV_32FC3);
+    points = points.reshape(3, src.rows*src.cols);
+    
+    // (3)run k-means clustering algorithm to segment pixels in RGB color space
+    Mat_<int> clusters(points.size(), CV_32SC1);
+    Mat centers;
+    kmeans(points, cluster_count, clusters,
+           cvTermCriteria(CV_TERMCRIT_EPS+CV_TERMCRIT_ITER, 10, 1.0), 1, KMEANS_PP_CENTERS, centers);
+    
+    // (4)make a each centroid represent all pixels in the cluster
+    dst = Mat(src.size(), src.type());
+    MatIterator_<Vec3f> itf = centers.begin<Vec3f>();
+    MatIterator_<Vec3b> itd = dst.begin<Vec3b>(), itd_end = dst.end<Vec3b>();
+    for(int i=0; itd != itd_end; ++itd, ++i) {
+        Vec3f color = itf[clusters(1,i)];
+        (*itd)[0] = saturate_cast<uchar>(color[0]);
+        (*itd)[1] = saturate_cast<uchar>(color[1]);
+        (*itd)[2] = saturate_cast<uchar>(color[2]);
+    }
+    
+    // (5)show source and destination image, and quit when any key pressed
+    namedWindow("src_img", CV_WINDOW_AUTOSIZE);
+    imshow("src_img", src);
+    namedWindow("dst_img", CV_WINDOW_AUTOSIZE);
+    imshow("dst_img", dst);
+    waitKey(0);
+}
 
 
 Mycv::~Mycv()

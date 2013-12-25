@@ -8,7 +8,7 @@ void Draw::drawImage(const Mat& src)
     } else {
         namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
         imshow( "Display window", src);
-        waitKey(4000);
+        waitKey(0);
         destroyWindow("Display window");
     }
 }
@@ -16,6 +16,42 @@ void Draw::drawImage(const Mat& src)
 void Draw::draw(const Mat& src)
 {
     drawImage(src);
+}
+
+void Draw::drawGrays(const Mat& r, const Mat& g, const Mat& b)
+{
+    if(!r.data || !g.data || !b.data) {
+        cout <<  "Could not open or find the image" << endl ;
+    } else {
+        namedWindow( "Gray R", CV_WINDOW_AUTOSIZE );
+        namedWindow( "Gray G", CV_WINDOW_AUTOSIZE );
+        namedWindow( "Gray B", CV_WINDOW_AUTOSIZE );
+        imshow( "Gray R", r );
+        imshow( "Gray G", g );
+        imshow( "Gray B", b );
+        waitKey(0);
+        destroyWindow("Gray R");
+        destroyWindow("Gray G");
+        destroyWindow("Gray B");
+    }
+}
+
+void Draw::drawEdges(const Mat& r, const Mat& g, const Mat& b)
+{
+    if(!r.data || !g.data || !b.data) {
+        cout <<  "Could not open or find the image" << endl ;
+    } else {
+        namedWindow( "Edge R", CV_WINDOW_AUTOSIZE );
+        namedWindow( "Edge G", CV_WINDOW_AUTOSIZE );
+        namedWindow( "Edge B", CV_WINDOW_AUTOSIZE );
+        imshow( "Edge R", r );
+        imshow( "Edge G", g );
+        imshow( "Edge B", b );
+        waitKey(0);
+        destroyWindow("Edge R");
+        destroyWindow("Edge G");
+        destroyWindow("Edge B");
+    }
 }
 
 void Draw::drawContours(const Mat& src, const vector<vector<Point> >& contours, const vector<cv::Vec4i>& hierarchy)
@@ -44,6 +80,22 @@ void Draw::drawMSERs(const Mat& src, const vector<vector<Point> >& mser_features
             circle(dst, mser_features[i][j], 1, color);
         }
         ellipse(dst, fitEllipse(mser_features[i]), CV_RGB(255, 0, 0));
+    }
+    
+    drawImage(dst);
+}
+
+void Draw::drawMSERs(const Mat& src, const vector<MSERegion >& msers)
+{
+    Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
+    for (int i = 0; i < msers.size(); i++)
+    {
+        Scalar color = CV_RGB( rand()&255, rand()&255, rand()&255 );
+        for (int j = 0; j < msers[i].mseregion.size(); j++)
+        {
+            circle(dst, msers[i].mseregion[j], 1, color);
+        }
+        ellipse(dst, fitEllipse(msers[i].mseregion), CV_RGB(255, 0, 0));
     }
     
     drawImage(dst);

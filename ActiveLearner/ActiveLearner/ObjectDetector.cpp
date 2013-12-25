@@ -40,11 +40,13 @@ void ObjectDetector::detect(vector<Object*>& objects)
 {
     Mycv mycv(srcImage);
     
+    Mat dst;
+    mycv.decreaseColors(srcImage, dst);
+    
     // Detect contours
     Mat imgGray, imgCanny;
     mycv.grayscale(srcImage, imgGray);
     mycv.canny(imgGray, imgCanny);
-    
 //    Draw::draw(imgCanny);
     
     cv::vector<cv::Vec4i> hierarchy;
@@ -62,6 +64,8 @@ void ObjectDetector::detect(vector<Object*>& objects)
     
     vector<MSERegion> msers;
     mycv.MSERs(imgUnsharp, msers);
+    
+    Draw::drawMSERs(srcImage, msers);
     
     // Interpolate contours with MSERs and Inclusion Relationship
     mergeApartContours(objects, msers);
