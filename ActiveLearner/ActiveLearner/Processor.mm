@@ -11,7 +11,8 @@
     NSDictionary *xmldata;
     
     BOOL isTraining;
-    AdaBoost *ccvAdaBoost, *cgvAdaBoost;
+    AdaBoost ccvAdaBoost;
+    AdaBoost cgvAdaBoost;
 }
 
 
@@ -52,7 +53,7 @@ static Processor* sharedProcessor = nil;
     vector<Object*> ccs = [self excuteCCD];
 //    vector<Object*> components = [self excuteCCV:ccs];
     
-    vector<Text*> cgs = [self excuteCGD:ccs];
+//    vector<Text*> cgs = [self excuteCGD:ccs];
     
 //    vector<Text*> texts = [self excuteCGV:cgs];
     
@@ -99,7 +100,7 @@ static Processor* sharedProcessor = nil;
     vector<Sample> samples = [self makeCCSamples:ccs];
     if (isTraining) {
         AdaBoost adaboost = [self learnFeaturesWithAdaBoost:samples];
-        ccvAdaBoost = &adaboost;
+        ccvAdaBoost = adaboost;
     }
     components = [self ccClassify:samples adaboost:ccvAdaBoost];
     
@@ -131,12 +132,12 @@ static Processor* sharedProcessor = nil;
     {
         vector<Sample> samples = [self makeCGSamples:cgs];
         AdaBoost adaboost = [self learnFeaturesWithAdaBoost:samples];
-        cgvAdaBoost = &adaboost;
+        cgvAdaBoost = adaboost;
         texts = [self cgClassify:cgs adaboost:adaboost];
     }
     else
     {
-        texts = [self cgClassify:cgs adaboost:*(cgvAdaBoost)];
+        texts = [self cgClassify:cgs adaboost:cgvAdaBoost];
     }
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
@@ -164,10 +165,13 @@ static Processor* sharedProcessor = nil;
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
     
+    vector<Sample> temp;
     vector<Sample> samples;
     
     for (NSString *path in model.imagePaths)
     {
+        temp.clear();
+        
         // filename 抽出
         NSArray *comp = [path componentsSeparatedByString:@"/"];
         NSString *nsfilename = comp[comp.count-1];
@@ -198,9 +202,13 @@ static Processor* sharedProcessor = nil;
             else s.label = 0;
             
             samples.push_back(s);
+            temp.push_back(s);
         }
+        
+        Mat src = cv::imread([path cStringUsingEncoding:NSUTF8StringEncoding]);
+        Draw::drawSamples(src, temp);
     }
-    
+
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return samples;
 }
@@ -272,11 +280,13 @@ static Processor* sharedProcessor = nil;
         WeakClassifier selected = result.wc;
         cout << "t:" << t << ", wc index:" << selected.featureIndex << ", alpha:" << selected.alpha << endl;
     }
+    
+    [self ccClassify:samples adaboost:adaboost];
 
     return adaboost;
 }
 
-- (vector<Object*>) ccClassify:(vector<Sample>) samples adaboost:(AdaBoost*) adaboost
+- (vector<Object*>) ccClassify:(vector<Sample>) samples adaboost:(AdaBoost) adaboost
 {
     vector<Object*> components;
     
@@ -285,9 +295,8 @@ static Processor* sharedProcessor = nil;
     
     for (int i = 0; i < samples.size(); i++)
     {
-        cout << "Samples:" << samples.size() << ", i:" << i << endl;
         Sample s = samples[i];
-        int test = adaboost->sc.test(s);
+        int test = adaboost.sc.test(s);
         
         if (test == 1) {
             components.push_back(&s.object);

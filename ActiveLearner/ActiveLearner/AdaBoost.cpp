@@ -1,6 +1,10 @@
 
 #include "AdaBoost.h"
 
+AdaBoost::AdaBoost()
+{
+    
+}
 
 AdaBoost::AdaBoost(vector<Sample>& samples, vector<WeakClassifier>& classifiers)
 {
@@ -30,7 +34,7 @@ AdaBoostResult AdaBoost::next()
         Sample s = train[e];
         for (int c = 0; c < wcs.size(); c++)
         {
-            if (wcs[c].test(s) != s.label) errors[c] += weights[e];
+            if (wcs[c].Test(s) != s.label) errors[c] += weights[e];
         }
     }
     
@@ -47,16 +51,18 @@ AdaBoostResult AdaBoost::next()
     
     // Compute b and update sample weights
     double beta = lerror / (1 - lerror);
+    cout << "before beta:" << beta << endl;
     WeakClassifier lwc = wcs[lIndex];
     for (int e = 0; e < train.size(); e++)
     {
         double b = beta;
         Sample s = train[e];
         
-        if (lwc.test(s) != s.label) b = 1;
+        if (lwc.Test(s) != s.label) b = 1;
         weights[e] = weights[e] * b;
     }
     
+    cout << "beta:" << beta << endl;
     double alpha = log(1 / beta) / 2;
     lwc.alpha = alpha;
     sc.wcs.push_back(lwc);

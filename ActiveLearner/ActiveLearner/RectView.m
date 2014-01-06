@@ -25,7 +25,7 @@
 
 - (void) saveTruth:(CGRect)option
 {
-    Model *model = [Model sharedManager];
+//    Model *model = [Model sharedManager];
     int originX = self.frame.origin.x-10-option.origin.x;
     int originY = 650 - (self.frame.origin.y + self.frame.size.height)-option.origin.y;
     CGRect adjusted = CGRectMake(originX, originY, (int)self.frame.size.width, (int)self.frame.size.height);

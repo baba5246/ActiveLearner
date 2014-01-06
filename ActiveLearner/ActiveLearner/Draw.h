@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "Text.h"
 #include "MSERegion.h"
+#include "Sample.h"
 
 using namespace std;
 using namespace cv;
@@ -29,6 +30,7 @@ public:
     static void drawSWT(const Mat& swt, const double max);
     static void drawSWTandObjects(const Mat_<double>& swt, const double max,
                                   const vector<Object*>& objects);
+    static void drawSamples(const Mat& src, const vector<Sample>& samples);
     
 private:
     static Mat srcImage;

@@ -389,3 +389,23 @@ void Draw::drawSWTandObjects(const Mat_<double>& swt, const double max,
     drawImage(dst);
     
 }
+
+void Draw::drawSamples(const Mat& src, const vector<Sample>& samples)
+{
+    Mat dst = Mat(src);
+    
+    srand((unsigned int)1);
+    Scalar color;
+    for (int i = 0; i < samples.size(); i++) {
+        if (samples[i].label < 1) continue;
+        
+        color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
+                       (double)rand() / RAND_MAX * BRIGHTNESS,
+                       (double)rand() / RAND_MAX * BRIGHTNESS);
+        rectangle(dst, samples[i].object.rect, color, 2);
+        circle(dst, samples[i].object.centroid, 3, color, 2);
+    }
+    
+    drawImage(dst);
+}
+
