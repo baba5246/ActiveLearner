@@ -26,11 +26,15 @@ public:
     static void drawSurroundings(const Mat& src, const vector<Object*>& objects);
     static void drawText(const Mat& src, Text*& text);
     static void drawTexts(const Mat& src, const vector<Text*>& texts);
+    static void drawSWT(const Mat& swt, const double max);
+    static void drawSWTandObjects(const Mat_<double>& swt, const double max,
+                                  const vector<Object*>& objects);
     
 private:
     static Mat srcImage;
     static void drawImage(const Mat& src);
     static Scalar* colorOfRadian(double radian);
+    static Scalar colorWithCount(const int count);
 
 };
 

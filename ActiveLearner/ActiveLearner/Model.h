@@ -17,14 +17,6 @@
 - (void) setImagePath:(NSURL *)path;
 - (void) setFilename:(NSString *)name;
 
-- (void) setPreviousFileInfo;
-- (void) setNextFileInfo;
-
-- (void) addTruth:(Truth *)truth;
-- (void) resetRectangles;
-- (BOOL) saveRectangles;
-
-- (NSMutableArray *) getRectangles;
 - (NSMutableDictionary *) getXMLData;
 - (void) addXMLData:(NSMutableArray *)array key:(NSString *)key;
 

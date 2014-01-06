@@ -8,10 +8,10 @@
 - (void) prepare;
 
 - (void) excuteWhole:(BOOL)type;
-- (void) debugCCD;
-- (void) debugCCV;
-- (void) debugCGD;
-- (void) debugCGV;
+//- (void) debugCCD;
+//- (void) debugCCV;
+//- (void) debugCGD;
+//- (void) debugCGV;
 
 
 @end

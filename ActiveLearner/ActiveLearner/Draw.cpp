@@ -292,3 +292,100 @@ void Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
     
     drawImage(dst);
 }
+
+void Draw::drawSWT(const Mat& swt, const double max)
+{
+    Mat dst(swt.rows, swt.cols, CV_8UC3);
+    
+    int count = 0, eight = 8;
+    for (int y = 0; y < swt.rows; y++) {
+        for (int x = 0; x < swt.cols; x++) {
+            
+            double sw = swt.at<double>(y, x);
+            for (int i = 1; i <= eight+1; i++) {
+                count = i;
+                if ( sw < (double)i * max / eight  ) break;
+            }
+//            cout << "sw:" << sw << ", count:" << count << endl;
+            
+            Scalar color = colorWithCount(count);
+            dst.at<Vec3b>(y, x)[0] = color[0];
+            dst.at<Vec3b>(y, x)[1] = color[1];
+            dst.at<Vec3b>(y, x)[2] = color[2];
+        }
+    }
+    
+    drawImage(dst);
+}
+
+Scalar Draw::colorWithCount(const int count)
+{
+    switch (count) {
+        case 1:
+            return CV_RGB(0, 0, 0);
+            break;
+        case 2:
+            return CV_RGB(0, 0, 255);
+            break;
+        case 3:
+            return CV_RGB(0, 128, 255);
+            break;
+        case 4:
+            return CV_RGB(0, 128, 128);
+            break;
+        case 5:
+            return CV_RGB(0, 255, 0);
+            break;
+        case 6:
+            return CV_RGB(128, 128, 0);
+            break;
+        case 7:
+            return CV_RGB(255, 128, 0);
+            break;
+        case 8:
+            return CV_RGB(255, 0, 0);
+            break;
+        default:
+            return CV_RGB(128, 128, 128);
+            break;
+    }
+}
+
+void Draw::drawSWTandObjects(const Mat_<double>& swt, const double max,
+                             const vector<Object*>& objects)
+{
+    Mat dst(swt.rows, swt.cols, CV_8UC3);
+    
+    int count = 0, eight = 8;
+    for (int y = 0; y < swt.rows; y++) {
+        for (int x = 0; x < swt.cols; x++) {
+            
+            double sw = swt.at<double>(y, x);
+            for (int i = 1; i <= eight+1; i++) {
+                count = i;
+                if ( sw < (double)i * max / eight  ) break;
+            }
+            //            cout << "sw:" << sw << ", count:" << count << endl;
+            
+            Scalar color = colorWithCount(count);
+            dst.at<Vec3b>(y, x)[0] = color[0];
+            dst.at<Vec3b>(y, x)[1] = color[1];
+            dst.at<Vec3b>(y, x)[2] = color[2];
+        }
+    }
+    
+    for (int i = 0; i < objects.size(); i++)
+    {
+        vector<cv::Point> pixels = objects[i]->contourPixels;
+        Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
+        if (objects[i]->colors.size()>0) color = objects[i]->color;
+        
+        for (int j = 0; j < pixels.size(); j++)
+        {
+            circle(dst, pixels[j], 0.1f, color);
+        }
+    }
+    
+    drawImage(dst);
+    
+}

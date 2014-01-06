@@ -15,6 +15,9 @@
 #define M_PI_6      M_PI / 6
 #define M_PI_5_6    M_PI_6*5
 
+#define M_PI_2_3    M_PI*2/3
+#define M_PI_1_3    M_PI/3
+
 #define FEATURES    10
 
 

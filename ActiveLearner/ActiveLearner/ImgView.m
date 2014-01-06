@@ -87,7 +87,7 @@
 {
     if ([keyPath isEqual:RECTANGLES_KEY])
     {
-        if ([[model getRectangles] count] == 0) [self resetRectangles];
+//        if ([[model getRectangles] count] == 0) [self resetRectangles];
     }
     else if ([keyPath isEqual:@""])
     {

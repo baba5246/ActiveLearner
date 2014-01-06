@@ -29,7 +29,9 @@ public:
     void contours(const Mat &src, vector<vector<cv::Point> > &contours, vector<cv::Vec4i>& hierarchy, int mode, int method);
     void sobelFiltering(const Mat& graySrc, Mat_<double>& gradients);
     void MSERs(const Mat& src, vector<MSERegion>& msers);
-    void decreaseColors(const Mat& src, Mat& dst);
+    void decreaseColorsWithKmeans(const Mat& src, Mat& dst);
+    void SWT(const Mat& edge, Mat& swt);
+//    void decreaseColorsWithMedian(const Mat& src, Mat& dst);
     
 private:
     Mat srcImage;

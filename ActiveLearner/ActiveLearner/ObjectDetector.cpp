@@ -40,18 +40,24 @@ void ObjectDetector::detect(vector<Object*>& objects)
 {
     Mycv mycv(srcImage);
     
-    Mat dst;
-    mycv.decreaseColors(srcImage, dst);
+    Mat rgray, ggray, bgray, redge, gedge, bedge, dst;
+    mycv.grayscale(srcImage, rgray, MYCV_GRAY_R);
+    mycv.grayscale(srcImage, ggray, MYCV_GRAY_G);
+    mycv.grayscale(srcImage, bgray, MYCV_GRAY_B);
+    mycv.canny(rgray, redge);
+    mycv.canny(ggray, gedge);
+    mycv.canny(bgray, bedge);
+    mycv.mergeEdges(redge, gedge, bedge, dst);
+//    Draw::draw(dst);
     
     // Detect contours
     Mat imgGray, imgCanny;
     mycv.grayscale(srcImage, imgGray);
     mycv.canny(imgGray, imgCanny);
-//    Draw::draw(imgCanny);
     
     cv::vector<cv::Vec4i> hierarchy;
     cv::vector<cv::vector<cv::Point> > contours;
-    mycv.contours(imgCanny, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+    mycv.contours(dst, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
     
     
     // Create objects
@@ -65,7 +71,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
     vector<MSERegion> msers;
     mycv.MSERs(imgUnsharp, msers);
     
-    Draw::drawMSERs(srcImage, msers);
+//    Draw::drawMSERs(srcImage, msers);
     
     // Interpolate contours with MSERs and Inclusion Relationship
     mergeApartContours(objects, msers);
@@ -73,7 +79,10 @@ void ObjectDetector::detect(vector<Object*>& objects)
     if (objects.size() == 0) return;
     mergeIncludedObjects(objects);
     
-    Draw::drawObjects(srcImage, objects); // オブジェクト描画
+//    Draw::drawObjects(srcImage, objects); // オブジェクト描画
+    
+    Mat swt;
+    mycv.SWT(dst, swt);
     
     // Compute gradients
     Mat_<double> gradients = Mat_<double>(srcImage.rows, srcImage.cols);
@@ -104,7 +113,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
 
 
 #pragma mark -
-#pragma mark Grouping Methods
+#pragma mark Assistant Methods
 
 // Create Objects and Set Contours
 void ObjectDetector::createObjects(const vector<vector<cv::Point> >& contours, vector<Object*>& objects)
@@ -1008,4 +1017,11 @@ cv::Rect* ObjectDetector::intersect(const cv::Rect& rect1, const cv::Rect& rect2
     
     return rect;
 }
+
+void ObjectDetector::SWTComponent(const Mat& src, vector<Object>& component)
+{
+    
+}
+
+
 

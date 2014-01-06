@@ -30,7 +30,7 @@
     int originY = 650 - (self.frame.origin.y + self.frame.size.height)-option.origin.y;
     CGRect adjusted = CGRectMake(originX, originY, (int)self.frame.size.width, (int)self.frame.size.height);
     truth.rect = adjusted;
-    [model addTruth:truth];
+//    [model addTruth:truth];
 }
 
 @end

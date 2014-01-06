@@ -54,5 +54,7 @@ private:
     vector<string> split(const string& str, char delim);
     int** createImageTable(const vector<Object*>& objects);
     cv::Rect* intersect(const cv::Rect& rect1, const cv::Rect& rect2);
+    
+    void SWTComponent(const Mat& src, vector<Object>& component);
 };
 
