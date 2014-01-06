@@ -42,6 +42,7 @@
 		FEB4BFFD1858D558004CD5B5 /* Distancer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */; };
 		FEBDFFD41834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBDFFD21834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib */; };
 		FEBDFFD51834F3D90037BC64 /* libopencv_nonfree.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBDFFD31834F3D90037BC64 /* libopencv_nonfree.2.4.5.dylib */; };
+		FEF85817187ACCFC00AEF1FE /* SWTObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEF85815187ACCFC00AEF1FE /* SWTObject.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,8 @@
 		FEB4BFFC1858D558004CD5B5 /* Distancer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Distancer.h; sourceTree = "<group>"; };
 		FEBDFFD21834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_features2d.2.4.5.dylib; sourceTree = "<group>"; };
 		FEBDFFD31834F3D90037BC64 /* libopencv_nonfree.2.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_nonfree.2.4.5.dylib; sourceTree = "<group>"; };
+		FEF85815187ACCFC00AEF1FE /* SWTObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SWTObject.cpp; sourceTree = "<group>"; };
+		FEF85816187ACCFC00AEF1FE /* SWTObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +277,8 @@
 			children = (
 				874F68A5182F873A004FA324 /* MSERegion.h */,
 				874F68A4182F873A004FA324 /* MSERegion.cpp */,
+				FEF85816187ACCFC00AEF1FE /* SWTObject.h */,
+				FEF85815187ACCFC00AEF1FE /* SWTObject.cpp */,
 				874F689B182AFEBD004FA324 /* Object.h */,
 				874F689A182AFEBD004FA324 /* Object.cpp */,
 				874F689E182AFECD004FA324 /* Text.h */,
@@ -390,6 +395,7 @@
 				87259FF31837D1EB00DBEEF3 /* TextDetector.cpp in Sources */,
 				FEB4BFFA184E7244004CD5B5 /* Notification.m in Sources */,
 				FEB4BFFD1858D558004CD5B5 /* Distancer.cpp in Sources */,
+				FEF85817187ACCFC00AEF1FE /* SWTObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

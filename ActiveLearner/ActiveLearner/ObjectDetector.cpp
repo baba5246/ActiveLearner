@@ -74,8 +74,16 @@ void ObjectDetector::detect(vector<Object*>& objects)
     // SWT と Color 類似度を使って補正
     Mat_<double> gradient = Mat_<double>(srcImage.rows, srcImage.cols);
     mycv.sobelFiltering(ggray, gradient);
+    
+    // Extract connected regions as components
     Mat swt;
+    vector<vector<cv::Point> > components;
+    vector<SWTObject> swtobjects;
     mycv.SWT(gedge, gradient, swt);
+    mycv.SWTComponents(swt, components);
+    createSWTObjects(swtobjects, swt, components);
+    
+    Draw::drawSWTObjects(swt, swtobjects);
     
     // Object の勾配方向計算
     gradientOfObjects(objects, gradient);
@@ -91,14 +99,14 @@ void ObjectDetector::detect(vector<Object*>& objects)
     computeStrokeWidth(objects);    // Stroke Width
     setFeatures(objects);           // 特徴量をセット
     
-    Draw::drawEchars(srcImage, objects); // Echar描画
+//    Draw::drawEchars(srcImage, objects); // Echar描画
     
     
     vector<Text*> texts;
     TextDetector detector(srcImage);
     detector.detect(objects, texts);
     
-    Draw::drawTexts(srcImage, texts);
+//    Draw::drawTexts(srcImage, texts);
     
 }
 
@@ -242,6 +250,21 @@ void ObjectDetector::mergeIncludedObjects(vector<Object*>& objects)
     
     removeIndexes.clear();
     
+}
+
+// Create Objects from SWT Matrix and components
+void ObjectDetector::createSWTObjects(vector<SWTObject>& swtobjects, const Mat& swt, vector<vector<cv::Point> >& components)
+{
+    for (int i = 0; i < components.size(); i++) {
+        SWTObject swtobj(components[i], swt);
+        
+        if (swtobj.aspectRatio >= 10) continue;
+//        sif (swtobj.variance >= pow(swtobj.mean, 2)) continue;
+        if (MAX(swtobj.width, swtobj.height) > 300) continue;
+        if (MIN(swtobj.width, swtobj.height) < 10) continue;
+        
+        swtobjects.push_back(swtobj);
+    }
 }
 
 // Compute Gradients of Objects

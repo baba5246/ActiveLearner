@@ -175,143 +175,28 @@ void Mycv::decreaseColorsWithKmeans(const Mat& src, Mat& dst)
 }
 
 
-void Mycv::SWT(const Mat& edge, const Mat& gradient, Mat& swt)
-{
-    swt = Mat_<double>::zeros(edge.rows, edge.cols);
-    swt = MAXFLOAT;
-    int ecount = 0, fcount = 0;
-    double max = 0;
-    Mat_<int> nmap = Mat_<int>::zeros(swt.rows, swt.cols);
-    
-    for (int y = 0; y < edge.rows; y++) {
-        for (int x = 0; x < edge.cols; x++) {
-            
-            if (x < 1 || y < 1 || x > edge.cols-2 || y > edge.rows-2) continue;
-            
-            int e = edge.at<uchar>(y, x);
-            if (e == 0) continue;
-            
-            Point_<double> p(x, y);
-            double prad = gradient.at<double>(y, x);
-            Point_<double> ray(-cos(prad), sin(prad));
-            Point_<int> q, diff;
-            bool findflag = false;
-            int e1 = 0, e2 = 0, e3 = 0;
-            
-            for (double n = 1; n < 300; n++) {
-                
-                // Compute a ray point
-                q = p - n * ray;
-                if (q.x < 1 || q.y < 1 || q.x > edge.cols-2 || q.y > edge.rows-2) continue;
-                
-                // Check whether the ray point is an edge point.
-                e1 = edge.at<uchar>(q.y-1, q.x);
-                e2 = edge.at<uchar>(q.y, q.x);
-                e3 = edge.at<uchar>(q.y+1, q.x);
-                if ((abs(p.x - q.x)>1 || abs(p.y - q.y)>1) &&
-                    (e1 > 0 || e2 > 0 || e3 > 0))
-                {
-                    // Compute distance between p and r.
-                    diff = Point(p.x-q.x, p.y-q.y);
-                    double distance = sqrt(diff.x*diff.x + diff.y*diff.y);
-                    
-                    // If gradients of p and r are opposite
-                    double rrad = gradient.at<double>(q.y, q.x);
-                    if (fabs(prad - rrad) > M_PI_2_3) {
-                        
-                        // Write the distance in p and r points on swt mat.
-                        if (swt.at<double>(p.y, p.x) > distance)
-                            swt.at<double>(p.y, p.x) = distance;
-                        if (swt.at<double>(q.y, q.x) > distance)
-                            swt.at<double>(q.y, q.x) = distance;
-                        
-                        // Write the distance in points on the ray
-                        for (int temp = 1; temp < n; temp++) {
-                            Point r = p - temp * ray;
-                            if (r.x < 1 || r.y < 1 || r.x > edge.cols-2 || r.y > edge.rows-2)
-                                continue;
-                            if (swt.at<double>(r.y, r.x) > distance)
-                                swt.at<double>(r.y, r.x) = distance;
-                        }
-                        // Compute a max distance.
-                        if (max < distance) max = distance;
-                        // Check the findflag.
-                        findflag = true;
-                        // Write n into nmap.
-                        nmap.at<int>(y, x) = n;
-                        
-                        break;
-                    } else {
-                        // Write n into nmap.
-                        nmap.at<int>(y, x) = n;
-                        
-                        break;
-                    }
-                }
-            }
-            ecount++;
-            if (findflag) fcount++;
-        }
-    }
-    
-    // Compute medians.
-    for (int y = 0; y < edge.rows; y++) {
-        for (int x = 0; x < edge.cols; x++) {
-            
-            if (x < 1 || y < 1 || x > edge.cols-2 || y > edge.rows-2) continue;
-            
-            int e = edge.at<uchar>(y, x);
-            if (e == 0) continue;
-            
-            Point_<double> p(x, y);
-            double prad = gradient.at<double>(y, x);
-            Point_<double> ray(-cos(prad), sin(prad));
-            Point r;
-            vector<Point> rayPoints;
-            vector<double> distances;
-            double sw, median;
-            
-            for (int n = 1; n < nmap.at<int>(y, x); n++) {
-                r = p - n * ray;
-                if (r.x < 1 || r.y < 1 || r.x > edge.cols-2 || r.y > edge.rows-2)
-                    continue;
-                sw = swt.at<double>(r.y, r.x);
-                if (sw < MAXFLOAT) {
-                    rayPoints.push_back(Point(r));
-                    distances.push_back(sw);
-                }
-            }
-            
-            if (distances.size() == 0) continue;
-            sort(distances.begin(), distances.end());
-            median = distances[distances.size()/2];
-            for (int i = 0; i < rayPoints.size(); i++) {
-                swt.at<double>(rayPoints[i].y, rayPoints[i].x) = median;
-            }
-        }
-    }
-
-    cout << "count:" << fcount << "/" << ecount << ", " << edge.rows*edge.cols << endl;
-    
-    // Extract connected regions as components
-    vector<vector<cv::Point> > components;
-    SWTComponents(swt, components);
-    
-    Draw::drawSWT(swt, max);
-}
-
 
 #pragma mark -
-#pragma mark Labeling Assist Methods
+#pragma mark SWT Assistant Methods
 
 inline bool isIn(int w,int h,int x,int y)
 {
     return 0<=x && x<w && 0<=y && y<h;
 }
 
-inline double getAt(const Mat& swt,int x,int y)
+inline bool isFullIn(int w,int h,int x,int y)
 {
-    return swt.at<double>(y, x);
+    return 0<x && x<w-1 && 0<y && y<h-1;
+}
+
+inline int getIntAt(const Mat& matrix,int x,int y)
+{
+    return matrix.at<uchar>(y, x);
+}
+
+inline double getDoubleAt(const Mat& matrix,int x,int y)
+{
+    return matrix.at<double>(y, x);
 }
 
 inline bool isSimilar(double a, double b) {
@@ -357,16 +242,134 @@ inline int relabel(vector<int>& parents)
 #pragma mark -
 #pragma mark SWT Methods
 
+
+void Mycv::SWT(const Mat& edge, const Mat& gradient, Mat& swt)
+{
+    bool findflag = false;
+    const int H = edge.rows, W = edge.cols;
+    int e1 = 0, e2 = 0, e3 = 0, ecount = 0, fcount = 0;
+    double pradian = 0, rradian = 0, distance = 0, max = 0;
+    Point_<double> p, ray;
+    Point_<int> q, diff, r;
+    
+    swt = Mat_<double>::zeros(H, W);
+    swt = MAXFLOAT;
+    Mat_<int> nmap = Mat_<int>::zeros(H, W);
+    
+    for (int y = 0; y < H; y++) 
+        for (int x = 0; x < W; x++)
+        {
+            if (!isFullIn(W, H, x, y)) continue;
+            
+            int e = getIntAt(edge, x, y);
+            if (e == 0) continue;
+            
+            findflag = false;
+            pradian = getDoubleAt(gradient, x, y);
+            p = Point_<double>(x, y);
+            ray = Point_<double>(-cos(pradian), sin(pradian));
+            
+            for (double n = 1; n < 300; n++) {
+                
+                // Compute a ray point
+                q = p - n * ray;
+                if (!isFullIn(W, H, q.x, q.y)) continue;
+                
+                // Check whether the ray point is an edge point.
+                e1 = getIntAt(edge, q.x, q.y-1);
+                e2 = getIntAt(edge, q.x, q.y  );
+                e3 = getIntAt(edge, q.x, q.y+1);
+                if ((abs(p.x - q.x)>1 || abs(p.y - q.y)>1) &&
+                    (e1 > 0 || e2 > 0 || e3 > 0))
+                {
+                    // Compute the distance between p and r.
+                    diff = Point(p.x-q.x, p.y-q.y);
+                    distance = sqrt(diff.x*diff.x + diff.y*diff.y);
+                    
+                    // If gradients of p and r are opposite
+                    rradian = getDoubleAt(gradient, q.x, q.y);
+                    if (fabs(pradian - rradian) > M_PI_2_3) {
+                        
+                        // Write the distance in p and r points on swt mat.
+                        if (getDoubleAt(swt, p.x, p.y) > distance)
+                            swt.at<double>(p.y, p.x) = distance;
+                        if (getDoubleAt(swt, q.x, q.y) > distance)
+                            swt.at<double>(q.y, q.x) = distance;
+                        
+                        // Write the distance in points on the ray
+                        for (int temp = 1; temp < n; temp++) {
+                            r = p - temp * ray;
+                            if (!isFullIn(W, H, r.x, r.y)) continue;
+                            if (getDoubleAt(swt, r.x, r.y) > distance)
+                                swt.at<double>(r.y, r.x) = distance;
+                        }
+                        // Compute a max distance.
+                        if (max < distance) max = distance;
+                        // Check the findflag.
+                        findflag = true;
+                        // Write n into nmap.
+                        nmap.at<int>(y, x) = n;
+                        
+                        break;
+                    } else {
+                        // Write n into nmap.
+                        nmap.at<int>(y, x) = n;
+                        
+                        break;
+                    }
+                }
+            }
+            ecount++;
+            if (findflag) fcount++;
+        }
+    
+    double sw = 0, median = 0;
+    vector<Point> rayPoints;
+    vector<double> distances;
+    
+    // Compute medians.
+    for (int y = 0; y < H; y++) 
+        for (int x = 0; x < W; x++)
+        {
+            if (!isFullIn(W, H, x, y)) continue;
+            
+            int e = getIntAt(edge, x, y);
+            if (e == 0) continue;
+            
+            pradian = getDoubleAt(gradient, x, y);
+            p = Point_<double>(x, y);
+            ray = Point_<double>(-cos(pradian), sin(pradian));
+            
+            for (int n = 1; n < getIntAt(nmap, x, y); n++) {
+                r = p - n * ray;
+                if (!isFullIn(W, H, r.x, r.y)) continue;
+                
+                sw = getDoubleAt(swt, r.x, r.y);
+                if (sw < MAXFLOAT) {
+                    rayPoints.push_back(Point(r));
+                    distances.push_back(sw);
+                }
+            }
+            
+            if (distances.size() == 0) continue;
+            sort(distances.begin(), distances.end());
+            median = distances[distances.size()/2];
+            for (int i = 0; i < rayPoints.size(); i++) {
+                swt.at<double>(rayPoints[i].y, rayPoints[i].x) = median;
+            }
+        }
+}
+
+
 void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components )
 {
-    // Initialize
-    Mat_<int> label = Mat_<int>::zeros(swt.rows, swt.cols);
-    
+    // 初期化
     const int W=swt.cols;
     const int H=swt.rows;
+    Mat_<int> label = Mat_<int>::zeros(H, W);
     
-    //関数を複数回呼び出すときメモリ確保が何度も生じるので、
-    //例えばリアルタイム処理では関数外で確保するのがベター。
+    // 関数を複数回呼び出すときメモリ確保が何度も生じるので、
+    // 例えばリアルタイム処理では関数外で確保するのがベター。
     vector<int> parents;
     parents.reserve(BUF_LABEL);
     
@@ -374,14 +377,14 @@ void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components 
     for(int y=0;y<H;y++)
         for(int x=0;x<W;x++)
         {
-            //隣接画素（４近傍）との連結チェック
-            double c = getAt(swt,x,y);
-            bool flagA=(isIn(W,H,x-1,y  ) && isSimilar(c, getAt(swt,x-1,y  ))); //左
-            bool flagB=(isIn(W,H,x  ,y-1) && isSimilar(c, getAt(swt,x  ,y-1))); //上
-            bool flagC=(isIn(W,H,x-1,y-1) && isSimilar(c, getAt(swt,x-1,y-1))); //左上
-            bool flagD=(isIn(W,H,x+1,y-1) && isSimilar(c, getAt(swt,x+1,y-1))); //右上
+            // 隣接画素（４近傍）との連結チェック
+            double c = getDoubleAt(swt,x,y);
+            bool flagA=(isIn(W,H,x-1,y  ) && isSimilar(c, getDoubleAt(swt,x-1,y  ))); //左
+            bool flagB=(isIn(W,H,x  ,y-1) && isSimilar(c, getDoubleAt(swt,x  ,y-1))); //上
+            bool flagC=(isIn(W,H,x-1,y-1) && isSimilar(c, getDoubleAt(swt,x-1,y-1))); //左上
+            bool flagD=(isIn(W,H,x+1,y-1) && isSimilar(c, getDoubleAt(swt,x+1,y-1))); //右上
             
-            //着目画素と連結画素を併合
+            // 着目画素と連結画素を併合
             label(y,x)=index;
             if((flagA|flagB|flagC|flagD)==true)
             {
@@ -396,15 +399,18 @@ void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components 
                 parents.push_back(index++);
         }
     
-    //再ラベリング
+    // 再ラベリング
     int regions=relabel(parents);
+    components.reserve(regions);
+    for (int i = 0; i < regions; i++) components.push_back(vector<Point>());
     for(int y=0;y<H;y++)
         for(int x=0;x<W;x++)
-            label(y,x)=parents[label(y,x )];
-    cout << regions << endl;
-    
-    Draw::drawLabeles(label);
-    
+        {
+            int lbl = parents[label(y,x)];
+            label(y,x) = lbl;
+            components[lbl].push_back(Point(x, y));
+        }
+
 }
 
 

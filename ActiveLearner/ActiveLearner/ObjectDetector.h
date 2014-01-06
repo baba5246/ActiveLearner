@@ -5,6 +5,7 @@
 #include "Mycv.h"
 #include "Object.h"
 #include "MSERegion.h"
+#include "SWTObject.h"
 #include "Draw.h"
 #include "TextDetector.h"
 
@@ -38,6 +39,9 @@ private:
     void createObjects(const vector<vector<cv::Point> >& contours, vector<Object*>& objects);
     void mergeApartContours(vector<Object*>& objects, vector<MSERegion>& msers);
     void mergeIncludedObjects(vector<Object*>& objects);
+    
+    // SWT Methods
+    void createSWTObjects(vector<SWTObject>& swtobjects, const Mat& swt, vector<vector<cv::Point> >& components);
     
     // Compute Feature Methods
     void gradientOfObjects(vector<Object*>& objects, const Mat_<double>& gradients);

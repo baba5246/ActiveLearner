@@ -6,6 +6,7 @@
 #include "Text.h"
 #include "MSERegion.h"
 #include "Sample.h"
+#include "SWTObject.h"
 
 using namespace std;
 using namespace cv;
@@ -28,10 +29,12 @@ public:
     static void drawText(const Mat& src, Text*& text);
     static void drawTexts(const Mat& src, const vector<Text*>& texts);
     static void drawSWT(const Mat& swt, const double max);
-    static void drawSWTandObjects(const Mat_<double>& swt, const double max,
-                                  const vector<Object*>& objects);
+    static void drawSWTObjects(const Mat_<double>& swt,
+                               const vector<SWTObject>& swtobjects);
     static void drawSamples(const Mat& src, const vector<Sample>& samples);
     static void drawLabeles(const Mat& label);
+    static void drawSWTComponents(const Mat& swt,
+                                  const vector<vector<cv::Point> >& components);
     
 private:
     static Mat srcImage;

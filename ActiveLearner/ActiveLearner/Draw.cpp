@@ -356,38 +356,26 @@ Scalar Draw::colorWithCount(const int count)
     }
 }
 
-void Draw::drawSWTandObjects(const Mat_<double>& swt, const double max,
-                             const vector<Object*>& objects)
+void Draw::drawSWTObjects(const Mat_<double>& swt, const vector<SWTObject>& swtobjects)
 {
-    Mat dst(swt.rows, swt.cols, CV_8UC3);
+    Mat dst = Mat::zeros(swt.rows, swt.cols, CV_8UC3);
     
-    int count = 0, eight = 8;
-    for (int y = 0; y < swt.rows; y++) {
-        for (int x = 0; x < swt.cols; x++) {
-            
-            double sw = swt.at<double>(y, x);
-            for (int i = 1; i <= eight+1; i++) {
-                count = i;
-                if ( sw < (double)i * max / eight  ) break;
-            }
-            //            cout << "sw:" << sw << ", count:" << count << endl;
-            
-            Scalar color = colorWithCount(count);
-            dst.at<Vec3b>(y, x)[0] = color[0];
-            dst.at<Vec3b>(y, x)[1] = color[1];
-            dst.at<Vec3b>(y, x)[2] = color[2];
-        }
-    }
+    srand((unsigned int)1);
     
-    for (int i = 0; i < objects.size(); i++)
-    {
-        vector<cv::Point> pixels = objects[i]->contourPixels;
-        Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
-        if (objects[i]->colors.size()>0) color = objects[i]->color;
+    Point p;
+    Scalar color;
+    for (int i = 0; i < swtobjects.size(); i++) {
         
-        for (int j = 0; j < pixels.size(); j++)
-        {
-            circle(dst, pixels[j], 0.1f, color);
+        color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
+                       (double)rand() / RAND_MAX * BRIGHTNESS,
+                       (double)rand() / RAND_MAX * BRIGHTNESS);
+        
+        for (int j = 0; j < swtobjects[i].region.size(); j++) {
+            
+            p = swtobjects[i].region[j];
+            dst.at<Vec3b>(p.y, p.x)[0] = color[0];
+            dst.at<Vec3b>(p.y, p.x)[1] = color[1];
+            dst.at<Vec3b>(p.y, p.x)[2] = color[2];
         }
     }
     
@@ -423,10 +411,13 @@ void Draw::drawLabeles(const Mat& label)
     for (int y = 0; y < H; y++)
         for (int x = 0; x < W; x++)
         {
-            srand(label.at<int>(y, x));
-            color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
-                           (double)rand() / RAND_MAX * BRIGHTNESS,
-                           (double)rand() / RAND_MAX * BRIGHTNESS);
+            if (label.at<int>(y, x) == 0) color = CV_RGB(0, 0, 0);
+            else {
+                srand(label.at<int>(y, x));
+                color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
+                               (double)rand() / RAND_MAX * BRIGHTNESS,
+                               (double)rand() / RAND_MAX * BRIGHTNESS);
+            }
             dst.at<Vec3b>(y, x)[0] = color[0];
             dst.at<Vec3b>(y, x)[1] = color[1];
             dst.at<Vec3b>(y, x)[2] = color[2];
@@ -435,3 +426,30 @@ void Draw::drawLabeles(const Mat& label)
     drawImage(dst);
 }
 
+void Draw::drawSWTComponents(const Mat& swt, const vector<vector<Point> >& components)
+{
+    int H = swt.rows, W = swt.cols;
+    Mat dst = Mat(H, W, CV_8UC3);
+    
+    srand((unsigned int)1);
+    
+    Point p;
+    Scalar color(0, 0, 0);
+    for (int i = 0; i < components.size(); i++) {
+        
+        if (i == 0) color = CV_RGB(50, 50, 50 );
+        else color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
+                            (double)rand() / RAND_MAX * BRIGHTNESS,
+                            (double)rand() / RAND_MAX * BRIGHTNESS);
+        
+        for (int j = 0; j < components[i].size(); j++) {
+            
+            p = components[i][j];
+            dst.at<Vec3b>(p.y, p.x)[0] = color[0];
+            dst.at<Vec3b>(p.y, p.x)[1] = color[1];
+            dst.at<Vec3b>(p.y, p.x)[2] = color[2];
+        }
+    }
+    
+    drawImage(dst);
+}
