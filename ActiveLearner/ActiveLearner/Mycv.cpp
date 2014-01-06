@@ -175,14 +175,9 @@ void Mycv::decreaseColorsWithKmeans(const Mat& src, Mat& dst)
 }
 
 
-void Mycv::SWT(const Mat& edge, Mat& swt)
+void Mycv::SWT(const Mat& edge, const Mat& gradient, Mat& swt)
 {
-    Mat gray;
-    grayscale(srcImage, gray);
-    Mat_<double> gradient = Mat_<double>(gray.rows, gray.cols);
-    sobelFiltering(gray, gradient);
-    
-    swt = Mat_<double>::zeros(gray.rows, gray.cols);
+    swt = Mat_<double>::zeros(edge.rows, edge.cols);
     swt = MAXFLOAT;
     int ecount = 0, fcount = 0;
     double max = 0;
@@ -222,7 +217,7 @@ void Mycv::SWT(const Mat& edge, Mat& swt)
                     
                     // If gradients of p and r are opposite
                     double rrad = gradient.at<double>(q.y, q.x);
-                    if (fabs(prad - rrad) > M_PI_4_5) {
+                    if (fabs(prad - rrad) > M_PI_2_3) {
                         
                         // Write the distance in p and r points on swt mat.
                         if (swt.at<double>(p.y, p.x) > distance)
@@ -238,7 +233,6 @@ void Mycv::SWT(const Mat& edge, Mat& swt)
                             if (swt.at<double>(r.y, r.x) > distance)
                                 swt.at<double>(r.y, r.x) = distance;
                         }
-                        
                         // Compute a max distance.
                         if (max < distance) max = distance;
                         // Check the findflag.
@@ -250,11 +244,11 @@ void Mycv::SWT(const Mat& edge, Mat& swt)
                     } else {
                         // Write n into nmap.
                         nmap.at<int>(y, x) = n;
+                        
                         break;
                     }
                 }
             }
-            
             ecount++;
             if (findflag) fcount++;
         }
@@ -289,6 +283,7 @@ void Mycv::SWT(const Mat& edge, Mat& swt)
             }
             
             if (distances.size() == 0) continue;
+            sort(distances.begin(), distances.end());
             median = distances[distances.size()/2];
             for (int i = 0; i < rayPoints.size(); i++) {
                 swt.at<double>(rayPoints[i].y, rayPoints[i].x) = median;
@@ -298,8 +293,120 @@ void Mycv::SWT(const Mat& edge, Mat& swt)
 
     cout << "count:" << fcount << "/" << ecount << ", " << edge.rows*edge.cols << endl;
     
+    // Extract connected regions as components
+    vector<vector<cv::Point> > components;
+    SWTComponents(swt, components);
+    
     Draw::drawSWT(swt, max);
 }
+
+
+#pragma mark -
+#pragma mark Labeling Assist Methods
+
+inline bool isIn(int w,int h,int x,int y)
+{
+    return 0<=x && x<w && 0<=y && y<h;
+}
+
+inline double getAt(const Mat& swt,int x,int y)
+{
+    return swt.at<double>(y, x);
+}
+
+inline bool isSimilar(double a, double b) {
+    return MAX(a, b) / MIN(a, b) < 4.0f;
+}
+
+//aの属すグループの代表に向かって経路圧縮（代表を返す）
+inline int compress(vector<int>& parents,int a)
+{
+    while(a!=parents[a])
+    {
+        parents[a]=parents[parents[a]];
+        a=parents[a];
+    }
+    return a;
+}
+
+//aの属すグループとbの属すグループを併合（併合後の代表を返す）
+inline int link(vector<int>& parents,int a,int b)
+{
+    a=compress(parents,a);
+    b=compress(parents,b);
+    if(a<b)
+        return parents[b]=a;
+    else
+        return parents[a]=b;
+}
+
+//番号とびとびなラベルを0,1,2,...に貼り替え
+inline int relabel(vector<int>& parents)
+{
+    int index=0;
+    for(int k=0;k<(int)parents.size();k++)
+    {
+        if(k==parents[k])
+            parents[k]=index++;
+        else
+            parents[k]=parents[parents[k]];
+    }
+    return index;
+}
+
+#pragma mark -
+#pragma mark SWT Methods
+
+void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components )
+{
+    // Initialize
+    Mat_<int> label = Mat_<int>::zeros(swt.rows, swt.cols);
+    
+    const int W=swt.cols;
+    const int H=swt.rows;
+    
+    //関数を複数回呼び出すときメモリ確保が何度も生じるので、
+    //例えばリアルタイム処理では関数外で確保するのがベター。
+    vector<int> parents;
+    parents.reserve(BUF_LABEL);
+    
+    int index=0;
+    for(int y=0;y<H;y++)
+        for(int x=0;x<W;x++)
+        {
+            //隣接画素（４近傍）との連結チェック
+            double c = getAt(swt,x,y);
+            bool flagA=(isIn(W,H,x-1,y  ) && isSimilar(c, getAt(swt,x-1,y  ))); //左
+            bool flagB=(isIn(W,H,x  ,y-1) && isSimilar(c, getAt(swt,x  ,y-1))); //上
+            bool flagC=(isIn(W,H,x-1,y-1) && isSimilar(c, getAt(swt,x-1,y-1))); //左上
+            bool flagD=(isIn(W,H,x+1,y-1) && isSimilar(c, getAt(swt,x+1,y-1))); //右上
+            
+            //着目画素と連結画素を併合
+            label(y,x)=index;
+            if((flagA|flagB|flagC|flagD)==true)
+            {
+                parents.push_back(index);
+                if(flagA) label(y,x)=link(parents,label(y,x),label(y  ,x-1));
+                if(flagB) label(y,x)=link(parents,label(y,x),label(y-1,x  ));
+                if(flagC) label(y,x)=link(parents,label(y,x),label(y-1,x-1));
+                if(flagD) label(y,x)=link(parents,label(y,x),label(y-1,x+1));
+                parents.pop_back();
+            }
+            else
+                parents.push_back(index++);
+        }
+    
+    //再ラベリング
+    int regions=relabel(parents);
+    for(int y=0;y<H;y++)
+        for(int x=0;x<W;x++)
+            label(y,x)=parents[label(y,x )];
+    cout << regions << endl;
+    
+    Draw::drawLabeles(label);
+    
+}
+
 
 Mycv::~Mycv()
 {

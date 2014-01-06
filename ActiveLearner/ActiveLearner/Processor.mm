@@ -152,11 +152,11 @@ static Processor* sharedProcessor = nil;
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- XMLファイル読み込み開始 ---", OUTPUT, nil];
     
-    XmlMaker *xml = [[XmlMaker alloc] init];
-    NSURL *url = [NSURL fileURLWithPath:model.xmlPaths[0]];
-    NSString *doc = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    [xml readXmlAndAddData:doc];
-    xmldata = [model getXMLData];
+//    XmlMaker *xml = [[XmlMaker alloc] init];
+//    NSURL *url = [NSURL fileURLWithPath:model.xmlPaths[0]];
+//    NSString *doc = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+//    [xml readXmlAndAddData:doc];
+//    xmldata = [model getXMLData];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
 }

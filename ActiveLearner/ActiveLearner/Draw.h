@@ -31,6 +31,7 @@ public:
     static void drawSWTandObjects(const Mat_<double>& swt, const double max,
                                   const vector<Object*>& objects);
     static void drawSamples(const Mat& src, const vector<Sample>& samples);
+    static void drawLabeles(const Mat& label);
     
 private:
     static Mat srcImage;

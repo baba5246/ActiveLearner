@@ -40,65 +40,56 @@ void ObjectDetector::detect(vector<Object*>& objects)
 {
     Mycv mycv(srcImage);
     
-    Mat rgray, ggray, bgray, redge, gedge, bedge, dst;
+    // 各色でグレースケール＆エッジ抽出
+    Mat rgray, ggray, bgray, redge, gedge, bedge, edge;
     mycv.grayscale(srcImage, rgray, MYCV_GRAY_R);
     mycv.grayscale(srcImage, ggray, MYCV_GRAY_G);
     mycv.grayscale(srcImage, bgray, MYCV_GRAY_B);
     mycv.canny(rgray, redge);
     mycv.canny(ggray, gedge);
     mycv.canny(bgray, bedge);
-    mycv.mergeEdges(redge, gedge, bedge, dst);
-//    Draw::draw(dst);
+    mycv.mergeEdges(redge, gedge, bedge, edge);
     
-    // Detect contours
-    Mat imgGray, imgCanny;
-    mycv.grayscale(srcImage, imgGray);
-    mycv.canny(imgGray, imgCanny);
-    
+    // 輪郭抽出
     cv::vector<cv::Vec4i> hierarchy;
     cv::vector<cv::vector<cv::Point> > contours;
-    mycv.contours(dst, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+    mycv.contours(edge, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
     
-    
-    // Create objects
+    // 輪郭から Object 作成
     createObjects(contours, objects);
-    cout << "create objects:" << objects.size() << endl;
+    cout << objects.size() << " objects are created from contours." << endl;
     
-    // Detect MSERs
+    // Unsharp Masking からの MSER 抽出
     Mat imgUnsharp;
     mycv.unsharpMasking(srcImage, imgUnsharp, 1);
-    
     vector<MSERegion> msers;
     mycv.MSERs(imgUnsharp, msers);
     
-//    Draw::drawMSERs(srcImage, msers);
-    
-    // Interpolate contours with MSERs and Inclusion Relationship
+    // MSER と包含関係を使って補正
     mergeApartContours(objects, msers);
     cout << "merge apart contours:" << objects.size() << endl;
     if (objects.size() == 0) return;
     mergeIncludedObjects(objects);
     
-//    Draw::drawObjects(srcImage, objects); // オブジェクト描画
-    
+    // SWT と Color 類似度を使って補正
+    Mat_<double> gradient = Mat_<double>(srcImage.rows, srcImage.cols);
+    mycv.sobelFiltering(ggray, gradient);
     Mat swt;
-    mycv.SWT(dst, swt);
+    mycv.SWT(gedge, gradient, swt);
     
-    // Compute gradients
-    Mat_<double> gradients = Mat_<double>(srcImage.rows, srcImage.cols);
-    mycv.sobelFiltering(imgGray, gradients);
-    gradientOfObjects(objects, gradients);
+    // Object の勾配方向計算
+    gradientOfObjects(objects, gradient);
     
-    Draw::drawGradients(objects, gradients); // 勾配方向描画
+//    Draw::drawGradients(objects, gradient); // 勾配方向描画
     
-    // Find corresponding pairs
-    findCorrPairs(objects, gradients);
-    gradientOfCorrPairs(objects, gradients);
+    // Corresponding Pair の探索
+    findCorrPairs(objects, gradient);
+    gradientOfCorrPairs(objects, gradient);
     
-    // Compute edge gradient features
-    computeEchar(objects);
-    computeStrokeWidth(objects);
-    setFeatures(objects);
+    // 特徴量計算
+    computeEchar(objects);          // Character Energy
+    computeStrokeWidth(objects);    // Stroke Width
+    setFeatures(objects);           // 特徴量をセット
     
     Draw::drawEchars(srcImage, objects); // Echar描画
     

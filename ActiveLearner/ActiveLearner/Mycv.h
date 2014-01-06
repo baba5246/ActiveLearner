@@ -30,11 +30,15 @@ public:
     void sobelFiltering(const Mat& graySrc, Mat_<double>& gradients);
     void MSERs(const Mat& src, vector<MSERegion>& msers);
     void decreaseColorsWithKmeans(const Mat& src, Mat& dst);
-    void SWT(const Mat& edge, Mat& swt);
+    void SWT(const Mat& edge, const Mat& gradient, Mat& swt);
+    void SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components);
 //    void decreaseColorsWithMedian(const Mat& src, Mat& dst);
     
 private:
     Mat srcImage;
     IplImage srcIplImage;
     
+    //ラベルのバッファ長
+    //予想領域数より十分に大きく
+    const int BUF_LABEL=512;
 };

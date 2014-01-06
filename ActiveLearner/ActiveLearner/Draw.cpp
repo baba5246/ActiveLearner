@@ -297,18 +297,23 @@ void Draw::drawSWT(const Mat& swt, const double max)
 {
     Mat dst(swt.rows, swt.cols, CV_8UC3);
     
-    int count = 0, eight = 8;
+    int count = 0, sampling = 128;
     for (int y = 0; y < swt.rows; y++) {
         for (int x = 0; x < swt.cols; x++) {
             
             double sw = swt.at<double>(y, x);
-            for (int i = 1; i <= eight+1; i++) {
-                count = i;
-                if ( sw < (double)i * max / eight  ) break;
+            Scalar color;
+            if (sw < MAXFLOAT) {
+                for (int i = 1; i <= sampling; i++) {
+                    count = i;
+                    if ( sw < (double)i * max / sampling  ) break;
+                }
+                color = CV_RGB(count, count, count);
+            } else {
+                color = CV_RGB(128, 255, 255);
             }
 //            cout << "sw:" << sw << ", count:" << count << endl;
             
-            Scalar color = colorWithCount(count);
             dst.at<Vec3b>(y, x)[0] = color[0];
             dst.at<Vec3b>(y, x)[1] = color[1];
             dst.at<Vec3b>(y, x)[2] = color[2];
@@ -405,6 +410,27 @@ void Draw::drawSamples(const Mat& src, const vector<Sample>& samples)
         rectangle(dst, samples[i].object.rect, color, 2);
         circle(dst, samples[i].object.centroid, 3, color, 2);
     }
+    
+    drawImage(dst);
+}
+
+void Draw::drawLabeles(const Mat& label)
+{
+    int H = label.rows, W = label.cols;
+    Mat dst = Mat(H, W, CV_8UC3);
+    
+    Scalar color;
+    for (int y = 0; y < H; y++)
+        for (int x = 0; x < W; x++)
+        {
+            srand(label.at<int>(y, x));
+            color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
+                           (double)rand() / RAND_MAX * BRIGHTNESS,
+                           (double)rand() / RAND_MAX * BRIGHTNESS);
+            dst.at<Vec3b>(y, x)[0] = color[0];
+            dst.at<Vec3b>(y, x)[1] = color[1];
+            dst.at<Vec3b>(y, x)[2] = color[2];
+        }
     
     drawImage(dst);
 }
