@@ -359,24 +359,26 @@ Scalar Draw::colorWithCount(const int count)
 void Draw::drawSWTObjects(const Mat_<double>& swt, const vector<SWTObject>& swtobjects)
 {
     Mat dst = Mat::zeros(swt.rows, swt.cols, CV_8UC3);
+    dst = CV_RGB(100, 100, 100);
     
     srand((unsigned int)1);
     
-    Point p;
+    Point p, d;
     Scalar color;
+    SWTObject obj;
     for (int i = 0; i < swtobjects.size(); i++) {
         
-        color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
-                       (double)rand() / RAND_MAX * BRIGHTNESS,
-                       (double)rand() / RAND_MAX * BRIGHTNESS);
+        obj = swtobjects[i];
         
         for (int j = 0; j < swtobjects[i].region.size(); j++) {
             
             p = swtobjects[i].region[j];
-            dst.at<Vec3b>(p.y, p.x)[0] = color[0];
-            dst.at<Vec3b>(p.y, p.x)[1] = color[1];
-            dst.at<Vec3b>(p.y, p.x)[2] = color[2];
+            dst.at<Vec3b>(p.y, p.x)[0] = obj.color[0];
+            dst.at<Vec3b>(p.y, p.x)[1] = obj.color[1];
+            dst.at<Vec3b>(p.y, p.x)[2] = obj.color[2];
         }
+//        d = obj.centroid - obj.rect.tl();
+//        circle(dst, obj.centroid, sqrt(d.x*d.x+d.y*d.y), obj.color, 1);
     }
     
     drawImage(dst);

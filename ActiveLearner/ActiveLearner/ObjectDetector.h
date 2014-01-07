@@ -59,6 +59,7 @@ private:
     int** createImageTable(const vector<Object*>& objects);
     cv::Rect* intersect(const cv::Rect& rect1, const cv::Rect& rect2);
     
+    Scalar computeColor(const Mat& srcImage, const vector<cv::Point>& region);
     void SWTComponent(const Mat& src, vector<Object>& component);
 };
 

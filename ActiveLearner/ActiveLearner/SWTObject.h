@@ -15,9 +15,12 @@ public:
     Mat swt;
     vector<cv::Point> region;
     cv::Rect rect;
+    cv::RotatedRect rotatedRect;
     cv::Point centroid;
     int width = 0, height = 0;
-    double aspectRatio = 0, mean = 0, variance = 0;
+    double aspectRatio = 0, areaRatio = 0;
+    double mean = 0, variance = 0;
+    Scalar color;
     
 private:
     

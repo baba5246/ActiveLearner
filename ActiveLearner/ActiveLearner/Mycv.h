@@ -30,7 +30,8 @@ public:
     void sobelFiltering(const Mat& graySrc, Mat_<double>& gradients);
     void MSERs(const Mat& src, vector<MSERegion>& msers);
     void decreaseColorsWithKmeans(const Mat& src, Mat& dst);
-    void SWT(const Mat& edge, const Mat& gradient, Mat& swt);
+    void SWTMinus(const Mat& edge, const Mat& gradient, Mat& swt);
+    void SWTPlus(const Mat& edge, const Mat& gradient, Mat& swt);
     void SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components);
 //    void decreaseColorsWithMedian(const Mat& src, Mat& dst);
     

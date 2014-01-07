@@ -76,14 +76,17 @@ void ObjectDetector::detect(vector<Object*>& objects)
     mycv.sobelFiltering(ggray, gradient);
     
     // Extract connected regions as components
-    Mat swt;
-    vector<vector<cv::Point> > components;
+    Mat swtm, swtp;
+    vector<vector<cv::Point> > compm, compp;
     vector<SWTObject> swtobjects;
-    mycv.SWT(gedge, gradient, swt);
-    mycv.SWTComponents(swt, components);
-    createSWTObjects(swtobjects, swt, components);
+    mycv.SWTMinus(gedge, gradient, swtm);
+    mycv.SWTComponents(swtm, compm);
+    mycv.SWTPlus(gedge, gradient, swtp);
+    mycv.SWTComponents(swtp, compp);
+    createSWTObjects(swtobjects, swtp, compm);
+    createSWTObjects(swtobjects, swtp, compp);
     
-    Draw::drawSWTObjects(swt, swtobjects);
+    Draw::drawSWTObjects(swtm, swtobjects);
     
     // Object の勾配方向計算
     gradientOfObjects(objects, gradient);
@@ -100,7 +103,6 @@ void ObjectDetector::detect(vector<Object*>& objects)
     setFeatures(objects);           // 特徴量をセット
     
 //    Draw::drawEchars(srcImage, objects); // Echar描画
-    
     
     vector<Text*> texts;
     TextDetector detector(srcImage);
@@ -256,15 +258,42 @@ void ObjectDetector::mergeIncludedObjects(vector<Object*>& objects)
 void ObjectDetector::createSWTObjects(vector<SWTObject>& swtobjects, const Mat& swt, vector<vector<cv::Point> >& components)
 {
     for (int i = 0; i < components.size(); i++) {
+        
+        long size = components[i].size();
+        if (size < 4) continue;
+        
         SWTObject swtobj(components[i], swt);
         
-        if (swtobj.aspectRatio >= 10) continue;
-//        sif (swtobj.variance >= pow(swtobj.mean, 2)) continue;
+        if (swtobj.aspectRatio >= 15) continue;
+        if (swtobj.variance >= pow(swtobj.mean, 2)) continue;
         if (MAX(swtobj.width, swtobj.height) > 300) continue;
-        if (MIN(swtobj.width, swtobj.height) < 10) continue;
+        if (swtobj.region.size() < 10) continue;
+        if (swtobj.areaRatio < 0.2f) continue;
+        
+        // 平均色の計算
+        swtobj.color = computeColor(srcImage, components[i]);
         
         swtobjects.push_back(swtobj);
     }
+}
+
+inline Scalar ObjectDetector::computeColor(const Mat& srcImage, const vector<cv::Point>& region)
+{
+    Scalar color = Scalar(0, 0, 0);
+    Vec3b temp;
+    long size = region.size();
+    for (int j = 0; j < size; j++) {
+        temp = srcImage.at<Vec3b>(region[j].y, region[j].x);
+        color[0] += temp[0];
+        color[1] += temp[1];
+        color[2] += temp[2];
+    }
+    if (size > 0) {
+        color[0] /= size;
+        color[1] /= size;
+        color[2] /= size;
+    }
+    return color;
 }
 
 // Compute Gradients of Objects

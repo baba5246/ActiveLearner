@@ -40,6 +40,10 @@ void SWTObject::computeProperties()
     aspectRatio = MAX((double)rect.width, (double)rect.height) / MIN((double)rect.width, (double)rect.height);
     // Stroke Width の平均と分散の計算
     computeMeanAndVariance();
+    // 回転矩形の計算
+    rotatedRect = minAreaRect(region);
+    // 面積比の計算
+    areaRatio = (double)region.size() / rotatedRect.size.area();
 }
 
 void SWTObject::computeMeanAndVariance()

@@ -199,8 +199,20 @@ inline double getDoubleAt(const Mat& matrix,int x,int y)
     return matrix.at<double>(y, x);
 }
 
-inline bool isSimilar(double a, double b) {
+inline Vec3b getLabAt(const Mat& lab, int x, int y)
+{
+    return lab.at<Vec3b>(y, x);
+}
+
+inline bool isSimilarSWT(double a, double b) {
     return MAX(a, b) / MIN(a, b) < 4.0f;
+}
+
+inline bool isSimilarLab(Vec3b a, Vec3b b) {
+    double dl = a.val[0]-b.val[0];
+    double da = a.val[1]-b.val[1];
+    double db = a.val[2]-b.val[2];
+    return sqrt(dl*dl+da*da+db*db) < 20;
 }
 
 //aの属すグループの代表に向かって経路圧縮（代表を返す）
@@ -243,7 +255,7 @@ inline int relabel(vector<int>& parents)
 #pragma mark SWT Methods
 
 
-void Mycv::SWT(const Mat& edge, const Mat& gradient, Mat& swt)
+void Mycv::SWTMinus(const Mat& edge, const Mat& gradient, Mat& swt)
 {
     bool findflag = false;
     const int H = edge.rows, W = edge.cols;
@@ -360,6 +372,122 @@ void Mycv::SWT(const Mat& edge, const Mat& gradient, Mat& swt)
         }
 }
 
+void Mycv::SWTPlus(const Mat& edge, const Mat& gradient, Mat& swt)
+{
+    bool findflag = false;
+    const int H = edge.rows, W = edge.cols;
+    int e1 = 0, e2 = 0, e3 = 0, ecount = 0, fcount = 0;
+    double pradian = 0, rradian = 0, distance = 0, max = 0;
+    Point_<double> p, ray;
+    Point_<int> q, diff, r;
+    
+    swt = Mat_<double>::zeros(H, W);
+    swt = MAXFLOAT;
+    Mat_<int> nmap = Mat_<int>::zeros(H, W);
+    
+    for (int y = 0; y < H; y++)
+        for (int x = 0; x < W; x++)
+        {
+            if (!isFullIn(W, H, x, y)) continue;
+            
+            int e = getIntAt(edge, x, y);
+            if (e == 0) continue;
+            
+            findflag = false;
+            pradian = getDoubleAt(gradient, x, y);
+            p = Point_<double>(x, y);
+            ray = Point_<double>(-cos(pradian), sin(pradian));
+            
+            for (double n = 1; n < 300; n++) {
+                
+                // Compute a ray point
+                q = p + n * ray;
+                if (!isFullIn(W, H, q.x, q.y)) continue;
+                
+                // Check whether the ray point is an edge point.
+                e1 = getIntAt(edge, q.x, q.y-1);
+                e2 = getIntAt(edge, q.x, q.y  );
+                e3 = getIntAt(edge, q.x, q.y+1);
+                if ((abs(p.x - q.x)>1 || abs(p.y - q.y)>1) &&
+                    (e1 > 0 || e2 > 0 || e3 > 0))
+                {
+                    // Compute the distance between p and r.
+                    diff = Point(p.x-q.x, p.y-q.y);
+                    distance = sqrt(diff.x*diff.x + diff.y*diff.y);
+                    
+                    // If gradients of p and r are opposite
+                    rradian = getDoubleAt(gradient, q.x, q.y);
+                    if (fabs(pradian - rradian) > M_PI_2_3) {
+                        
+                        // Write the distance in p and r points on swt mat.
+                        if (getDoubleAt(swt, p.x, p.y) > distance)
+                            swt.at<double>(p.y, p.x) = distance;
+                        if (getDoubleAt(swt, q.x, q.y) > distance)
+                            swt.at<double>(q.y, q.x) = distance;
+                        
+                        // Write the distance in points on the ray
+                        for (int temp = 1; temp < n; temp++) {
+                            r = p + temp * ray;
+                            if (!isFullIn(W, H, r.x, r.y)) continue;
+                            if (getDoubleAt(swt, r.x, r.y) > distance)
+                                swt.at<double>(r.y, r.x) = distance;
+                        }
+                        // Compute a max distance.
+                        if (max < distance) max = distance;
+                        // Check the findflag.
+                        findflag = true;
+                        // Write n into nmap.
+                        nmap.at<int>(y, x) = n;
+                        
+                        break;
+                    } else {
+                        // Write n into nmap.
+                        nmap.at<int>(y, x) = n;
+                        
+                        break;
+                    }
+                }
+            }
+            ecount++;
+            if (findflag) fcount++;
+        }
+    
+    double sw = 0, median = 0;
+    vector<Point> rayPoints;
+    vector<double> distances;
+    
+    // Compute medians.
+    for (int y = 0; y < H; y++)
+        for (int x = 0; x < W; x++)
+        {
+            if (!isFullIn(W, H, x, y)) continue;
+            
+            int e = getIntAt(edge, x, y);
+            if (e == 0) continue;
+            
+            pradian = getDoubleAt(gradient, x, y);
+            p = Point_<double>(x, y);
+            ray = Point_<double>(-cos(pradian), sin(pradian));
+            
+            for (int n = 1; n < getIntAt(nmap, x, y); n++) {
+                r = p + n * ray;
+                if (!isFullIn(W, H, r.x, r.y)) continue;
+                
+                sw = getDoubleAt(swt, r.x, r.y);
+                if (sw < MAXFLOAT) {
+                    rayPoints.push_back(Point(r));
+                    distances.push_back(sw);
+                }
+            }
+            
+            if (distances.size() == 0) continue;
+            sort(distances.begin(), distances.end());
+            median = distances[distances.size()/2];
+            for (int i = 0; i < rayPoints.size(); i++) {
+                swt.at<double>(rayPoints[i].y, rayPoints[i].x) = median;
+            }
+        }
+}
 
 void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components )
 {
@@ -367,6 +495,14 @@ void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components 
     const int W=swt.cols;
     const int H=swt.rows;
     Mat_<int> label = Mat_<int>::zeros(H, W);
+    
+    // Lab画像作成
+    Mat lab(H, W, CV_8UC3);
+    Mat smoothlab(H, W, CV_8UC3);
+    cvtColor(srcImage, lab, CV_RGB2Lab);
+    blur(lab, smoothlab, Size(11, 11));
+
+//    Draw::draw(smoothlab);
     
     // 関数を複数回呼び出すときメモリ確保が何度も生じるので、
     // 例えばリアルタイム処理では関数外で確保するのがベター。
@@ -379,10 +515,15 @@ void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components 
         {
             // 隣接画素（４近傍）との連結チェック
             double c = getDoubleAt(swt,x,y);
-            bool flagA=(isIn(W,H,x-1,y  ) && isSimilar(c, getDoubleAt(swt,x-1,y  ))); //左
-            bool flagB=(isIn(W,H,x  ,y-1) && isSimilar(c, getDoubleAt(swt,x  ,y-1))); //上
-            bool flagC=(isIn(W,H,x-1,y-1) && isSimilar(c, getDoubleAt(swt,x-1,y-1))); //左上
-            bool flagD=(isIn(W,H,x+1,y-1) && isSimilar(c, getDoubleAt(swt,x+1,y-1))); //右上
+            Vec3b clab = getLabAt(lab,x,y);
+            bool flagA=(isIn(W,H,x-1,y  ) && (isSimilarSWT(c, getDoubleAt(swt,x-1,y  ))
+                                              & isSimilarLab(clab, getLabAt(lab, x-1, y  )))); //左
+            bool flagB=(isIn(W,H,x  ,y-1) && (isSimilarSWT(c, getDoubleAt(swt,x  ,y-1))
+                                              & isSimilarLab(clab, getLabAt(lab, x  , y-1)))); //上
+            bool flagC=(isIn(W,H,x-1,y-1) && (isSimilarSWT(c, getDoubleAt(swt,x-1,y-1))
+                                              & isSimilarLab(clab, getLabAt(lab, x-1, y-1)))); //左上
+            bool flagD=(isIn(W,H,x+1,y-1) && (isSimilarSWT(c, getDoubleAt(swt,x+1,y-1))
+                                              & isSimilarLab(clab, getLabAt(lab, x+1, y-1)))); //右上
             
             // 着目画素と連結画素を併合
             label(y,x)=index;
