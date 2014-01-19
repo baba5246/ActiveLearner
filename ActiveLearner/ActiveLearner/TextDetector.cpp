@@ -156,7 +156,7 @@ void TextDetector::addNeighbors(Text* text, vector<Object*> objects)
                 // cout << threshold << endl;
                 text->add(objects[i], distance);
                 text->gradients.push_back(gradient);
-                Draw::drawText(srcImage, text);
+//                Draw::drawText(srcImage, text);
             }
         }
     }

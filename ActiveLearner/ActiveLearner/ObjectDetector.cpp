@@ -85,8 +85,8 @@ void ObjectDetector::detect(vector<Object*>& objects)
     mycv.SWTComponents(swtp, compp);
     createSWTObjects(swtobjects, swtp, compm);
     createSWTObjects(swtobjects, swtp, compp);
-    
-    Draw::drawSWTObjects(swtm, swtobjects);
+  
+//    Draw::drawSWTObjects(swt, swtobjects);
     
     // Object の勾配方向計算
     gradientOfObjects(objects, gradient);

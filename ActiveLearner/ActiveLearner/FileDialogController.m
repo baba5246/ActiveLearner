@@ -11,7 +11,7 @@
     Notification *n;
 }
 
-- (IBAction)importDataset:(id)sender
+- (IBAction)importTrainDataset:(id)sender
 {
     NSOpenPanel *openPanel	= [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
@@ -48,13 +48,14 @@
                 }
             }
             
-            [model setDirectory:dirPath.path];
-            [model setFiles:files];
-            [model setImagePaths:imagePaths];
-            [model setXmlPaths:xmlPaths];
+            [model setTrainDir:dirPath.path];
+            [model setTrainFiles:files];
+            [model setTrainImagePaths:imagePaths];
+            [model setTrainXmlPaths:xmlPaths];
             
             // 通知
-            [n sendNotification:DID_LOAD_DIRECTORY];
+            NSNumber *type = [NSNumber numberWithBool:YES];
+            [n sendNotification:DID_LOAD_DIRECTORY objectsAndKeys:type, @"type", nil];
         }
         else if ([self isImage:dirPath.path])
         {
@@ -71,12 +72,95 @@
                 }
             }
             
-            [model setDirectory:dirPath.path];
-            [model setImagePaths:imagePaths];
-            [model setXmlPaths:xmlPaths];
+            [model setTrainDir:dirPath.path];
+            [model setTrainImagePaths:imagePaths];
+            [model setTrainXmlPaths:xmlPaths];
             
             // 通知
-            [n sendNotification:DID_LOAD_DIRECTORY];
+            NSNumber *type = [NSNumber numberWithBool:YES];
+            [n sendNotification:DID_LOAD_DIRECTORY objectsAndKeys:type, @"type", nil];
+        }
+        else
+        {
+            // エラー表示
+            [n sendNotification:ERROR_LOAD_DIRECTORY];
+        }
+        
+    }else if( pressedButton == NSCancelButton ){
+     	NSLog(@"Cancel button was pressed.");
+    }else{
+     	// error
+    }
+}
+
+- (IBAction)importTestDataset:(id)sender
+{
+    NSOpenPanel *openPanel	= [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    NSInteger pressedButton = [openPanel runModal];
+    
+    model = [Model sharedManager];
+    n = [Notification sharedManager];
+    
+    if( pressedButton == NSOKButton ){
+        
+        NSURL * dirPath = [openPanel URL];
+        
+        NSArray *files;
+        NSMutableArray *imagePaths = [[NSMutableArray alloc] init];
+        NSMutableArray *xmlPaths = [[NSMutableArray alloc] init];
+        
+        if ([self isDirectory:dirPath])
+        {
+            NSFileManager *manager = [NSFileManager defaultManager];
+            files = [manager contentsOfDirectoryAtPath:dirPath.path error:nil];
+            
+            NSString *fullPath;
+            for (NSString *path in files)
+            {
+                if ([self isImage:path]) // 画像判定
+                {
+                    fullPath = [dirPath.path stringByAppendingFormat:@"/%@", path];
+                    [imagePaths addObject:fullPath];
+                }
+                else if ([self isXMLDocument:path]) // xml判定
+                {
+                    fullPath = [dirPath.path stringByAppendingFormat:@"/%@", path];
+                    [xmlPaths addObject:fullPath];
+                }
+            }
+            
+            [model setTestDir:dirPath.path];
+            [model setTestFiles:files];
+            [model setTestImagePaths:imagePaths];
+            [model setTestXmlPaths:xmlPaths];
+            
+            // 通知
+            NSNumber *type = [NSNumber numberWithBool:NO];
+            [n sendNotification:DID_LOAD_DIRECTORY objectsAndKeys:type,@"type", nil];
+        }
+        else if ([self isImage:dirPath.path])
+        {
+            [imagePaths addObject:dirPath.path];
+            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            NSString *directory = dirPath.path.stringByDeletingLastPathComponent;
+            files = [manager contentsOfDirectoryAtPath:directory error:nil];
+            NSString *fullPath;
+            for (NSString *path in files) {
+                if ([self isXMLDocument:path]) {
+                    fullPath = [directory stringByAppendingFormat:@"/%@", path];
+                    [xmlPaths addObject:fullPath];
+                }
+            }
+            
+            [model setTestDir:dirPath.path];
+            [model setTestImagePaths:imagePaths];
+            [model setTestXmlPaths:xmlPaths];
+            
+            // 通知
+            NSNumber *type = [NSNumber numberWithBool:NO];
+            [n sendNotification:DID_LOAD_DIRECTORY objectsAndKeys:type, @"type", nil];
         }
         else
         {

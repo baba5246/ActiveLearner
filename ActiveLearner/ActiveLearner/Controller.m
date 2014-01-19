@@ -6,8 +6,6 @@
 @implementation Controller
 {
     Processor *processor;
-    
-    int count;
 }
 
 @synthesize imgView;
@@ -20,11 +18,9 @@
         model = [Model sharedManager];
         processor = [Processor sharedManager];
         
-        count = 0;
-        
         // Notification設定
         Notification *n = [Notification sharedManager];
-        [n.nc addObserver:self selector:@selector(updateViewDidLoad) name:DID_LOAD_DIRECTORY object:nil];
+        [n.nc addObserver:self selector:@selector(updateViewDidLoad:) name:DID_LOAD_DIRECTORY object:nil];
         [n.nc addObserver:self selector:@selector(showLoadErrorAlert) name:ERROR_LOAD_DIRECTORY object:nil];
         [n.nc addObserver:self selector:@selector(consoleMethod:) name:CONSOLE_OUTPUT object:nil];
         
@@ -32,41 +28,19 @@
     return self;
 }
 
-- (IBAction)onWholeClicked:(id)sender
+- (IBAction)onTrainWholeClicked:(id)sender
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [processor excuteWhole:TYPE_TRAINING];
-    });
-    
-}
-
-- (IBAction)onCCDClicked:(id)sender
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      
-        //[processor debugCCD];
-        
+        [processor trainWhole];
     });
 }
 
-- (IBAction)onCCVClicked:(id)sender
-{
-    
-}
 
-- (IBAction)onCGDClicked:(id)sender
+- (IBAction)onTestWholeClicked:(id)sender
 {
-    
-}
-
-- (IBAction)onCGVClicked:(id)sender
-{
-    
-}
-
-- (IBAction)onTestingClicked:(id)sender
-{
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [processor testWhole];
+    });
 }
 
 
@@ -74,9 +48,14 @@
 #pragma mark Set View Methods
 
 
-- (void) updateViewDidLoad
+- (void) updateViewDidLoad:(NSNotification*)n
 {
-    [dirPathLbl setStringValue:model.directory];
+    BOOL type = [n.userInfo[@"type"] boolValue];
+    if (type) {
+        [trainDirPathLbl setStringValue:model.trainDir];
+    } else {
+        [testDirPathLbl setStringValue:model.testDir];
+    }
     [self console:@"読み込みが完了しました．"];
 }
 

@@ -7,8 +7,8 @@
     NSMutableDictionary *xmlData;
 }
 
-@synthesize directory;
-@synthesize files;
+@synthesize trainDir, trainFiles, trainImagePaths, trainXmlPaths;
+@synthesize testDir, testFiles, testImagePaths, testXmlPaths;
 @synthesize counter;
 @synthesize imagePath, filename, fileIndex;
 
@@ -40,7 +40,7 @@ static Model* sharedModel = nil;
 - (void) setFilename:(NSString *)name
 {
     filename = name;
-    if (files.count > 0) fileIndex = [files indexOfObject:filename];
+    if (trainFiles.count > 0) fileIndex = [trainFiles indexOfObject:filename];
     else fileIndex = -1;
 }
 

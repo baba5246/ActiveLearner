@@ -3,7 +3,8 @@
 
 @interface FileDialogController : NSObject
 
--(IBAction)importDataset:(id)sender;
+-(IBAction)importTrainDataset:(id)sender;
+-(IBAction)importTestDataset:(id)sender;
 -(IBAction)onExportXMLButtonClicked:(id)sender;
 
 @end
