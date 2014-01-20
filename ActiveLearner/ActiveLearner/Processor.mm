@@ -4,16 +4,6 @@
 #include "AdaBoost.h"
 
 @implementation Processor
-{
-    Model *model;
-    Notification *n;
-    
-    NSDictionary *xmldata;
-    
-    AdaBoost ccvAdaBoost;
-    AdaBoost cgvAdaBoost;
-}
-
 
 #pragma mark -
 #pragma mark Initialize Methods
@@ -108,9 +98,8 @@ static Processor* sharedProcessor = nil;
          objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
     
     vector<Text*> cgs;
-    
-    // Grouping
-    
+//    TextDetector detector(srcImage);
+//    detector.detect(objects, cgs);
     
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
@@ -228,6 +217,12 @@ static Processor* sharedProcessor = nil;
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- XMLファイル読み込み開始 ---", OUTPUT, nil];
     
     XmlMaker *xml = [[XmlMaker alloc] init];
+    NSString *urlString = nil;
+    if (isTraining) {
+        if (model.trainXmlPaths.count > 0) urlString = model.trainXmlPaths[0];
+    } else {
+        
+    }
     NSURL *url = nil;
     if (isTraining) {
         if (model.trainXmlPaths.count > 0) url = [NSURL fileURLWithPath:model.trainXmlPaths[0]];

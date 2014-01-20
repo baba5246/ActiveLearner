@@ -76,15 +76,15 @@ void ObjectDetector::detect(vector<Object*>& objects)
     mycv.sobelFiltering(ggray, gradient);
     
     // Extract connected regions as components
-    Mat swtm, swtp;
-    vector<vector<cv::Point> > compm, compp;
-    vector<SWTObject> swtobjects;
-    mycv.SWTMinus(gedge, gradient, swtm);
-    mycv.SWTComponents(swtm, compm);
-    mycv.SWTPlus(gedge, gradient, swtp);
-    mycv.SWTComponents(swtp, compp);
-    createSWTObjects(swtobjects, swtp, compm);
-    createSWTObjects(swtobjects, swtp, compp);
+//    Mat swtm, swtp;
+//    vector<vector<cv::Point> > compm, compp;
+//    vector<SWTObject> swtobjects;
+//    mycv.SWTMinus(gedge, gradient, swtm);
+//    mycv.SWTComponents(swtm, compm);
+//    mycv.SWTPlus(gedge, gradient, swtp);
+//    mycv.SWTComponents(swtp, compp);
+//    createSWTObjects(swtobjects, swtp, compm);
+//    createSWTObjects(swtobjects, swtp, compp);
   
 //    Draw::drawSWTObjects(swt, swtobjects);
     

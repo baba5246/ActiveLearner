@@ -1,0 +1,55 @@
+<?xml version="1.0" standalone="no"?>
+<root>
+	<image name="P1110610.JPG">
+		<truth rect="{{619,177},{0,0}}" text=""></truth>
+		<truth rect="{{11,62},{611,99}}" text="日向夏ゴーフレット"></truth>
+		<truth rect="{{243,11},{143,38}}" text="宮崎名菓"></truth>
+		<truth rect="{{471,0},{47,35}}" text="GE"></truth>
+		<truth rect="{{115,0},{33,26}}" text="H"></truth>
+	</image>
+	<image name="P1110612.JPG">
+		<truth rect="{{10,311},{419,85}}" text="ゼムクリップ"></truth>
+		<truth rect="{{4,409},{422,56}}" text="大・40g(約100本)入"></truth>
+	</image>
+	<image name="P1110613.JPG">
+		<truth rect="{{279,68},{61,336}}" text="クリンスイ"></truth>
+		<truth rect="{{189,135},{45,206}}" text="CPO15"></truth>
+	</image>
+	<image name="P1110614.JPG">
+		<truth rect="{{80,9},{186,466}}" text="ゲーム"></truth>
+		<truth rect="{{262,12},{165,316}}" text="推理"></truth>
+		<truth rect="{{440,26},{88,325}}" text="おもしろ"></truth>
+		<truth rect="{{565,32},{26,155}}" text="グループQA・編著"></truth>
+	</image>
+	<image name="P1110615.JPG">
+		<truth rect="{{22,150},{281,66}}" text="高級天然"></truth>
+		<truth rect="{{327,147},{216,75}}" text="ゴム製"></truth>
+		<truth rect="{{91,274},{522,126}}" text="JOYFUL"></truth>
+	</image>
+	<image name="P1110616.JPG">
+		<truth rect="{{85,63},{283,281}}" text="情熱価格"></truth>
+		<truth rect="{{102,413},{245,48}}" text="ドン.キホーテ"></truth>
+	</image>
+	<image name="P1110617.JPG">
+		<truth rect="{{261,304},{13,46}}" text="ボックス"></truth>
+		<truth rect="{{262,195},{19,108}}" text="キッチンタオル"></truth>
+		<truth rect="{{282,194},{39,129}}" text="scotties"></truth>
+	</image>
+	<image name="P1110618.JPG">
+		<truth rect="{{47,5},{122,130}}" text="本格焼酎"></truth>
+		<truth rect="{{297,212},{39,248}}" text="くろいさにしき"></truth>
+	</image>
+	<image name="P1110619.JPG">
+		<truth rect="{{179,113},{104,334}}" text="月桂冠"></truth>
+		<truth rect="{{355,0},{42,77}}" text="味すっきり"></truth>
+		<truth rect="{{410,4},{34,62}}" text="まろやか"></truth>
+	</image>
+	<image name="P1110620.JPG">
+		<truth rect="{{94,219},{180,47}}" text="ファミリー"></truth>
+		<truth rect="{{120,274},{147,50}}" text="カセット"></truth>
+		<truth rect="{{134,328},{127,56}}" text="ボンベ"></truth>
+		<truth rect="{{140,407},{53,27}}" text="NET"></truth>
+		<truth rect="{{194,386},{67,44}}" text="250g"></truth>
+		<truth rect="{{22,292},{15,180}}" text="この切込み(凹部)を"></truth>
+	</image>
+</root>
