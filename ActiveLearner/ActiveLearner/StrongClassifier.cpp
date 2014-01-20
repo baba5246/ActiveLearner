@@ -10,6 +10,7 @@ int StrongClassifier::test(Sample& s)
 {
     double threshold = 0;
     for (int c = 0; c < wcs.size(); c++) threshold += wcs[c].alpha;
+    threshold = threshold * 0.3f;
     
     double discrimination = 0;
     for (int c = 0; c < wcs.size(); c++) discrimination += (wcs[c].alpha * wcs[c].Test(s));
@@ -24,6 +25,7 @@ int StrongClassifier::test(Object* o)
 {
     double threshold = 0;
     for (int c = 0; c < wcs.size(); c++) threshold += wcs[c].alpha;
+    threshold = threshold * 0.3f;
     
     double discrimination = 0;
     for (int c = 0; c < wcs.size(); c++) discrimination += (wcs[c].alpha * wcs[c].Test(o));
@@ -37,6 +39,7 @@ int StrongClassifier::test(Text* t)
 {
     double threshold = 0;
     for (int c = 0; c < wcs.size(); c++) threshold += wcs[c].alpha;
+    threshold = threshold * 0.3f;
     
     double discrimination = 0;
     for (int c = 0; c < wcs.size(); c++) discrimination += (wcs[c].alpha * wcs[c].Test(t));

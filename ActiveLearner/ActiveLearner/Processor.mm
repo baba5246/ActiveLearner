@@ -306,14 +306,15 @@ static Processor* sharedProcessor = nil;
         
         // filename抽出
         string filename = filepath.substr(filepath.find_last_of("/")+1);
-        char cfn[filename.length()];
-        memcpy(cfn, filename.c_str(), filename.length());
-        NSString *nsfilename = [[NSString alloc] initWithUTF8String:cfn];
+        NSRange range = [path rangeOfString:@"/" options:NSBackwardsSearch];
+        NSString *nsfilename = [path substringFromIndex:range.location+1];
+        
+        // Truths
+        NSArray *truths = xmldata[nsfilename];
         
         // サンプル作成
         for (int i = 0; i < objects.size(); i++)
         {
-            
             if (objects[i]->filename.compare(filename) != 0)
                 continue;
             
@@ -324,7 +325,6 @@ static Processor* sharedProcessor = nil;
             NSRect rect = NSMakeRect(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
             
             bool findFlag = NO;
-            NSArray *truths = xmldata[nsfilename];
             for (Truth *t in truths) {
                 if (NSContainsRect(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
                     findFlag = YES;
@@ -340,8 +340,6 @@ static Processor* sharedProcessor = nil;
         vector<Sample> copy(temp);
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
         
-//        Mat src = cv::imread([path cStringUsingEncoding:NSUTF8StringEncoding]);
-//        Draw::drawSamples(src, temp);
     }
 
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
@@ -368,9 +366,8 @@ static Processor* sharedProcessor = nil;
         
         // filename抽出
         string filename = filepath.substr(filepath.find_last_of("/")+1);
-        char cfn[filename.length()];
-        memcpy(cfn, filename.c_str(), filename.length());
-        NSString *nsfilename = [[NSString alloc] initWithUTF8String:cfn];
+        NSRange range = [path rangeOfString:@"/" options:NSBackwardsSearch];
+        NSString *nsfilename = [path substringFromIndex:range.location+1];
 
         // サンプル作成
         for (int i = 0; i < groups.size(); i++)
@@ -476,6 +473,9 @@ static Processor* sharedProcessor = nil;
             // 正解個数を算出
             if (test == s.label) e++;
         }
+        
+        Mat srcImage = imread(filepath);
+        Draw::drawObjects(srcImage, corrects);
         
         components.insert(map<string, vector<Object*>>::value_type(filepath, corrects));
     }

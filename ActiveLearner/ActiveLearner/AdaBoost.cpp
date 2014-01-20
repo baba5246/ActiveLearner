@@ -29,12 +29,12 @@ AdaBoostResult AdaBoost::next()
     normalizeWeight();
     
     // Updates errors
-    for (int e = 0; e < train.size(); e++)
+    for (int t = 0; t < train.size(); t++)
     {
-        Sample s = train[e];
+        Sample s = train[t];
         for (int c = 0; c < wcs.size(); c++)
         {
-            if (wcs[c].Test(s) != s.label) errors[c] += weights[e];
+            if (wcs[c].Test(s) != s.label) errors[c] += weights[t];
         }
     }
     
@@ -51,19 +51,19 @@ AdaBoostResult AdaBoost::next()
     
     // Compute b and update sample weights
     double beta = lerror / (1 - lerror);
-    cout << "before beta:" << beta << endl;
+    cout << "beta:" << beta << endl;
     WeakClassifier lwc = wcs[lIndex];
-    for (int e = 0; e < train.size(); e++)
+    for (int t = 0; t < train.size(); t++)
     {
         double b = beta;
-        Sample s = train[e];
+        Sample s = train[t];
         
         if (lwc.Test(s) != s.label) b = 1;
-        weights[e] = weights[e] * b;
+        weights[t] = weights[t] * b;
     }
     
-    cout << "beta:" << beta << endl;
-    double alpha = log(1 / beta) / 2;
+    double alpha = log(1 / beta);
+    if (alpha < 0) alpha = 0;
     lwc.alpha = alpha;
     sc.wcs.push_back(lwc);
     

@@ -30,13 +30,14 @@ void Object::computeProperties()
     uniqueContour();
     rect = boundingRect(contourPixels);
     rectArea = rect.area();
-    rectRatio = rectArea / srcSize.area();
+    rectRatio = (double)rectArea / srcSize.area();
     
     origin = Point(rect.x, rect.y);
     width = rect.width;
     height = rect.height;
     longLength = MAX(width, height);
     longLengthRatio = longLength / MAX(srcSize.width,srcSize.height);
+    aspectRatio = (double)MIN(width, height) / MAX(width, height);
     size = Size(width, height);
     if (centroid.x < 0) centroid = Point((origin.x+width)*0.5f, (origin.y+height)*0.5f);
     strokeWidth = 0;
@@ -44,7 +45,7 @@ void Object::computeProperties()
     computeTLRB();
     
     computeContourArea(GRID_SIZE);
-    areaRatio = contourArea / srcSize.area();
+    areaRatio = (double)contourArea / srcSize.area();
 }
 
 void Object::computeContourArea(int gridSize)
