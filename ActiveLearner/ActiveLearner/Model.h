@@ -10,8 +10,9 @@
 @property (nonatomic) NSArray *testFiles;
 @property (nonatomic) NSMutableArray *trainImagePaths;
 @property (nonatomic) NSMutableArray *testImagePaths;
-@property (nonatomic) NSMutableArray *trainXmlPaths;
-@property (nonatomic) NSMutableArray *testXmlPaths;
+@property (nonatomic) NSString *trainGtXmlPath;
+@property (nonatomic) NSString *testGtXmlPath;
+@property (nonatomic) NSString *adaboostXmlPath;
 @property (nonatomic) NSURL *imagePath;
 @property (nonatomic) NSString *filename;
 @property (nonatomic) NSInteger fileIndex;
@@ -21,8 +22,11 @@
 - (void) setImagePath:(NSURL *)path;
 - (void) setFilename:(NSString *)name;
 
-- (NSMutableDictionary *) getXMLData;
-- (void) addXMLData:(NSMutableArray *)array key:(NSString *)key;
+- (NSMutableDictionary *) getGtXMLData;
+- (void) addGtXMLData:(NSMutableArray *)data key:(NSString *)key;
+
+- (NSMutableDictionary *) getAdaBoostXMLData;
+- (void) setAdaBoostXMLData:(NSMutableDictionary *)data;
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)theKey;
 

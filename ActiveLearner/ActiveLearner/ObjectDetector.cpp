@@ -22,8 +22,7 @@ ObjectDetector::ObjectDetector(const string& filepath)
     srcImage = imread(filepath, CV_LOAD_IMAGE_COLOR);
     srcIplImage = srcImage;
     
-    vector<string> comps = split(filepath, '/');
-    filename = comps[comps.size()-1];
+    filename = filepath.substr(filepath.find_last_of("/")+1);
     id_count = 0;
 }
 

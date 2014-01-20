@@ -3,8 +3,10 @@
 
 @interface XmlMaker : NSObject <NSXMLParserDelegate>
 
-+ (NSString *)makeXmlDocument:(NSDictionary *)data;
++ (NSString *)makeGtXmlDocument:(NSDictionary *)data;
++ (NSString *)makeAdaBoostXmlDocument:(NSDictionary *)data;
 
-- (void) readXmlAndAddData:(NSString *)xml;
+- (void) readGtXmlAndAddData:(NSString *)xml;
+- (void) readAdaBoostXml:(NSString *)xml;
 
 @end

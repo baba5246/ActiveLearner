@@ -3,7 +3,22 @@
 #include "ObjectDetector.h"
 #include "AdaBoost.h"
 
+#define CCV @"ccv"
+#define CGV @"cgv"
+
 @implementation Processor
+{
+    Model *model;
+    Notification *n;
+    
+    NSDictionary *xmldata;
+    NSDictionary *adaboostXmldata;
+    
+    AdaBoost ccvAdaBoost;
+    AdaBoost cgvAdaBoost;
+    
+    NSMutableDictionary *adaboostResult;
+}
 
 #pragma mark -
 #pragma mark Initialize Methods
@@ -36,28 +51,26 @@ static Processor* sharedProcessor = nil;
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Training 全プロセス実行 開始！ ********** \n", OUTPUT, nil];
     
     BOOL isTraining = YES;
-    [self loadXMLData:isTraining];
+    [self loadGtXMLData:isTraining];
     
-    vector<Object*> ccs = [self trainCCD];
-    vector<Object*> components = [self trainCCV:ccs];
-    vector<Text*> cgs = [self trainCGD:ccs];
-    vector<Text*> texts = [self trainCGV:cgs];
+    map<string, vector<Object*>> ccs = [self trainCCD];
+    map<string, vector<Object*>> components = [self trainCCV:ccs];
+    map<string, vector<Text*>> cgs = [self trainCGD:components];
+    map<string, vector<Text*>> texts = [self trainCGV:cgs];
     
-    // TODO: 抽出したTextsを評価
-    // TODO: 抽出したTextsの表示
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Training 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
 }
 
-- (vector<Object*>) trainCCD
+- (map<string, vector<Object*>>) trainCCD
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
+    NSString *output = @"\n --- オブジェクト抽出開始 --- \n";
+    LOG(@"%@", output);
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
-    vector<Object*> ccs;
+    map<string, vector<Object*>> ccs;
     
     for (NSString *path in model.trainImagePaths)
     {
-        long count = ccs.size();
-        
         // 特徴量抽出
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
         
@@ -65,58 +78,82 @@ static Processor* sharedProcessor = nil;
         ObjectDetector detector(filepath);
         detector.detect(objects);
         
-        ccs.insert(ccs.end(), objects.begin(), objects.end());
+        ccs.insert(map<string, vector<Object*>>::value_type(filepath, objects));
 
-        NSString *output = [NSString stringWithFormat:@"---- Filename:%@, Samples:%ld", path, ccs.size()-count];
+        output = [NSString stringWithFormat:@"\n---- Filename:%@, Samples:%ld", path, objects.size()];
+        LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
     
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return ccs;
 }
 
-- (vector<Object*>) trainCCV:(vector<Object*>) ccs
+- (map<string, vector<Object*>>) trainCCV:(map<string, vector<Object*>>) ccs
 {
-    [n sendNotification:CONSOLE_OUTPUT
-         objectsAndKeys:@"\n --- オブジェクト分類開始 --- \n", OUTPUT, nil];
+    NSString *output = @"\n --- オブジェクト学習開始 --- \n";
+    LOG(@"%@", output);
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
-    vector<Object *> components;
-    
+    map<string, vector<Object *>> components;
 
-    vector<Sample> samples = [self makeCCSamples:ccs isTraining:YES];
+    map<string, vector<Sample>> samples = [self makeCCSamples:ccs isTraining:YES];
     AdaBoost adaboost = [self learnFeaturesWithAdaBoost:samples];
     ccvAdaBoost = adaboost;
-    components = [self ccClassify:samples adaboost:ccvAdaBoost];
+    [self saveAdaBoostResultToXml:CCV];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    
+    components = [self ccClassify:samples adaboost:ccvAdaBoost];
     return  components;
 }
 
-- (vector<Text*>) trainCGD:(vector<Object*>) components
+- (map<string, vector<Text*>>) trainCGD:(map<string, vector<Object*>>) components
 {
-    [n sendNotification:CONSOLE_OUTPUT
-         objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
+    NSString *output = @"\n --- グループ抽出開始 --- \n";
+    LOG(@"%@", output);
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
-    vector<Text*> cgs;
-//    TextDetector detector(srcImage);
-//    detector.detect(objects, cgs);
+    map<string, vector<Text*>> cgs;
     
+    for (NSString *path in model.trainImagePaths) {
+        
+        // グループ抽出
+        string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
+        Mat srcImage = imread(filepath);
+        vector<Object*> objects = components.at(filepath);
+        
+        vector<Text*> texts;
+        TextDetector detector(srcImage);
+        detector.detect(objects, texts);
+        
+        cgs.insert(map<string, vector<Text*>>::value_type(filepath, texts));
+        
+        output = [NSString stringWithFormat:@"\n---- Filename:%@, Samples:%ld", path, objects.size()];
+        LOG(@"%@", output);
+        [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
+        
+    }
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return cgs;
 }
 
-- (vector<Text*>) trainCGV:(vector<Text*>) cgs
+- (map<string, vector<Text*>>) trainCGV:(map<string, vector<Text*>>) cgs
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- グループ分類開始 --- \n", OUTPUT, nil];
+    NSString *output = @"\n --- グループ学習開始 --- \n";
+    LOG(@"%@", output);
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
-    vector<Text *> texts;
+    map<string, vector<Text*>> texts;
     
-    vector<Sample> samples = [self makeCGSamples:cgs isTraining:YES];
+    map<string, vector<Sample>> samples = [self makeCGSamples:cgs isTraining:YES];
     AdaBoost adaboost = [self learnFeaturesWithAdaBoost:samples];
     cgvAdaBoost = adaboost;
+    [self saveAdaBoostResultToXml:CGV];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+    
+    texts = [self cgClassify:samples adaboost:cgvAdaBoost];
     return texts;
 }
 
@@ -128,29 +165,25 @@ static Processor* sharedProcessor = nil;
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Test 全プロセス実行 開始！ ********** \n", OUTPUT, nil];
     
     BOOL isTraining = NO;
-    [self loadXMLData:isTraining];
+    [self loadGtXMLData:isTraining];
     
-    vector<Object*> ccs = [self testCCD];
-    vector<Object*> components = [self testCCV:ccs];
-    vector<Text*> cgs = [self testCGD:ccs];
-    vector<Text*> texts = [self testCGV:cgs];
+    map<string, vector<Object*>> ccs = [self testCCD];
+    map<string, vector<Object*>> components = [self testCCV:ccs];
+    map<string, vector<Text*>> cgs = [self testCGD:components];
+    map<string, vector<Text*>> texts = [self testCGV:cgs];
     
-    // TODO: 抽出したTextsを評価
-    // TODO: 抽出したTextsの表示
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Test 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
 }
 
-- (vector<Object*>) testCCD
+- (map<string, vector<Object*>>) testCCD
 {
     [n sendNotification:CONSOLE_OUTPUT
          objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
     
-    vector<Object*> ccs;
+    map<string, vector<Object*>> ccs;
     
     for (NSString *path in model.testImagePaths)
     {
-        long count = ccs.size();
-        
         // 特徴量抽出
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
         
@@ -158,9 +191,9 @@ static Processor* sharedProcessor = nil;
         ObjectDetector detector(filepath);
         detector.detect(objects);
         
-        ccs.insert(ccs.end(), objects.begin(), objects.end());
+        ccs.insert(map<string, vector<Object*>>::value_type(filepath, objects));
         
-        NSString *output = [NSString stringWithFormat:@"---- Filename:%@, Samples:%ld", path, ccs.size()-count];
+        NSString *output = [NSString stringWithFormat:@"---- Filename:%@, Samples:%ld", path, objects.size()];
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
     
@@ -168,26 +201,26 @@ static Processor* sharedProcessor = nil;
     return ccs;
 }
 
-- (vector<Object*>) testCCV:(vector<Object*>) ccs
+- (map<string, vector<Object*>>) testCCV:(map<string, vector<Object*>>) ccs
 {
     [n sendNotification:CONSOLE_OUTPUT
          objectsAndKeys:@"\n --- オブジェクト分類開始 --- \n", OUTPUT, nil];
     
-    vector<Object *> components;
+    map<string, vector<Object*>> components;
     
-    vector<Sample> samples = [self makeCCSamples:ccs isTraining:YES];
+    map<string, vector<Sample>> samples = [self makeCCSamples:ccs isTraining:YES];
     components = [self ccClassify:samples adaboost:ccvAdaBoost];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return  components;
 }
 
-- (vector<Text*>) testCGD:(vector<Object*>) components
+- (map<string, vector<Text*>>) testCGD:(map<string, vector<Object*>>) components
 {
     [n sendNotification:CONSOLE_OUTPUT
          objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
     
-    vector<Text*> cgs;
+    map<string, vector<Text*>> cgs;
     
     // Grouping
     
@@ -196,13 +229,13 @@ static Processor* sharedProcessor = nil;
     return cgs;
 }
 
-- (vector<Text*>) testCGV:(vector<Text*>) cgs
+- (map<string, vector<Text*>>) testCGV:(map<string, vector<Text*>>) cgs
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- グループ分類開始 --- \n", OUTPUT, nil];
     
-    vector<Text *> texts;
+    map<string, vector<Text*>> texts;
     
-    vector<Sample> samples = [self makeCGSamples:cgs isTraining:YES];
+    map<string, vector<Sample>> samples = [self makeCGSamples:cgs isTraining:YES];
     texts = [self cgClassify:samples adaboost:cgvAdaBoost];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
@@ -212,57 +245,75 @@ static Processor* sharedProcessor = nil;
 #pragma mark -
 #pragma mark Assistant Methods
 
-- (void) loadXMLData:(BOOL) isTraining
+- (void) loadGtXMLData:(BOOL) isTraining
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- XMLファイル読み込み開始 ---", OUTPUT, nil];
     
     XmlMaker *xml = [[XmlMaker alloc] init];
-    NSString *urlString = nil;
-    if (isTraining) {
-        if (model.trainXmlPaths.count > 0) urlString = model.trainXmlPaths[0];
-    } else {
-        
-    }
     NSURL *url = nil;
     if (isTraining) {
-        if (model.trainXmlPaths.count > 0) url = [NSURL fileURLWithPath:model.trainXmlPaths[0]];
+        if (model.trainGtXmlPath.length>0) url = [NSURL fileURLWithPath:model.trainGtXmlPath];
         else return;
     } else {
-        if (model.testXmlPaths.count > 0) url = [NSURL fileURLWithPath:model.testXmlPaths[0]];
+        if (model.testGtXmlPath.length>0) url = [NSURL fileURLWithPath:model.testGtXmlPath];
         else return;
     }
     
     NSString *doc = [[NSString alloc] initWithContentsOfURL:url
                                                    encoding:NSUTF8StringEncoding
                                                       error:nil];
-    [xml readXmlAndAddData:doc];
-    xmldata = [model getXMLData];
+    [xml readGtXmlAndAddData:doc];
+    xmldata = [model getGtXMLData];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
 }
 
-- (vector<Sample>) makeCCSamples:(vector<Object*>) objects isTraining:(BOOL) isTraining
+- (void) loadAdaBoostXMLData
+{
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- XMLファイル読み込み開始 ---", OUTPUT, nil];
+    
+    NSURL *url = nil;
+    if (model.adaboostXmlPath.length>0) url = [NSURL fileURLWithPath:model.adaboostXmlPath];
+    else return;
+    NSString *doc = [[NSString alloc] initWithContentsOfURL:url
+                                                   encoding:NSUTF8StringEncoding
+                                                      error:nil];
+    
+    XmlMaker *xml = [[XmlMaker alloc] init];
+    [xml readAdaBoostXml:doc];
+    adaboostXmldata = [model getAdaBoostXMLData];
+    
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
+}
+
+- (map<string, vector<Sample>>) makeCCSamples:(map<string, vector<Object*>>) ccs isTraining:(BOOL) isTraining
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
     
-    vector<Sample> temp;
-    vector<Sample> samples;
+    map<string, vector<Sample>> samples;
     
     NSArray *imagePaths;
     if (isTraining) imagePaths = model.trainImagePaths;
-    else imagePaths = model.testXmlPaths;
+    else imagePaths = model.testImagePaths;
+    
     for (NSString *path in imagePaths)
     {
-        temp.clear();
+        vector<Sample> temp;
         
-        // filename 抽出
-        NSArray *comp = [path componentsSeparatedByString:@"/"];
-        NSString *nsfilename = comp[comp.count-1];
-        string filename = [nsfilename cStringUsingEncoding:NSUTF8StringEncoding];
+        // オブジェクト 抽出
+        string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
+        vector<Object*> objects = ccs.at(filepath);
+        
+        // filename抽出
+        string filename = filepath.substr(filepath.find_last_of("/")+1);
+        char cfn[filename.length()];
+        memcpy(cfn, filename.c_str(), filename.length());
+        NSString *nsfilename = [[NSString alloc] initWithUTF8String:cfn];
         
         // サンプル作成
         for (int i = 0; i < objects.size(); i++)
         {
+            
             if (objects[i]->filename.compare(filename) != 0)
                 continue;
             
@@ -284,34 +335,43 @@ static Processor* sharedProcessor = nil;
             if (findFlag) s.label = 1;
             else s.label = 0;
             
-            samples.push_back(s);
             temp.push_back(s);
         }
+        vector<Sample> copy(temp);
+        samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
         
-        Mat src = cv::imread([path cStringUsingEncoding:NSUTF8StringEncoding]);
-        Draw::drawSamples(src, temp);
+//        Mat src = cv::imread([path cStringUsingEncoding:NSUTF8StringEncoding]);
+//        Draw::drawSamples(src, temp);
     }
 
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return samples;
 }
 
-- (vector<Sample>) makeCGSamples:(vector<Text*>) groups isTraining:(BOOL)isTraining
+- (map<string, vector<Sample>>) makeCGSamples:(map<string, vector<Text*>>) cgs isTraining:(BOOL)isTraining
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
     
-    vector<Sample> samples;
+    map<string, vector<Sample>> samples;
     
     NSArray *imagePaths;
     if (isTraining) imagePaths = model.trainImagePaths;
-    else imagePaths = model.testXmlPaths;
+    else imagePaths = model.testImagePaths;
+    
     for (NSString *path in imagePaths)
     {
-        // filename 抽出
-        NSArray *comp = [path componentsSeparatedByString:@"/"];
-        NSString *nsfilename = comp[comp.count-1];
-        string filename = [nsfilename cStringUsingEncoding:NSUTF8StringEncoding];
+        vector<Sample> temp;
         
+        // オブジェクト 抽出
+        string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
+        vector<Text*> groups = cgs.at(filepath);
+        
+        // filename抽出
+        string filename = filepath.substr(filepath.find_last_of("/")+1);
+        char cfn[filename.length()];
+        memcpy(cfn, filename.c_str(), filename.length());
+        NSString *nsfilename = [[NSString alloc] initWithUTF8String:cfn];
+
         // サンプル作成
         for (int i = 0; i < groups.size(); i++)
         {
@@ -324,7 +384,7 @@ static Processor* sharedProcessor = nil;
             bool findFlag = NO;
             NSArray *truths = xmldata[nsfilename];
             for (Truth *t in truths) {
-                if (NSContainsRect(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
+                if (NSContainsRect(t.rect, rect)) { // TODO: 「t.rectにobject.rectが8割含まれて、4割含むなら」に変更
                     findFlag = YES;
                     break;
                 }
@@ -333,67 +393,94 @@ static Processor* sharedProcessor = nil;
             if (findFlag) s.label = 1;
             else s.label = 0;
             
-            samples.push_back(s);
+            temp.push_back(s);
         }
+        
+        vector<Sample> copy(temp);
+        samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
     }
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return samples;
 }
 
-- (AdaBoost) learnFeaturesWithAdaBoost:(vector<Sample>) samples
+- (AdaBoost) learnFeaturesWithAdaBoost:(map<string, vector<Sample>>) samples
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- AdaBoost学習開始 --- \n", OUTPUT, nil];
     
-    // ラベルデータと非ラベルデータ
-    vector<Sample>::const_iterator first = samples.begin();
-    vector<Sample>::const_iterator half = samples.begin() + (int)(samples.size()*0.5f);
-    vector<Sample>::const_iterator end = samples.end();
-    vector<Sample> labeled(first, half);
-    vector<Sample> unlabeled(half, end);
+    vector<Sample> trainSamples;
     
-    // AdaBoost learning
+	// 全列挙
+	map<string, vector<Sample>>::iterator itr;
+    for (itr=samples.begin(); itr != samples.end(); itr++) {
+        vector<Sample> temp = itr->second;
+        trainSamples.insert(trainSamples.end(), temp.begin(), temp.end());
+    }
+    
+    // ラベルデータと非ラベルデータ
+//    vector<Sample>::const_iterator first = trainSamples.begin();
+//    vector<Sample>::const_iterator half = trainSamples.begin() + (int)(trainSamples.size()*0.5f);
+//    vector<Sample>::const_iterator end = trainSamples.end();
+//    vector<Sample> labeled(first, half);
+//    vector<Sample> unlabeled(half, end);
+    
+    // WeakClassifierを準備
     vector<WeakClassifier> classifiers;
-    for (int i = 0; i < labeled[0].features.size(); i++) {
+    for (int i = 0; i < trainSamples[0].features.size(); i++) {
         WeakClassifier wc(i);
         classifiers.push_back(wc);
     }
     
-    AdaBoost adaboost(labeled, classifiers);
+    // AdaBoost learning
+    AdaBoost adaboost(trainSamples, classifiers);
     
-    for (int t = 0; t < labeled[0].features.size(); t++) {
+    for (int t = 0; t < trainSamples[0].features.size(); t++) {
         AdaBoostResult result = adaboost.next();
         WeakClassifier selected = result.wc;
         cout << "t:" << t << ", wc index:" << selected.featureIndex << ", alpha:" << selected.alpha << endl;
     }
     
-    [self ccClassify:samples adaboost:adaboost];
+//    [self ccClassify:trainSamples adaboost:adaboost];
 
     return adaboost;
 }
 
-- (vector<Object*>) ccClassify:(vector<Sample>) samples adaboost:(AdaBoost) adaboost
+- (map<string, vector<Object*>>) ccClassify:(map<string, vector<Sample>>) samples adaboost:(AdaBoost) adaboost
 {
-    vector<Object*> components;
+    map<string, vector<Object*>> components;
     
-    int e = 0, E = 0, T = 0;
+    int e = 0, E = 0, T = 0, size = 0;
     double precision = 0, recall = 0, f = 0;
     
-    for (int i = 0; i < samples.size(); i++)
-    {
-        Sample s = samples[i];
-        int test = adaboost.sc.test(s);
+    // 全列挙
+	map<string, vector<Sample>>::iterator itr;
+    for (itr=samples.begin(); itr != samples.end(); itr++) {
         
-        if (test == 1) {
-            components.push_back(&s.object);
+        string filepath = itr->first;
+        vector<Sample> temp = itr->second;
+        vector<Object*> corrects;
+        
+        for (int i = 0; i < temp.size(); i++)
+        {
+            Sample s = temp[i];
+            int test = adaboost.sc.test(s);
+            
+            if (test == 1) {
+                corrects.push_back(&s.object);
+            }
+            
+            // 母数を計算
+            E++;
+            size++;
+            
+            // 正解個数を算出
+            if (test == s.label) e++;
         }
         
-        // 正解個数を算出
-        if (test == s.label) e++;
+        components.insert(map<string, vector<Object*>>::value_type(filepath, corrects));
     }
     
     // 母数を計算
-    E = (int)samples.size();
     for (NSString *filename in [xmldata allKeys]) {
         NSArray *truths = xmldata[filename];
         T += truths.count;
@@ -409,34 +496,47 @@ static Processor* sharedProcessor = nil;
 //    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:result, OUTPUT, nil];
     
     cout << "--- 候補オブジェクト分類結果 ---" << endl;
-    cout << "size:" << samples.size() << "e:" << e << ", E:" << E << ", T:" << T << endl;
+    cout << "size:" << size << ", e:" << e << ", E:" << E << ", T:" << T << endl;
     cout << result << endl;
     
     return components;
 }
 
-- (vector<Text*>) cgClassify:(vector<Sample>) samples adaboost:(AdaBoost) adaboost
+- (map<string, vector<Text*>>) cgClassify:(map<string, vector<Sample>>) samples adaboost:(AdaBoost) adaboost
 {
-    vector<Text*> texts;
+    map<string, vector<Text*>> texts;
     
     int e = 0, E = 0, T = 0;
     double precision = 0, recall = 0, f = 0;
     
-    for (int i = 0; i < samples.size(); i++)
-    {
-        Sample s = samples[i];
-        int test = adaboost.sc.test(s);
+    // 全列挙
+	map<string, vector<Sample>>::iterator itr;
+    for (itr=samples.begin(); itr != samples.end(); itr++) {
         
-        if (test == 1) {
-            texts.push_back(&s.text);
+        string filepath = itr->first;
+        vector<Sample> temp = itr->second;
+        vector<Text*> corrects;
+        
+        for (int i = 0; i < temp.size(); i++)
+        {
+            Sample s = temp[i];
+            int test = adaboost.sc.test(s);
+            
+            if (test == 1) {
+                corrects.push_back(&s.text);
+            }
+            
+            // 母数を計算
+            E++;
+            
+            // 正解個数を算出
+            if (test == s.label) e++;
         }
         
-        // 正解個数を算出
-        if (test == s.label) e++;
+        texts.insert(map<string, vector<Text*>>::value_type(filepath, corrects));
     }
     
     // 母数を計算
-    E = (int)samples.size();
     for (NSString *filename in [xmldata allKeys]) {
         NSArray *truths = xmldata[filename];
         T += truths.count;
@@ -455,6 +555,47 @@ static Processor* sharedProcessor = nil;
     cout << result << endl;
     
     return texts;
+}
+
+- (void) saveAdaBoostResultToXml:(NSString *) type
+{
+    if ([type isEqualToString:CCV])
+    {
+        // resultのDictionaryを作る
+        adaboostResult = [[NSMutableDictionary alloc] init];
+        [adaboostResult setObject:model.trainDir forKey:@"dataset"];
+        
+        
+        NSMutableDictionary *ccv = [[NSMutableDictionary alloc] init];
+        for (int i = 0; i < ccvAdaBoost.sc.wcs.size(); i++) {
+            NSString *key = [NSString stringWithFormat:@"wc%d", i];
+            NSDictionary *wc = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [NSString stringWithFormat:@"%d", ccvAdaBoost.sc.wcs[i].featureIndex],@"findex",
+                                [NSString stringWithFormat:@"%f", ccvAdaBoost.sc.wcs[i].alpha], @"alpha",
+                                [NSString stringWithFormat:@"%f", ccvAdaBoost.sc.wcs[i].threshold], @"threshold", nil];
+            [ccv setObject:wc forKey:key];
+        }
+        [adaboostResult setObject:ccv forKey:CCV];
+    }
+    else if ([type isEqualToString:CGV])
+    {
+        NSMutableDictionary *cgv = [[NSMutableDictionary alloc] init];
+        for (int i = 0; i < cgvAdaBoost.sc.wcs.size(); i++) {
+            NSString *key = [NSString stringWithFormat:@"wc%d", i];
+            NSDictionary *wc = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                [NSString stringWithFormat:@"%d", cgvAdaBoost.sc.wcs[i].featureIndex],@"findex",
+                                [NSString stringWithFormat:@"%f", cgvAdaBoost.sc.wcs[i].alpha], @"alpha",
+                                [NSString stringWithFormat:@"%f", cgvAdaBoost.sc.wcs[i].threshold], @"threshold", nil];
+            [cgv setObject:wc forKey:key];
+        }
+        [adaboostResult setObject:cgv forKey:CGV];
+    
+        // modelに保存
+        [model setAdaBoostXMLData:adaboostResult];
+    }
+    else {
+        ERROR(@"Type:%@ は不明なタイプです.", type);
+    }
 }
 
 

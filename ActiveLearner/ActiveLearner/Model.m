@@ -4,11 +4,13 @@
 @implementation Model
 {
     NSMutableArray *rectangles;
-    NSMutableDictionary *xmlData;
+    NSMutableDictionary *gtXmlData;
+    NSMutableDictionary *adaboostXmlData;
 }
 
-@synthesize trainDir, trainFiles, trainImagePaths, trainXmlPaths;
-@synthesize testDir, testFiles, testImagePaths, testXmlPaths;
+@synthesize trainDir, trainFiles, trainImagePaths, trainGtXmlPath;
+@synthesize testDir, testFiles, testImagePaths, testGtXmlPath;
+@synthesize adaboostXmlPath;
 @synthesize counter;
 @synthesize imagePath, filename, fileIndex;
 
@@ -27,7 +29,8 @@ static Model* sharedModel = nil;
 - (void) prepare
 {
     rectangles = [[NSMutableArray alloc] init];
-    xmlData = [[NSMutableDictionary alloc] init];
+    gtXmlData = [[NSMutableDictionary alloc] init];
+    adaboostXmlData = [[NSMutableDictionary alloc] init];
 }
 
 - (void) setImagePath:(NSURL *)path
@@ -52,14 +55,24 @@ static Model* sharedModel = nil;
     return fname;
 }
 
-- (NSMutableDictionary *) getXMLData
+- (NSMutableDictionary *) getGtXMLData
 {
-    return xmlData;
+    return gtXmlData;
 }
 
-- (void) addXMLData:(NSMutableArray *)data key:(NSString *)key
+- (void) addGtXMLData:(NSMutableArray *)data key:(NSString *)key
 {
-    [xmlData setObject:data forKey:key];
+    [gtXmlData setObject:data forKey:key];
+}
+
+- (NSMutableDictionary *) getAdaBoostXMLData
+{
+    return adaboostXmlData;
+}
+
+- (void) setAdaBoostXMLData:(NSMutableDictionary *)data
+{
+    adaboostXmlData = [[NSMutableDictionary alloc] initWithDictionary:data];
 }
 
 /* 手動で観察するための設定

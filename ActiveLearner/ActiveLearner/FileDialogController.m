@@ -26,7 +26,7 @@
         
         NSArray *files;
         NSMutableArray *imagePaths = [[NSMutableArray alloc] init];
-        NSMutableArray *xmlPaths = [[NSMutableArray alloc] init];
+        NSString *gtXMLPath, *adaboostXMLPath;
         
         if ([self isDirectory:dirPath])
         {
@@ -44,14 +44,20 @@
                 else if ([self isXMLDocument:path]) // xml判定
                 {
                     fullPath = [dirPath.path stringByAppendingFormat:@"/%@", path];
-                    [xmlPaths addObject:fullPath];
+                    NSRange gt = [path rangeOfString:@"gt"];
+                    if (gt.location != NSNotFound) {
+                        gtXMLPath = fullPath;
+                    } else {
+                        adaboostXMLPath = fullPath;
+                    }
                 }
             }
             
             [model setTrainDir:dirPath.path];
             [model setTrainFiles:files];
             [model setTrainImagePaths:imagePaths];
-            [model setTrainXmlPaths:xmlPaths];
+            [model setTrainGtXmlPath:gtXMLPath];
+            [model setAdaboostXmlPath:adaboostXMLPath];
             
             // 通知
             NSNumber *type = [NSNumber numberWithBool:YES];
@@ -68,13 +74,19 @@
             for (NSString *path in files) {
                 if ([self isXMLDocument:path]) {
                     fullPath = [directory stringByAppendingFormat:@"/%@", path];
-                    [xmlPaths addObject:fullPath];
+                    NSRange gt = [path rangeOfString:@"gt"];
+                    if (gt.location != NSNotFound) {
+                        gtXMLPath = fullPath;
+                    } else {
+                        adaboostXMLPath = fullPath;
+                    }
                 }
             }
             
             [model setTrainDir:dirPath.path];
             [model setTrainImagePaths:imagePaths];
-            [model setTrainXmlPaths:xmlPaths];
+            [model setTrainGtXmlPath:gtXMLPath];
+            [model setAdaboostXmlPath:adaboostXMLPath];
             
             // 通知
             NSNumber *type = [NSNumber numberWithBool:YES];
@@ -95,12 +107,22 @@
 
 - (IBAction)importTestDataset:(id)sender
 {
+    model = [Model sharedManager];
+    n = [Notification sharedManager];
+    if (model.adaboostXmlPath.length==0) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"学習データがありません!"
+                                         defaultButton:@"OK" alternateButton:nil otherButton:nil
+                             informativeTextWithFormat:@"Trainingフォルダを指定してください."];
+        NSInteger answer = [alert runModal];
+        if (answer == NSAlertDefaultReturn) {
+            return;
+        }
+    }
+    
     NSOpenPanel *openPanel	= [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     NSInteger pressedButton = [openPanel runModal];
     
-    model = [Model sharedManager];
-    n = [Notification sharedManager];
     
     if( pressedButton == NSOKButton ){
         
@@ -108,7 +130,7 @@
         
         NSArray *files;
         NSMutableArray *imagePaths = [[NSMutableArray alloc] init];
-        NSMutableArray *xmlPaths = [[NSMutableArray alloc] init];
+        NSString *gtXMLPath;
         
         if ([self isDirectory:dirPath])
         {
@@ -126,14 +148,17 @@
                 else if ([self isXMLDocument:path]) // xml判定
                 {
                     fullPath = [dirPath.path stringByAppendingFormat:@"/%@", path];
-                    [xmlPaths addObject:fullPath];
+                    NSRange gt = [path rangeOfString:@"gt"];
+                    if (gt.location != NSNotFound) {
+                        gtXMLPath = fullPath;
+                    }
                 }
             }
             
             [model setTestDir:dirPath.path];
             [model setTestFiles:files];
             [model setTestImagePaths:imagePaths];
-            [model setTestXmlPaths:xmlPaths];
+            [model setTestGtXmlPath:gtXMLPath];
             
             // 通知
             NSNumber *type = [NSNumber numberWithBool:NO];
@@ -150,13 +175,16 @@
             for (NSString *path in files) {
                 if ([self isXMLDocument:path]) {
                     fullPath = [directory stringByAppendingFormat:@"/%@", path];
-                    [xmlPaths addObject:fullPath];
+                    NSRange gt = [path rangeOfString:@"gt"];
+                    if (gt.location != NSNotFound) {
+                        gtXMLPath = fullPath;
+                    }
                 }
             }
             
             [model setTestDir:dirPath.path];
             [model setTestImagePaths:imagePaths];
-            [model setTestXmlPaths:xmlPaths];
+            [model setTestGtXmlPath:gtXMLPath];
             
             // 通知
             NSNumber *type = [NSNumber numberWithBool:NO];
@@ -175,27 +203,19 @@
     }
 }
 
--(IBAction)onExportXMLButtonClicked:(id)sender
+- (IBAction)onExportLearningResultButtonClicked:(id)sender
 {
     // データ保存
-    NSString *oldDoc;
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     NSArray *allowedFileTypes = [NSArray arrayWithObjects:@"xml", nil];
     [savePanel setAllowedFileTypes:allowedFileTypes];
+    [savePanel setNameFieldStringValue:@"adaboost.xml"];
     if ([savePanel runModal] == NSOKButton) {
-        // Get Nsstring
-        NSURL * filePath = [savePanel URL];
-        oldDoc = [[NSString alloc] initWithContentsOfURL:filePath encoding:NSUTF8StringEncoding error:nil];
-        
-        model = [Model sharedManager];
-        XmlMaker *xmlMaker = [[XmlMaker alloc] init];
-        [xmlMaker readXmlAndAddData:oldDoc];
-        
         // XML作成
-        NSString *document = [XmlMaker makeXmlDocument:[model getXMLData]];
+        NSURL * filePath = [savePanel URL];
+        NSString *document = [XmlMaker makeAdaBoostXmlDocument:[model getAdaBoostXMLData]];
         [document writeToFile:filePath.path atomically:YES encoding:4 error:NULL];
     }
-    
 }
 
 
