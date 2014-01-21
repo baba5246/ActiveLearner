@@ -6,7 +6,7 @@ AdaBoost::AdaBoost()
     
 }
 
-AdaBoost::AdaBoost(vector<Sample>& samples, vector<WeakClassifier>& classifiers)
+AdaBoost::AdaBoost(const vector<Sample>& samples, vector<WeakClassifier>& classifiers)
 {
     this->train = samples;
     this->wcs = classifiers;

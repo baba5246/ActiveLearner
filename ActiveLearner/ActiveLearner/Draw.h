@@ -15,12 +15,13 @@ class Draw
 {
 public:
     static void draw(const Mat& src);
+    static void draw(const Mat& src1, const Mat& src2);
     static void drawGrays(const Mat& r, const Mat& g, const Mat& b);
     static void drawEdges(const Mat& r, const Mat& g, const Mat& b);
     static void drawContours(const Mat& src, const vector<vector<cv::Point> >& contours, const vector<cv::Vec4i>& hierarchy);
     static void drawMSERs(const Mat& src, const vector<vector<cv::Point> >& mser_features);
     static void drawMSERs(const Mat& src, const vector<MSERegion>& msers);
-    static void drawObjects(const Mat& src, vector<Object*>& objects);
+    static void drawObjects(const Mat& src, const vector<Object*>& objects);
     static void drawGradients(const Mat& src, const Mat_<double>& gradients);
     static void drawGradients(const vector<Object*>& objects, const Mat_<double>& gradients);
     static void drawEchars(const Mat& src, const vector<Object*>& objects);
@@ -39,6 +40,7 @@ public:
 private:
     static Mat srcImage;
     static void drawImage(const Mat& src);
+    static void drawImage(const Mat& src1, const Mat& src2);
     static Scalar* colorOfRadian(double radian);
     static Scalar colorWithCount(const int count);
 

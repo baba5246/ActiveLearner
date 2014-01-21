@@ -11,7 +11,7 @@ WeakClassifier::WeakClassifier(int index)
     this->featureIndex = index;
 }
 
-void WeakClassifier::train(vector<Sample> samples)
+void WeakClassifier::train(const vector<Sample>& samples)
 {
     int min_error = INFINITY;
     double min_t = 0;
@@ -41,39 +41,39 @@ void WeakClassifier::train(vector<Sample> samples)
     threshold = min_t;
 }
 
-int WeakClassifier::test(Sample &s)
+int WeakClassifier::test(const Sample &s)
 {
     return s.features[this->featureIndex] >= threshold ? 1 : 0;
 }
 
-int WeakClassifier::test(Object *o)
+int WeakClassifier::test(const Object*& o)
 {
     return o->features[featureIndex] >= threshold ? 1 : 0;
 }
 
-int WeakClassifier::test(Text *t)
+int WeakClassifier::test(const Text*& t)
 {
     return t->features[featureIndex] >= threshold ? 1 : 0;
 }
 
-int WeakClassifier::inverse(int label)
+int WeakClassifier::inverse(const int label)
 {
     return label == 0 ? 1 : 0;
 }
 
-int WeakClassifier::Test(Sample &s)
+int WeakClassifier::Test(const Sample &s)
 {
     if (type > 0) return test(s);
     else return inverse(test(s));
 }
 
-int WeakClassifier::Test(Object *o)
+int WeakClassifier::Test(const Object*& o)
 {
     if (type > 0) return test(o);
     else return inverse(test(o));
 }
 
-int WeakClassifier::Test(Text *t)
+int WeakClassifier::Test(const Text*& t)
 {
     if (type > 0) return test(t);
     else return inverse(test(t));

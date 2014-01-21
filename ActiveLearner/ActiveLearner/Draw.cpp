@@ -8,14 +8,33 @@ void Draw::drawImage(const Mat& src)
     } else {
         namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
         imshow( "Display window", src);
-        waitKey(3000);
+        waitKey(10000);
         destroyWindow("Display window");
+    }
+}
+void Draw::drawImage(const Mat& src1, const Mat& src2)
+{
+    if(!src1.data || !src2.data) {
+        cout <<  "Could not open or find the image" << endl ;
+    } else {
+        namedWindow( "Display src1", CV_WINDOW_AUTOSIZE );
+        namedWindow( "Display src2", CV_WINDOW_AUTOSIZE );
+        imshow( "Display src1", src1);
+        imshow( "Display src2", src2);
+        waitKey(10000);
+        destroyWindow("Display src1");
+        destroyWindow("Display src2");
     }
 }
 
 void Draw::draw(const Mat& src)
 {
     drawImage(src);
+}
+
+void Draw::draw(const Mat& src1, const Mat& src2)
+{
+    drawImage(src1, src2);
 }
 
 void Draw::drawGrays(const Mat& r, const Mat& g, const Mat& b)
@@ -101,19 +120,22 @@ void Draw::drawMSERs(const Mat& src, const vector<MSERegion >& msers)
     drawImage(dst);
 }
 
-void Draw::drawObjects(const Mat& src, vector<Object*>& objects)
+void Draw::drawObjects(const Mat& src, const vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
+    dst = CV_RGB(100, 100, 100);
     
     for (int i = 0; i < objects.size(); i++)
     {
-        vector<cv::Point> pixels = objects[i]->contourPixels;
+        vector<cv::Point> pixels(objects[i]->contourPixels);
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
         if (objects[i]->colors.size()>0) color = objects[i]->color;
         
         for (int j = 0; j < pixels.size(); j++)
         {
-            circle(dst, pixels[j], 0.1f, color);
+            if (pixels[j].inside(Rect(0,0,dst.cols,dst.rows))) {
+                circle(dst, pixels[j], 0.1f, color);
+            }
         }
     }
     
@@ -391,12 +413,19 @@ void Draw::drawSamples(const Mat& src, const vector<Sample>& samples)
     
     srand((unsigned int)1);
     Scalar color;
+    vector<cv::Point> points;
     for (int i = 0; i < samples.size(); i++) {
         if (samples[i].label < 1) continue;
         
         color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
                        (double)rand() / RAND_MAX * BRIGHTNESS,
                        (double)rand() / RAND_MAX * BRIGHTNESS);
+        
+        points = samples[i].object.contourPixels;
+        for (int j = 0; j < points.size(); j++) {
+            circle(dst, points[j], 0.5f, color, 1);
+        }
+            
         rectangle(dst, samples[i].object.rect, color, 2);
         circle(dst, samples[i].object.centroid, 3, color, 2);
     }

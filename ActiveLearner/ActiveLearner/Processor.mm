@@ -80,7 +80,7 @@ static Processor* sharedProcessor = nil;
         
         ccs.insert(map<string, vector<Object*>>::value_type(filepath, objects));
 
-        output = [NSString stringWithFormat:@"\n---- Filename:%@, Samples:%ld", path, objects.size()];
+        output = [NSString stringWithFormat:@"\n---- Filename:%@, Components:%ld", path, objects.size()];
         LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
@@ -128,7 +128,7 @@ static Processor* sharedProcessor = nil;
         
         cgs.insert(map<string, vector<Text*>>::value_type(filepath, texts));
         
-        output = [NSString stringWithFormat:@"\n---- Filename:%@, Samples:%ld", path, objects.size()];
+        output = [NSString stringWithFormat:@"\n---- Filename:%@, Texts:%ld", path, texts.size()];
         LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
         
@@ -286,7 +286,14 @@ static Processor* sharedProcessor = nil;
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
 }
 
-- (map<string, vector<Sample>>) makeCCSamples:(map<string, vector<Object*>>) ccs isTraining:(BOOL) isTraining
+inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
+{
+    CGRect intersect = CGRectIntersection(trect, rect);
+    double ratio = (double)intersect.size.width * intersect.size.height / (double)rect.size.width * rect.size.height;
+    return ratio >= 0.8f;
+}
+
+- (map<string, vector<Sample>>) makeCCSamples:(const map<string, vector<Object*>>&) ccs isTraining:(BOOL) isTraining
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
     
@@ -322,11 +329,11 @@ static Processor* sharedProcessor = nil;
             Sample s(*obj);
             
             cv::Rect obj_rect = s.object.rect;
-            NSRect rect = NSMakeRect(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
+            CGRect rect = CGRectMake(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
             
             bool findFlag = NO;
             for (Truth *t in truths) {
-                if (NSContainsRect(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
+                if (CGRectContainsRect(t.rect, rect) || CGRectAlmostContains(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
                     findFlag = YES;
                     break;
                 }
@@ -337,6 +344,7 @@ static Processor* sharedProcessor = nil;
             
             temp.push_back(s);
         }
+        
         vector<Sample> copy(temp);
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
         
@@ -346,7 +354,7 @@ static Processor* sharedProcessor = nil;
     return samples;
 }
 
-- (map<string, vector<Sample>>) makeCGSamples:(map<string, vector<Text*>>) cgs isTraining:(BOOL)isTraining
+- (map<string, vector<Sample>>) makeCGSamples:(const map<string, vector<Text*>>&) cgs isTraining:(BOOL)isTraining
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
     
@@ -401,18 +409,23 @@ static Processor* sharedProcessor = nil;
     return samples;
 }
 
-- (AdaBoost) learnFeaturesWithAdaBoost:(map<string, vector<Sample>>) samples
+- (AdaBoost) learnFeaturesWithAdaBoost:(const map<string, vector<Sample>>&) samples
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- AdaBoost学習開始 --- \n", OUTPUT, nil];
     
     vector<Sample> trainSamples;
     
 	// 全列挙
-	map<string, vector<Sample>>::iterator itr;
+	map<string, vector<Sample>>::const_iterator itr;
     for (itr=samples.begin(); itr != samples.end(); itr++) {
         vector<Sample> temp = itr->second;
         trainSamples.insert(trainSamples.end(), temp.begin(), temp.end());
     }
+    
+    // ヒストグラム表示
+//    for (int i = 0; i < trainSamples[0].features.size(); i++) {
+//        [self showHistograms:trainSamples index:i];
+//    }
     
     // ラベルデータと非ラベルデータ
 //    vector<Sample>::const_iterator first = trainSamples.begin();
@@ -459,11 +472,11 @@ static Processor* sharedProcessor = nil;
         
         for (int i = 0; i < temp.size(); i++)
         {
-            Sample s = temp[i];
-            int test = adaboost.sc.test(s);
+            int test = adaboost.sc.test(temp[i]);
+            Object* o = &(temp[i].object);
             
-            if (test == 1) {
-                corrects.push_back(&s.object);
+            if (test>0) {
+                corrects.push_back(o);
             }
             
             // 母数を計算
@@ -471,11 +484,14 @@ static Processor* sharedProcessor = nil;
             size++;
             
             // 正解個数を算出
-            if (test == s.label) e++;
+            if (test == temp[i].label) {
+                e++;
+            }
         }
         
         Mat srcImage = imread(filepath);
-        Draw::drawObjects(srcImage, corrects);
+        vector<Object*> copy(corrects);
+        Draw::drawObjects(srcImage, copy);
         
         components.insert(map<string, vector<Object*>>::value_type(filepath, corrects));
     }
@@ -599,6 +615,38 @@ static Processor* sharedProcessor = nil;
 }
 
 
+- (void) showHistograms:(vector<Sample>) samples index:(int)index
+{
+    int size = (int)samples.size();
+    
+    // 100 分割レベルで量子化
+	const int binNum = 100;
+	int plushist[binNum] = {0};
+	int minushist[binNum] = {0};
+    
+    int max = 0;
+    for (int i = 0; i < size; i++) {
+        double value = samples[i].object.features[index];
+        int v = floor(value*100);
+        if (v > max) max = v;
+        if (samples[i].label > 0) plushist[v]++;
+        else minushist[v]++;
+    }
+    
+    Mat plus(max+1, binNum, CV_8UC3);
+    Mat minus(max+1, binNum, CV_8UC3);
+    plus = CV_RGB(0, 0, 0);
+    minus = CV_RGB(0, 0, 0);
+    
+    Scalar red = CV_RGB(256, 0, 0);
+    Scalar blue = CV_RGB(0, 0, 256);
+    for (int i = 0; i < binNum; i++) {
+        line(plus, cv::Point(i, max), cv::Point(i, max-plushist[i]), red);
+        line(minus, cv::Point(i, max), cv::Point(i, max-minushist[i]), blue);
+    }
+    
+    Draw::draw(plus, minus);
+}
 
 #pragma mark -
 #pragma mark Evaluate Methods
@@ -613,5 +661,9 @@ static Processor* sharedProcessor = nil;
     
 }
 
+inline void output(NSString *string)
+{
+    
+}
 
 @end

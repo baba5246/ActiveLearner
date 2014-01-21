@@ -15,7 +15,7 @@ class AdaBoost{
 public:
     // メンバ関数
     AdaBoost();
-    AdaBoost(vector<Sample>& samples, vector<WeakClassifier>& classifiers);
+    AdaBoost(const vector<Sample>& samples, vector<WeakClassifier>& classifiers);
     AdaBoostResult next();
     
 private:

@@ -17,15 +17,15 @@ public:
     WeakClassifier();
     WeakClassifier(int index);
     
-    void train(vector<Sample> samples);
+    void train(const vector<Sample>& samples);
     
-    int Test(Sample &s);
-    int Test(Object* o);
-    int Test(Text* t);
+    int Test(const Sample &s);
+    int Test(const Object*& o);
+    int Test(const Text*& t);
     
 private:
-    int test(Sample& s);
-    int test(Object* o);
-    int test(Text* t);
-    int inverse(int label);
+    int test(const Sample& s);
+    int test(const Object*& o);
+    int test(const Text*& t);
+    int inverse(const int label);
 };

@@ -52,7 +52,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
     // 輪郭抽出
     cv::vector<cv::Vec4i> hierarchy;
     cv::vector<cv::vector<cv::Point> > contours;
-    mycv.contours(edge, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+    mycv.contours(gedge, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
     
     // 輪郭から Object 作成
     createObjects(contours, objects);
@@ -1035,7 +1035,6 @@ void ObjectDetector::setFeatures(vector<Object*>& objects)
         
         // Area ratio
         /* 10 */ features.push_back(objects[i]->areaRatio);
-        
         
         // Set features
         objects[i]->features = features;

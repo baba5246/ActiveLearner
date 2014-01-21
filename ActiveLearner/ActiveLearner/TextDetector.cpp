@@ -79,7 +79,7 @@ vector<Object*> TextDetector::findInitNeighbors(Object* init, vector<Object*> ob
     for (int i = 0; i < objects.size(); i++)
     {
         // ID等しくないなら
-        if (init->ID != objects[i]->ID)
+        if (init->ID.compare(objects[i]->ID))
         {
             temp_dist = Distancer::distanceOfObjects(*init, *objects[i]);
             //distanceOfCentroids(init->centroid, objects[i]->centroid);

@@ -3,7 +3,7 @@
 
 @interface Truth : NSObject
 
-@property (nonatomic, assign) NSRect rect;
+@property (nonatomic, assign) CGRect rect;
 @property (nonatomic, copy) NSString *text;
 
 @end
