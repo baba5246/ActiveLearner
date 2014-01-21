@@ -33,11 +33,11 @@ public:
     
 private:
     
-    vector<Object*> findInitNeighbors(Object* init, vector<Object*> objects);
+    vector<Object*> findInitNeighbors(Object*& init, vector<Object*>& objects);
     vector<double> distanceObjects(vector<Object*> objects);
-    void groupingObjects(Text*& text, vector<Object*> objects);
-    void addNeighbors(Text* text, vector<Object*> objects);
+    void groupingObjects(Text*& text, vector<Object*>& objects);
+    void addNeighbors(Text*& text, vector<Object*>& objects);
     
-    double computeGradient(Object obj1, Object obj2);
+    double computeGradient(Object*& obj1, Object*& obj2);
     double pointSize(cv::Point p);
 };

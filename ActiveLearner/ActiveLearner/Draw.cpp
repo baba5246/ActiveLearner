@@ -421,13 +421,13 @@ void Draw::drawSamples(const Mat& src, const vector<Sample>& samples)
                        (double)rand() / RAND_MAX * BRIGHTNESS,
                        (double)rand() / RAND_MAX * BRIGHTNESS);
         
-        points = samples[i].object.contourPixels;
+        points = samples[i].object->contourPixels;
         for (int j = 0; j < points.size(); j++) {
             circle(dst, points[j], 0.5f, color, 1);
         }
             
-        rectangle(dst, samples[i].object.rect, color, 2);
-        circle(dst, samples[i].object.centroid, 3, color, 2);
+        rectangle(dst, samples[i].object->rect, color, 2);
+        circle(dst, samples[i].object->centroid, 3, color, 2);
     }
     
     drawImage(dst);

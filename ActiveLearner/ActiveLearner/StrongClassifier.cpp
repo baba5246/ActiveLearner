@@ -3,7 +3,7 @@
 
 StrongClassifier::StrongClassifier()
 {
-    thresholdTrimming = 0.5f;
+    thresholdTrimming = 0.6f;
 }
 
 int StrongClassifier::test(const Sample& s)
@@ -17,7 +17,7 @@ int StrongClassifier::test(const Sample& s)
     
     double adjustedThreshold = threshold * thresholdTrimming;
     
-    cout << "Disc_s( " << s.object.ID << " ): " << discrimination << endl;
+//    cout << "Disc_s( " << s.object.ID << " ): " << discrimination << endl;
     return discrimination >= adjustedThreshold ? 1 : 0;
 }
 
@@ -32,7 +32,7 @@ int StrongClassifier::test(const Object*& o)
     
     double adjustedThreshold = threshold * thresholdTrimming;
     
-    cout << "Disc_o( " << o->ID << " ): " << discrimination << endl;
+//    cout << "Disc_o( " << o->ID << " ): " << discrimination << endl;
     return discrimination >= adjustedThreshold ? 1 : 0;
 }
 
@@ -47,6 +47,6 @@ int StrongClassifier::test(const Text*& t)
     
     double adjustedThreshold = threshold * thresholdTrimming;
     
-    cout << "Disc_t( " << t->filename << " ): " << discrimination << endl;
+//    cout << "Disc_t( " << t->filename << " ): " << discrimination << endl;
     return discrimination >= adjustedThreshold ? 1 : 0;
 }

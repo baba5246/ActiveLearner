@@ -48,7 +48,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
             
             // Find surroundings
             text->add(neighbors[j], Distancer::distanceOfCentroids(init->centroid, neighbors[j]->centroid));
-            double gradient = computeGradient(*init, *neighbors[j]);
+            double gradient = computeGradient(init, neighbors[j]);
             text->gradients.push_back(gradient);
             text->focusedIndex = 1;
             
@@ -68,7 +68,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
 #pragma mark Grouping Objects Methods
 
 
-vector<Object*> TextDetector::findInitNeighbors(Object* init, vector<Object*> objects)
+vector<Object*> TextDetector::findInitNeighbors(Object*& init, vector<Object*>& objects)
 {
     vector<Object*> neighbors;
     double temp_dist = 0, gradient = 0;
@@ -108,7 +108,7 @@ vector<Object*> TextDetector::findInitNeighbors(Object* init, vector<Object*> ob
     return neighbors;
 }
 
-void TextDetector::groupingObjects(Text*& text, vector<Object*>objects)
+void TextDetector::groupingObjects(Text*& text, vector<Object*>& objects)
 {
     // 注目indexがオブジェクト数より大きくなるなら終了
     if (text->focusedIndex >= text->objects.size()) return;
@@ -121,13 +121,13 @@ void TextDetector::groupingObjects(Text*& text, vector<Object*>objects)
     groupingObjects(text, objects);
 }
 
-void TextDetector::addNeighbors(Text* text, vector<Object*> objects)
+void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
 {
     double distance = 0, threshold = 0, gradient = 0;
     cv::Point diff, newVector, oldVector;
     
     // 注目オブジェクト取得
-    Object* focus = text->objects[text->focusedIndex];
+    Object *focus = text->objects[text->focusedIndex];
     
     for (int i = 0; i < objects.size(); i++) {
         
@@ -163,9 +163,9 @@ void TextDetector::addNeighbors(Text* text, vector<Object*> objects)
 }
 
 
-double TextDetector::computeGradient(Object obj1, Object obj2)
+double TextDetector::computeGradient(Object*& obj1, Object*& obj2)
 {
-    cv::Point diff = obj1.centroid - obj2.centroid;
+    cv::Point diff = obj1->centroid - obj2->centroid;
     return atan2(-diff.y, diff.x);
 }
 

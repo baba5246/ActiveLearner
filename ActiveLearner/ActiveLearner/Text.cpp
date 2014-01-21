@@ -9,7 +9,7 @@ Text::Text()
     
 }
 
-Text::Text(string name, Object* obj)
+Text::Text(string name, Object*& obj)
 {
     filename = name;
     add(obj, 0);
@@ -19,7 +19,7 @@ Text::Text(string name, Object* obj)
 #pragma mark -
 #pragma mark Public Methods
 
-void Text::add(Object* obj, double distance)
+void Text::add(Object*& obj, double distance)
 {
     objects.push_back(obj);
     distances.push_back(distance);
@@ -38,10 +38,10 @@ bool Text::areAllFocused()
     return true;
 }
 
-bool Text::contains(Object *obj)
+bool Text::contains(Object*& obj)
 {
     for (int i = 0; i < objects.size(); i++) {
-        if (obj->ID == objects[i]->ID) return true;
+        if (!obj->ID.compare(objects[i]->ID)) return true;
     }
     
     return false;
@@ -101,7 +101,7 @@ void Text::computeAverageDistance()
     averaveDistance /= distances.size();
 }
 
-void Text::computeGradient(Object* obj)
+void Text::computeGradient(Object*& obj)
 {
     if (objects.size() < 2) return;
     

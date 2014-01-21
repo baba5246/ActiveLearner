@@ -32,17 +32,17 @@ private:
     
 public:
     Text();
-    Text(string name, Object* obj);
+    Text(string name, Object*& obj);
     
-    void add(Object* obj, double distance);
+    void add(Object*& obj, double distance);
     void addDistance(double distance);
     bool areAllFocused();
-    bool contains(Object* obj);
+    bool contains(Object*& obj);
     
 private:
     void computeProperties();
     void computeColor();
     void computeAverageDistance();
-    void computeGradient(Object* obj);
+    void computeGradient(Object*& obj);
     
 };

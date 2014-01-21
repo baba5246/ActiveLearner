@@ -5,6 +5,6 @@
 
 -(IBAction)importTrainDataset:(id)sender;
 -(IBAction)importTestDataset:(id)sender;
--(IBAction)onExportXMLButtonClicked:(id)sender;
+-(IBAction)onExportLearningResultButtonClicked:(id)sender;
 
 @end

@@ -88,13 +88,13 @@ static Processor* sharedProcessor = nil;
     return ccs;
 }
 
-- (map<string, vector<Object*>>) trainCCV:(map<string, vector<Object*>>) ccs
+- (map<string, vector<Object*>>) trainCCV:(const map<string, vector<Object*>>&) ccs
 {
     NSString *output = @"\n --- オブジェクト学習開始 --- \n";
     LOG(@"%@", output);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
-    map<string, vector<Object *>> components;
+    map<string, vector<Object*>> components;
 
     map<string, vector<Sample>> samples = [self makeCCSamples:ccs isTraining:YES];
     AdaBoost adaboost = [self learnFeaturesWithAdaBoost:samples];
@@ -107,7 +107,7 @@ static Processor* sharedProcessor = nil;
     return  components;
 }
 
-- (map<string, vector<Text*>>) trainCGD:(map<string, vector<Object*>>) components
+- (map<string, vector<Text*>>) trainCGD:(map<string, vector<Object*>>&) components
 {
     NSString *output = @"\n --- グループ抽出開始 --- \n";
     LOG(@"%@", output);
@@ -138,7 +138,7 @@ static Processor* sharedProcessor = nil;
     return cgs;
 }
 
-- (map<string, vector<Text*>>) trainCGV:(map<string, vector<Text*>>) cgs
+- (map<string, vector<Text*>>) trainCGV:(map<string, vector<Text*>>&) cgs
 {
     NSString *output = @"\n --- グループ学習開始 --- \n";
     LOG(@"%@", output);
@@ -201,7 +201,7 @@ static Processor* sharedProcessor = nil;
     return ccs;
 }
 
-- (map<string, vector<Object*>>) testCCV:(map<string, vector<Object*>>) ccs
+- (map<string, vector<Object*>>) testCCV:(map<string, vector<Object*>>&) ccs
 {
     [n sendNotification:CONSOLE_OUTPUT
          objectsAndKeys:@"\n --- オブジェクト分類開始 --- \n", OUTPUT, nil];
@@ -215,7 +215,7 @@ static Processor* sharedProcessor = nil;
     return  components;
 }
 
-- (map<string, vector<Text*>>) testCGD:(map<string, vector<Object*>>) components
+- (map<string, vector<Text*>>) testCGD:(map<string, vector<Object*>>&) components
 {
     [n sendNotification:CONSOLE_OUTPUT
          objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
@@ -229,7 +229,7 @@ static Processor* sharedProcessor = nil;
     return cgs;
 }
 
-- (map<string, vector<Text*>>) testCGV:(map<string, vector<Text*>>) cgs
+- (map<string, vector<Text*>>) testCGV:(map<string, vector<Text*>>&) cgs
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- グループ分類開始 --- \n", OUTPUT, nil];
     
@@ -326,9 +326,9 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
                 continue;
             
             Object *obj = objects[i];
-            Sample s(*obj);
+            Sample s(obj);
             
-            cv::Rect obj_rect = s.object.rect;
+            cv::Rect obj_rect = s.object->rect;
             CGRect rect = CGRectMake(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
             
             bool findFlag = NO;
@@ -381,9 +381,9 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         for (int i = 0; i < groups.size(); i++)
         {
             Text *text = groups[i];
-            Sample s(*text);
+            Sample s(text);
             
-            cv::Rect obj_rect = s.object.rect;
+            cv::Rect obj_rect = s.text->rect;
             NSRect rect = NSMakeRect(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
             
             bool findFlag = NO;
@@ -455,7 +455,7 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     return adaboost;
 }
 
-- (map<string, vector<Object*>>) ccClassify:(map<string, vector<Sample>>) samples adaboost:(AdaBoost) adaboost
+- (map<string, vector<Object*>>) ccClassify:(const map<string, vector<Sample>>&) samples adaboost:(AdaBoost) adaboost
 {
     map<string, vector<Object*>> components;
     
@@ -463,20 +463,19 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     double precision = 0, recall = 0, f = 0;
     
     // 全列挙
-	map<string, vector<Sample>>::iterator itr;
+    map<string, vector<Sample>>::const_iterator itr;
     for (itr=samples.begin(); itr != samples.end(); itr++) {
         
         string filepath = itr->first;
         vector<Sample> temp = itr->second;
         vector<Object*> corrects;
+        corrects.reserve(temp.size());
         
         for (int i = 0; i < temp.size(); i++)
         {
             int test = adaboost.sc.test(temp[i]);
-            Object* o = &(temp[i].object);
-            
             if (test>0) {
-                corrects.push_back(o);
+                corrects.push_back(temp[i].object);
             }
             
             // 母数を計算
@@ -489,11 +488,10 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
             }
         }
         
-        Mat srcImage = imread(filepath);
-        vector<Object*> copy(corrects);
-        Draw::drawObjects(srcImage, copy);
+//        Mat src = imread(filepath);
+//        Draw::drawObjects(src, corrects);
         
-        components.insert(map<string, vector<Object*>>::value_type(filepath, corrects));
+        components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(corrects)));
     }
     
     // 母数を計算
@@ -513,6 +511,7 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     
     cout << "--- 候補オブジェクト分類結果 ---" << endl;
     cout << "size:" << size << ", e:" << e << ", E:" << E << ", T:" << T << endl;
+    cout << "precision:" << precision << ", recall:" << recall << ", f:" << f << endl;
     cout << result << endl;
     
     return components;
@@ -535,20 +534,21 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         
         for (int i = 0; i < temp.size(); i++)
         {
-            Sample s = temp[i];
-            int test = adaboost.sc.test(s);
+            int test = adaboost.sc.test(temp[i]);
             
             if (test == 1) {
-                corrects.push_back(&s.text);
+                corrects.push_back(temp[i].text);
             }
             
             // 母数を計算
             E++;
             
             // 正解個数を算出
-            if (test == s.label) e++;
+            if (test == temp[i].label) e++;
         }
         
+        Mat src = imread(filepath);
+        Draw::drawTexts(src, corrects);
         texts.insert(map<string, vector<Text*>>::value_type(filepath, corrects));
     }
     
@@ -568,6 +568,7 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     
     cout << "--- 候補オブジェクト分類結果 ---" << endl;
     cout << "size:" << samples.size() << "e:" << e << ", E:" << E << ", T:" << T << endl;
+    cout << "precision:" << precision << ", recall:" << recall << ", f:" << f << endl;
     cout << result << endl;
     
     return texts;
@@ -626,7 +627,7 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     
     int max = 0;
     for (int i = 0; i < size; i++) {
-        double value = samples[i].object.features[index];
+        double value = samples[i].object->features[index];
         int v = floor(value*100);
         if (v > max) max = v;
         if (samples[i].label > 0) plushist[v]++;
@@ -664,6 +665,31 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
 inline void output(NSString *string)
 {
     
+}
+
+- (void) checkSamplesId:(map<string,vector<Sample>>) samples
+{
+    map<string, vector<Sample>>::iterator itr;
+    for (itr = samples.begin(); itr != samples.end(); itr++) {
+        cout << "path:" << itr->first << endl;
+        vector<Sample> temp = itr->second;
+        vector<Sample>::iterator citr;
+        for(citr = temp.begin(); citr != temp.end(); citr++) {
+            cout << "ID:" << citr->object->ID << endl;
+        }
+    }
+}
+
+- (void) checkObjectsId:(map<string,vector<Object*>>) components
+{
+    map<string, vector<Object*>>::iterator itr;
+    for (itr = components.begin(); itr != components.end(); itr++) {
+        cout << "path:" << itr->first << endl;
+        vector<Object*> temp = itr->second;
+        for(int i = 0; i < temp.size(); i++) {
+            cout << "ID:" << temp[i]->ID << endl;
+        }
+    }
 }
 
 @end

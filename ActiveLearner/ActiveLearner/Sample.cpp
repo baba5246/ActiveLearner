@@ -1,16 +1,16 @@
 
 #include "Sample.h"
 
-Sample::Sample(const Object& obj)
+Sample::Sample(Object*& obj)
 {
     object = obj;
-    features = obj.features;
-    filename = obj.filename;
+    features = obj->features;
+    filename = obj->filename;
 }
 
-Sample::Sample(const Text& t)
+Sample::Sample(Text*& t)
 {
     text = t;
-    features = t.features;
-    filename = t.filename;
+    features = t->features;
+    filename = t->filename;
 }

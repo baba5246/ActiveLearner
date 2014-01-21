@@ -9,14 +9,14 @@ using namespace std;
 class Sample {
     
 public:
-    Object object;
-    Text text;
+    Object *object;
+    Text *text;
     vector<double> features;
     int label;
     string filename;
     
 public:
-    Sample(const Object& obj);
-    Sample(const Text& t);
+    Sample(Object*& obj);
+    Sample(Text*& t);
     string toString();
 };
