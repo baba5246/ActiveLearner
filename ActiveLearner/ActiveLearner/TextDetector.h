@@ -37,6 +37,7 @@ private:
     vector<double> distanceObjects(vector<Object*> objects);
     void groupingObjects(Text*& text, vector<Object*>& objects);
     void addNeighbors(Text*& text, vector<Object*>& objects);
+    void setFeatures(vector<Text*>& texts);
     
     double computeGradient(Object*& obj1, Object*& obj2);
     double pointSize(cv::Point p);

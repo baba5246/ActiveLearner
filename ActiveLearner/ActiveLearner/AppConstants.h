@@ -26,3 +26,23 @@
 
 #define TYPE_TRAINING           YES
 #define TYPE_TESTING            NO
+
+#pragma mark -
+#pragma mark XML Keys
+
+#define ROOT        @"root"
+
+#define IMAGE       @"image"
+#define NAME        @"name"
+#define TRUTH       @"truth"
+#define RECT        @"rect"
+#define TEXT        @"text"
+
+#define DATASET     @"dataset"
+#define PATH        @"path"
+#define CCV         @"ccv"
+#define CGV         @"cgv"
+#define WC          @"wc"
+#define FINDEX      @"findex"
+#define ALPHA       @"alpha"
+#define THRESHOLD   @"threshold"

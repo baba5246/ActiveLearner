@@ -64,7 +64,7 @@ void Text::computeProperties()
     width = maxx - minx + 1;
     height = maxy - miny + 1;
     rect = cv::Rect(minx, miny, width, height);
-    aspectRatio = (double) width / height;
+    aspectRatio = (double) MIN(width, height) / MAX(width, height);
     computeColor();
     
 }
@@ -92,13 +92,13 @@ void Text::computeColor()
 
 void Text::computeAverageDistance()
 {
-    averaveDistance = 0;
+    averageDistance = 0;
     if (distances.size() == 0) return;
     
     for (int i = 0; i < distances.size(); i++) {
-        averaveDistance += distances[i];
+        averageDistance += distances[i];
     }
-    averaveDistance /= distances.size();
+    averageDistance /= distances.size();
 }
 
 void Text::computeGradient(Object*& obj)

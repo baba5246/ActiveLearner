@@ -80,7 +80,7 @@ static Processor* sharedProcessor = nil;
         
         ccs.insert(map<string, vector<Object*>>::value_type(filepath, objects));
 
-        output = [NSString stringWithFormat:@"\n---- Filename:%@, Components:%ld", path, objects.size()];
+        output = [NSString stringWithFormat:@"\n---- Filename:%@, Components:%ld ----", path, objects.size()];
         LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
@@ -193,7 +193,7 @@ static Processor* sharedProcessor = nil;
         
         ccs.insert(map<string, vector<Object*>>::value_type(filepath, objects));
         
-        NSString *output = [NSString stringWithFormat:@"---- Filename:%@, Samples:%ld", path, objects.size()];
+        NSString *output = [NSString stringWithFormat:@"---- Filename:%@, Samples:%ld ----", path, objects.size()];
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
     
@@ -208,7 +208,7 @@ static Processor* sharedProcessor = nil;
     
     map<string, vector<Object*>> components;
     
-    map<string, vector<Sample>> samples = [self makeCCSamples:ccs isTraining:YES];
+    map<string, vector<Sample>> samples = [self makeCCSamples:ccs isTraining:NO];
     components = [self ccClassify:samples adaboost:ccvAdaBoost];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
@@ -217,13 +217,30 @@ static Processor* sharedProcessor = nil;
 
 - (map<string, vector<Text*>>) testCGD:(map<string, vector<Object*>>&) components
 {
-    [n sendNotification:CONSOLE_OUTPUT
-         objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
+    NSString *output = @"\n --- グループ抽出開始 --- \n";
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
     map<string, vector<Text*>> cgs;
     
     // Grouping
-    
+    for (NSString *path in model.testImagePaths) {
+        
+        // グループ抽出
+        string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
+        Mat srcImage = imread(filepath);
+        vector<Object*> objects = components.at(filepath);
+        
+        vector<Text*> texts;
+        TextDetector detector(srcImage);
+        detector.detect(objects, texts);
+        
+        cgs.insert(map<string, vector<Text*>>::value_type(filepath, texts));
+        
+        output = [NSString stringWithFormat:@"\n---- Filename:%@, Texts:%ld", path, texts.size()];
+        LOG(@"%@", output);
+        [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
+        
+    }
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return cgs;
@@ -235,7 +252,7 @@ static Processor* sharedProcessor = nil;
     
     map<string, vector<Text*>> texts;
     
-    map<string, vector<Sample>> samples = [self makeCGSamples:cgs isTraining:YES];
+    map<string, vector<Sample>> samples = [self makeCGSamples:cgs isTraining:NO];
     texts = [self cgClassify:samples adaboost:cgvAdaBoost];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
@@ -488,8 +505,8 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
             }
         }
         
-//        Mat src = imread(filepath);
-//        Draw::drawObjects(src, corrects);
+        Mat src = imread(filepath);
+        Draw::drawObjects(src, corrects);
         
         components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(corrects)));
     }
@@ -580,16 +597,16 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     {
         // resultのDictionaryを作る
         adaboostResult = [[NSMutableDictionary alloc] init];
-        [adaboostResult setObject:model.trainDir forKey:@"dataset"];
+        [adaboostResult setObject:model.trainDir forKey:DATASET];
         
         
         NSMutableDictionary *ccv = [[NSMutableDictionary alloc] init];
         for (int i = 0; i < ccvAdaBoost.sc.wcs.size(); i++) {
             NSString *key = [NSString stringWithFormat:@"wc%d", i];
             NSDictionary *wc = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                [NSString stringWithFormat:@"%d", ccvAdaBoost.sc.wcs[i].featureIndex],@"findex",
-                                [NSString stringWithFormat:@"%f", ccvAdaBoost.sc.wcs[i].alpha], @"alpha",
-                                [NSString stringWithFormat:@"%f", ccvAdaBoost.sc.wcs[i].threshold], @"threshold", nil];
+                                [NSString stringWithFormat:@"%d", ccvAdaBoost.sc.wcs[i].featureIndex],FINDEX,
+                                [NSString stringWithFormat:@"%f", ccvAdaBoost.sc.wcs[i].alpha], ALPHA,
+                                [NSString stringWithFormat:@"%f", ccvAdaBoost.sc.wcs[i].threshold], THRESHOLD, nil];
             [ccv setObject:wc forKey:key];
         }
         [adaboostResult setObject:ccv forKey:CCV];
@@ -600,9 +617,9 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         for (int i = 0; i < cgvAdaBoost.sc.wcs.size(); i++) {
             NSString *key = [NSString stringWithFormat:@"wc%d", i];
             NSDictionary *wc = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                [NSString stringWithFormat:@"%d", cgvAdaBoost.sc.wcs[i].featureIndex],@"findex",
-                                [NSString stringWithFormat:@"%f", cgvAdaBoost.sc.wcs[i].alpha], @"alpha",
-                                [NSString stringWithFormat:@"%f", cgvAdaBoost.sc.wcs[i].threshold], @"threshold", nil];
+                                [NSString stringWithFormat:@"%d", cgvAdaBoost.sc.wcs[i].featureIndex],FINDEX,
+                                [NSString stringWithFormat:@"%f", cgvAdaBoost.sc.wcs[i].alpha], ALPHA,
+                                [NSString stringWithFormat:@"%f", cgvAdaBoost.sc.wcs[i].threshold], THRESHOLD, nil];
             [cgv setObject:wc forKey:key];
         }
         [adaboostResult setObject:cgv forKey:CGV];

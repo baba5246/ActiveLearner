@@ -61,6 +61,10 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
             //Draw::drawTexts(srcImage, texts);
         }
     }
+    
+    // Group特徴量計算
+    setFeatures(texts);
+
 }
 
 
@@ -135,7 +139,7 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
         if (text->contains(objects[i])) continue;
         
         // 閾値計算
-        threshold = text->averaveDistance*1.5;
+        threshold = text->averageDistance*1.5;
         
         // 距離計算
         distance = Distancer::distanceOfObjects(*focus, *objects[i]);//distanceOfCentroids(focus->centroid, objects[i]->centroid);
@@ -162,6 +166,46 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
     }
 }
 
+
+// Set Features to the Object
+void TextDetector::setFeatures(vector<Text*>& texts)
+{
+    for (int i = 0; i < texts.size(); i++) {
+        
+        vector<double> features;
+        
+        // Average Echar
+//        /* 0 */ features.push_back(texts[i]->Gangle / M_PI);
+//        /* 1 */ features.push_back(texts[i]->Fcorr);
+//        /* 2 */ features.push_back(texts[i]->Echar);
+        
+        // Average Color
+        /* 3 */ features.push_back((double)texts[i]->color[0]/BRIGHTNESS);
+        /* 4 */ features.push_back((double)texts[i]->color[1]/BRIGHTNESS);
+        /* 5 */ features.push_back((double)texts[i]->color[2]/BRIGHTNESS);
+        
+        // Average Stroke width
+//        /* 6 */ features.push_back(objects[i]->strokeWidth/objects[i]->longLength);
+        
+        
+        // TODO: オブジェクトの占める面積比
+        
+        // Rect ratio
+//        /* 7 */ features.push_back(texts[i]->rectRatio);
+        
+        // Aspect ratio
+        /* 8 */ features.push_back(texts[i]->aspectRatio);
+        
+        // Long length ratio
+//        /* 9 */ features.push_back(texts[i]->longLengthRatio);
+        
+        // Area ratio
+//        /* 10 */ features.push_back(texts[i]->areaRatio);
+        
+        // Set features
+        texts[i]->features = features;
+    }
+}
 
 double TextDetector::computeGradient(Object*& obj1, Object*& obj2)
 {

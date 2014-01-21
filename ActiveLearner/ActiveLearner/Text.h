@@ -22,7 +22,7 @@ public:
     cv::Rect rect;
     cv::Point centroid;
     Scalar color;
-    double averaveDistance = 0;
+    double averageDistance = 0;
     
     int focusedIndex = -1;
     vector<double> features;
