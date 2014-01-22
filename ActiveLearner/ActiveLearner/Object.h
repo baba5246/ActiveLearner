@@ -9,14 +9,14 @@ class Object
 {
 public:
     Object();
-    Object(const string ID, const string& filepath, const vector<cv::Point>& contour, const cv::Size size);
+    Object(const string ID, const string& path, const vector<cv::Point>& contour, const cv::Size size);
     ~Object();
     
 #pragma mark -
 #pragma Attribute Variables
 public:
     string ID;
-    string filename;
+    string filepath, filename;
     cv::Size srcSize;
     
     int contourArea = 0, rectArea = 0, width = 0, height = 0;

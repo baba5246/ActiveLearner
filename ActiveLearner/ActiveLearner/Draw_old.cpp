@@ -1,7 +1,7 @@
 
-#include "Draw.h"
+#include "Draw_old.h"
 
-void Draw::drawImage(const Mat& src)
+void Draw_old::drawImage(const Mat& src)
 {
     if(!src.data) {
         cout <<  "Could not open or find the image" << endl ;
@@ -12,7 +12,7 @@ void Draw::drawImage(const Mat& src)
         destroyWindow("Display window");
     }
 }
-void Draw::drawImage(const Mat& src1, const Mat& src2)
+void Draw_old::drawImage(const Mat& src1, const Mat& src2)
 {
     if(!src1.data || !src2.data) {
         cout <<  "Could not open or find the image" << endl ;
@@ -27,17 +27,17 @@ void Draw::drawImage(const Mat& src1, const Mat& src2)
     }
 }
 
-void Draw::draw(const Mat& src)
+void Draw_old::draw(const Mat& src)
 {
     drawImage(src);
 }
 
-void Draw::draw(const Mat& src1, const Mat& src2)
+void Draw_old::draw(const Mat& src1, const Mat& src2)
 {
     drawImage(src1, src2);
 }
 
-void Draw::drawGrays(const Mat& r, const Mat& g, const Mat& b)
+void Draw_old::drawGrays(const Mat& r, const Mat& g, const Mat& b)
 {
     if(!r.data || !g.data || !b.data) {
         cout <<  "Could not open or find the image" << endl ;
@@ -55,7 +55,7 @@ void Draw::drawGrays(const Mat& r, const Mat& g, const Mat& b)
     }
 }
 
-void Draw::drawEdges(const Mat& r, const Mat& g, const Mat& b)
+void Draw_old::drawEdges(const Mat& r, const Mat& g, const Mat& b)
 {
     if(!r.data || !g.data || !b.data) {
         cout <<  "Could not open or find the image" << endl ;
@@ -73,7 +73,7 @@ void Draw::drawEdges(const Mat& r, const Mat& g, const Mat& b)
     }
 }
 
-Mat Draw::drawContours(const Mat& src, const vector<vector<Point> >& contours, const vector<cv::Vec4i>& hierarchy)
+void Draw_old::drawContours(const Mat& src, const vector<vector<Point> >& contours, const vector<cv::Vec4i>& hierarchy)
 {
     //srand((unsigned int)time(NULL));
     
@@ -85,10 +85,10 @@ Mat Draw::drawContours(const Mat& src, const vector<vector<Point> >& contours, c
         cv::drawContours(dst, contours, idx, color, CV_FILLED, 8, hierarchy);
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawMSERs(const Mat& src, const vector<vector<Point> >& mser_features)
+void Draw_old::drawMSERs(const Mat& src, const vector<vector<Point> >& mser_features)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     for (int i = 0; i < mser_features.size(); i++)
@@ -101,10 +101,10 @@ Mat Draw::drawMSERs(const Mat& src, const vector<vector<Point> >& mser_features)
         ellipse(dst, fitEllipse(mser_features[i]), CV_RGB(255, 0, 0));
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawMSERs(const Mat& src, const vector<MSERegion >& msers)
+void Draw_old::drawMSERs(const Mat& src, const vector<MSERegion >& msers)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     for (int i = 0; i < msers.size(); i++)
@@ -117,10 +117,10 @@ Mat Draw::drawMSERs(const Mat& src, const vector<MSERegion >& msers)
         ellipse(dst, fitEllipse(msers[i].mseregion), CV_RGB(255, 0, 0));
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawObjects(const Mat& src, const vector<Object*>& objects)
+void Draw_old::drawObjects(const Mat& src, const vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     dst = CV_RGB(100, 100, 100);
@@ -139,10 +139,10 @@ Mat Draw::drawObjects(const Mat& src, const vector<Object*>& objects)
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawGradients(const Mat& src, const Mat_<double>& gradients)
+void Draw_old::drawGradients(const Mat& src, const Mat_<double>& gradients)
 {
     Mat dst = Mat::zeros(gradients.rows, gradients.cols, CV_8UC3);
     
@@ -161,10 +161,10 @@ Mat Draw::drawGradients(const Mat& src, const Mat_<double>& gradients)
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawGradients(const vector<Object*>& objects, const Mat_<double>& gradients)
+void Draw_old::drawGradients(const vector<Object*>& objects, const Mat_<double>& gradients)
 {
     Mat dst = Mat::zeros(gradients.rows, gradients.cols, CV_8UC3);
     
@@ -183,10 +183,10 @@ Mat Draw::drawGradients(const vector<Object*>& objects, const Mat_<double>& grad
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-cv::Scalar* Draw::colorOfRadian(double radian)
+cv::Scalar* Draw_old::colorOfRadian(double radian)
 {
     cv::Scalar *color;
     
@@ -203,7 +203,7 @@ cv::Scalar* Draw::colorOfRadian(double radian)
     return color;
 }
 
-Mat Draw::drawEchars(const Mat& src, const vector<Object*>& objects)
+void Draw_old::drawEchars(const Mat& src, const vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
@@ -225,10 +225,10 @@ Mat Draw::drawEchars(const Mat& src, const vector<Object*>& objects)
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawGradientLine(const Mat& src, const vector<Object*>& objects, double a, double b)
+void Draw_old::drawGradientLine(const Mat& src, const vector<Object*>& objects, double a, double b)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
@@ -249,10 +249,10 @@ Mat Draw::drawGradientLine(const Mat& src, const vector<Object*>& objects, doubl
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawSurroundings(const Mat& src, const vector<Object*>& objects)
+void Draw_old::drawSurroundings(const Mat& src, const vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
     
@@ -269,10 +269,10 @@ Mat Draw::drawSurroundings(const Mat& src, const vector<Object*>& objects)
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawText(const cv::Mat &src, Text *&text)
+void Draw_old::drawText(const cv::Mat &src, Text *&text)
 {
     Mat dst = src.clone();
     
@@ -291,10 +291,10 @@ Mat Draw::drawText(const cv::Mat &src, Text *&text)
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
+void Draw_old::drawTexts(const Mat& src, const vector<Text*>& texts)
 {
     Mat dst = Mat(src);
     
@@ -312,10 +312,10 @@ Mat Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawSWT(const Mat& swt, const double max)
+void Draw_old::drawSWT(const Mat& swt, const double max)
 {
     Mat dst(swt.rows, swt.cols, CV_8UC3);
     
@@ -334,7 +334,7 @@ Mat Draw::drawSWT(const Mat& swt, const double max)
             } else {
                 color = CV_RGB(128, 255, 255);
             }
-            //            cout << "sw:" << sw << ", count:" << count << endl;
+//            cout << "sw:" << sw << ", count:" << count << endl;
             
             dst.at<Vec3b>(y, x)[0] = color[0];
             dst.at<Vec3b>(y, x)[1] = color[1];
@@ -342,10 +342,10 @@ Mat Draw::drawSWT(const Mat& swt, const double max)
         }
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Scalar Draw::colorWithCount(const int count)
+Scalar Draw_old::colorWithCount(const int count)
 {
     switch (count) {
         case 1:
@@ -378,7 +378,7 @@ Scalar Draw::colorWithCount(const int count)
     }
 }
 
-Mat Draw::drawSWTObjects(const Mat_<double>& swt, const vector<SWTObject>& swtobjects)
+void Draw_old::drawSWTObjects(const Mat_<double>& swt, const vector<SWTObject>& swtobjects)
 {
     Mat dst = Mat::zeros(swt.rows, swt.cols, CV_8UC3);
     dst = CV_RGB(100, 100, 100);
@@ -399,14 +399,15 @@ Mat Draw::drawSWTObjects(const Mat_<double>& swt, const vector<SWTObject>& swtob
             dst.at<Vec3b>(p.y, p.x)[1] = obj.color[1];
             dst.at<Vec3b>(p.y, p.x)[2] = obj.color[2];
         }
-        //        d = obj.centroid - obj.rect.tl();
-        //        circle(dst, obj.centroid, sqrt(d.x*d.x+d.y*d.y), obj.color, 1);
+//        d = obj.centroid - obj.rect.tl();
+//        circle(dst, obj.centroid, sqrt(d.x*d.x+d.y*d.y), obj.color, 1);
     }
     
-    return dst;
+    drawImage(dst);
+    
 }
 
-Mat Draw::drawSamples(const Mat& src, const vector<Sample>& samples)
+void Draw_old::drawSamples(const Mat& src, const vector<Sample>& samples)
 {
     Mat dst = Mat(src);
     
@@ -424,15 +425,15 @@ Mat Draw::drawSamples(const Mat& src, const vector<Sample>& samples)
         for (int j = 0; j < points.size(); j++) {
             circle(dst, points[j], 0.5f, color, 1);
         }
-        
+            
         rectangle(dst, samples[i].object->rect, color, 2);
         circle(dst, samples[i].object->centroid, 3, color, 2);
     }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawLabeles(const Mat& label)
+void Draw_old::drawLabeles(const Mat& label)
 {
     int H = label.rows, W = label.cols;
     Mat dst = Mat(H, W, CV_8UC3);
@@ -453,10 +454,10 @@ Mat Draw::drawLabeles(const Mat& label)
             dst.at<Vec3b>(y, x)[2] = color[2];
         }
     
-    return dst;
+    drawImage(dst);
 }
 
-Mat Draw::drawSWTComponents(const Mat& swt, const vector<vector<Point> >& components)
+void Draw_old::drawSWTComponents(const Mat& swt, const vector<vector<Point> >& components)
 {
     int H = swt.rows, W = swt.cols;
     Mat dst = Mat(H, W, CV_8UC3);
@@ -481,5 +482,5 @@ Mat Draw::drawSWTComponents(const Mat& swt, const vector<vector<Point> >& compon
         }
     }
     
-    return dst;
+    drawImage(dst);
 }

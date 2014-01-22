@@ -10,10 +10,11 @@ Object::Object()
     
 }
 
-Object::Object(const string Id, const string& filepath, const vector<cv::Point>& contour, const cv::Size size)
+Object::Object(const string Id, const string& path, const vector<cv::Point>& contour, const cv::Size size)
 {
     ID = Id;
-    filename = filepath;
+    filepath = path;
+    filename = filepath.substr(filepath.find_last_of("/")+1);
     contourPixels = contour;
     srcSize = size;
     computeProperties();

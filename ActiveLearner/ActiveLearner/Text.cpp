@@ -9,9 +9,11 @@ Text::Text()
     
 }
 
-Text::Text(string name, Object*& obj)
+Text::Text(string path, Object*& obj)
 {
-    filename = name;
+    filepath = path;
+    filename = filepath.substr(filepath.find_last_of("/")+1);
+    srcImage = imread(filepath);
     add(obj, 0);
 }
 

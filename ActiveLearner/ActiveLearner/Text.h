@@ -11,14 +11,18 @@ class Text
     
 public:
     
-    string filename;
+    Mat srcImage;
+    string filepath, filename;
     vector<Object*> objects;
     vector<double> distances;
     vector<double> gradients;
     vector<int> originIndexes;
     
     int width = 0, height = 0;
-    double aspectRatio = 0, gradient = 0, objectAreaRatio = 0;
+    double aveEchar = 0, aveFcorr = 0, aveGangle = 0, aveCR = 0;
+    double varSW = 0, varColor = 0, varAngle = 0, varDist = 0, varLength = 0;
+    double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, objAreaRatio = 0, objSizeRatio = 0;
+    double gradient = 0;
     cv::Rect rect;
     cv::Point centroid;
     Scalar color;
@@ -32,7 +36,7 @@ private:
     
 public:
     Text();
-    Text(string name, Object*& obj);
+    Text(string path, Object*& obj);
     
     void add(Object*& obj, double distance);
     void addDistance(double distance);

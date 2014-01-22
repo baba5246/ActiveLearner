@@ -15,7 +15,7 @@
     NSTableView *performTable;
 }
 
-@property (nonatomic, retain) IBOutlet ImgView *imgView;
+@property (weak) IBOutlet NSImageView *imageView;
 
 
 #pragma mark -
@@ -29,11 +29,4 @@
 - (IBAction)onTestWholeClicked:(id)sender;
 
 
-#pragma mark -
-#pragma mark Observer Methods
-
--(void)observeValueForKeyPath:(NSString *)keyPath
-                     ofObject:(id)object
-                       change:(NSDictionary *)change
-                      context:(void *)context;
 @end

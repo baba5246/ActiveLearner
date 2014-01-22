@@ -19,9 +19,6 @@
 		874F6892182AF6F1004FA324 /* Truth.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1D182A122700495344 /* Truth.m */; };
 		874F6893182AF714004FA324 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A1B182A121D00495344 /* Model.m */; };
 		874F6894182AF722004FA324 /* FileDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A0F182A11CF00495344 /* FileDialogController.m */; };
-		874F6895182AF729004FA324 /* ImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A11182A11EE00495344 /* ImgView.m */; };
-		874F6896182AF72E004FA324 /* RectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A15182A11F600495344 /* RectView.m */; };
-		874F6897182AF731004FA324 /* InputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A13182A11EE00495344 /* InputView.m */; };
 		874F6898182AF738004FA324 /* Processor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 875D4A17182A120300495344 /* Processor.mm */; };
 		874F689C182AFEBD004FA324 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689A182AFEBD004FA324 /* Object.cpp */; };
 		874F689F182AFECD004FA324 /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 874F689D182AFECD004FA324 /* Text.cpp */; };
@@ -36,8 +33,10 @@
 		875D4A09182A112F00495344 /* libopencv_core.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D4A06182A112F00495344 /* libopencv_core.2.4.5.dylib */; };
 		875D4A0A182A112F00495344 /* libopencv_highgui.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D4A07182A112F00495344 /* libopencv_highgui.2.4.5.dylib */; };
 		875D4A0B182A112F00495344 /* libopencv_imgproc.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 875D4A08182A112F00495344 /* libopencv_imgproc.2.4.5.dylib */; };
+		87ADAEFE188F9721001CA898 /* NSImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 87ADAEFD188F9721001CA898 /* NSImage+OpenCV.mm */; };
+		87ADAF01188FA3D6001CA898 /* Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87ADAEFF188FA3D6001CA898 /* Draw.cpp */; };
 		FE46B395182A362C0070725A /* Mycv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE46B393182A362C0070725A /* Mycv.cpp */; };
-		FE46B398182A36B00070725A /* Draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE46B396182A36B00070725A /* Draw.cpp */; };
+		FE46B398182A36B00070725A /* Draw_old.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE46B396182A36B00070725A /* Draw_old.cpp */; };
 		FEB4BFFA184E7244004CD5B5 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB4BFF9184E7244004CD5B5 /* Notification.m */; };
 		FEB4BFFD1858D558004CD5B5 /* Distancer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */; };
 		FEBDFFD41834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBDFFD21834F3D90037BC64 /* libopencv_features2d.2.4.5.dylib */; };
@@ -88,12 +87,6 @@
 		875D4A0D182A11C000495344 /* Controller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Controller.m; sourceTree = "<group>"; };
 		875D4A0E182A11CF00495344 /* FileDialogController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileDialogController.h; sourceTree = "<group>"; };
 		875D4A0F182A11CF00495344 /* FileDialogController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileDialogController.m; sourceTree = "<group>"; };
-		875D4A10182A11EE00495344 /* ImgView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImgView.h; sourceTree = "<group>"; };
-		875D4A11182A11EE00495344 /* ImgView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImgView.m; sourceTree = "<group>"; };
-		875D4A12182A11EE00495344 /* InputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputView.h; sourceTree = "<group>"; };
-		875D4A13182A11EE00495344 /* InputView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InputView.m; sourceTree = "<group>"; };
-		875D4A14182A11F600495344 /* RectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RectView.h; sourceTree = "<group>"; };
-		875D4A15182A11F600495344 /* RectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RectView.m; sourceTree = "<group>"; };
 		875D4A16182A120300495344 /* Processor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
 		875D4A17182A120300495344 /* Processor.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Processor.mm; sourceTree = "<group>"; };
 		875D4A1A182A121D00495344 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
@@ -103,10 +96,14 @@
 		875D4A1E182A122700495344 /* XmlMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XmlMaker.h; sourceTree = "<group>"; };
 		875D4A1F182A122700495344 /* XmlMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XmlMaker.m; sourceTree = "<group>"; };
 		878D27C61830B172002F1EB0 /* CppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CppConstants.h; sourceTree = "<group>"; };
+		87ADAEFC188F9721001CA898 /* NSImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+OpenCV.h"; sourceTree = "<group>"; };
+		87ADAEFD188F9721001CA898 /* NSImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSImage+OpenCV.mm"; sourceTree = "<group>"; };
+		87ADAEFF188FA3D6001CA898 /* Draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Draw.cpp; sourceTree = "<group>"; };
+		87ADAF00188FA3D6001CA898 /* Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draw.h; sourceTree = "<group>"; };
 		FE46B393182A362C0070725A /* Mycv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mycv.cpp; sourceTree = "<group>"; };
 		FE46B394182A362C0070725A /* Mycv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mycv.h; sourceTree = "<group>"; };
-		FE46B396182A36B00070725A /* Draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Draw.cpp; sourceTree = "<group>"; };
-		FE46B397182A36B00070725A /* Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draw.h; sourceTree = "<group>"; };
+		FE46B396182A36B00070725A /* Draw_old.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Draw_old.cpp; sourceTree = "<group>"; };
+		FE46B397182A36B00070725A /* Draw_old.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draw_old.h; sourceTree = "<group>"; };
 		FEB4BFF8184E7244004CD5B5 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
 		FEB4BFF9184E7244004CD5B5 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
 		FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Distancer.cpp; sourceTree = "<group>"; };
@@ -184,7 +181,6 @@
 				875D49F5182A106B00495344 /* MainMenu.xib */,
 				875D4A02182A10C100495344 /* Utilities */,
 				875D4A01182A10BB00495344 /* Controllers */,
-				875D4A00182A10B500495344 /* Views */,
 				875D4A03182A10C900495344 /* Processors */,
 				875D49F8182A106B00495344 /* ActiveLearner.xcdatamodeld */,
 				875D49E7182A106B00495344 /* Supporting Files */,
@@ -202,19 +198,6 @@
 				875D49EF182A106B00495344 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		875D4A00182A10B500495344 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				875D4A10182A11EE00495344 /* ImgView.h */,
-				875D4A11182A11EE00495344 /* ImgView.m */,
-				875D4A14182A11F600495344 /* RectView.h */,
-				875D4A15182A11F600495344 /* RectView.m */,
-				875D4A12182A11EE00495344 /* InputView.h */,
-				875D4A13182A11EE00495344 /* InputView.m */,
-			);
-			name = Views;
 			sourceTree = "<group>";
 		};
 		875D4A01182A10BB00495344 /* Controllers */ = {
@@ -239,6 +222,8 @@
 				875D4A1D182A122700495344 /* Truth.m */,
 				875D4A1E182A122700495344 /* XmlMaker.h */,
 				875D4A1F182A122700495344 /* XmlMaker.m */,
+				87ADAEFC188F9721001CA898 /* NSImage+OpenCV.h */,
+				87ADAEFD188F9721001CA898 /* NSImage+OpenCV.mm */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -298,8 +283,10 @@
 				87259FF11837D1EA00DBEEF3 /* TextDetector.cpp */,
 				FEB4BFFC1858D558004CD5B5 /* Distancer.h */,
 				FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */,
-				FE46B397182A36B00070725A /* Draw.h */,
-				FE46B396182A36B00070725A /* Draw.cpp */,
+				87ADAF00188FA3D6001CA898 /* Draw.h */,
+				87ADAEFF188FA3D6001CA898 /* Draw.cpp */,
+				FE46B397182A36B00070725A /* Draw_old.h */,
+				FE46B396182A36B00070725A /* Draw_old.cpp */,
 				8778A7BB18321CBF00824EE6 /* Components */,
 			);
 			name = CVMethods;
@@ -370,24 +357,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				875D49ED182A106B00495344 /* main.m in Sources */,
+				87ADAEFE188F9721001CA898 /* NSImage+OpenCV.mm in Sources */,
 				875D49F4182A106B00495344 /* AppDelegate.m in Sources */,
 				875D49FA182A106B00495344 /* ActiveLearner.xcdatamodeld in Sources */,
 				FE46B395182A362C0070725A /* Mycv.cpp in Sources */,
-				FE46B398182A36B00070725A /* Draw.cpp in Sources */,
+				FE46B398182A36B00070725A /* Draw_old.cpp in Sources */,
 				874F6890182AF6E5004FA324 /* Controller.m in Sources */,
 				874F6891182AF6EC004FA324 /* XmlMaker.m in Sources */,
 				874F6892182AF6F1004FA324 /* Truth.m in Sources */,
 				874F6893182AF714004FA324 /* Model.m in Sources */,
 				874F6894182AF722004FA324 /* FileDialogController.m in Sources */,
-				874F6895182AF729004FA324 /* ImgView.m in Sources */,
-				874F6896182AF72E004FA324 /* RectView.m in Sources */,
-				874F6897182AF731004FA324 /* InputView.m in Sources */,
 				874F6898182AF738004FA324 /* Processor.mm in Sources */,
 				874F689C182AFEBD004FA324 /* Object.cpp in Sources */,
 				874F689F182AFECD004FA324 /* Text.cpp in Sources */,
 				874F68A7182F88AC004FA324 /* MSERegion.cpp in Sources */,
 				87259FE1183246BF00DBEEF3 /* AdaBoost.cpp in Sources */,
 				87259FE4183246F600DBEEF3 /* AdaBoostResult.cpp in Sources */,
+				87ADAF01188FA3D6001CA898 /* Draw.cpp in Sources */,
 				87259FE71832472C00DBEEF3 /* WeakClassifier.cpp in Sources */,
 				87259FEA1832475900DBEEF3 /* StrongClassifier.cpp in Sources */,
 				87259FED1832479A00DBEEF3 /* Sample.cpp in Sources */,

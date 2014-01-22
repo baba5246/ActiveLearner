@@ -17,12 +17,14 @@ ObjectDetector::ObjectDetector()
     
 }
 
-ObjectDetector::ObjectDetector(const string& filepath)
+ObjectDetector::ObjectDetector(const string& path)
 {
+    filepath = path;
+    filename = filepath.substr(filepath.find_last_of("/")+1);
+    
     srcImage = imread(filepath, CV_LOAD_IMAGE_COLOR);
     srcIplImage = srcImage;
     
-    filename = filepath.substr(filepath.find_last_of("/")+1);
     id_count = 0;
 }
 
@@ -127,7 +129,7 @@ void ObjectDetector::createObjects(const vector<vector<cv::Point> >& contours, v
         Id << filename << id_count;
         
         // Object生成
-        Object *obj = new Object(Id.str(), filename, contours[i], cv::Size(srcImage.cols, srcImage.rows));
+        Object *obj = new Object(Id.str(), filepath, contours[i], cv::Size(srcImage.cols, srcImage.rows));
         ratio = (double)obj->contourArea / obj->rectArea;
         
         if (obj->rectArea>30 && obj->rectArea < imgArea*0.25f &&

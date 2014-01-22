@@ -1,5 +1,6 @@
 
 #import "Processor.h"
+#import "NSImage+OpenCV.h"
 #include "ObjectDetector.h"
 #include "AdaBoost.h"
 
@@ -506,7 +507,7 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         }
         
         Mat src = imread(filepath);
-        Draw::drawObjects(src, corrects);
+        [self outputImage:Draw::drawObjects(src, corrects)];
         
         components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(corrects)));
     }
@@ -565,7 +566,7 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         }
         
         Mat src = imread(filepath);
-        Draw::drawTexts(src, corrects);
+        [self outputImage:Draw::drawTexts(src, corrects)];
         texts.insert(map<string, vector<Text*>>::value_type(filepath, corrects));
     }
     
@@ -679,9 +680,17 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     
 }
 
-inline void output(NSString *string)
+- (void) outputImage:(const Mat&)src
 {
-    
+    NSImage *image = [NSImage imageWithCVMat:src];
+    NSData *data = [image TIFFRepresentation];
+    NSBitmapImageRep *bitmapImageRep = [NSBitmapImageRep imageRepWithData:data];
+    NSDictionary *properties = [[NSDictionary alloc]
+                                initWithObjectsAndKeys:[NSNumber numberWithBool:NO], NSImageInterlaced, nil];
+    data = [bitmapImageRep representationUsingType:NSJPEGFileType
+                                        properties:properties];
+    [n sendNotification:IMAGE_OUTPUT objectsAndKeys:data, IMAGE_DATA, nil];
+    waitKey(DRAW_WAIT_TIME);
 }
 
 - (void) checkSamplesId:(map<string,vector<Sample>>) samples

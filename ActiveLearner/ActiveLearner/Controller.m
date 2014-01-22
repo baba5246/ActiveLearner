@@ -1,14 +1,13 @@
 
 #import "Controller.h"
 #import "Processor.h"
-#import "RectView.h"
 
 @implementation Controller
 {
     Processor *processor;
 }
 
-@synthesize imgView;
+@synthesize imageView;
 
 -(id) init
 {
@@ -20,9 +19,9 @@
         
         // Notification設定
         Notification *n = [Notification sharedManager];
-        [n.nc addObserver:self selector:@selector(updateViewDidLoad:) name:DID_LOAD_DIRECTORY object:nil];
-        [n.nc addObserver:self selector:@selector(showLoadErrorAlert) name:ERROR_LOAD_DIRECTORY object:nil];
+        [n.nc addObserver:self selector:@selector(updatePathLabelDidLoad:) name:DID_LOAD_DIRECTORY object:nil];
         [n.nc addObserver:self selector:@selector(consoleMethod:) name:CONSOLE_OUTPUT object:nil];
+        [n.nc addObserver:self selector:@selector(outputImage:) name:IMAGE_OUTPUT object:nil];
         
     }
     return self;
@@ -48,7 +47,7 @@
 #pragma mark Set View Methods
 
 
-- (void) updateViewDidLoad:(NSNotification*)n
+- (void) updatePathLabelDidLoad:(NSNotification*)n
 {
     BOOL type = [n.userInfo[@"type"] boolValue];
     if (type) {
@@ -57,32 +56,6 @@
         [testDirPathLbl setStringValue:model.testDir];
     }
     [self console:@"読み込みが完了しました．"];
-}
-
-- (NSAlert *) deleteRectangleAlertView
-{
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"OK"];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert setMessageText:@"Delete rectangles information?"];
-    [alert setInformativeText:@"Push the \"Save\" button for saving the info of rectangles."];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    
-    return alert;
-}
-
-- (void) showLoadErrorAlert
-{
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:@"OK"];
-    [alert setMessageText:@"Loading Error!"];
-    [alert setInformativeText:@"Select a directory."];
-    [alert setAlertStyle:NSWarningAlertStyle];
-    
-    if ([alert runModal] == NSAlertFirstButtonReturn) // OKボタン
-    {
-        
-    }
 }
 
 
@@ -103,6 +76,17 @@
 ////    NSRange range = NSMakeRange([[console string] length], 0);
 //    [console scrollToBeginningOfDocument:[console string]];
 //    [console scrollToEndOfDocument:[console string]];
+}
+
+#pragma mark -
+#pragma mark Image Output Methods
+
+- (void) outputImage:(NSNotification *)n
+{
+    [imageView setImage:nil];
+    NSData *data = n.userInfo[IMAGE_DATA];
+    NSImage *image = [[NSImage alloc] initWithData:data];
+    [imageView setImage:image];
 }
 
 

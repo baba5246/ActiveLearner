@@ -19,6 +19,8 @@
 #define ERROR_LOAD_DIRECTORY    @"error-load-directory"
 #define CONSOLE_OUTPUT          @"console-output"
 #define OUTPUT                  @"output"
+#define IMAGE_OUTPUT            @"image-output"
+#define IMAGE_DATA              @"image-data"
 
 
 #pragma mark -
@@ -46,3 +48,9 @@
 #define FINDEX      @"findex"
 #define ALPHA       @"alpha"
 #define THRESHOLD   @"threshold"
+
+
+#pragma mark -
+#pragma mark Draw Wait Time
+
+#define DRAW_WAIT_TIME  3000

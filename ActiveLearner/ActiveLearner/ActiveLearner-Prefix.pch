@@ -18,8 +18,5 @@
 #import "Truth.h"
 #import "Model.h"
 #import "XmlMaker.h"
-#import "RectView.h"
-#import "InputView.h"
-#import "ImgView.h"
 
 #endif

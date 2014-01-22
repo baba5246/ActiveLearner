@@ -20,14 +20,14 @@ private:
     
     cv::Mat srcImage;
     IplImage srcIplImage;
-    string filename;
+    string filepath, filename;
     long id_count = 0;
     
 public:
     
     // Contructors
     ObjectDetector();
-    ObjectDetector(const string& filepath);
+    ObjectDetector(const string& path);
     ~ObjectDetector();
     
     // Interface Methods
