@@ -188,7 +188,6 @@ void TextDetector::setFeatures(vector<Text*>& texts)
     
     for (int i = 0; i < size; i++) {
         
-        
         vector<double> features;
         
         // Average Features

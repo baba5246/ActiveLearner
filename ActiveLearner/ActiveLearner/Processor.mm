@@ -2,6 +2,7 @@
 #import "Processor.h"
 #import "NSImage+OpenCV.h"
 #include "ObjectDetector.h"
+#include "SelfTrainer.h"
 #include "AdaBoost.h"
 
 #define CCV @"ccv"
@@ -467,23 +468,8 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     // ヒストグラム表示
     if (trainSamples[0].features.size() > 12) [self showHistograms:trainSamples index:13];
     
-    // WeakClassifierを準備
-    vector<WeakClassifier> classifiers;
-    for (int i = 0; i < trainSamples[0].features.size(); i++) {
-        WeakClassifier wc(i);
-        classifiers.push_back(wc);
-    }
-    
-    // AdaBoost learning
-    AdaBoost adaboost(trainSamples, classifiers);
-    
-    for (int t = 0; t < trainSamples[0].features.size(); t++) {
-        AdaBoostResult result = adaboost.next();
-        WeakClassifier selected = result.wc;
-        cout << "t:" << t << ", wc index:" << selected.featureIndex << ", alpha:" << selected.alpha << endl;
-    }
-    
-//    [self ccClassify:trainSamples adaboost:adaboost];
+    // AdaBoost Self-Training
+    AdaBoost adaboost = SelfTrainer::selfTraining(trainSamples, trainSamples, 10);
 
     return adaboost;
 }
