@@ -317,7 +317,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     double iarea = intersect.size.width * intersect.size.height;
     double rratio = iarea / ((double)rect.size.width * rect.size.height);
     double tratio = iarea / ((double)trect.size.width * trect.size.height);
-    return rratio >= 0.4f && tratio >= 0.6f;
+    return (rratio >= 0.7f && tratio >= 0.6f);// || (rratio >= 0.6f && tratio >= 0.6f);
 }
 
 - (map<string, vector<Sample>>) makeCCSamples:(const map<string, vector<Object*>>&) ccs isTraining:(BOOL) isTraining
@@ -330,6 +330,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     if (isTraining) imagePaths = model.trainImagePaths;
     else imagePaths = model.testImagePaths;
     
+    long plabel = 0, mlabel = 0;
     for (NSString *path in imagePaths)
     {
         vector<Sample> temp;
@@ -366,8 +367,13 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
                 }
             }
             // objのlabel付け
-            if (findFlag) s.label = 1;
-            else s.label = 0;
+            if (findFlag) {
+                s.label = 1;
+                plabel++;
+            } else {
+                s.label = 0;
+                mlabel++;
+            }
             
             temp.push_back(s);
         }
@@ -376,7 +382,8 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
         
     }
-
+    
+    LOG(@"\n --- サンプル抽出結果 Total:%ld（正：%ld, 負：%ld）--- \n", plabel+mlabel, plabel, mlabel);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return samples;
 }
@@ -391,6 +398,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     if (isTraining) imagePaths = model.trainImagePaths;
     else imagePaths = model.testImagePaths;
     
+    long plabel = 0, mlabel = 0;
     for (NSString *path in imagePaths)
     {
         vector<Sample> temp;
@@ -422,9 +430,13 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
                 }
             }
             // objのlabel付け
-            if (findFlag) s.label = 1;
-            else s.label = 0;
-            
+            if (findFlag) {
+                s.label = 1;
+                plabel++;
+            } else {
+                s.label = 0;
+                mlabel++;
+            }
             temp.push_back(s);
         }
         
@@ -434,6 +446,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
     }
     
+    LOG(@"\n --- サンプル抽出結果 Total:%ld（正：%ld, 負：%ld）--- \n", plabel+mlabel, plabel, mlabel);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return samples;
 }
@@ -452,16 +465,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     }
     
     // ヒストグラム表示
-//    for (int i = 0; i < trainSamples[0].features.size(); i++) {
-//        [self showHistograms:trainSamples index:i];
-//    }
-    
-    // ラベルデータと非ラベルデータ
-//    vector<Sample>::const_iterator first = trainSamples.begin();
-//    vector<Sample>::const_iterator half = trainSamples.begin() + (int)(trainSamples.size()*0.5f);
-//    vector<Sample>::const_iterator end = trainSamples.end();
-//    vector<Sample> labeled(first, half);
-//    vector<Sample> unlabeled(half, end);
+    if (trainSamples[0].features.size() > 12) [self showHistograms:trainSamples index:13];
     
     // WeakClassifierを準備
     vector<WeakClassifier> classifiers;
@@ -657,7 +661,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     
     int max = 0;
     for (int i = 0; i < size; i++) {
-        double value = samples[i].object->features[index];
+        double value = samples[i].features[index];
         int v = floor(value*100);
         if (v > max) max = v;
         if (samples[i].label > 0) plushist[v]++;

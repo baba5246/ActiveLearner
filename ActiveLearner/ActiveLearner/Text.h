@@ -18,6 +18,7 @@ public:
     vector<double> gradients;
     vector<int> originIndexes;
     
+    int srcW = 0, srcH;
     int width = 0, height = 0;
     double aveEchar = 0, aveFcorr = 0, aveGangle = 0, aveCR = 0, aveDist = 0;
     double varSW = 0, varColorR = 0, varColorG = 0, varColorB = 0, varAngle = 0, varDist = 0, varLength = 0;
@@ -50,5 +51,6 @@ private:
     void computeAverageFeatures();
     void computeVariantFeatures();
     void computeRatioFeatures();
+    double computeObjectArea();
     
 };

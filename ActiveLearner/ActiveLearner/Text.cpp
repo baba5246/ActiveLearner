@@ -14,6 +14,8 @@ Text::Text(string path, Object*& obj)
     filepath = path;
     filename = filepath.substr(filepath.find_last_of("/")+1);
     srcImage = imread(filepath);
+    srcW = srcImage.cols;
+    srcH = srcImage.rows;
     add(obj, 0);
 }
 
@@ -178,12 +180,59 @@ void Text::computeRatioFeatures()
         if (maxx < objects[i]->rect.br().x) maxx = objects[i]->rect.br().x;
         if (maxy < objects[i]->rect.br().y) maxy = objects[i]->rect.br().y;
     }
+    
     width = maxx - minx + 1;
     height = maxy - miny + 1;
     rect = cv::Rect(minx, miny, width, height);
-    rectRatio = (double)rect.area() / srcImage.rows*srcImage.cols;
+    rectRatio = (double)rect.area() / (srcImage.rows*srcImage.cols);
     aspectRatio = (double) MIN(width, height) / MAX(width, height);
     if (width > height) longLengthRatio = (double)width / srcImage.cols;
     else longLengthRatio = (double)height / srcImage.rows;
+    
+    double objArea = computeObjectArea();
+    objAreaRatio = objArea / rect.area();
+}
+
+double Text::computeObjectArea()
+{
+    // いもす法
+    Mat_<int> areaMap(height+1, width+1);
+    areaMap = 0;
+    for (int i = 0; i < objects.size(); i++)
+    {
+        Point tl = objects[i]->rect.tl(), br = objects[i]->rect.br();
+        Point first = tl -rect.tl();
+        Point second = br+Point(1,1)-rect.tl();
+        Point third = Point(tl.x, br.y+1) - rect.tl();
+        Point fourth = Point(br.x+1, tl.y) - rect.tl();
+        areaMap.at<int>(first) += 1;
+        areaMap.at<int>(second) += 1;
+        areaMap.at<int>(third) -= 1;
+        areaMap.at<int>(fourth) -= 1;
+    }
+    for (int y = 0; y < height+1; y++) {
+        for (int x = 1; x < width+1; x++) {
+            areaMap.at<int>(y, x) += areaMap.at<int>(y, x-1);
+        }
+    }
+    for (int y = 1; y < height+1; y++) {
+        for (int x = 0; x < width+1; x++) {
+            areaMap.at<int>(y, x) += areaMap.at<int>(y-1, x);
+        }
+    }
+    double objectArea = 0;
+//    Mat dst = Mat::zeros(srcH, srcW, CV_8UC3);
+    for (int y = 0; y < height+1; y++) {
+        for (int x = 0; x < width+1; x++) {
+            if (areaMap.at<int>(y, x) > 0) {
+//                dst.at<Vec3b>(y+rect.tl().y, x+rect.tl().x)[0] = (unsigned char)BRIGHTNESS;
+//                dst.at<Vec3b>(y+rect.tl().y, x+rect.tl().x)[1] = (unsigned char)BRIGHTNESS;
+//                dst.at<Vec3b>(y+rect.tl().y, x+rect.tl().x)[2] = (unsigned char)BRIGHTNESS;
+                objectArea++;
+            }
+        }
+    }
+    
+    return objectArea;
 }
 

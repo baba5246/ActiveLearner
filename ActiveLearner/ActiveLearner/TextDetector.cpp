@@ -43,7 +43,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
         for (int j = 0; j < neighbors.size(); j++) {
             
             // Create groups
-            Text *text = new Text(init->filename, init);
+            Text *text = new Text(init->filepath, init);
             text->focusedIndex = 0;
             
             // Find surroundings
@@ -199,26 +199,26 @@ void TextDetector::setFeatures(vector<Text*>& texts)
         // Variant Features
         /* 3 */ features.push_back(1 - (texts[i]->varSW / maxSW));
         /* 4 */ features.push_back(1 - (texts[i]->varColorR / maxR));
-        /* 4 */ features.push_back(1 - (texts[i]->varColorG / maxG));
-        /* 4 */ features.push_back(1 - (texts[i]->varColorB / maxB));
-        /* 5 */ features.push_back(1 - (texts[i]->varAngle / maxAngle));
-        /* 6 */ features.push_back(1 - (texts[i]->varDist / maxDist));
-        /* 7 */ features.push_back(texts[i]->varLength);
+        /* 5 */ features.push_back(1 - (texts[i]->varColorG / maxG));
+        /* 6 */ features.push_back(1 - (texts[i]->varColorB / maxB));
+        /* 7 */ features.push_back(1 - (texts[i]->varAngle / maxAngle));
+        /* 8 */ features.push_back(1 - (texts[i]->varDist / maxDist));
+        /* 9 */ features.push_back(texts[i]->varLength);
         
         // Rect ratio
-        /* 8 */ features.push_back(texts[i]->rectRatio);
+        /* 10 */ features.push_back(texts[i]->rectRatio);
         
         // Aspect ratio
-        /* 9 */ features.push_back(texts[i]->aspectRatio);
+        /* 11 */ features.push_back(texts[i]->aspectRatio);
         
         // Long length ratio
-        /* 10 */ features.push_back(texts[i]->longLengthRatio);
+        /* 12 */ features.push_back(texts[i]->longLengthRatio);
         
         // Object Area ratio
-        /* 11 */ features.push_back(texts[i]->objAreaRatio);
+        /* 13 */ features.push_back(texts[i]->objAreaRatio);
         
         // Object Area ratio
-        /* 12 */ features.push_back(texts[i]->objSizeRatio);
+        /* 14 */ features.push_back(texts[i]->objSizeRatio);
         
         
         // Set features
