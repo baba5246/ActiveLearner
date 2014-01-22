@@ -22,7 +22,7 @@ public:
     int contourArea = 0, rectArea = 0, width = 0, height = 0;
     
     double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, areaRatio = 0;
-    double longLength = 0, Gangle = 0, Fcorr = 0, Echar = 0, strokeWidth = 0;
+    double longLength = 0, Gangle = 0, Fcorr = 0, Echar = 0, strokeWidth = 0, CR = 0;
     
     cv::Point origin, tp, lp, rp, bp, centroid = cv::Point(-1, -1);
     

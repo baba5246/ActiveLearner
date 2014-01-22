@@ -311,6 +311,15 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
     return ratio >= 0.8f;
 }
 
+inline bool CGRectGroupContains(CGRect trect, CGRect rect)
+{
+    CGRect intersect = CGRectIntersection(trect, rect);
+    double iarea = intersect.size.width * intersect.size.height;
+    double rratio = iarea / ((double)rect.size.width * rect.size.height);
+    double tratio = iarea / ((double)trect.size.width * trect.size.height);
+    return rratio >= 0.4f && tratio >= 0.6f;
+}
+
 - (map<string, vector<Sample>>) makeCCSamples:(const map<string, vector<Object*>>&) ccs isTraining:(BOOL) isTraining
 {
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
@@ -351,7 +360,7 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
             
             bool findFlag = NO;
             for (Truth *t in truths) {
-                if (CGRectContainsRect(t.rect, rect) || CGRectAlmostContains(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
+                if (CGRectAlmostContains(t.rect, rect)) { // t.rectにobject.rectが含まれるなら
                     findFlag = YES;
                     break;
                 }
@@ -402,12 +411,12 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
             Sample s(text);
             
             cv::Rect obj_rect = s.text->rect;
-            NSRect rect = NSMakeRect(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
+            CGRect rect = CGRectMake(obj_rect.x, obj_rect.y, obj_rect.width, obj_rect.height);
             
             bool findFlag = NO;
             NSArray *truths = xmldata[nsfilename];
             for (Truth *t in truths) {
-                if (NSContainsRect(t.rect, rect)) { // TODO: 「t.rectにobject.rectが8割含まれて、4割含むなら」に変更
+                if (CGRectGroupContains(t.rect, rect)) {
                     findFlag = YES;
                     break;
                 }
@@ -420,6 +429,8 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         }
         
         vector<Sample> copy(temp);
+        Mat src = imread(filepath);
+        [self outputImage:Draw::drawSamples(src, temp)];
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
     }
     
@@ -486,14 +497,14 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         
         string filepath = itr->first;
         vector<Sample> temp = itr->second;
-        vector<Object*> corrects;
-        corrects.reserve(temp.size());
+        vector<Object*> extracts;
+        extracts.reserve(temp.size());
         
         for (int i = 0; i < temp.size(); i++)
         {
             int test = adaboost.sc.test(temp[i]);
             if (test>0) {
-                corrects.push_back(temp[i].object);
+                extracts.push_back(temp[i].object);
             }
             
             // 母数を計算
@@ -507,9 +518,9 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         }
         
         Mat src = imread(filepath);
-        [self outputImage:Draw::drawObjects(src, corrects)];
+//        [self outputImage:Draw::drawObjects(src, extracts)];
         
-        components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(corrects)));
+        components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(extracts)));
     }
     
     // 母数を計算
@@ -548,14 +559,15 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         
         string filepath = itr->first;
         vector<Sample> temp = itr->second;
-        vector<Text*> corrects;
+        vector<Text*> extracts;
+        extracts.reserve(temp.size());
         
         for (int i = 0; i < temp.size(); i++)
         {
             int test = adaboost.sc.test(temp[i]);
             
             if (test == 1) {
-                corrects.push_back(temp[i].text);
+                extracts.push_back(temp[i].text);
             }
             
             // 母数を計算
@@ -566,8 +578,8 @@ inline bool CGRectAlmostContains(CGRect trect, CGRect rect)
         }
         
         Mat src = imread(filepath);
-        [self outputImage:Draw::drawTexts(src, corrects)];
-        texts.insert(map<string, vector<Text*>>::value_type(filepath, corrects));
+        [self outputImage:Draw::drawTexts(src, extracts)];
+        texts.insert(map<string, vector<Text*>>::value_type(filepath, vector<Text*>(extracts)));
     }
     
     // 母数を計算

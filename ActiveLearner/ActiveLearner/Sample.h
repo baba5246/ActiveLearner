@@ -14,6 +14,7 @@ public:
     vector<double> features;
     int label;
     string filename;
+    bool hasObject = false;
     
 public:
     Sample(Object*& obj);

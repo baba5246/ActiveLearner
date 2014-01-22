@@ -26,8 +26,7 @@ void Text::add(Object*& obj, double distance)
     objects.push_back(obj);
     distances.push_back(distance);
     originIndexes.push_back(focusedIndex);
-    computeGradient(obj);
-    computeProperties();
+    computeColor();
     computeAverageDistance();
 }
 
@@ -55,6 +54,122 @@ bool Text::contains(Object*& obj)
 
 void Text::computeProperties()
 {
+    computeAverageFeatures();
+    computeVariantFeatures();
+    computeRatioFeatures();
+}
+
+void Text::computeColor()
+{
+    double r = 0, g = 0, b = 0;
+    long length = objects.size();
+    
+    if (length != 0) {
+        for (int i = 0; i < length; i++) {
+            r += objects[i]->color[0];
+            g += objects[i]->color[1];
+            b += objects[i]->color[2];
+        }
+        r /= length;
+        g /= length;
+        b /= length;
+    }
+    
+    color = Scalar(r, g, b);
+}
+
+void Text::computeAverageDistance()
+{
+    aveDist = 0;
+    if (distances.size() == 0) return;
+    
+    for (int i = 0; i < distances.size(); i++) {
+        aveDist += distances[i];
+    }
+    aveDist /= distances.size();
+}
+
+void Text::computeAverageFeatures()
+{
+    long size = objects.size();
+    double Echar = 0, Fcorr = 0, Gangle = 0, CR = 0;
+    for (int i = 0; i < size; i++) {
+        Echar += objects[i]->Echar;
+        Fcorr += objects[i]->Fcorr;
+        Gangle += objects[i]->Gangle;
+        CR += objects[i]->CR;
+    }
+    if (size>0) {
+        aveEchar = Echar / size;
+        aveFcorr = Fcorr / size;
+        aveGangle = Gangle / size;
+        aveCR = CR / size;
+    }
+}
+
+void Text::computeVariantFeatures()
+{
+    long size = objects.size();
+    double diffSW = 0, diffR = 0, diffG = 0, diffB = 0;
+    for (int i = 0; i < size; i++) {
+        
+        for (int j = i+1; j < size; j++) {
+            
+            // Stroke Width
+            diffSW += fabs(objects[i]->strokeWidth - objects[j]->strokeWidth);
+            
+            // Color
+            diffR += fabs(objects[i]->color[0] - objects[j]->color[0]);
+            diffG += fabs(objects[i]->color[1] - objects[j]->color[1]);
+            diffB += fabs(objects[i]->color[2] - objects[j]->color[2]);
+        }
+    }
+    double sizesize = (double)size*(size-1)*0.5f;
+    if (size > 0) {
+        varSW = diffSW / sizesize;
+        varColorR = diffR / sizesize;
+        varColorG = diffG / sizesize;
+        varColorB = diffB / sizesize;
+    } else {
+        varSW = 0;
+        varColorR = 0;
+        varColorG = 0;
+        varColorB = 0;
+    }
+    
+    // Angle
+    size = gradients.size();
+    double diffGrad = 0;
+    for (int i = 0; i < size; i++) {
+        if (i < size-1) {
+            diffGrad += fabs(gradients[i] - gradients[i+1]);
+        }
+    }
+    if (size>0) {
+        varAngle = diffGrad / size;
+    } else {
+        varAngle = 0;
+    }
+
+    
+    // Distance
+    size = distances.size();
+    double diffDist = 0;
+    for (int i = 0; i < size; i++) {
+        if (i < size-1) {
+            diffDist += fabs(distances[i] - distances[i+1]);
+        }
+    }
+    if (size>0) {
+        varDist = diffDist / size;
+    } else {
+        varDist = 0;
+    }
+}
+
+
+void Text::computeRatioFeatures()
+{
     int minx = INFINITY, miny = INFINITY, maxx = 0, maxy = 0;
     for (int i = 0; i < objects.size(); i++)
     {
@@ -66,53 +181,9 @@ void Text::computeProperties()
     width = maxx - minx + 1;
     height = maxy - miny + 1;
     rect = cv::Rect(minx, miny, width, height);
+    rectRatio = (double)rect.area() / srcImage.rows*srcImage.cols;
     aspectRatio = (double) MIN(width, height) / MAX(width, height);
-    computeColor();
-    
+    if (width > height) longLengthRatio = (double)width / srcImage.cols;
+    else longLengthRatio = (double)height / srcImage.rows;
 }
 
-void Text::computeColor()
-{
-    double r = 0, g = 0, b = 0;
-    long length = objects.size();
-    
-    if (length != 0) {
-    
-        for (int i = 0; i < length; i++) {
-            r += objects[i]->color[0];
-            g += objects[i]->color[1];
-            b += objects[i]->color[2];
-        }
-        
-        r /= length;
-        g /= length;
-        b /= length;
-    }
-    
-    color = Scalar(r, g, b);
-}
-
-void Text::computeAverageDistance()
-{
-    averageDistance = 0;
-    if (distances.size() == 0) return;
-    
-    for (int i = 0; i < distances.size(); i++) {
-        averageDistance += distances[i];
-    }
-    averageDistance /= distances.size();
-}
-
-void Text::computeGradient(Object*& obj)
-{
-    if (objects.size() < 2) return;
-    
-    cv::Point diff = obj->centroid - objects[objects.size()-2]->centroid;
-    double theta = atan2(-diff.y, diff.x);
-    gradients.push_back(theta);
-    
-    double temp = 0;
-    for (int i = 0; i < gradients.size(); i++) temp += gradients[i];
-    gradient = temp / gradients.size();
-    
-}

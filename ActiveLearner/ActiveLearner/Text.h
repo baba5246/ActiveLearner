@@ -19,14 +19,12 @@ public:
     vector<int> originIndexes;
     
     int width = 0, height = 0;
-    double aveEchar = 0, aveFcorr = 0, aveGangle = 0, aveCR = 0;
-    double varSW = 0, varColor = 0, varAngle = 0, varDist = 0, varLength = 0;
+    double aveEchar = 0, aveFcorr = 0, aveGangle = 0, aveCR = 0, aveDist = 0;
+    double varSW = 0, varColorR = 0, varColorG = 0, varColorB = 0, varAngle = 0, varDist = 0, varLength = 0;
     double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, objAreaRatio = 0, objSizeRatio = 0;
-    double gradient = 0;
     cv::Rect rect;
     cv::Point centroid;
     Scalar color;
-    double averageDistance = 0;
     
     int focusedIndex = -1;
     vector<double> features;
@@ -42,11 +40,15 @@ public:
     void addDistance(double distance);
     bool areAllFocused();
     bool contains(Object*& obj);
+    void computeProperties();
     
 private:
-    void computeProperties();
     void computeColor();
     void computeAverageDistance();
-    void computeGradient(Object*& obj);
+    void computeGradients();
+    
+    void computeAverageFeatures();
+    void computeVariantFeatures();
+    void computeRatioFeatures();
     
 };

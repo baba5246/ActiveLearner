@@ -419,14 +419,22 @@ Mat Draw::drawSamples(const Mat& src, const vector<Sample>& samples)
         color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
                        (double)rand() / RAND_MAX * BRIGHTNESS,
                        (double)rand() / RAND_MAX * BRIGHTNESS);
-        
-        points = samples[i].object->contourPixels;
-        for (int j = 0; j < points.size(); j++) {
-            circle(dst, points[j], 0.5f, color, 1);
+        if (samples[i].hasObject) {
+            points = samples[i].object->contourPixels;
+            for (int j = 0; j < points.size(); j++) {
+                circle(dst, points[j], 0.5f, color, 1);
+            }
+            
+            rectangle(dst, samples[i].object->rect, color, 2);
+            circle(dst, samples[i].object->centroid, 3, color, 2);
+        } else {
+            rectangle(dst, samples[i].text->rect, color, 3);
+            
+            for (int j = 0; j < samples[i].text->objects.size(); j++) {
+                if (j == 0) circle(dst, samples[i].text->objects[j]->centroid, 3, color, 3);
+                else circle(dst, samples[i].text->objects[j]->centroid, 3, color, 1);
+            }
         }
-        
-        rectangle(dst, samples[i].object->rect, color, 2);
-        circle(dst, samples[i].object->centroid, 3, color, 2);
     }
     
     return dst;
