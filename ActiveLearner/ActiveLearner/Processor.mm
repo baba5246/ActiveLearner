@@ -123,6 +123,7 @@ static Processor* sharedProcessor = nil;
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
         Mat srcImage = imread(filepath);
         vector<Object*> objects = components.at(filepath);
+        [self outputImage:Draw::drawObjects(srcImage, objects)];
         
         vector<Text*> texts;
         TextDetector detector(srcImage);
@@ -469,7 +470,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     if (trainSamples[0].features.size() > 12) [self showHistograms:trainSamples index:13];
     
     // AdaBoost Self-Training
-    AdaBoost adaboost = SelfTrainer::selfTraining(trainSamples, trainSamples, 10);
+    AdaBoost adaboost = SelfTrainer::selfTraining(trainSamples, trainSamples, 1);
 
     return adaboost;
 }

@@ -35,6 +35,9 @@ ObjectDetector::ObjectDetector(const string& path)
     srcImage = imread(filepath, CV_LOAD_IMAGE_COLOR);
     srcIplImage = srcImage;
     
+    srcW = srcImage.cols;
+    srcH = srcImage.rows;
+    
     id_count = 0;
 }
 
@@ -96,18 +99,18 @@ void ObjectDetector::detect(vector<Object*>& objects)
     
     
     // Extract connected regions as components
-    pthread_t tid1, tid2;
-    pthread_mutex_init(&mutex, NULL);
-    SWT_THREAD_ARG minus_arg = { mycv, edge, gradient };
-    SWT_THREAD_ARG plus_arg = { mycv, edge, gradient };
-    pthread_create(&tid1, NULL, swt_minus_thread, &minus_arg);
-    pthread_create(&tid2, NULL, swt_plus_thread, &plus_arg);
-    pthread_join(tid1, NULL);
-    pthread_join(tid2, NULL);
-    pthread_mutex_destroy(&mutex);
-    createSWTObjects(swtobjects, swtm, compm);
-    createSWTObjects(swtobjects, swtp, compp);
-    Draw::draw(Draw::drawSWTObjects(edge, swtobjects));
+//    pthread_t tid1, tid2;
+//    pthread_mutex_init(&mutex, NULL);
+//    SWT_THREAD_ARG minus_arg = { mycv, edge, gradient };
+//    SWT_THREAD_ARG plus_arg = { mycv, edge, gradient };
+//    pthread_create(&tid1, NULL, swt_minus_thread, &minus_arg);
+//    pthread_create(&tid2, NULL, swt_plus_thread, &plus_arg);
+//    pthread_join(tid1, NULL);
+//    pthread_join(tid2, NULL);
+//    pthread_mutex_destroy(&mutex);
+//    createSWTObjects(swtobjects, swtm, compm);
+//    createSWTObjects(swtobjects, swtp, compp);
+//    Draw::draw(Draw::drawSWTObjects(edge, swtobjects));
     
     // Object の勾配方向計算
     gradientOfObjects(objects, gradient);
@@ -123,7 +126,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
     computeStrokeWidth(objects);    // Stroke Width
     setFeatures(objects);           // 特徴量をセット
     
-//    Draw::drawEchars(srcImage, objects); // Echar描画
+//    Draw::draw(Draw::drawEchars(srcImage, objects)); // Echar描画
     
 //    vector<Text*> texts;
 //    TextDetector detector(srcImage);
@@ -407,509 +410,128 @@ Scalar ObjectDetector::getColor(int x, int y)
     return Scalar(r, g, b);
 }
 
+inline bool isIn(int w,int h,int x,int y)
+{
+    return 0<=x && x<w && 0<=y && y<h;
+}
+
+inline bool isFullIn(int w,int h,int x,int y)
+{
+    return 0<x && x<w-1 && 0<y && y<h-1;
+}
+
+inline int getIntAt(const Mat& matrix,int x,int y)
+{
+    return matrix.at<uchar>(y, x);
+}
+
+inline double getDoubleAt(const Mat& matrix,int x,int y)
+{
+    return matrix.at<double>(y, x);
+}
+
 // Find Corresponding Pairs
 void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradients)
 {
-    int** table = createImageTable(objects);
+    Mat_<int> table = createImageTable(objects);
     vector<double> thetas;
     vector<cv::Point> pixels, corrPixels;
     vector<int> candidates;
     
+    Point_<double> p, ray;
+    Point_<int> q, diff, r;
+    
     vector<Scalar> colors;
     
+    bool findFlag = false;
     bool isPositive = false;
-    double a = 0, b = 0;
-    int X = 0, Y = 0, ty = 0, by = 0, lx = 0, rx = 0;
-    cv::Point bp;
+    int count = 0;
+    cv::Point p1, p2, vp1(1,0), vp2(-1,0), hp1(0,1), hp2(0,-1);
     
     for (int i = 0; i < objects.size(); i++)
     {
+        count = 0;
         isPositive = isPositiveDirection(objects[i]);
         pixels = objects[i]->contourPixels;
         thetas = objects[i]->thetas;
         corrPixels = *new vector<Point>(pixels.begin(), pixels.end());
         colors = *new vector<Scalar>();
         
-        ty = objects[i]->rect.tl().y;
-        lx = objects[i]->rect.tl().x;
-        rx = objects[i]->rect.br().x;
-        by = objects[i]->rect.br().y;
-        
         for (int j = 0; j < pixels.size(); j++)
         {
+            // Initialize
+            findFlag = false;
+            
             // Color保存用
             vector<Scalar> tmp_colors;
             
-            // 直線式計算
-            bp = pixels[j];
-            a = - tan(thetas[j]);
-            
-            // 探索
-            if (fabs(a) <= 1) {
-                b = bp.y - a * bp.x;
-                if (a >= 0) {   // a>=0
-                    if (isPositive) {   // 勾配方向に探索
-                        if (thetas[j] >= 0) {
-                            for (int x = bp.x-2; x > lx; x--) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが減る方向
-                        } else {
-                            for (int x = bp.x+2; x < rx; x++) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが増える方向
-                        }
-                    } else {            // 勾配方向と逆に探索
-                        if (thetas[j] >= 0) {
-                            for (int x = bp.x+2; x < rx; x++) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが増える方向
-                        } else {
-                            for (int x = bp.x-2; x > lx; x--) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが減る方向
-                        }
-                    }
-                } else {        // a<0
-                    if (isPositive) {   // 勾配方向に探索
-                        if (thetas[j] >= 0) {
-                            for (int x = bp.x+2; x < rx; x++) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが増える方向
-                        } else {
-                            for (int x = bp.x-2; x > lx; x--) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが減る方向
-                        }
-                    } else {            // 勾配方向と逆に探索
-                        if (thetas[j] >= 0) {
-                            for (int x = bp.x-2; x > lx; x--) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが減る方向
-                        } else {
-                            for (int x = bp.x+2; x < rx; x++) {
-                                
-                                Y = (int)round(a * x + b);
-                                if (Y < ty || Y > by) break;
-                                
-                                Scalar color = getColor(x, Y);
-                                tmp_colors.push_back(color);
-                                
-                                if (x > lx && x < rx) {
-                                    if (table[Y][x] == i) {
-                                        corrPixels[j] = Point(x, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x-1] == i) {
-                                        corrPixels[j] = Point(x-1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[Y][x+1] == i) {
-                                        corrPixels[j] = Point(x+1, Y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // xが増える方向
-                        }
-                    }
-                }
+            // p and ray
+            p = pixels[j];
+            ray = Point_<double>(-cos(thetas[j]), sin(thetas[j]));
+            if (abs(ray.x) > abs(ray.y)) {
+                p1 = hp1;
+                p2 = hp2;
             } else {
-                a = (double)1 / a;
-                b = bp.x - a * bp.y;
-                if (a >= 0) {   // a>=0
-                    if (isPositive) {   // 勾配方向に探索
-                        if (thetas[j] >= 0) {
-                            for (int y = bp.y-2; y > ty; y--) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが減る方向
-                        } else {
-                            for (int y = bp.y+2; y < by; y++) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが増える方向
-                        }
-                    } else {            // 勾配方向と逆に探索
-                        if (thetas[j] >= 0) {
-                            for (int y = bp.y+2; y < by; y++) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが増える方向
-                        } else {
-                            for (int y = bp.y-2; y > ty; y--) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが減る方向
-                        }
-                    }
-                } else {        // a<0
-                    if (isPositive) {   // 勾配方向に探索
-                        if (thetas[j] >= 0) {
-                            for (int y = bp.y-2; y > ty; y--) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが減る方向
-                        } else {
-                            for (int y = bp.y+2; y < by; y++) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが増える方向
-                        }
-                    } else {            // 勾配方向と逆に探索
-                        if (thetas[j] >= 0) {
-                            for (int y = bp.y+2; y < by; y++) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが増える方向
-                        } else {
-                            for (int y = bp.y-2; y > ty; y--) {
-                                
-                                X = (int)round(a * y + b);
-                                if (X < lx || X > rx) break;
-                                
-                                Scalar color = getColor(X, y);
-                                tmp_colors.push_back(color);
-                                
-                                if (y > ty && y < by) {
-                                    if (table[y][X] == i) {
-                                        corrPixels[j] = Point(X, y);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y-1][X] == i) {
-                                        corrPixels[j] = Point(X, y-1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    } else if (table[y+1][X] == i) {
-                                        corrPixels[j] = Point(X, y+1);
-                                        colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                                        break;
-                                    }
-                                }
-                            }   // yが減る方向
-                        }
-                    }
+                p1 = vp1;
+                p2 = vp2;
+            }
+            
+            for (int n = 1; n < 300; n++) {
+                
+                // Compute a ray point
+                if (isPositive) q = p - n * ray;
+                else q = p + n * ray;
+                
+                if (!isFullIn(srcW, srcH, q.x, q.y)) continue;
+                Vec3b vec = srcImage.at<Vec3b>(q);
+                tmp_colors.push_back(Scalar(vec[0], vec[1], vec[2]));
+                
+                // Search object table
+                if (table.at<int>(q) == i) {
+                    corrPixels[j] = Point(q.x, q.y);
+                    findFlag = true;
+                    break;
+                } else if (table.at<int>(q+p1) == i) {
+                    corrPixels[j] = Point((q+p1).x, (q+p1).y);
+                    findFlag = true;
+                    break;
+                } else if (table.at<int>(q+p2) == i) {
+                    corrPixels[j] = Point((q+p2).x, (q+p2).y);
+                    findFlag = true;
+                    break;
                 }
             }
             
-            if (pixels[j] == corrPixels[j]) {
+            if (findFlag == false) {
                 corrPixels[j] = Point(-1, -1);
+                tmp_colors.clear();
+                count++;
+            } else {
+                colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
             }
+            
             objects[i]->corrPairPixels = corrPixels;
-            tmp_colors.clear();
         }
+        
+        cout << "Not found count:" << count << " / " << pixels.size() << endl;
         
         objects[i]->corrPairPixels = corrPixels;
         objects[i]->isPositive = isPositive;
         objects[i]->computeColor(colors);
     }
-    for (int i = 0; i < srcImage.rows; ++i) {
-        delete [] table[i];
-    }
-    delete [] table;
 }
 
-int** ObjectDetector::createImageTable(const vector<Object*>& objects)
+Mat_<int> ObjectDetector::createImageTable(const vector<Object*>& objects)
 {
-    int **table = new int*[srcImage.rows];
-    for (int i = 0; i < srcImage.rows; ++i) {
-        table[i] = new int[srcImage.cols];
-        for (int j = 0; j < srcImage.cols; j++) {
-            table[i][j] = -1;
-        }
-    }
+    int H = srcImage.rows, W = srcImage.cols;
+    Mat_<int> table(H, W);
+    table = -1;
     
     cv::Point p;
     for (int i = 0; i < objects.size(); i++) {
         for (int j = 0; j < objects[i]->contourPixels.size(); j++) {
             p = objects[i]->contourPixels[j];
-            table[p.y][p.x] = i;
+            table.at<int>(p) = i;
         }
     }
     

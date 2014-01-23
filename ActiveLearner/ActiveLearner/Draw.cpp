@@ -131,7 +131,7 @@ Mat Draw::drawObjects(const Mat& src, const vector<Object*>& objects)
     {
         vector<cv::Point> pixels(objects[i]->contourPixels);
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
-        if (objects[i]->colors.size()>0) color = objects[i]->color;
+//        if (objects[i]->colors.size()>0) color = objects[i]->color;
         
         for (int j = 0; j < pixels.size(); j++)
         {
