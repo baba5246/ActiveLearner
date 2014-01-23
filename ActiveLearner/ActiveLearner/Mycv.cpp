@@ -21,7 +21,6 @@ void Mycv::grayscale(const Mat &src, Mat &dst)
     cvtColor(temp, dst, COLOR_BGR5652GRAY);
 }
 
-
 void Mycv::grayscale(const Mat &src, Mat &dst, int type)
 {
     dst = Mat(src.rows, src.cols, CV_8UC3);
@@ -94,7 +93,6 @@ void Mycv::MSERs(const Mat& src, vector<MSERegion>& msers)
         msers.push_back(mseregion);
     }
 }
-
 
 // Sobel Filtering
 void Mycv::sobelFiltering(const Mat& graySrc, Mat_<double>& gradients)
@@ -204,11 +202,13 @@ inline Vec3b getLabAt(const Mat& lab, int x, int y)
     return lab.at<Vec3b>(y, x);
 }
 
-inline bool isSimilarSWT(double a, double b) {
+inline bool isSimilarSWT(double a, double b)
+{
     return MAX(a, b) / MIN(a, b) < 4.0f;
 }
 
-inline bool isSimilarLab(Vec3b a, Vec3b b) {
+inline bool isSimilarLab(Vec3b a, Vec3b b)
+{
     double dl = a.val[0]-b.val[0];
     double da = a.val[1]-b.val[1];
     double db = a.val[2]-b.val[2];
@@ -255,8 +255,11 @@ inline int relabel(vector<int>& parents)
 #pragma mark SWT Methods
 
 
-void Mycv::SWTMinus(const Mat& edge, const Mat& gradient, Mat& swt)
+clock_t Mycv::SWTMinus(const Mat& edge, const Mat& gradient, Mat& swt)
 {
+    clock_t s, e;
+    s = clock();
+    
     bool findflag = false;
     const int H = edge.rows, W = edge.cols;
     int e1 = 0, e2 = 0, e3 = 0, ecount = 0, fcount = 0;
@@ -370,10 +373,16 @@ void Mycv::SWTMinus(const Mat& edge, const Mat& gradient, Mat& swt)
                 swt.at<double>(rayPoints[i].y, rayPoints[i].x) = median;
             }
         }
+    
+    e = clock();
+    return e - s;
 }
 
-void Mycv::SWTPlus(const Mat& edge, const Mat& gradient, Mat& swt)
+clock_t Mycv::SWTPlus(const Mat& edge, const Mat& gradient, Mat& swt)
 {
+    clock_t s, e;
+    s = clock();
+    
     bool findflag = false;
     const int H = edge.rows, W = edge.cols;
     int e1 = 0, e2 = 0, e3 = 0, ecount = 0, fcount = 0;
@@ -487,10 +496,16 @@ void Mycv::SWTPlus(const Mat& edge, const Mat& gradient, Mat& swt)
                 swt.at<double>(rayPoints[i].y, rayPoints[i].x) = median;
             }
         }
+    
+    e = clock();
+    return e - s;
 }
 
-void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components )
+clock_t Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components )
 {
+    clock_t s, e;
+    s = clock();
+    
     // 初期化
     const int W=swt.cols;
     const int H=swt.rows;
@@ -551,7 +566,9 @@ void Mycv::SWTComponents(const Mat& swt, vector<vector<cv::Point> >& components 
             label(y,x) = lbl;
             components[lbl].push_back(Point(x, y));
         }
-
+    
+    e = clock();
+    return e - s;
 }
 
 

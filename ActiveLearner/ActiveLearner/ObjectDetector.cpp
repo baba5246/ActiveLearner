@@ -1,6 +1,16 @@
 
 #include "ObjectDetector.h"
 
+#pragma mark -
+#pragma mark Thread Methods
+
+typedef struct {
+    Mycv mycv;
+    Mat edge;
+    Mat_<double> gradient;
+} SWT_THREAD_ARG;
+
+
 vector<string> ObjectDetector::split(const string& str, char delim)
 {
     istringstream iss(str); string tmp; vector<string> res;
@@ -37,24 +47,32 @@ ObjectDetector::~ObjectDetector()
 #pragma mark -
 #pragma mark Interface Methods
 
+pthread_mutex_t mutex;
+vector<SWTObject> swtobjects;
+void* swt_minus_thread(void* pParam);
+void* swt_plus_thread(void* pParam);
+Mat swtm, swtp;
+vector<vector<cv::Point> > compm, compp;
+
 void ObjectDetector::detect(vector<Object*>& objects)
 {
     Mycv mycv(srcImage);
     
     // 各色でグレースケール＆エッジ抽出
     Mat rgray, ggray, bgray, redge, gedge, bedge, edge;
-    mycv.grayscale(srcImage, rgray, MYCV_GRAY_R);
+//    mycv.grayscale(srcImage, rgray, MYCV_GRAY_R);
     mycv.grayscale(srcImage, ggray, MYCV_GRAY_G);
-    mycv.grayscale(srcImage, bgray, MYCV_GRAY_B);
-    mycv.canny(rgray, redge);
+//    mycv.grayscale(srcImage, bgray, MYCV_GRAY_B);
+//    mycv.canny(rgray, redge);
     mycv.canny(ggray, gedge);
-    mycv.canny(bgray, bedge);
-    mycv.mergeEdges(redge, gedge, bedge, edge);
+//    mycv.canny(bgray, bedge);
+//    mycv.mergeEdges(redge, gedge, bedge, edge);
+    edge = gedge;
     
     // 輪郭抽出
     cv::vector<cv::Vec4i> hierarchy;
     cv::vector<cv::vector<cv::Point> > contours;
-    mycv.contours(gedge, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+    mycv.contours(edge, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
     
     // 輪郭から Object 作成
     createObjects(contours, objects);
@@ -76,18 +94,20 @@ void ObjectDetector::detect(vector<Object*>& objects)
     Mat_<double> gradient = Mat_<double>(srcImage.rows, srcImage.cols);
     mycv.sobelFiltering(ggray, gradient);
     
+    
     // Extract connected regions as components
-//    Mat swtm, swtp;
-//    vector<vector<cv::Point> > compm, compp;
-//    vector<SWTObject> swtobjects;
-//    mycv.SWTMinus(gedge, gradient, swtm);
-//    mycv.SWTComponents(swtm, compm);
-//    mycv.SWTPlus(gedge, gradient, swtp);
-//    mycv.SWTComponents(swtp, compp);
-//    createSWTObjects(swtobjects, swtp, compm);
-//    createSWTObjects(swtobjects, swtp, compp);
-  
-//    Draw::drawSWTObjects(swt, swtobjects);
+    pthread_t tid1, tid2;
+    pthread_mutex_init(&mutex, NULL);
+    SWT_THREAD_ARG minus_arg = { mycv, edge, gradient };
+    SWT_THREAD_ARG plus_arg = { mycv, edge, gradient };
+    pthread_create(&tid1, NULL, swt_minus_thread, &minus_arg);
+    pthread_create(&tid2, NULL, swt_plus_thread, &plus_arg);
+    pthread_join(tid1, NULL);
+    pthread_join(tid2, NULL);
+    pthread_mutex_destroy(&mutex);
+    createSWTObjects(swtobjects, swtm, compm);
+    createSWTObjects(swtobjects, swtp, compp);
+    Draw::draw(Draw::drawSWTObjects(edge, swtobjects));
     
     // Object の勾配方向計算
     gradientOfObjects(objects, gradient);
@@ -1060,8 +1080,29 @@ cv::Rect* ObjectDetector::intersect(const cv::Rect& rect1, const cv::Rect& rect2
     return rect;
 }
 
-void ObjectDetector::SWTComponent(const Mat& src, vector<Object>& component)
+void* swt_minus_thread(void* pParam)
 {
+    SWT_THREAD_ARG *arg =(SWT_THREAD_ARG*)pParam;
+    
+    Mycv mycv = arg->mycv;
+    
+    clock_t swtm_clock = mycv.SWTMinus(arg->edge, arg->gradient, swtm);
+    cout << "SWT Minus Time: " << swtm_clock << "ms" << endl;
+    clock_t swtcompm_clock = mycv.SWTComponents(swtm, compm);
+    cout << "SWT Minus Components Time: " << swtcompm_clock << "ms" << endl;
+
+}
+
+void* swt_plus_thread(void* pParam)
+{
+    SWT_THREAD_ARG *arg =(SWT_THREAD_ARG*)pParam;
+    
+    Mycv mycv = arg->mycv;
+    
+    clock_t swtp_clock = mycv.SWTPlus(arg->edge, arg->gradient, swtp);
+    cout << "SWT Plus Time: " << swtp_clock << "ms" << endl;
+    clock_t swtcompp_clock = mycv.SWTComponents(swtp, compp);
+    cout << "SWT Plus Components Time: " << swtcompp_clock << "ms" << endl;
     
 }
 

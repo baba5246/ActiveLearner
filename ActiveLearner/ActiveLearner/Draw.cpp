@@ -1,6 +1,8 @@
 
 #include "Draw.h"
 
+#define DRAW_WAIT_TIME  0
+
 void Draw::drawImage(const Mat& src)
 {
     if(!src.data) {
@@ -8,7 +10,7 @@ void Draw::drawImage(const Mat& src)
     } else {
         namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
         imshow( "Display window", src);
-        waitKey(3000);
+        waitKey(DRAW_WAIT_TIME);
         destroyWindow("Display window");
     }
 }
@@ -391,13 +393,14 @@ Mat Draw::drawSWTObjects(const Mat_<double>& swt, const vector<SWTObject>& swtob
     for (int i = 0; i < swtobjects.size(); i++) {
         
         obj = swtobjects[i];
+        color = CV_RGB(rand()%BRIGHTNESS, rand()%BRIGHTNESS, rand()%BRIGHTNESS);
         
         for (int j = 0; j < swtobjects[i].region.size(); j++) {
             
             p = swtobjects[i].region[j];
-            dst.at<Vec3b>(p.y, p.x)[0] = obj.color[0];
-            dst.at<Vec3b>(p.y, p.x)[1] = obj.color[1];
-            dst.at<Vec3b>(p.y, p.x)[2] = obj.color[2];
+            dst.at<Vec3b>(p.y, p.x)[0] = color[0]; //obj.color[0];
+            dst.at<Vec3b>(p.y, p.x)[1] = color[1]; //obj.color[1];
+            dst.at<Vec3b>(p.y, p.x)[2] = color[2]; //obj.color[2];
         }
         //        d = obj.centroid - obj.rect.tl();
         //        circle(dst, obj.centroid, sqrt(d.x*d.x+d.y*d.y), obj.color, 1);
