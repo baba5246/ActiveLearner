@@ -35,7 +35,8 @@ public:
     static Mat drawSamples(const Mat& src, const vector<Sample>& samples);
     static Mat drawLabeles(const Mat& label);
     static Mat drawSWTComponents(const Mat& swt,
-                                  const vector<vector<cv::Point> >& components);
+                                 const vector<vector<cv::Point> >& components);
+    static Mat drawInnerAreaOfObjects(const Mat& swt, const vector<Object*>& objects);
     
 private:
     static Mat srcImage;

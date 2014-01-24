@@ -37,6 +37,8 @@ public:
     vector<int> parents;
     vector<int> children;
     
+    Mat_<int> innerAreaMap;
+    
     vector<cv::Point> surroundings;
     vector<cv::Point> contourPixels;
     vector<cv::Point> corrPairPixels;

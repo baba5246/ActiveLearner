@@ -83,7 +83,6 @@ void ObjectDetector::detect(vector<Object*>& objects)
     
     // MSER と包含関係を使って補正
     mergeApartContours(objects, msers);
-    cout << "merge apart contours:" << objects.size() << endl;
     if (objects.size() == 0) return;
     mergeIncludedObjects(objects);
     
@@ -115,12 +114,15 @@ void ObjectDetector::detect(vector<Object*>& objects)
     findCorrPairs(objects, gradient);
     gradientOfCorrPairs(objects, gradient);
     
+    // 内部領域マージ
+//    mergeInnerAreaOfObjects(objects);
+    
     // 特徴量計算
     computeEchar(objects);          // Character Energy
     computeStrokeWidth(objects);    // Stroke Width
     setFeatures(objects);           // 特徴量をセット
     
-//    Draw::draw(Draw::drawEchars(srcImage, objects)); // Echar描画
+    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
     
 }
 
@@ -224,21 +226,20 @@ void ObjectDetector::mergeIncludedObjects(vector<Object*>& objects)
     double wratio = 0, hratio = 0, lratio = 0;
     vector<int> removeIndexes;
     
-    cout << "merge included objects:" << objects.size() << endl;
     for (int i = 0; i < objects.size()-1; i++)
     {
         largeRect = objects[i]->rect;
         for (int j = i+1; j < objects.size(); j++)
         {
             smallRect = objects[j]->rect;
-            interRect = *intersect(largeRect, smallRect);
+            interRect = largeRect & smallRect;
             if (interRect.area() == 0) continue;
             
-            wratio = (double)max(smallRect.width, largeRect.width) / min(smallRect.width, largeRect.width);
-            hratio = (double)max(smallRect.height, largeRect.height) / min(smallRect.height, largeRect.height);
             lratio = objects[i]->longLength / objects[j]->longLength;
+            bool contains = interRect.area() == smallRect.area();
+            bool enoughSmall = lratio < 4.0;
             
-            if (lratio < 4)//wratio < 4 || hratio < 4)
+            if (contains && enoughSmall) //wratio < 4 || hratio < 4)
             {
                 objects[i]->children.push_back(j);
                 removeIndexes.push_back(j);
@@ -451,6 +452,7 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
             
             // Color保存用
             vector<Scalar> tmp_colors;
+            vector<Point> innerPixels;
             
             // p and ray
             p = pixels[j];
@@ -472,6 +474,7 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
                 if (!isFullIn(srcW, srcH, q.x, q.y)) continue;
                 Vec3b vec = srcImage.at<Vec3b>(q);
                 tmp_colors.push_back(Scalar(vec[0], vec[1], vec[2]));
+                innerPixels.push_back(Point(q.x, q.y));
                 
                 // Search object table
                 if (table.at<int>(q) == i) {
@@ -491,10 +494,16 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
             
             if (findFlag == false) {
                 corrPixels[j] = Point(-1, -1);
+                innerPixels.clear();
                 tmp_colors.clear();
                 count++;
             } else {
                 colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
+                vector<Point>::iterator itr;
+                for (itr = innerPixels.begin(); itr != innerPixels.end(); itr++) {
+                    Point inner = *itr - objects[i]->origin;
+                    objects[i]->innerAreaMap.at<int>(inner) += 1;
+                }
             }
             
             objects[i]->corrPairPixels = corrPixels;

@@ -43,6 +43,9 @@ void Object::computeProperties()
     if (centroid.x < 0) centroid = Point((origin.x+width)*0.5f, (origin.y+height)*0.5f);
     strokeWidth = 0;
     
+    innerAreaMap = Mat_<int>(height, width);
+    innerAreaMap = 0;
+    
     computeTLRB();
     
     computeContourArea(GRID_SIZE);

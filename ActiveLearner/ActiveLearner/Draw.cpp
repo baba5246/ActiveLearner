@@ -317,7 +317,9 @@ Mat Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
         
         for (int j = 0; j < texts[i]->objects.size(); j++) {
             if (j == 0) circle(dst, texts[i]->objects[j]->centroid, 3, color, 3);
-            else circle(dst, texts[i]->objects[j]->centroid, 3, color, 1);
+            else {
+                circle(dst, texts[i]->objects[j]->centroid, 3, color, 1);
+            }
         }
     }
     
@@ -486,9 +488,9 @@ Mat Draw::drawSWTComponents(const Mat& swt, const vector<vector<Point> >& compon
     for (int i = 0; i < components.size(); i++) {
         
         if (i == 0) color = CV_RGB(50, 50, 50 );
-        else color = CV_RGB((double)rand() / RAND_MAX * BRIGHTNESS,
-                            (double)rand() / RAND_MAX * BRIGHTNESS,
-                            (double)rand() / RAND_MAX * BRIGHTNESS);
+        else color = CV_RGB(rand() % BRIGHTNESS,
+                            rand() % BRIGHTNESS,
+                            rand() % BRIGHTNESS);
         
         for (int j = 0; j < components[i].size(); j++) {
             
@@ -496,6 +498,36 @@ Mat Draw::drawSWTComponents(const Mat& swt, const vector<vector<Point> >& compon
             dst.at<Vec3b>(p.y, p.x)[0] = color[0];
             dst.at<Vec3b>(p.y, p.x)[1] = color[1];
             dst.at<Vec3b>(p.y, p.x)[2] = color[2];
+        }
+    }
+    
+    return dst;
+}
+
+Mat Draw::drawInnerAreaOfObjects(const Mat& swt, const vector<Object*>& objects)
+{
+    int H = swt.rows, W = swt.cols;
+    Mat dst = Mat(H, W, CV_8UC3);
+    dst = CV_RGB(100, 100, 100);
+    
+    srand((unsigned int)1);
+    
+    Point p;
+    Scalar color(0, 0, 0);
+    for (int i = 0; i < objects.size(); i++) {
+
+        color = CV_RGB(rand() % BRIGHTNESS,
+                       rand() % BRIGHTNESS,
+                       rand() % BRIGHTNESS);
+        p = objects[i]->origin;
+        
+        for (int y = 0; y < objects[i]->height; y++) {
+            for (int x = 0; x < objects[i]->width; x++) {
+                
+                if (objects[i]->innerAreaMap.at<int>(y, x)>0) {
+                    circle(dst, Point(x+p.x, y+p.y), 0.5f, color);
+                }
+            }
         }
     }
     

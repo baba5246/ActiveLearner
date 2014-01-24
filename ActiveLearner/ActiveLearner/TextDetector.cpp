@@ -61,7 +61,6 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     // Group特徴量計算
     setFeatures(texts);
     
-    
     Draw::draw(Draw::drawTexts(srcImage, texts));
 }
 
@@ -327,6 +326,7 @@ void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_text
                             if (hratio_orig > RECT_MARGE_THRESHOLD2 && hratio_temp > RECT_MARGE_THRESHOLD2) {
                                 text->add(temp_texts[j]);
                                 alreadies.push_back(j);
+                                rect = text->rect;
                                 continue;
                             }
                         }
@@ -337,6 +337,7 @@ void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_text
                             if (wratio_orig > RECT_MARGE_THRESHOLD2 && wratio_temp > RECT_MARGE_THRESHOLD2) {
                                 text->add(temp_texts[j]);
                                 alreadies.push_back(j);
+                                rect = text->rect;
                                 continue;
                             }
                         }
