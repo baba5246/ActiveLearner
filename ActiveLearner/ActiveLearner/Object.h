@@ -52,6 +52,7 @@ public:
     
     vector<Scalar> colors;
     Scalar color;
+    Scalar labcolor;
     
     bool didFocused = false;
     vector<Object> neighbors;
@@ -84,7 +85,7 @@ private:
     void uniqueContour();
     
 public:
-    void computeColor(vector<Scalar>& colors);
+    void computeColor(Mat& src);
 
 #pragma mark -
 #pragma mark Operator

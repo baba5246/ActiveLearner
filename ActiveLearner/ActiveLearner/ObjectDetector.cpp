@@ -122,7 +122,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
     computeStrokeWidth(objects);    // Stroke Width
     setFeatures(objects);           // 特徴量をセット
     
-    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
+//    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
     
 }
 
@@ -221,9 +221,9 @@ void ObjectDetector::mergeIncludedObjects(vector<Object*>& objects)
 {
     sort(objects.begin(), objects.end(), Object::isLeftLarge);
     
-    cv::Rect largeRect, smallRect, interRect;
     
-    double wratio = 0, hratio = 0, lratio = 0;
+    cv::Rect largeRect, smallRect, interRect;
+    double lratio = 0;
     vector<int> removeIndexes;
     
     for (int i = 0; i < objects.size()-1; i++)
@@ -431,6 +431,7 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
     Point_<double> p, ray;
     Point_<int> q, diff, r;
     cv::Point p1, p2, vp1(1,0), vp2(-1,0), hp1(0,1), hp2(0,-1);
+    cv::Point origin, innerp;
     
     bool findFlag = false;
     bool isPositive = false;
@@ -494,27 +495,27 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
             
             if (findFlag == false) {
                 corrPixels[j] = Point(-1, -1);
-                innerPixels.clear();
                 tmp_colors.clear();
                 count++;
             } else {
                 colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                vector<Point>::iterator itr;
-                for (itr = innerPixels.begin(); itr != innerPixels.end(); itr++) {
-                    Point inner = *itr - objects[i]->origin;
-                    objects[i]->innerAreaMap.at<int>(inner) += 1;
+                origin = objects[i]->origin;
+                for (int k = 0; k < innerPixels.size(); k++) {
+                    innerp = innerPixels[k] - origin;
+                    if (isFullIn(objects[i]->width, objects[i]->height, innerp.x, innerp.y)) {
+                        objects[i]->innerAreaMap.at<int>(innerp) = 1;
+                    }
                 }
             }
             
-            objects[i]->corrPairPixels = corrPixels;
+            innerPixels.clear();
+//            objects[i]->corrPairPixels = corrPixels;
 //            Draw::draw(Draw::drawEchars(srcImage, objects));
         }
         
-//        cout << "Not found count:" << count << " / " << pixels.size() << endl;
-        
         objects[i]->corrPairPixels = corrPixels;
         objects[i]->isPositive = isPositive;
-        objects[i]->computeColor(colors);
+        objects[i]->computeColor(srcImage);
     }
 }
 

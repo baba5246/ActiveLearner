@@ -100,27 +100,37 @@ void Object::computeTLRB()
     }
 }
 
-void Object::computeColor(vector<Scalar>& colors)
+void Object::computeColor(Mat& src)
 {
-    this->colors = colors;
-    long r = 0, g = 0, b = 0;
-    int size = (int)colors.size();
-    for (int i = 0; i < size; i++) {
-        r += colors[i][0];
-        g += colors[i][1];
-        b += colors[i][2];
-    }
-    if (size != 0) {
-        r = r / colors.size();
-        g = g / colors.size();
-        b = b / colors.size();
-    } else {
-        r = BRIGHTNESS-1;
-        g = BRIGHTNESS-1;
-        b = BRIGHTNESS-1;
+    // Lab色空間へ
+    Mat lab = src.clone();
+    cvtColor(src, lab, CV_RGB2Lab);
+    
+    //
+    double count = 0, srcr = 0, srcg = 0, srcb = 0, labr = 0, labg = 0, labb = 0;
+    for (int y = 0; y < innerAreaMap.rows; y++) {
+        for (int x = 0; x < innerAreaMap.cols; x++) {
+            //
+            if (innerAreaMap.at<int>(y,x)>0)
+            {
+                count++;
+                srcr += src.at<Vec3b>(y,x)[0];
+                srcg += src.at<Vec3b>(y,x)[1];
+                srcb += src.at<Vec3b>(y,x)[2];
+                labr += lab.at<Vec3b>(y,x)[0];
+                labg += lab.at<Vec3b>(y,x)[1];
+                labb += lab.at<Vec3b>(y,x)[2];
+            }
+        }
     }
     
-    this->color = Scalar(r, g, b);
+    if (count > 0) {
+        color = CV_RGB(floor(srcr/count), floor(srcg/count), floor(srcb/count));
+        labcolor = CV_RGB(floor(labr/count), floor(labg/count), floor(labb/count));
+    } else {
+        color = CV_RGB(0, 0, 0);
+        labcolor = CV_RGB(0, 0, 0);
+    }
 }
 
 void Object::uniqueContour()

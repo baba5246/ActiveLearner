@@ -14,6 +14,7 @@
 #define RECT_MARGE_THRESHOLD1       0.3
 #define RECT_MARGE_THRESHOLD2       0.7
 #define ALMOST_CONTAIN_THRESHOLD    0.95
+#define LAB_COLOR_SIMILARITY        20
 
 using namespace std;
 using namespace cv;

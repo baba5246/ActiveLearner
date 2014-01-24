@@ -40,7 +40,15 @@ inline double distanceObjects(Object*& obj1, Object*& obj2)
     return pointSize(diff);
 }
 
-
+inline bool isSimilarLab(Object*& obj1, Object*& obj2)
+{
+    Scalar a = obj1->color;
+    Scalar b = obj2->color;
+    double dl = a.val[0]-b.val[0];
+    double da = a.val[1]-b.val[1];
+    double db = a.val[2]-b.val[2];
+    return sqrt(dl*dl+da*da+db*db) < LAB_COLOR_SIMILARITY;
+}
 
 #pragma mark -
 #pragma mark Interface Methods
@@ -126,31 +134,33 @@ vector<Object*> TextDetector::findInitNeighbors(Object*& init, vector<Object*>& 
         // 距離計算
         temp_dist = distanceObjects(init, objects[i]);
         
-        // 閾値以下なら
+        // 距離が閾値以下で
         if (temp_dist < threshold) {
-            
-            // 既に見つけたものと同じ方向かどうか判定
-            existIndex = -1;
-            vec1 = objects[i]->centroid - init->centroid;
-            for (int n = 0; n < neighbors.size(); n++) {
-                vec2 = neighbors[n]->centroid - init->centroid;
-                gradient = acos(vec1.ddot(vec2) / (pointSize(vec1) * pointSize(vec2)));
-                if (fabs(gradient) < M_PI_1_8) {
-                    existIndex = n;
-                    break;
+            // Lab色空間で類似しているなら
+            if (isSimilarLab(init, objects[i])) {
+                // 既に見つけたものと同じ方向かどうか判定
+                existIndex = -1;
+                vec1 = objects[i]->centroid - init->centroid;
+                for (int n = 0; n < neighbors.size(); n++) {
+                    vec2 = neighbors[n]->centroid - init->centroid;
+                    gradient = acos(vec1.ddot(vec2) / (pointSize(vec1) * pointSize(vec2)));
+                    if (fabs(gradient) < M_PI_1_8) {
+                        existIndex = n;
+                        break;
+                    }
                 }
-            }
-            
-            // 同じ方向のものがなければneighborsとして入れる
-            if (existIndex<0)
-            {
-                neighbors.push_back(objects[i]);
-            }
-            else // そうでなければ一番近いものだけ入れる
-            {
-                if (temp_dist < distanceObjects(init, neighbors[existIndex])) {
-                    neighbors.erase(neighbors.begin()+existIndex);
+                
+                // 同じ方向のものがなければneighborsとして入れる
+                if (existIndex<0)
+                {
                     neighbors.push_back(objects[i]);
+                }
+                else // そうでなければ一番近いものだけ入れる
+                {
+                    if (temp_dist < distanceObjects(init, neighbors[existIndex])) {
+                        neighbors.erase(neighbors.begin()+existIndex);
+                        neighbors.push_back(objects[i]);
+                    }
                 }
             }
         }
