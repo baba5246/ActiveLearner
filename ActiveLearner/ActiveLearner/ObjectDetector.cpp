@@ -17,6 +17,29 @@ void* swt_plus_thread(void* pParam);
 Mat swtm, swtp;
 vector<vector<cv::Point> > compm, compp;
 
+#pragma mark -
+#pragma mark Inline Methods
+
+inline bool isIn(int w,int h,int x,int y)
+{
+    return 0<=x && x<w && 0<=y && y<h;
+}
+
+inline bool isFullIn(int w,int h,int x,int y)
+{
+    return 0<x && x<w-1 && 0<y && y<h-1;
+}
+
+inline int getIntAt(const Mat& matrix,int x,int y)
+{
+    return matrix.at<uchar>(y, x);
+}
+
+inline double getDoubleAt(const Mat& matrix,int x,int y)
+{
+    return matrix.at<double>(y, x);
+}
+
 
 
 #pragma mark -
@@ -400,27 +423,7 @@ Scalar ObjectDetector::getColor(int x, int y)
     return Scalar(r, g, b);
 }
 
-inline bool isIn(int w,int h,int x,int y)
-{
-    return 0<=x && x<w && 0<=y && y<h;
-}
-
-inline bool isFullIn(int w,int h,int x,int y)
-{
-    return 0<x && x<w-1 && 0<y && y<h-1;
-}
-
-inline int getIntAt(const Mat& matrix,int x,int y)
-{
-    return matrix.at<uchar>(y, x);
-}
-
-inline double getDoubleAt(const Mat& matrix,int x,int y)
-{
-    return matrix.at<double>(y, x);
-}
-
-// Find Corresponding Pairs
+// Find Corresponding Pairs & Compute bounding circle
 void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradients)
 {
     Mat_<int> table = createImageTable(objects);

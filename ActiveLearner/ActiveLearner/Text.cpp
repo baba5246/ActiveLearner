@@ -2,6 +2,22 @@
 #include "Text.h"
 
 #pragma mark -
+#pragma mark Inline Methods
+inline double distanceObjects(Object*& obj1, Object*& obj2)
+{
+    Point diff = obj1->centroid - obj2->centroid;
+    return sqrt(diff.x*diff.x+diff.y*diff.y);
+}
+
+inline double similarityColor(Scalar a, Scalar b)
+{
+    double dl = a.val[0]-b.val[0];
+    double da = a.val[1]-b.val[1];
+    double db = a.val[2]-b.val[2];
+    return sqrt(dl*dl+da*da+db*db);
+}
+
+#pragma mark -
 #pragma mark Contructors
 
 Text::Text()
@@ -86,6 +102,22 @@ void Text::computeProperties()
     computeAverageFeatures();
     computeVariantFeatures();
     computeRatioFeatures();
+    computeObjectArea();
+    computeTextArea();
+}
+
+void Text::countFalseObjects(vector<Object*>& objs)
+{
+    objectCount = objs.size();
+    falseCount = 0;
+    
+    for (int i = 0; i < objs.size(); i++) {
+        if (rect.contains(objs[i]->centroid)) {
+            falseCount++;
+        }
+    }
+    
+    trueObjectRatio = 1 - (falseCount / (falseCount + objectCount));
 }
 
 void Text::computeColor()
@@ -134,77 +166,80 @@ void Text::computeStrokeWidth()
 
 void Text::computeAverageFeatures()
 {
+    double echar = 0, fcorr = 0, gangle = 0, cr = 0;
+    double sw = 0, aspect = 0, r = 0;
+    
     long size = objects.size();
-    double Echar = 0, Fcorr = 0, Gangle = 0, CR = 0;
     for (int i = 0; i < size; i++) {
-        Echar += objects[i]->Echar;
-        Fcorr += objects[i]->Fcorr;
-        Gangle += objects[i]->Gangle;
-        CR += objects[i]->CR;
+        echar += objects[i]->Echar;
+        fcorr += objects[i]->Fcorr;
+        gangle += objects[i]->Gangle;
+        cr += objects[i]->CR;
+        sw += objects[i]->strokeWidth;
+        aspect += objects[i]->aspectRatio;
+        r += objects[i]->r;
     }
     if (size>0) {
-        aveEchar = Echar / size;
-        aveFcorr = Fcorr / size;
-        aveGangle = Gangle / size;
-        aveCR = CR / size;
+        aveEchar = echar / size;
+        aveFcorr = fcorr / size;
+        aveGangle = gangle / size;
+        aveCR = cr / size;
+        aveSW = sw / size;
+        aveAspect = aspect / size;
+        aveCircleR = r / size;
     }
 }
 
 void Text::computeVariantFeatures()
 {
     long size = objects.size();
-    double diffSW = 0, diffR = 0, diffG = 0, diffB = 0;
+    double sw = 0, colorsim = 0, labsim = 0;
     for (int i = 0; i < size; i++) {
+        // Stroke Width
+        sw += pow((aveSW - objects[i]->strokeWidth), 2);
         
         for (int j = i+1; j < size; j++) {
-            
-            // Stroke Width
-            diffSW += fabs(objects[i]->strokeWidth - objects[j]->strokeWidth);
-            
-            // Color
-            diffR += fabs(objects[i]->color[0] - objects[j]->color[0]);
-            diffG += fabs(objects[i]->color[1] - objects[j]->color[1]);
-            diffB += fabs(objects[i]->color[2] - objects[j]->color[2]);
+            // Color Sim
+            colorsim += similarityColor(objects[i]->color, objects[j]->color);
+            labsim += similarityColor(objects[i]->labcolor, objects[j]->labcolor);
         }
     }
     double sizesize = (double)size*(size-1)*0.5f;
     if (size > 0) {
-        varSW = diffSW / sizesize;
-        varColorR = diffR / sizesize;
-        varColorG = diffG / sizesize;
-        varColorB = diffB / sizesize;
+        varSW = sw / size;
+        aveColorSim = colorsim / sizesize;
+        aveLabSim = labsim / sizesize;
     } else {
         varSW = 0;
-        varColorR = 0;
-        varColorG = 0;
-        varColorB = 0;
+        aveColorSim = 0;
+        aveLabSim = 0;
     }
     
     // Angle
     size = gradients.size();
-    double diffGrad = 0;
+    double angle = 0;
     for (int i = 0; i < size; i++) {
-        if (i < size-1) {
-            diffGrad += fabs(gradients[i] - gradients[i+1]);
-        }
+        angle += gradients[i];
     }
     if (size>0) {
-        varAngle = diffGrad / size;
-    } else {
-        varAngle = 0;
+        aveAngle = angle / size;
     }
-
+    for (int i = 0; i < size; i++) {
+        angle += pow((aveAngle - gradients[i]), 2);
+    }
+    if (size>0) {
+        varAngle = angle / size;
+    }
+    
     
     // Distance
     size = distances.size();
-    double diffDist = 0;
+    double dist = 0;
     for (int i = 0; i < size; i++) {
-        if (i < size-1) {
-            diffDist += fabs(distances[i] - distances[i+1]);
-        }
+        dist += pow((aveDist - distances[i]), 2);
     }
     if (size>0) {
-        varDist = diffDist / size;
+        varDist = dist / size;
     } else {
         varDist = 0;
     }
@@ -261,19 +296,37 @@ double Text::computeObjectArea()
             areaMap.at<int>(y, x) += areaMap.at<int>(y-1, x);
         }
     }
-    double objectArea = 0;
-//    Mat dst = Mat::zeros(srcH, srcW, CV_8UC3);
     for (int y = 0; y < height+1; y++) {
         for (int x = 0; x < width+1; x++) {
             if (areaMap.at<int>(y, x) > 0) {
-//                dst.at<Vec3b>(y+rect.tl().y, x+rect.tl().x)[0] = (unsigned char)BRIGHTNESS;
-//                dst.at<Vec3b>(y+rect.tl().y, x+rect.tl().x)[1] = (unsigned char)BRIGHTNESS;
-//                dst.at<Vec3b>(y+rect.tl().y, x+rect.tl().x)[2] = (unsigned char)BRIGHTNESS;
                 objectArea++;
             }
         }
     }
     
     return objectArea;
+}
+
+double Text::computeTextArea()
+{
+    double r1, r2, d, x, a, b, h;
+    Object *origin;
+    
+    long size = objects.size();
+    for (int i = 1; i < size; i++) {
+        
+        origin = objects[originIndexes[i]];
+        r1 = MIN(objects[i]->r, origin->r);
+        r2 = MAX(objects[i]->r, origin->r);
+        d = distanceObjects(objects[i], origin);
+        x = r1 * d / (r2 - r1);
+        a = r1 * (x + r1) / x;
+        b = r2 * (x + r1 + r2 + d) / x;
+        h = sqrt(pow((r1+r2+d), 2) - pow((b-a), 2));
+        textArea += (a + b) * h * 0.5;
+        
+    }
+    
+    return textArea;
 }
 

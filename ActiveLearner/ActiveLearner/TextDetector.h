@@ -42,6 +42,6 @@ private:
     vector<Object*> findInitNeighbors(Object*& init, vector<Object*>& objects);
     void groupingObjects(Text*& text, vector<Object*>& objects);
     void addNeighbors(Text*& text, vector<Object*>& objects);
-    void setFeatures(vector<Text*>& texts);
+    void setFeatures(vector<Text*>& texts, vector<Object*>& objects);
     void mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_texts);
 };

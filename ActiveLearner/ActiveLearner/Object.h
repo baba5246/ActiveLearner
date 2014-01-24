@@ -24,11 +24,13 @@ public:
     double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, areaRatio = 0;
     double longLength = 0, Gangle = 0, Fcorr = 0, Echar = 0, strokeWidth = 0, CR = 0;
     
-    cv::Point origin, tp, lp, rp, bp, centroid = cv::Point(-1, -1);
-    
+    cv::Point origin, centroid;
+    cv::Point tp, lp, rp, bp;
     cv::Size size;
-    
     cv::Rect rect;
+    
+    cv::Point2f center;
+    float r = 0;
     
     int mserIndex = -1, nearestIndex = -1;
     

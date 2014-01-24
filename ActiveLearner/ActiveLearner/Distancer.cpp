@@ -52,7 +52,6 @@ double Distancer::distanceOfObjects(const Object& obj1, const Object& obj2)
     return d;
 }
 
-
 double Distancer::distanceOfCentroids(const cv::Point c1, const cv::Point c2)
 {
     return distanceOfPoints(c1, c2);

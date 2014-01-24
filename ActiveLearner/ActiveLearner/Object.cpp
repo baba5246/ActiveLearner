@@ -30,6 +30,7 @@ void Object::computeProperties()
     
     uniqueContour();
     rect = boundingRect(contourPixels);
+    minEnclosingCircle(contourPixels, center, r);
     rectArea = rect.area();
     rectRatio = (double)rectArea / srcSize.area();
     
@@ -41,7 +42,6 @@ void Object::computeProperties()
     aspectRatio = (double)MIN(width, height) / MAX(width, height);
     size = Size(width, height);
     if (centroid.x < 0) centroid = Point((origin.x+width)*0.5f, (origin.y+height)*0.5f);
-    strokeWidth = 0;
     
     innerAreaMap = Mat_<int>(height, width);
     innerAreaMap = 0;

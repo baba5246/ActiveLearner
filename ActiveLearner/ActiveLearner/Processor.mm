@@ -443,7 +443,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         
         vector<Sample> copy(temp);
         Mat src = imread(filepath);
-        [self outputImage:Draw::drawSamples(src, temp)];
+//        [self outputImage:Draw::drawSamples(src, temp)];
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
     }
     
@@ -466,7 +466,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     }
     
     // ヒストグラム表示
-    if (trainSamples[0].features.size() > 12) [self showHistograms:trainSamples index:13];
+//    if (trainSamples[0].features.size() > 12) [self showHistograms:trainSamples index:13];
     
     // AdaBoost Self-Training
     AdaBoost adaboost = SelfTrainer::selfTraining(trainSamples, trainSamples, 1);

@@ -58,16 +58,16 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     vector<Text*> temp_texts;
     
     // Group 抽出
-    detectTexts(temp_texts, objects);
+    detectTexts(texts, objects);
     
     // Group特徴量計算
-    setFeatures(temp_texts);
+    setFeatures(texts, objects);
     
     // Groupのマージ
-    mergeTempTexts(texts, temp_texts);
+//    mergeTempTexts(texts, temp_texts);
     
     // Group特徴量計算
-    setFeatures(texts);
+//    setFeatures(texts, objects);
     
     Draw::draw(Draw::drawTexts(srcImage, texts));
 }
@@ -231,10 +231,10 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
 
 
 // Set Features to the Object
-void TextDetector::setFeatures(vector<Text*>& texts)
+void TextDetector::setFeatures(vector<Text*>& texts, vector<Object*>& objects)
 {
     long size = texts.size();
-    double maxSW = 0, maxR = 0, maxG = 0, maxB = 0, maxAngle = 0, maxDist = 0;
+    double maxSW = 0, maxAngle = 0, maxDist = 0;
     for (int i = 0; i < size; i++) {
         
         // Compute Features
@@ -242,11 +242,11 @@ void TextDetector::setFeatures(vector<Text*>& texts)
         
         // Compute Max Values
         if (maxSW < texts[i]->varSW) maxSW = texts[i]->varSW;
-        if (maxR < texts[i]->varColorR) maxR = texts[i]->varColorR;
-        if (maxG < texts[i]->varColorG) maxG = texts[i]->varColorG;
-        if (maxB < texts[i]->varColorB) maxB = texts[i]->varColorB;
         if (maxAngle < texts[i]->varAngle) maxAngle = texts[i]->varAngle;
         if (maxDist < texts[i]->varDist) maxDist = texts[i]->varDist;
+        
+        // Count False Contain Objects
+        texts[i]->countFalseObjects(objects);
     }
     
     for (int i = 0; i < size; i++) {
@@ -257,31 +257,28 @@ void TextDetector::setFeatures(vector<Text*>& texts)
         /* 0 */ features.push_back(texts[i]->aveGangle / M_PI);
         /* 1 */ features.push_back(texts[i]->aveFcorr);
         /* 2 */ features.push_back(texts[i]->aveEchar);
+        /* 3 */ features.push_back(texts[i]->aveColorSim);
+        /* 4 */ features.push_back(texts[i]->aveLabSim);
+        /* 5 */ features.push_back(texts[i]->aveSW);
+        /* 6 */ features.push_back(texts[i]->aveDist);
+        /* 7 */ features.push_back(texts[i]->aveAngle);
+        /* 8 */ features.push_back(texts[i]->aveAspect);
+        /* 9 */ features.push_back(texts[i]->aveCircleR);
         
         // Variant Features
-        /* 3 */ features.push_back(1 - (texts[i]->varSW / maxSW));
-        /* 4 */ features.push_back(1 - (texts[i]->varColorR / maxR));
-        /* 5 */ features.push_back(1 - (texts[i]->varColorG / maxG));
-        /* 6 */ features.push_back(1 - (texts[i]->varColorB / maxB));
-        /* 7 */ features.push_back(1 - (texts[i]->varAngle / maxAngle));
-        /* 8 */ features.push_back(1 - (texts[i]->varDist / maxDist));
-        /* 9 */ features.push_back(texts[i]->varLength);
-        
-        // Rect ratio
-        /* 10 */ features.push_back(texts[i]->rectRatio);
-        
-        // Aspect ratio
-        /* 11 */ features.push_back(texts[i]->aspectRatio);
-        
-        // Long length ratio
-        /* 12 */ features.push_back(texts[i]->longLengthRatio);
-        
-        // Object Area ratio
-        /* 13 */ features.push_back(texts[i]->objAreaRatio);
-        
-        // Object Area ratio
-        /* 14 */ features.push_back(texts[i]->objSizeRatio);
-        
+        /* 10 */ features.push_back(texts[i]->varAngle);
+        /* 11 */ features.push_back(texts[i]->varDist);
+        /* 12 */ features.push_back(texts[i]->varHeight);
+        /* 13 */ features.push_back(texts[i]->varSW);
+        /* 14 */ features.push_back(texts[i]->varWidth);
+
+        // Ratio Features
+        /* 15 */ features.push_back(texts[i]->rectRatio);
+        /* 16 */ features.push_back(texts[i]->aspectRatio);
+        /* 17 */ features.push_back(texts[i]->longLengthRatio);
+        /* 18 */ features.push_back(texts[i]->objAreaRatio);
+        /* 19 */ features.push_back(texts[i]->objSizeRatio);
+        /* 20 */ features.push_back(texts[i]->trueObjectRatio);
         
         // Set features
         texts[i]->features = features;

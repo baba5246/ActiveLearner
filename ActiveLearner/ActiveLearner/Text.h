@@ -20,12 +20,21 @@ public:
     
     int srcW = 0, srcH;
     int width = 0, height = 0;
-    double aveEchar = 0, aveFcorr = 0, aveGangle = 0, aveCR = 0, aveDist = 0, aveSW = 0;
-    double varSW = 0, varColorR = 0, varColorG = 0, varColorB = 0, varAngle = 0, varDist = 0, varLength = 0;
-    double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, objAreaRatio = 0, objSizeRatio = 0;
+    double objectArea = 0, textArea = 0;
+    double objectCount = 0, falseCount = 0;
     cv::Rect rect;
     cv::Point centroid;
-    Scalar color;
+    Scalar color, labcolor;
+    
+    // Average Features
+    double aveEchar = 0, aveFcorr = 0, aveGangle = 0, aveColorSim = 0, aveLabSim = 0;
+    double aveCR = 0, aveSW = 0, aveDist = 0, aveAngle = 0, aveAspect = 0, aveCircleR = 0;
+    
+    // Variation Features
+    double varSW = 0, varWidth = 0, varHeight = 0, varAngle = 0, varDist = 0;
+    
+    // Ratio Features
+    double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, objAreaRatio = 0, objSizeRatio = 0, trueObjectRatio = 0;
     
     int focusedIndex = -1;
     vector<double> features;
@@ -43,6 +52,7 @@ public:
     bool areAllFocused();
     bool contains(Object*& obj);
     void computeProperties();
+    void countFalseObjects(vector<Object*>& objs);
     
 private:
     void computeColor();
@@ -54,5 +64,6 @@ private:
     void computeVariantFeatures();
     void computeRatioFeatures();
     double computeObjectArea();
+    double computeTextArea();
     
 };
