@@ -10,13 +10,13 @@ typedef struct {
     Mat_<double> gradient;
 } SWT_THREAD_ARG;
 
+pthread_mutex_t mutex;
+vector<SWTObject> swtobjects;
+void* swt_minus_thread(void* pParam);
+void* swt_plus_thread(void* pParam);
+Mat swtm, swtp;
+vector<vector<cv::Point> > compm, compp;
 
-vector<string> ObjectDetector::split(const string& str, char delim)
-{
-    istringstream iss(str); string tmp; vector<string> res;
-    while(getline(iss, tmp, delim)) res.push_back(tmp);
-    return res;
-}
 
 
 #pragma mark -
@@ -50,12 +50,6 @@ ObjectDetector::~ObjectDetector()
 #pragma mark -
 #pragma mark Interface Methods
 
-pthread_mutex_t mutex;
-vector<SWTObject> swtobjects;
-void* swt_minus_thread(void* pParam);
-void* swt_plus_thread(void* pParam);
-Mat swtm, swtp;
-vector<vector<cv::Point> > compm, compp;
 
 void ObjectDetector::detect(vector<Object*>& objects)
 {
@@ -127,11 +121,6 @@ void ObjectDetector::detect(vector<Object*>& objects)
     setFeatures(objects);           // 特徴量をセット
     
 //    Draw::draw(Draw::drawEchars(srcImage, objects)); // Echar描画
-    
-//    vector<Text*> texts;
-//    TextDetector detector(srcImage);
-//    detector.detect(objects, texts);
-//    Draw::drawTexts(srcImage, texts);
     
 }
 
@@ -436,17 +425,15 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
     Mat_<int> table = createImageTable(objects);
     vector<double> thetas;
     vector<cv::Point> pixels, corrPixels;
-    vector<int> candidates;
+    vector<Scalar> colors;
     
     Point_<double> p, ray;
     Point_<int> q, diff, r;
-    
-    vector<Scalar> colors;
+    cv::Point p1, p2, vp1(1,0), vp2(-1,0), hp1(0,1), hp2(0,-1);
     
     bool findFlag = false;
     bool isPositive = false;
     int count = 0;
-    cv::Point p1, p2, vp1(1,0), vp2(-1,0), hp1(0,1), hp2(0,-1);
     
     for (int i = 0; i < objects.size(); i++)
     {
@@ -476,7 +463,7 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
                 p2 = vp2;
             }
             
-            for (int n = 1; n < 300; n++) {
+            for (int n = 2; n < 300; n++) {
                 
                 // Compute a ray point
                 if (isPositive) q = p - n * ray;
@@ -511,9 +498,10 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
             }
             
             objects[i]->corrPairPixels = corrPixels;
+//            Draw::draw(Draw::drawEchars(srcImage, objects));
         }
         
-        cout << "Not found count:" << count << " / " << pixels.size() << endl;
+//        cout << "Not found count:" << count << " / " << pixels.size() << endl;
         
         objects[i]->corrPairPixels = corrPixels;
         objects[i]->isPositive = isPositive;
@@ -605,39 +593,41 @@ void ObjectDetector::computeEchar(vector<Object*>& objects)
 // Compute Stroke Width
 void ObjectDetector::computeStrokeWidth(vector<Object*>& objects)
 {
-    const int sampling = 2;
-    
-    int max = 0;
-    double tmp_w = 0;
-    vector<int> hist;
-    vector<cv::Point> basePixels, pairPixels;
-    cv::Point diff;
+//    const int sampling = 2;
+//    
+//    int max = 0;
+//    double tmp_w = 0;
+//    vector<int> hist;
+//    vector<cv::Point> basePixels, pairPixels;
+//    cv::Point diff;
     
     for (int i = 0; i < objects.size(); i++) {
         
-        max = MAX(objects[i]->width, objects[i]->height);
+        objects[i]->computeStrokeWidth();
         
-        hist = *new vector<int>(max, 0);
-        basePixels = objects[i]->contourPixels;
-        pairPixels = objects[i]->corrPairPixels;
-        
-        for (int j = 0; j < basePixels.size(); j++) {
-            if (pairPixels[j].x>=0 && pairPixels[j].y>=0) {
-                diff = basePixels[j] - pairPixels[j];
-                tmp_w = round(sqrt(diff.x*diff.x+diff.y*diff.y));
-                hist[(int)floor(tmp_w / sampling)]++;
-            }
-        }
-        
-        int peak = 0, maxK = 0;
-        for (int k = 0; k < max; k++) {
-            if (hist[k] > peak) {
-                peak = hist[k];
-                maxK = k;
-            }
-        }
-        
-        objects[i]->strokeWidth = maxK*sampling;
+//        max = MAX(objects[i]->width, objects[i]->height);
+//        
+//        hist = *new vector<int>(max, 0);
+//        basePixels = objects[i]->contourPixels;
+//        pairPixels = objects[i]->corrPairPixels;
+//        
+//        for (int j = 0; j < basePixels.size(); j++) {
+//            if (pairPixels[j].x>=0 && pairPixels[j].y>=0) {
+//                diff = basePixels[j] - pairPixels[j];
+//                tmp_w = round(sqrt(diff.x*diff.x+diff.y*diff.y));
+//                hist[(int)floor(tmp_w / sampling)]++;
+//            }
+//        }
+//        
+//        int peak = 0, maxK = 0;
+//        for (int k = 0; k < max; k++) {
+//            if (hist[k] > peak) {
+//                peak = hist[k];
+//                maxK = k;
+//            }
+//        }
+//        
+//        objects[i]->strokeWidth = maxK*sampling;
     }
 }
 

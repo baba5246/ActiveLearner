@@ -19,11 +19,57 @@ TextDetector::~TextDetector()
     
 }
 
+#pragma mark -
+#pragma mark Inline Methods
+
+
+inline double computeGradient(Object*& obj1, Object*& obj2)
+{
+    cv::Point diff = obj1->centroid - obj2->centroid;
+    return atan2(-diff.y, diff.x);
+}
+
+inline double pointSize(cv::Point p)
+{
+    return sqrt(p.x*p.x+p.y*p.y);
+}
+
+inline double distanceObjects(Object*& obj1, Object*& obj2)
+{
+    Point diff = obj1->centroid - obj2->centroid;
+    return pointSize(diff);
+}
+
+
 
 #pragma mark -
 #pragma mark Interface Methods
 
 void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
+{
+    vector<Text*> temp_texts;
+    
+    // Group 抽出
+    detectTexts(temp_texts, objects);
+    
+    // Group特徴量計算
+    setFeatures(temp_texts);
+    
+    // Groupのマージ
+    mergeTempTexts(texts, temp_texts);
+    
+    // Group特徴量計算
+    setFeatures(texts);
+    
+    
+    Draw::draw(Draw::drawTexts(srcImage, texts));
+}
+
+
+#pragma mark -
+#pragma mark Grouping Objects Methods
+
+void TextDetector::detectTexts(vector<Text*>& texts, vector<Object*>& objects)
 {
     // Sort
     sort(objects.begin(), objects.end(), Object::leftToRight);
@@ -47,7 +93,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
             text->focusedIndex = 0;
             
             // Find surroundings
-            text->add(neighbors[j], Distancer::distanceOfCentroids(init->centroid, neighbors[j]->centroid));
+            text->add(neighbors[j], distanceObjects(init, neighbors[j]));
             double gradient = computeGradient(init, neighbors[j]);
             text->gradients.push_back(gradient);
             text->focusedIndex = 1;
@@ -58,55 +104,58 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
             // Add as a candidate
             texts.push_back(text);
             
-            //Draw::drawTexts(srcImage, texts);
+            //            Draw::draw(Draw::drawText(srcImage, text));
         }
     }
-    
-    // Group特徴量計算
-    setFeatures(texts);
-
 }
-
-
-#pragma mark -
-#pragma mark Grouping Objects Methods
-
 
 vector<Object*> TextDetector::findInitNeighbors(Object*& init, vector<Object*>& objects)
 {
     vector<Object*> neighbors;
     double temp_dist = 0, gradient = 0;
-    double threshold = init->longLength;
     cv::Point vec1, vec2;
-    bool exist = 0;
+    int existIndex = -1;
+    
+    // 距離閾値
+    double threshold = init->longLength*2;
     
     for (int i = 0; i < objects.size(); i++)
     {
-        // ID等しくないなら
-        if (init->ID.compare(objects[i]->ID))
-        {
-            temp_dist = Distancer::distanceOfObjects(*init, *objects[i]);
-            //distanceOfCentroids(init->centroid, objects[i]->centroid);
+        // ID等しいなら continue;
+        if (!init->ID.compare(objects[i]->ID)) continue;
+        
+        // 距離計算
+        temp_dist = distanceObjects(init, objects[i]);
+        
+        // 閾値以下なら
+        if (temp_dist < threshold) {
             
-            // 閾値以下なら
-            if (temp_dist < threshold) {
-                
-                // 既に見つけたものと同じ方向かどうか判定
-                exist = false;
-                vec1 = objects[i]->centroid - init->centroid;
-                for (int n = 0; n < neighbors.size(); n++) {
-                    vec2 = neighbors[n]->centroid - init->centroid;
-                    gradient = acos(vec1.ddot(vec2) / (pointSize(vec1) * pointSize(vec2)));
-                    if (fabs(gradient) < M_PI_1_8) {
-                        exist = true;
-                        break;
-                    }
+            // 既に見つけたものと同じ方向かどうか判定
+            existIndex = -1;
+            vec1 = objects[i]->centroid - init->centroid;
+            for (int n = 0; n < neighbors.size(); n++) {
+                vec2 = neighbors[n]->centroid - init->centroid;
+                gradient = acos(vec1.ddot(vec2) / (pointSize(vec1) * pointSize(vec2)));
+                if (fabs(gradient) < M_PI_1_8) {
+                    existIndex = n;
+                    break;
                 }
-                
-                if (!exist) neighbors.push_back(objects[i]);
-                else continue;
+            }
+            
+            // 同じ方向のものがなければneighborsとして入れる
+            if (existIndex<0)
+            {
+                neighbors.push_back(objects[i]);
+            }
+            else // そうでなければ一番近いものだけ入れる
+            {
+                if (temp_dist < distanceObjects(init, neighbors[existIndex])) {
+                    neighbors.erase(neighbors.begin()+existIndex);
+                    neighbors.push_back(objects[i]);
+                }
             }
         }
+    
     }
     
     return neighbors;
@@ -127,41 +176,46 @@ void TextDetector::groupingObjects(Text*& text, vector<Object*>& objects)
 
 void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
 {
-    double distance = 0, threshold = 0, gradient = 0;
+    double distance = 0, threshold = 0, gradient = 0, swratio = 0;
     cv::Point diff, newVector, oldVector;
+    int count = 0;
     
     // 注目オブジェクト取得
     Object *focus = text->objects[text->focusedIndex];
     
     for (int i = 0; i < objects.size(); i++) {
         
-        if (focus->ID == objects[i]->ID) continue;
+        if (!focus->ID.compare(objects[i]->ID)) continue;
         if (text->contains(objects[i])) continue;
         
-        // 閾値計算
-        threshold = text->aveDist*1.5;
-        
         // 距離計算
-        distance = Distancer::distanceOfObjects(*focus, *objects[i]);//distanceOfCentroids(focus->centroid, objects[i]->centroid);
+        distance = distanceObjects(focus, objects[i]);
+        
+        // Text内のObject数に応じて閾値計算
+        double ratio = (1 + pow(1.2, -((double)text->objects.size()-2)));
+        threshold = text->aveDist * ratio;
         
         // 閾値内判定
         if (distance < threshold) {
             
             // ベクトル勾配計算
+            Object *origin = text->objects[text->originIndexes[text->focusedIndex]];
+            oldVector = origin->centroid - focus->centroid;
             newVector = objects[i]->centroid - focus->centroid;
-            oldVector = text->objects[text->originIndexes[text->focusedIndex]]->centroid - focus->centroid;
             gradient = acos(newVector.ddot(oldVector) / (pointSize(newVector)*pointSize(oldVector)));
+            // Stroke幅比計算
+            swratio = MAX(focus->strokeWidth, text->aveSW) / MIN(focus->strokeWidth, text->aveSW);
             
             // 条件判定
-            if (gradient < LOW_GRADIENT_THRESHOLD ||
-                gradient > HIGH_GRADIENT_THRESHOLD)
+            if (gradient > HIGH_GRADIENT_THRESHOLD && swratio < STROKE_WIDTH_RATIO)
             {
                 // 追加
-                // cout << threshold << endl;
                 text->add(objects[i], distance);
                 text->gradients.push_back(gradient);
 //                Draw::drawText(srcImage, text);
             }
+            
+            count++;
         }
     }
 }
@@ -225,13 +279,73 @@ void TextDetector::setFeatures(vector<Text*>& texts)
     }
 }
 
-double TextDetector::computeGradient(Object*& obj1, Object*& obj2)
+// Merge texts
+void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_texts)
 {
-    cv::Point diff = obj1->centroid - obj2->centroid;
-    return atan2(-diff.y, diff.x);
-}
+    vector<int> alreadies;
+    for (int i = 0; i < temp_texts.size(); i++) {
+        
+        if (find(alreadies.begin(), alreadies.end(), i) != alreadies.end())
+            continue;
+        
+        Text *text(temp_texts[i]);
+        Rect rect = temp_texts[i]->rect;
+        
+        for (int j = i+1; j < temp_texts.size(); j++) {
+            
+            if (find(alreadies.begin(), alreadies.end(), j) != alreadies.end())
+                continue;
+            
+            Rect temp_rect = temp_texts[j]->rect;
+            Rect intersect = rect & temp_rect;
+            double wratio_orig = 0, wratio_temp = 0, hratio_orig = 0, hratio_temp = 0;
+            double wratio = 0, hratio = 0;
+            
+            if (intersect.width>0 && intersect.height) {
+                wratio_orig = intersect.width / rect.width;
+                wratio_temp = intersect.width / temp_rect.width;
+                hratio_orig = intersect.height / rect.height;
+                hratio_temp = intersect.height / temp_rect.height;
+                
+                // Almost Containのものをマージする
+                if (rect.area() > temp_rect.area()) {
+                    wratio = wratio_orig;
+                    hratio = hratio_orig;
+                } else {
+                    wratio = wratio_temp;
+                    hratio = hratio_temp;
+                }
+                if (wratio > ALMOST_CONTAIN_THRESHOLD && hratio > ALMOST_CONTAIN_THRESHOLD) {
+                    text->add(temp_texts[j]);
+                    alreadies.push_back(j);
+                    continue;
+                }
+                
+                if (rect.width > rect.height) {
+                    if (temp_rect.width > temp_rect.height) {
+                        if (wratio_orig > RECT_MARGE_THRESHOLD1 || wratio_temp > RECT_MARGE_THRESHOLD1) {
+                            if (hratio_orig > RECT_MARGE_THRESHOLD2 && hratio_temp > RECT_MARGE_THRESHOLD2) {
+                                text->add(temp_texts[j]);
+                                alreadies.push_back(j);
+                                continue;
+                            }
+                        }
+                    }
+                } else {
+                    if (temp_rect.height > temp_rect.width) {
+                        if (hratio_orig > RECT_MARGE_THRESHOLD1 || hratio_temp > RECT_MARGE_THRESHOLD1) {
+                            if (wratio_orig > RECT_MARGE_THRESHOLD2 && wratio_temp > RECT_MARGE_THRESHOLD2) {
+                                text->add(temp_texts[j]);
+                                alreadies.push_back(j);
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        texts.push_back(text);
+    }
 
-double TextDetector::pointSize(cv::Point p)
-{
-    return sqrt(p.x*p.x+p.y*p.y);
 }

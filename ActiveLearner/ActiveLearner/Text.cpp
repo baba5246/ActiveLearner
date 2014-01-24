@@ -25,11 +25,38 @@ Text::Text(string path, Object*& obj)
 
 void Text::add(Object*& obj, double distance)
 {
+    for (int i = 0; i < objects.size(); i++) {
+        if (!objects[i]->ID.compare(obj->ID)) {
+            return;
+        }
+    }
+    
     objects.push_back(obj);
-    distances.push_back(distance);
     originIndexes.push_back(focusedIndex);
     computeColor();
-    computeAverageDistance();
+    computeStrokeWidth();
+    if (objects.size()>1) {
+        distances.push_back(distance); //　オブジェクト数が2以上になったらdistanceにadd
+        computeAverageDistance();
+    }
+}
+
+void Text::add(Text *&text)
+{
+    vector<Object*> temp_objects;
+    for (int i = 0; i < objects.size(); i++)
+        for (int j = 0; j < text->objects.size(); j++) {
+            if (!objects[i]->ID.compare(text->objects[j]->ID)) {
+                temp_objects.push_back(text->objects[j]);
+            }
+        }
+    
+    objects.insert(objects.end(), temp_objects.begin(), temp_objects.end());
+    aveDist += text->aveDist;
+    aveDist /= 2.0f;
+    computeColor();
+    computeStrokeWidth();
+    computeRatioFeatures();
 }
 
 bool Text::areAllFocused()
@@ -82,14 +109,28 @@ void Text::computeColor()
 
 void Text::computeAverageDistance()
 {
-    aveDist = 0;
-    if (distances.size() == 0) return;
+    double dist = 0;
+    long size = distances.size();
+    if (size == 0) return;
     
-    for (int i = 0; i < distances.size(); i++) {
-        aveDist += distances[i];
+    for (int i = 0; i < size; i++) {
+        dist += distances[i];
     }
-    aveDist /= distances.size();
+    if (size>0) aveDist = dist / size;
+    else aveDist = 0;
 }
+
+void Text::computeStrokeWidth()
+{
+    double tempsw = 0;
+    long size = objects.size();
+    for (int i = 0; i < size; i++) {
+        tempsw += objects[i]->strokeWidth;
+    }
+    if (size>0) tempsw /= size;
+    aveSW = tempsw;
+}
+
 
 void Text::computeAverageFeatures()
 {

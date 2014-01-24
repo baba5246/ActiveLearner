@@ -123,7 +123,6 @@ static Processor* sharedProcessor = nil;
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
         Mat srcImage = imread(filepath);
         vector<Object*> objects = components.at(filepath);
-        [self outputImage:Draw::drawObjects(srcImage, objects)];
         
         vector<Text*> texts;
         TextDetector detector(srcImage);

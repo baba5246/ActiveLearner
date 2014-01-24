@@ -71,6 +71,7 @@ public:
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
     void mergeObject(Object obj);
+    void computeStrokeWidth();
     
 #pragma mark -
 #pragma mark Compute Properties Methods

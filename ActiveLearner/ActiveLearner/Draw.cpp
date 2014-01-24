@@ -1,7 +1,7 @@
 
 #include "Draw.h"
 
-#define DRAW_WAIT_TIME  0
+#define DRAW_WAIT_TIME  2000
 
 void Draw::drawImage(const Mat& src)
 {
@@ -130,6 +130,7 @@ Mat Draw::drawObjects(const Mat& src, const vector<Object*>& objects)
     for (int i = 0; i < objects.size(); i++)
     {
         vector<cv::Point> pixels(objects[i]->contourPixels);
+//        vector<cv::Point> corrPixels(objects[i]->corrPairPixels);
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
 //        if (objects[i]->colors.size()>0) color = objects[i]->color;
         
@@ -137,6 +138,9 @@ Mat Draw::drawObjects(const Mat& src, const vector<Object*>& objects)
         {
             if (pixels[j].inside(Rect(0,0,dst.cols,dst.rows))) {
                 circle(dst, pixels[j], 0.1f, color);
+//                if (corrPixels.size()>j && corrPixels[j].x>-1 && corrPixels[j].y>-1) {
+//                    line(dst, pixels[j], corrPixels[j], color);
+//                }
             }
         }
     }
@@ -214,16 +218,19 @@ Mat Draw::drawEchars(const Mat& src, const vector<Object*>& objects)
         vector<cv::Point> pixels = objects[i]->contourPixels;
         Scalar color;
         
-        //if (objects[i].Echar < 0.75) continue;
+//        if (objects[i].Echar < 0.75) continue;
         
         if (objects[i]->isPositive) color = CV_RGB(objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS, 0);
         else color = CV_RGB(0, objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS);
+
+//        color = CV_RGB(BRIGHTNESS, BRIGHTNESS, 0);
         
         vector<cv::Point> corrPixels = objects[i]->corrPairPixels;
         for (int j = 0; j < pixels.size(); j++)
         {
             circle(dst, pixels[j], 0.1f, color);
-            if (corrPixels.size()>0 && corrPixels[j].x >= 0 && corrPixels[j].y >= 0) line(dst, pixels[j], corrPixels[j], color);
+            if (corrPixels.size()>0 && corrPixels[j].x >= 0 && corrPixels[j].y >= 0)
+                line(dst, pixels[j], corrPixels[j], color);
         }
     }
     
@@ -280,7 +287,7 @@ Mat Draw::drawText(const cv::Mat &src, Text *&text)
     
     srand((unsigned int)1);
     Scalar red = CV_RGB(BRIGHTNESS,0,0);
-    Scalar blue = CV_RGB(0, 0, BRIGHTNESS);
+    Scalar blue = CV_RGB(0,0,BRIGHTNESS);
     rectangle(dst, text->rect, red, 3);
     
     for (int j = 0; j < text->objects.size(); j++) {

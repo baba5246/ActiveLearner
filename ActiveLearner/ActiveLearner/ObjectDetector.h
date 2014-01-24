@@ -56,8 +56,6 @@ private:
     
     void setFeatures(vector<Object*>& objects);
     
-    
-    vector<string> split(const string& str, char delim);
     Mat_<int> createImageTable(const vector<Object*>& objects);
     cv::Rect* intersect(const cv::Rect& rect1, const cv::Rect& rect2);
     

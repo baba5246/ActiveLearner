@@ -142,6 +142,32 @@ void Object::uniqueContour()
     contourPixels = pixels;
 }
 
+inline double distPoints(Point p1, Point p2)
+{
+    return sqrt(p1.x*p2.x + p1.y*p2.y);
+}
+
+void Object::computeStrokeWidth()
+{
+    int count = 0;
+    double temp = 0, sw = 0;
+    vector<double> swidth;
+    for (int i = 0; i < contourPixels.size(); i++)
+    {
+        if (corrPairPixels[i].x>0 && corrPairPixels[i].y>0) {
+            temp = distPoints(contourPixels[i], corrPairPixels[i]);
+            swidth.push_back(temp);
+            sw += temp;
+            count++;
+        }
+    }
+//    strokeWidth = sw / count;
+    
+    sort(swidth.begin(), swidth.end());
+    if (swidth.size()>0) sw = swidth[swidth.size()/2];
+    strokeWidth = sw;
+}
+
 
 #pragma mark -
 #pragma mark Inclusion Relationship Methods
@@ -167,8 +193,6 @@ void Object::mergeObject(Object obj)
     contourPixels.insert(contourPixels.end(), obj.contourPixels.begin(), obj.contourPixels.end());
     computeProperties();
 }
-
-
 
 Object::~Object()
 {

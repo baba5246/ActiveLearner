@@ -8,8 +8,12 @@
 #include "Distancer.h"
 
 
-#define LOW_GRADIENT_THRESHOLD  M_PI_6
-#define HIGH_GRADIENT_THRESHOLD  M_PI_5_6
+#define LOW_GRADIENT_THRESHOLD      M_PI_6
+#define HIGH_GRADIENT_THRESHOLD     M_PI_5_6
+#define STROKE_WIDTH_RATIO          3.0
+#define RECT_MARGE_THRESHOLD1       0.3
+#define RECT_MARGE_THRESHOLD2       0.7
+#define ALMOST_CONTAIN_THRESHOLD    0.95
 
 using namespace std;
 using namespace cv;
@@ -33,12 +37,10 @@ public:
     
 private:
     
+    void detectTexts(vector<Text*>& texts, vector<Object*>& objects);
     vector<Object*> findInitNeighbors(Object*& init, vector<Object*>& objects);
-    vector<double> distanceObjects(vector<Object*> objects);
     void groupingObjects(Text*& text, vector<Object*>& objects);
     void addNeighbors(Text*& text, vector<Object*>& objects);
     void setFeatures(vector<Text*>& texts);
-    
-    double computeGradient(Object*& obj1, Object*& obj2);
-    double pointSize(cv::Point p);
+    void mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_texts);
 };
