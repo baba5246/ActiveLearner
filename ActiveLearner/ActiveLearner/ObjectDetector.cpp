@@ -127,36 +127,14 @@ void ObjectDetector::detect(vector<Object*>& objects)
     Mat_<double> gradient = Mat_<double>(srcImage.rows, srcImage.cols);
     mycv.sobelFiltering(ggray, gradient);
     
-    
-    // Extract connected regions as components
-//    pthread_t tid1, tid2;
-//    pthread_mutex_init(&mutex, NULL);
-//    SWT_THREAD_ARG minus_arg = { mycv, edge, gradient };
-//    SWT_THREAD_ARG plus_arg = { mycv, edge, gradient };
-//    pthread_create(&tid1, NULL, swt_minus_thread, &minus_arg);
-//    pthread_create(&tid2, NULL, swt_plus_thread, &plus_arg);
-//    pthread_join(tid1, NULL);
-//    pthread_join(tid2, NULL);
-//    pthread_mutex_destroy(&mutex);
-//    createSWTObjects(swtobjects, swtm, compm);
-//    createSWTObjects(swtobjects, swtp, compp);
-//    Draw::draw(Draw::drawSWTObjects(edge, swtobjects));
-    
     // Object の勾配方向計算
     gradientOfObjects(objects, gradient);
     
-//    Draw::drawGradients(objects, gradient); // 勾配方向描画
-    
-    // Corresponding Pair の探索
+    // Corresponding Pair の探索 と 特徴量計算
     findCorrPairs(objects, gradient);
     gradientOfCorrPairs(objects, gradient);
     
-    // 内部領域マージ
-//    mergeInnerAreaOfObjects(objects);
-    
     // 特徴量計算
-    computeEchar(objects);          // Character Energy
-    computeStrokeWidth(objects);    // Stroke Width
     setFeatures(objects);           // 特徴量をセット
     
     Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
@@ -447,7 +425,6 @@ void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradient
     {
         findPairs(objects[i], i, minusType, table);
         findPairs(objects[i], i, plusType, table);
-        objects[i]->computeColor(srcImage);
     }
 }
 
@@ -528,7 +505,8 @@ void ObjectDetector::findPairs(Object*& object, int index, int type, Mat_<int> t
         }
     }
     
-    object->corrPairPixels = *new vector<Point>(corrPixels);
+    if (type>0) object->pCorrPairPixels = *new vector<Point>(corrPixels);
+    else object->mCorrPairPixels = *new vector<Point>(corrPixels);
 }
 
 Mat_<int> ObjectDetector::createImageTable(const vector<Object*>& objects)
@@ -554,102 +532,31 @@ void ObjectDetector::gradientOfCorrPairs(vector<Object*>& objects, const Mat_<do
     double t = 0;
     for (int i = 0; i < objects.size(); i++)
     {
-        vector<double> *thetas = new vector<double>();
-        for (int j = 0; j < objects[i]->corrPairPixels.size(); j++)
+        vector<double> *mthetas = new vector<double>();
+        for (int j = 0; j < objects[i]->mCorrPairPixels.size(); j++)
         {
-            p = objects[i]->corrPairPixels[j];
+            p = objects[i]->mCorrPairPixels[j];
             if (p.x < 0 || p.y < 0) {
-                thetas->push_back(10);
+                mthetas->push_back(10);
             } else {
                 t = gradients.at<double>(p.y, p.x);
-                thetas->push_back(t);
+                mthetas->push_back(t);
             }
         }
-        objects[i]->corrThetas = *thetas;
-    }
-}
-
-// Compute Features
-void ObjectDetector::computeEchar(vector<Object*>& objects)
-{
-    double tempADGD = 0, ADGD = 0, FCP = 0, Echar = 0;
-    double alpha = 0.6;
-    int FCPcount = 0, count = 0;
-    
-    for (int i = 0; i < objects.size(); i++)
-    {
-        ADGD = 0;
-        FCPcount = 0;
-        count = 0;
+        objects[i]->mCorrThetas = *mthetas;
         
-        for (int j = 0; j < objects[i]->thetas.size(); j++)
+        vector<double> *pthetas = new vector<double>();
+        for (int j = 0; j < objects[i]->mCorrPairPixels.size(); j++)
         {
-            if (objects[i]->corrPairPixels[j].x < 0 ||
-                objects[i]->corrPairPixels[j].y < 0) continue;
-            
-            if (fabs(objects[i]->thetas[j]) <= M_PI && fabs(objects[i]->corrThetas[j]) <= M_PI)
-            {
-                tempADGD = fabs(objects[i]->thetas[j] - objects[i]->corrThetas[j]);
-                if (tempADGD > M_PI) tempADGD = 2 * M_PI - tempADGD;
-                ADGD += tempADGD;
-                if (tempADGD >= M_PI * alpha) FCPcount++;
+            p = objects[i]->mCorrPairPixels[j];
+            if (p.x < 0 || p.y < 0) {
+                pthetas->push_back(10);
+            } else {
+                t = gradients.at<double>(p.y, p.x);
+                pthetas->push_back(t);
             }
-            
-            count++;
         }
-        
-        if (count > 0)
-        {
-            // ADGDとFCPの算出
-            ADGD = ADGD / count;
-            objects[i]->Gangle = ADGD;
-            FCP = (double)FCPcount / (double)count;
-            objects[i]->Fcorr = FCP;
-            // Echarの算出
-            Echar = (ADGD / M_PI + FCP) / 2;
-            objects[i]->Echar = Echar;
-        }
-    }
-}
-
-// Compute Stroke Width
-void ObjectDetector::computeStrokeWidth(vector<Object*>& objects)
-{
-//    const int sampling = 2;
-//    
-//    int max = 0;
-//    double tmp_w = 0;
-//    vector<int> hist;
-//    vector<cv::Point> basePixels, pairPixels;
-//    cv::Point diff;
-    
-    for (int i = 0; i < objects.size(); i++) {
-        
-        objects[i]->computeStrokeWidth();
-        
-//        max = MAX(objects[i]->width, objects[i]->height);
-//        
-//        hist = *new vector<int>(max, 0);
-//        basePixels = objects[i]->contourPixels;
-//        pairPixels = objects[i]->corrPairPixels;
-//        
-//        for (int j = 0; j < basePixels.size(); j++) {
-//            if (pairPixels[j].x>=0 && pairPixels[j].y>=0) {
-//                diff = basePixels[j] - pairPixels[j];
-//                tmp_w = round(sqrt(diff.x*diff.x+diff.y*diff.y));
-//                hist[(int)floor(tmp_w / sampling)]++;
-//            }
-//        }
-//        
-//        int peak = 0, maxK = 0;
-//        for (int k = 0; k < max; k++) {
-//            if (hist[k] > peak) {
-//                peak = hist[k];
-//                maxK = k;
-//            }
-//        }
-//        
-//        objects[i]->strokeWidth = maxK*sampling;
+        objects[i]->pCorrThetas = *pthetas;
     }
 }
 
@@ -657,6 +564,10 @@ void ObjectDetector::computeStrokeWidth(vector<Object*>& objects)
 void ObjectDetector::setFeatures(vector<Object*>& objects)
 {
     for (int i = 0; i < objects.size(); i++) {
+        
+        // Compute features
+        objects[i]->computeFeatures(srcImage);
+        
         
         vector<double> features;
         
@@ -666,18 +577,18 @@ void ObjectDetector::setFeatures(vector<Object*>& objects)
         /* 2 */ features.push_back(objects[i]->Echar);
         
         // Color
-        /* 3 */ features.push_back((double)objects[i]->color[0]/BRIGHTNESS);
-        /* 4 */ features.push_back((double)objects[i]->color[1]/BRIGHTNESS);
-        /* 5 */ features.push_back((double)objects[i]->color[2]/BRIGHTNESS);
+        /* 3 */ features.push_back((double)objects[i]->color[0]);
+        /* 4 */ features.push_back((double)objects[i]->color[1]);
+        /* 5 */ features.push_back((double)objects[i]->color[2]);
+        /* 3 */ features.push_back((double)objects[i]->labcolor[0]);
+        /* 4 */ features.push_back((double)objects[i]->labcolor[1]);
+        /* 5 */ features.push_back((double)objects[i]->labcolor[2]);
         
         // Stroke width
-        /* 6 */ features.push_back(objects[i]->strokeWidth/objects[i]->longLength);
-        
-        
-        // TODO: Stroke width の分散
+        /* 6 */ features.push_back(objects[i]->strokeWidth);
+        /* 7 */ features.push_back(objects[i]->varStrokeWidth);
         
         // TODO: Contour roughness
-        
         
         // Rect ratio
         /* 7 */ features.push_back(objects[i]->rectRatio);
@@ -828,9 +739,6 @@ void* find_corr_pairs_thread(void* param)
     
     pthread_mutex_lock(&corr_mutex);
     object->corrPairPixels = *new vector<Point>(corrPixels);
-    if (type>0) object->pInnerPixels = *new vector<Point>(innerPixels);
-    else object->mInnerPixels = *new vector<Point>(innerPixels);
-    object->computeColor(srcImage);
     pthread_mutex_unlock(&corr_mutex);
     
     return NULL;

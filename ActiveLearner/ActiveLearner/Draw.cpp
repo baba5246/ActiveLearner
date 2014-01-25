@@ -220,7 +220,7 @@ Mat Draw::drawEchars(const Mat& src, const vector<Object*>& objects)
         
 //        if (objects[i].Echar < 0.75) continue;
         
-        if (objects[i]->isPositive) color = CV_RGB(objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS, 0);
+        if (objects[i]->gradientType>0) color = CV_RGB(objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS, 0);
         else color = CV_RGB(0, objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS);
 
 //        color = CV_RGB(BRIGHTNESS, BRIGHTNESS, 0);
@@ -504,28 +504,25 @@ Mat Draw::drawSWTComponents(const Mat& swt, const vector<vector<Point> >& compon
     return dst;
 }
 
-Mat Draw::drawInnerAreaOfObjects(const Mat& swt, const vector<Object*>& objects)
+Mat Draw::drawInnerAreaOfObjects(const Mat& src, const vector<Object*>& objects)
 {
-    int H = swt.rows, W = swt.cols;
+    int H = src.rows, W = src.cols;
     Mat dst = Mat(H, W, CV_8UC3);
     dst = CV_RGB(100, 100, 100);
     
     srand((unsigned int)1);
     
-    Point p;
+    Point origin;
     Scalar color(0, 0, 0);
     for (int i = 0; i < objects.size(); i++) {
 
-        color = CV_RGB(rand() % BRIGHTNESS,
-                       rand() % BRIGHTNESS,
-                       rand() % BRIGHTNESS);
-        p = objects[i]->origin;
+        origin = objects[i]->origin;
+        color = objects[i]->color;
         
         for (int y = 0; y < objects[i]->height; y++) {
             for (int x = 0; x < objects[i]->width; x++) {
-                
-                if (objects[i]->innerAreaMap.at<int>(y, x)!=0) {
-                    circle(dst, Point(x+p.x, y+p.y), 0.5f, color);
+                if (objects[i]->innerAreaMap.at<int>(y, x) == objects[i]->gradientType) {
+                    circle(dst, Point(x+origin.x, y+origin.y), 0.5f, color);
                 }
             }
         }

@@ -214,8 +214,10 @@ void Draw_old::drawEchars(const Mat& src, const vector<Object*>& objects)
         
         //if (objects[i].Echar < 0.75) continue;
         
-        if (objects[i]->isPositive) color = CV_RGB(objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS, 0);
-        else color = CV_RGB(0, objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS);
+        if (objects[i]->gradientType>0)
+            color = CV_RGB(objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS, 0);
+        else
+            color = CV_RGB(0, objects[i]->Echar*BRIGHTNESS, objects[i]->Echar*BRIGHTNESS);
         
         vector<cv::Point> corrPixels = objects[i]->corrPairPixels;
         for (int j = 0; j < pixels.size(); j++)

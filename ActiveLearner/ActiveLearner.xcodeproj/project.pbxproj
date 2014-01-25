@@ -186,6 +186,7 @@
 				875D4A01182A10BB00495344 /* Controllers */,
 				875D4A03182A10C900495344 /* Processors */,
 				FE929D6118905DD200829701 /* SemiSupervised */,
+				87AB6EFE1893FE3F00FECEF3 /* OldFiles */,
 				875D49F8182A106B00495344 /* ActiveLearner.xcdatamodeld */,
 				875D49E7182A106B00495344 /* Supporting Files */,
 			);
@@ -276,6 +277,15 @@
 			name = Components;
 			sourceTree = "<group>";
 		};
+		87AB6EFE1893FE3F00FECEF3 /* OldFiles */ = {
+			isa = PBXGroup;
+			children = (
+				FE46B397182A36B00070725A /* Draw_old.h */,
+				FE46B396182A36B00070725A /* Draw_old.cpp */,
+			);
+			name = OldFiles;
+			sourceTree = "<group>";
+		};
 		FE929D6118905DD200829701 /* SemiSupervised */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,8 +308,6 @@
 				FEB4BFFB1858D558004CD5B5 /* Distancer.cpp */,
 				87ADAF00188FA3D6001CA898 /* Draw.h */,
 				87ADAEFF188FA3D6001CA898 /* Draw.cpp */,
-				FE46B397182A36B00070725A /* Draw_old.h */,
-				FE46B396182A36B00070725A /* Draw_old.cpp */,
 				8778A7BB18321CBF00824EE6 /* Components */,
 			);
 			name = CVMethods;

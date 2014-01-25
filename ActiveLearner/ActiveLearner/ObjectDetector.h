@@ -52,8 +52,6 @@ private:
     void findCorrPairs(vector<Object*>& objects, const Mat& gradients);
     void findPairs(Object*& object, int index, int type, Mat_<int> table);
     void gradientOfCorrPairs(vector<Object*>& objects, const Mat_<double>& gradients);
-    void computeEchar(vector<Object*>& objects);
-    void computeStrokeWidth(vector<Object*>& objects);
     
     void setFeatures(vector<Object*>& objects);
     

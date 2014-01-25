@@ -20,9 +20,11 @@ public:
     cv::Size srcSize;
     
     int contourArea = 0, rectArea = 0, width = 0, height = 0;
+    int mInnerArea = 0, pInnerArea = 0,  innerArea = 0;
     
     double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, areaRatio = 0;
-    double longLength = 0, Gangle = 0, Fcorr = 0, Echar = 0, strokeWidth = 0, CR = 0;
+    double longLength = 0, Gangle = 0, Fcorr = 0, Echar = 0, CR = 0;
+    double strokeWidth = 0, varStrokeWidth = 0;
     
     cv::Point origin, centroid;
     cv::Point tp, lp, rp, bp;
@@ -34,7 +36,7 @@ public:
     
     int mserIndex = -1, nearestIndex = -1;
     
-    bool isPositive = true;
+    int gradientType = 0;
 
     vector<int> parents;
     vector<int> children;
@@ -44,11 +46,11 @@ public:
     vector<cv::Point> surroundings;
     vector<cv::Point> contourPixels;
     vector<cv::Point> corrPairPixels;
-    vector<cv::Point> mInnerPixels, pInnerPixels;
+    vector<cv::Point> mCorrPairPixels, pCorrPairPixels;
     
     vector<double> thetas;
-    vector<double> thetasWtoB;
-    vector<double> thetasBtoW;
+    vector<double> mCorrThetas;
+    vector<double> pCorrThetas;
     vector<double> corrThetas;
     vector<double> surrThetas;
     vector<double> features;
@@ -77,19 +79,22 @@ public:
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
     void mergeObject(Object obj);
-    void computeStrokeWidth();
     
 #pragma mark -
 #pragma mark Compute Properties Methods
 private:
     void computeProperties();
-    void computeContourArea(int gridSize);
     void computeTLRB();
+    void computeContourArea(int gridSize);
     void uniqueContour();
     
-public:
-    void computeColor(Mat& src);
+    void computeStrokeWidth();
+    void computeFromInnerAreaMap(Mat& src);
+    void computeEchar();
     void computeInnerArea();
+    
+public:
+    void computeFeatures(Mat& srcImage);
 
 #pragma mark -
 #pragma mark Operator
