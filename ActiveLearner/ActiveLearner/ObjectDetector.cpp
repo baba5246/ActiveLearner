@@ -2,7 +2,7 @@
 #include "ObjectDetector.h"
 
 #pragma mark -
-#pragma mark Thread Methods
+#pragma mark Thread Methods & Instances
 
 typedef struct {
     Mycv mycv;
@@ -10,12 +10,26 @@ typedef struct {
     Mat_<double> gradient;
 } SWT_THREAD_ARG;
 
+typedef struct {
+    Object* object;
+    int index;
+    Mat_<int> table;
+    Mat srcImage;
+    int type;
+    
+} CORR_THREAD_ARG;
+
+// SWT Instances
 pthread_mutex_t mutex;
 vector<SWTObject> swtobjects;
 void* swt_minus_thread(void* pParam);
 void* swt_plus_thread(void* pParam);
 Mat swtm, swtp;
 vector<vector<cv::Point> > compm, compp;
+
+pthread_mutex_t corr_mutex;
+void* find_corr_pairs_thread(void* param);
+
 
 #pragma mark -
 #pragma mark Inline Methods
@@ -145,7 +159,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
     computeStrokeWidth(objects);    // Stroke Width
     setFeatures(objects);           // 特徴量をセット
     
-//    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
+    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
     
 }
 
@@ -427,99 +441,94 @@ Scalar ObjectDetector::getColor(int x, int y)
 void ObjectDetector::findCorrPairs(vector<Object*>& objects, const Mat& gradients)
 {
     Mat_<int> table = createImageTable(objects);
-    vector<double> thetas;
-    vector<cv::Point> pixels, corrPixels;
-    vector<Scalar> colors;
-    
-    Point_<double> p, ray;
-    Point_<int> q, diff, r;
-    cv::Point p1, p2, vp1(1,0), vp2(-1,0), hp1(0,1), hp2(0,-1);
-    cv::Point origin, innerp;
-    
-    bool findFlag = false;
-    bool isPositive = false;
-    int count = 0;
+    int minusType = -1, plusType = 1;
     
     for (int i = 0; i < objects.size(); i++)
     {
-        count = 0;
-        isPositive = isPositiveDirection(objects[i]);
-        pixels = objects[i]->contourPixels;
-        thetas = objects[i]->thetas;
-        corrPixels = *new vector<Point>(pixels.begin(), pixels.end());
-        colors = *new vector<Scalar>();
-        
-        for (int j = 0; j < pixels.size(); j++)
-        {
-            // Initialize
-            findFlag = false;
-            
-            // Color保存用
-            vector<Scalar> tmp_colors;
-            vector<Point> innerPixels;
-            
-            // p and ray
-            p = pixels[j];
-            ray = Point_<double>(-cos(thetas[j]), sin(thetas[j]));
-            if (abs(ray.x) > abs(ray.y)) {
-                p1 = hp1;
-                p2 = hp2;
-            } else {
-                p1 = vp1;
-                p2 = vp2;
-            }
-            
-            for (int n = 2; n < 300; n++) {
-                
-                // Compute a ray point
-                if (isPositive) q = p - n * ray;
-                else q = p + n * ray;
-                
-                if (!isFullIn(srcW, srcH, q.x, q.y)) continue;
-                Vec3b vec = srcImage.at<Vec3b>(q);
-                tmp_colors.push_back(Scalar(vec[0], vec[1], vec[2]));
-                innerPixels.push_back(Point(q.x, q.y));
-                
-                // Search object table
-                if (table.at<int>(q) == i) {
-                    corrPixels[j] = Point(q.x, q.y);
-                    findFlag = true;
-                    break;
-                } else if (table.at<int>(q+p1) == i) {
-                    corrPixels[j] = Point((q+p1).x, (q+p1).y);
-                    findFlag = true;
-                    break;
-                } else if (table.at<int>(q+p2) == i) {
-                    corrPixels[j] = Point((q+p2).x, (q+p2).y);
-                    findFlag = true;
-                    break;
-                }
-            }
-            
-            if (findFlag == false) {
-                corrPixels[j] = Point(-1, -1);
-                tmp_colors.clear();
-                count++;
-            } else {
-                colors.insert(colors.end(), tmp_colors.begin(), tmp_colors.end());
-                origin = objects[i]->origin;
-                for (int k = 0; k < innerPixels.size(); k++) {
-                    innerp = innerPixels[k] - origin;
-                    if (isFullIn(objects[i]->width, objects[i]->height, innerp.x, innerp.y)) {
-                        objects[i]->innerAreaMap.at<int>(innerp) = 1;
-                    }
-                }
-            }
-            
-            innerPixels.clear();
-//            objects[i]->corrPairPixels = corrPixels;
-//            Draw::draw(Draw::drawEchars(srcImage, objects));
-        }
-        
-        objects[i]->corrPairPixels = corrPixels;
-        objects[i]->isPositive = isPositive;
+        findPairs(objects[i], i, minusType, table);
+        findPairs(objects[i], i, plusType, table);
         objects[i]->computeColor(srcImage);
     }
+}
+
+void ObjectDetector::findPairs(Object*& object, int index, int type, Mat_<int> table)
+{
+    cv::Size size(object->width, object->height);
+    cv::Point origin = object->origin;
+    vector<double> thetas = object->thetas;
+    vector<cv::Point> pixels = object->contourPixels;
+    
+    vector<cv::Point> corrPixels = vector<cv::Point>(pixels.begin(), pixels.end());
+    vector<cv::Point> innerPixels = vector<cv::Point>();
+    
+    Point_<double> p, ray;
+    Point_<int> q;
+    cv::Point p1, p2, vp1(1,0), vp2(-1,0), hp1(0,1), hp2(0,-1);
+    cv::Point innerp;
+    
+    bool findFlag = false;
+    int count = 0;
+    
+    for (int j = 0; j < pixels.size(); j++)
+    {
+        // Initialize
+        findFlag = false;
+        innerPixels.clear();
+        
+        // p and ray
+        p = pixels[j];
+        ray = Point_<double>(-cos(thetas[j]), sin(thetas[j]));
+        if (abs(ray.x) > abs(ray.y)) {
+            p1 = hp1;
+            p2 = hp2;
+        } else {
+            p1 = vp1;
+            p2 = vp2;
+        }
+        
+        for (int n = 2; n < 300; n++) {
+            
+            // Compute a ray point
+            if (type>0) q = p + n * ray;
+            else q = p - n * ray;
+            
+            if (!isFullIn(srcW, srcH, q.x, q.y))
+                continue;
+            
+            // Input q as an inner pixel
+            innerPixels.push_back(Point(q.x, q.y));
+            
+            // Search the object table
+            if (table.at<int>(q) == index) {
+                corrPixels[j] = Point(q.x, q.y);
+                findFlag = true;
+                break;
+            } else if (table.at<int>(q+p1) == index) {
+                corrPixels[j] = Point((q+p1).x, (q+p1).y);
+                findFlag = true;
+                break;
+            } else if (table.at<int>(q+p2) == index) {
+                corrPixels[j] = Point((q+p2).x, (q+p2).y);
+                findFlag = true;
+                break;
+            }
+            
+        }
+        
+        if (findFlag == false) {
+            corrPixels[j] = Point(-1, -1);
+            count++;
+        } else {
+            for (int k = 0; k < innerPixels.size(); k++) {
+                innerp = innerPixels[k] - origin;
+                if (isFullIn(object->width, object->height, innerp.x, innerp.y)) {
+                    object->innerAreaMap.at<int>(innerp) = type;
+                }
+            }
+        }
+    }
+    
+    object->corrPairPixels = *new vector<Point>(corrPixels);
 }
 
 Mat_<int> ObjectDetector::createImageTable(const vector<Object*>& objects)
@@ -705,9 +714,9 @@ cv::Rect* ObjectDetector::intersect(const cv::Rect& rect1, const cv::Rect& rect2
     return rect;
 }
 
-void* swt_minus_thread(void* pParam)
+void* swt_minus_thread(void* param)
 {
-    SWT_THREAD_ARG *arg =(SWT_THREAD_ARG*)pParam;
+    SWT_THREAD_ARG *arg =(SWT_THREAD_ARG*)param;
     
     Mycv mycv = arg->mycv;
     
@@ -715,12 +724,13 @@ void* swt_minus_thread(void* pParam)
     cout << "SWT Minus Time: " << swtm_clock << "ms" << endl;
     clock_t swtcompm_clock = mycv.SWTComponents(swtm, compm);
     cout << "SWT Minus Components Time: " << swtcompm_clock << "ms" << endl;
-
+    
+    return NULL;
 }
 
-void* swt_plus_thread(void* pParam)
+void* swt_plus_thread(void* param)
 {
-    SWT_THREAD_ARG *arg =(SWT_THREAD_ARG*)pParam;
+    SWT_THREAD_ARG *arg =(SWT_THREAD_ARG*)param;
     
     Mycv mycv = arg->mycv;
     
@@ -729,7 +739,100 @@ void* swt_plus_thread(void* pParam)
     clock_t swtcompp_clock = mycv.SWTComponents(swtp, compp);
     cout << "SWT Plus Components Time: " << swtcompp_clock << "ms" << endl;
     
+    return NULL;
 }
 
+void* find_corr_pairs_thread(void* param)
+{
+    CORR_THREAD_ARG *arg = (CORR_THREAD_ARG*)param;
+    Object *object = arg->object;
+    int index = arg->index;
+    Mat_<int> table(arg->table);
+    int type = arg->type;
+    Mat srcImage(arg->srcImage);
+    
+    // Object情報取得（変数ロック）
+    pthread_mutex_lock(&corr_mutex);
+    cv::Size size(object->width, object->height);
+    cv::Point origin = object->origin;
+    vector<double> *thetas = &(object->thetas);
+    vector<cv::Point> *pixels = &(object->contourPixels);
+    pthread_mutex_unlock(&corr_mutex);
+    
+    vector<cv::Point> corrPixels = vector<cv::Point>(pixels->begin(), pixels->end());
+    vector<cv::Point> innerPixels = vector<cv::Point>();
+    innerPixels.reserve(size.width*size.height);
+    vector<cv::Point> tempInnerPixels;
+    tempInnerPixels.reserve(innerPixels.size());
+    
+    Point_<double> p, ray;
+    Point_<int> q;
+    cv::Point p1, p2, vp1(1,0), vp2(-1,0), hp1(0,1), hp2(0,-1);
+    cv::Point innerp;
+    
+    bool findFlag = false;
+    int count = 0;
+    
+    for (int j = 0; j < pixels->size(); j++)
+    {
+        // Initialize
+        findFlag = false;
+        tempInnerPixels.clear();
+        
+        // p and ray
+        p = (*pixels)[j];
+        ray = Point_<double>(-cos((*thetas)[j]), sin((*thetas)[j]));
+        if (abs(ray.x) > abs(ray.y)) {
+            p1 = hp1;
+            p2 = hp2;
+        } else {
+            p1 = vp1;
+            p2 = vp2;
+        }
+        
+        for (int n = 2; n < 300; n++) {
+            
+            // Compute a ray point
+            if (type>0) q = p + n * ray;
+            else q = p - n * ray;
+            
+            if (!isFullIn(srcImage.cols, srcImage.rows, q.x, q.y))
+                continue;
 
+            // Input q as an inner pixel
+            tempInnerPixels.push_back(Point(q.x, q.y));
+            
+            // Search the object table
+            if (table.at<int>(q) == index) {
+                corrPixels[j] = Point(q.x, q.y);
+                findFlag = true;
+            } else if (table.at<int>(q+p1) == index) {
+                corrPixels[j] = Point((q+p1).x, (q+p1).y);
+                findFlag = true;
+            } else if (table.at<int>(q+p2) == index) {
+                corrPixels[j] = Point((q+p2).x, (q+p2).y);
+                findFlag = true;
+            }
+            
+        }
+        
+        if (findFlag == false) {
+            corrPixels[j] = Point(-1, -1);
+            count++;
+        } else {
+            for (int k = 0; k < tempInnerPixels.size(); k++) {
+                innerPixels.push_back(Point(tempInnerPixels[k]));
+            }
+        }
+    }
+    
+    pthread_mutex_lock(&corr_mutex);
+    object->corrPairPixels = *new vector<Point>(corrPixels);
+    if (type>0) object->pInnerPixels = *new vector<Point>(innerPixels);
+    else object->mInnerPixels = *new vector<Point>(innerPixels);
+    object->computeColor(srcImage);
+    pthread_mutex_unlock(&corr_mutex);
+    
+    return NULL;
+}
 

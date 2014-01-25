@@ -524,7 +524,7 @@ Mat Draw::drawInnerAreaOfObjects(const Mat& swt, const vector<Object*>& objects)
         for (int y = 0; y < objects[i]->height; y++) {
             for (int x = 0; x < objects[i]->width; x++) {
                 
-                if (objects[i]->innerAreaMap.at<int>(y, x)>0) {
+                if (objects[i]->innerAreaMap.at<int>(y, x)!=0) {
                     circle(dst, Point(x+p.x, y+p.y), 0.5f, color);
                 }
             }

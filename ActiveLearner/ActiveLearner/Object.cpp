@@ -4,6 +4,14 @@
 #define GRID_SIZE   8
 
 #pragma mark -
+#pragma mark Inline Methods
+
+inline bool isNotFullIn(Point o, Size s, int x, int y)
+{
+    return x<=o.x || x>=o.x+s.width-1 || y<=o.y || y>=o.y+s.height-1;
+}
+
+#pragma mark -
 #pragma mark Constructor
 Object::Object()
 {
@@ -130,6 +138,21 @@ void Object::computeColor(Mat& src)
     } else {
         color = CV_RGB(0, 0, 0);
         labcolor = CV_RGB(0, 0, 0);
+    }
+}
+
+void Object::computeInnerArea()
+{
+    Point innerp;
+    for (int k = 0; k < mInnerPixels.size(); k++) {
+        innerp = mInnerPixels[k] - origin;
+        if (rect.contains(innerp) == false) continue;
+        innerAreaMap.at<int>(innerp) = -1;
+    }
+    for (int k = 0; k < pInnerPixels.size(); k++) {
+        innerp = pInnerPixels[k] - origin;
+        if (rect.contains(innerp) == false) continue;
+        innerAreaMap.at<int>(innerp) = 1;
     }
 }
 

@@ -44,6 +44,7 @@ public:
     vector<cv::Point> surroundings;
     vector<cv::Point> contourPixels;
     vector<cv::Point> corrPairPixels;
+    vector<cv::Point> mInnerPixels, pInnerPixels;
     
     vector<double> thetas;
     vector<double> thetasWtoB;
@@ -88,6 +89,7 @@ private:
     
 public:
     void computeColor(Mat& src);
+    void computeInnerArea();
 
 #pragma mark -
 #pragma mark Operator
