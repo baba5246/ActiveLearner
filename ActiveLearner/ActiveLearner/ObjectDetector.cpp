@@ -580,27 +580,27 @@ void ObjectDetector::setFeatures(vector<Object*>& objects)
         /* 3 */ features.push_back((double)objects[i]->color[0]);
         /* 4 */ features.push_back((double)objects[i]->color[1]);
         /* 5 */ features.push_back((double)objects[i]->color[2]);
-        /* 3 */ features.push_back((double)objects[i]->labcolor[0]);
-        /* 4 */ features.push_back((double)objects[i]->labcolor[1]);
-        /* 5 */ features.push_back((double)objects[i]->labcolor[2]);
+        /* 6 */ features.push_back((double)objects[i]->labcolor[0]);
+        /* 7 */ features.push_back((double)objects[i]->labcolor[1]);
+        /* 8 */ features.push_back((double)objects[i]->labcolor[2]);
         
         // Stroke width
-        /* 6 */ features.push_back(objects[i]->strokeWidth);
-        /* 7 */ features.push_back(objects[i]->varStrokeWidth);
+        /* 9 */ features.push_back(objects[i]->strokeWidth);
+        /* 10 */ features.push_back(objects[i]->varStrokeWidth);
         
         // TODO: Contour roughness
         
         // Rect ratio
-        /* 7 */ features.push_back(objects[i]->rectRatio);
+        /* 11 */ features.push_back(objects[i]->rectRatio);
         
         // Aspect ratio
-        /* 8 */ features.push_back(objects[i]->aspectRatio);
+        /* 12 */ features.push_back(objects[i]->aspectRatio);
         
-        // Long length ratio
-        /* 9 */ features.push_back(objects[i]->longLengthRatio);
+        // Long length
+        /* 13 */ features.push_back(objects[i]->longLength);
         
         // Area ratio
-        /* 10 */ features.push_back(objects[i]->areaRatio);
+        /* 14 */ features.push_back(objects[i]->areaRatio);
         
         // Set features
         objects[i]->features = features;
