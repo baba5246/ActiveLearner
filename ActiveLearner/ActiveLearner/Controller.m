@@ -7,6 +7,7 @@
     Processor *processor;
 }
 
+@synthesize consoleView, textScrollView;
 @synthesize imageView;
 
 -(id) init
@@ -16,6 +17,9 @@
         
         model = [Model sharedManager];
         processor = [Processor sharedManager];
+        
+        [consoleView setHorizontallyResizable:YES];
+        [consoleView setVerticallyResizable:YES];
         
         // Notification設定
         Notification *n = [Notification sharedManager];
@@ -64,19 +68,18 @@
 
 - (void) consoleMethod:(NSNotification *) n
 {
-    NSString *output = [n userInfo][@"output"];
+    NSString *output = [n userInfo][OUTPUT];
     [self console:output];
 }
 
 - (void) console:(NSString *) output
 {
-//    NSString *text = [NSString stringWithFormat:@"%@\n", output];
-//    [[console textStorage] appendAttributedString:[[NSAttributedString alloc] initWithString:text]];
-//
-////    NSRange range = NSMakeRange([[console string] length], 0);
-//    [console scrollToBeginningOfDocument:[console string]];
-//    [console scrollToEndOfDocument:[console string]];
+//    NSRange insertAtEnd=NSMakeRange([[consoleView textStorage] length],0);
+//    [consoleView replaceCharactersInRange:insertAtEnd
+//                          withString:output];
+//    [textScrollView setScrollsDynamically:YES];
 }
+
 
 #pragma mark -
 #pragma mark Image Output Methods

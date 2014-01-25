@@ -137,7 +137,7 @@ void ObjectDetector::detect(vector<Object*>& objects)
     // 特徴量計算
     setFeatures(objects);           // 特徴量をセット
     
-    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
+//    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
     
 }
 

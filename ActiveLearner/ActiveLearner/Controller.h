@@ -16,6 +16,8 @@
 }
 
 @property (weak) IBOutlet NSImageView *imageView;
+@property (unsafe_unretained) IBOutlet NSTextView *consoleView;
+@property (weak) IBOutlet NSScrollView *textScrollView;
 
 
 #pragma mark -

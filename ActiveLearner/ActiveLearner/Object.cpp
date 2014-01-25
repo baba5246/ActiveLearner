@@ -242,7 +242,6 @@ void Object::computeEchar()
     double alpha = 0.6;
     int fcpcount = 0, count = 0;
     
-    
     for (int j = 0; j < thetas.size(); j++)
     {
         if (corrPairPixels[j].x < 0 || corrPairPixels[j].y < 0)
@@ -262,7 +261,7 @@ void Object::computeEchar()
     if (count > 0)
     {
         // ADGDとFCPの算出
-        Gangle = adgd / count;
+        Gangle = adgd / fcpcount;
         Fcorr = (double)fcpcount / count;
         // Echarの算出
         Echar = (Gangle / M_PI + Fcorr) / 2;

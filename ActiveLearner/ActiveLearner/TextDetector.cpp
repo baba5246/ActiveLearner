@@ -69,7 +69,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     // Group特徴量計算
 //    setFeatures(texts, objects);
     
-    Draw::draw(Draw::drawTexts(srcImage, texts));
+//    Draw::draw(Draw::drawTexts(srcImage, texts));
 }
 
 
@@ -110,8 +110,6 @@ void TextDetector::detectTexts(vector<Text*>& texts, vector<Object*>& objects)
             
             // Add as a candidate
             texts.push_back(text);
-            
-            //            Draw::draw(Draw::drawText(srcImage, text));
         }
     }
 }
