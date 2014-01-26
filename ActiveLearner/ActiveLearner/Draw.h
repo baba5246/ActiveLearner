@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include "Object.h"
 #include "Text.h"
 #include "MSERegion.h"
@@ -28,6 +29,7 @@ public:
     static Mat drawGradientLine(const Mat& src, const vector<Object*>& objects, double a, double b);
     static Mat drawSurroundings(const Mat& src, const vector<Object*>& objects);
     static Mat drawText(const Mat& src, Text*& text);
+    static Mat drawText(const Mat& src, Text*& text, cv::Rect small, cv::Rect large);
     static Mat drawTexts(const Mat& src, const vector<Text*>& texts);
     static Mat drawSWT(const Mat& swt, const double max);
     static Mat drawSWTObjects(const Mat_<double>& swt,

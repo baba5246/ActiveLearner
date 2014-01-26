@@ -3,10 +3,15 @@
 
 #pragma mark -
 #pragma mark Inline Methods
+
+inline double pointSize(cv::Point p)
+{
+    return sqrt(p.x*p.x+p.y*p.y);
+}
 inline double distanceObjects(Object*& obj1, Object*& obj2)
 {
     Point diff = obj1->centroid - obj2->centroid;
-    return sqrt(diff.x*diff.x+diff.y*diff.y);
+    return pointSize(diff);
 }
 
 inline double similarityColor(Scalar a, Scalar b)
@@ -60,19 +65,53 @@ void Text::add(Object*& obj, double distance)
 void Text::add(Text *&text)
 {
     vector<Object*> temp_objects;
-    for (int i = 0; i < objects.size(); i++)
-        for (int j = 0; j < text->objects.size(); j++) {
-            if (!objects[i]->ID.compare(text->objects[j]->ID)) {
-                temp_objects.push_back(text->objects[j]);
+    
+    for (int i = 0; i < text->objects.size(); i++) {
+        bool findFlag = false;
+        for (int j = 0; j < this->objects.size(); j++) {
+            if (!text->objects[i]->ID.compare(this->objects[j]->ID)) {
+                findFlag = true;
+                break;
             }
         }
-    
+        if (findFlag) {
+            temp_objects.push_back(text->objects[i]);
+        }
+    }
     objects.insert(objects.end(), temp_objects.begin(), temp_objects.end());
+    
     aveDist += text->aveDist;
     aveDist /= 2.0f;
     computeColor();
     computeStrokeWidth();
     computeRatioFeatures();
+}
+
+void Text::reLinkOriginIndexes()
+{
+    sort(objects.begin(), objects.end(), Object::LTtoRB);
+    
+    // リンク貼り直し
+    vector<int> origins(objects.size(), 0);
+    Point p1, p2, old_diff, new_diff;
+    for (int i = 0; i < objects.size(); i++) {
+        
+        if (i == 0) continue;
+        
+        p1 = objects[i]->centroid;
+        old_diff = p1 - objects[origins[i]]->centroid;
+        
+        for (int j =i+1; j < objects.size(); j++) {
+            p2 = objects[j]->centroid;
+            new_diff = p2 - p1;
+            double gradient = acos(old_diff.ddot(new_diff) / (pointSize(old_diff) * pointSize(new_diff)));
+            if (fabs(gradient) < M_PI_1_8) {
+                origins[j] = i;
+            }
+        }
+    }
+    
+    originIndexes = origins;
 }
 
 bool Text::areAllFocused()
@@ -260,6 +299,7 @@ void Text::computeRatioFeatures()
     width = maxx - minx + 1;
     height = maxy - miny + 1;
     rect = cv::Rect(minx, miny, width, height);
+    rectArea = rect.area();
     rectRatio = (double)rect.area() / (srcImage.rows*srcImage.cols);
     aspectRatio = (double) MIN(width, height) / MAX(width, height);
     if (width > height) longLengthRatio = (double)width / srcImage.cols;

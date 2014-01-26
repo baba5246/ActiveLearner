@@ -8,10 +8,13 @@ void Draw::drawImage(const Mat& src)
     if(!src.data) {
         cout <<  "Could not open or find the image" << endl ;
     } else {
-        namedWindow( "Display window", CV_WINDOW_AUTOSIZE );
-        imshow( "Display window", src);
+        stringstream ss;
+        int random = rand() % DRAW_WAIT_TIME;
+        ss << random;
+        namedWindow( "Display window" + ss.str(), CV_WINDOW_AUTOSIZE );
+        imshow( "Display window" + ss.str(), src);
         waitKey(DRAW_WAIT_TIME);
-        destroyWindow("Display window");
+        destroyWindow("Display window" + ss.str());
     }
 }
 void Draw::drawImage(const Mat& src1, const Mat& src2)
@@ -296,7 +299,35 @@ Mat Draw::drawText(const cv::Mat &src, Text *&text)
         else circle(dst, text->objects[j]->centroid, 3, red);
         
         if (text->originIndexes[j] >= 0) {
-            line(dst, text->objects[j]->centroid, text->objects[text->originIndexes[j]]->centroid, red);
+            line(dst, text->objects[j]->centroid,
+                 text->objects[text->originIndexes[j]]->centroid, red);
+        }
+    }
+    
+    return dst;
+}
+
+Mat Draw::drawText(const Mat& src, Text*& text, cv::Rect small, cv::Rect large)
+{
+    Mat dst = src.clone();
+    
+    srand((unsigned int)1);
+    Scalar red = CV_RGB(BRIGHTNESS,0,0);
+    Scalar green = CV_RGB(0,BRIGHTNESS,0);
+    Scalar yellow = CV_RGB(BRIGHTNESS,BRIGHTNESS,0);
+    Scalar blue = CV_RGB(0,0,BRIGHTNESS);
+    rectangle(dst, text->rect, red, 3);
+    rectangle(dst, small, green, 2);
+    rectangle(dst, large, yellow, 2);
+    
+    for (int j = 0; j < text->objects.size(); j++) {
+        if (j == 0) circle(dst, text->objects[j]->centroid, 3, red, 3);
+        else if (j == text->focusedIndex) circle(dst, text->objects[j]->centroid, 3, blue);
+        else circle(dst, text->objects[j]->centroid, 3, red);
+        
+        if (text->originIndexes[j] >= 0) {
+            line(dst, text->objects[j]->centroid,
+                 text->objects[text->originIndexes[j]]->centroid, red);
         }
     }
     
@@ -319,6 +350,9 @@ Mat Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
             if (j == 0) circle(dst, texts[i]->objects[j]->centroid, 3, color, 3);
             else {
                 circle(dst, texts[i]->objects[j]->centroid, 3, color, 1);
+            }
+            if (texts[i]->originIndexes[j] >= 0) {
+                line(dst, texts[i]->objects[j]->centroid, texts[i]->objects[texts[i]->originIndexes[j]]->centroid, color);
             }
         }
     }

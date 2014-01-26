@@ -20,7 +20,7 @@ public:
     
     int srcW = 0, srcH;
     int width = 0, height = 0;
-    double objectArea = 0, textArea = 0;
+    double rectArea = 0, objectArea = 0, textArea = 0;
     double objectCount = 0, falseCount = 0;
     cv::Rect rect;
     cv::Point centroid;
@@ -48,11 +48,20 @@ public:
     
     void add(Object*& obj, double distance);
     void add(Text*& text);
+    void reLinkOriginIndexes();
     void addDistance(double distance);
     bool areAllFocused();
     bool contains(Object*& obj);
     void computeProperties();
     void countFalseObjects(vector<Object*>& objs);
+    
+    
+    static int isLeftLarge(Text* t1, Text* t2) {
+        return (t1->rectArea > t2->rectArea);
+    }
+    static int isLeftSmall(Text* t1, Text* t2) {
+        return (t1->rectArea < t2->rectArea);
+    }
     
 private:
     void computeColor();

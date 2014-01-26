@@ -58,18 +58,18 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     vector<Text*> temp_texts;
     
     // Group 抽出
-    detectTexts(texts, objects);
+    detectTexts(temp_texts, objects);
+    
+    // Group特徴量計算
+    setFeatures(temp_texts, objects);
+
+    // Groupのマージ
+    mergeTempTexts(texts, temp_texts);
     
     // Group特徴量計算
     setFeatures(texts, objects);
     
-    // Groupのマージ
-//    mergeTempTexts(texts, temp_texts);
-    
-    // Group特徴量計算
-//    setFeatures(texts, objects);
-    
-//    Draw::draw(Draw::drawTexts(srcImage, texts));
+    Draw::draw(Draw::drawTexts(srcImage, texts));
 }
 
 
@@ -79,7 +79,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
 void TextDetector::detectTexts(vector<Text*>& texts, vector<Object*>& objects)
 {
     // Sort
-    sort(objects.begin(), objects.end(), Object::leftToRight);
+    sort(objects.begin(), objects.end(), Object::LTtoRB);
     
     // Grouping アルゴリズム
     for (int i = 0; i < objects.size(); i++)
@@ -227,6 +227,80 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
     }
 }
 
+// Merge texts
+void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_texts)
+{
+    sort(temp_texts.begin(), temp_texts.end(), Text::isLeftLarge);
+    
+    vector<int> alreadies;
+    for (int i = 0; i < temp_texts.size(); i++) {
+        
+        if (find(alreadies.begin(), alreadies.end(), i) != alreadies.end())
+            continue;
+        
+        Text *text(temp_texts[i]);
+        Rect large = temp_texts[i]->rect;
+        
+        for (int j = i+1; j < temp_texts.size(); j++) {
+            
+            if (find(alreadies.begin(), alreadies.end(), j) != alreadies.end())
+                continue;
+            
+            Rect small = temp_texts[j]->rect;
+            Rect intersect = small & large;
+            double swratio = 0, lwratio = 0, shratio = 0, lhratio = 0, saratio = 0, laratio = 0;
+            
+            if (intersect.width>0 && intersect.height) {
+                swratio = (double)intersect.width / small.width;
+                lwratio = (double)intersect.width / large.width;
+                shratio = (double)intersect.height / small.height;
+                lhratio = (double)intersect.height / large.height;
+                saratio = (double)intersect.area() / small.area();
+                laratio = (double)intersect.area() / large.area();
+                
+                // 一部でも重なっているものが対象
+                if (intersect.area()>0)
+                {
+                    // 横長いもの同士が対象
+                    if (small.width>small.height && large.width>large.height)
+                    {
+                        // 重なってる割合が両方大きい
+                        if (shratio > RECT_HABA_MARGE_THRESHOLD &&
+                            lhratio > RECT_HABA_MARGE_THRESHOLD)
+                        {
+                            text->add(temp_texts[j]);
+                            alreadies.push_back(j);
+//                            text->reLinkOriginIndexes();
+//                            Draw::draw(Draw::drawText(srcImage, text, small, large));
+                            continue;
+                        }
+                    }
+                    // 縦長いもの同士が対象
+                    else if (small.width<small.height && large.width<large.height)
+                    {
+                        // 重なってる割合が両方大きい
+                        if (swratio > RECT_HABA_MARGE_THRESHOLD &&
+                            lwratio > RECT_HABA_MARGE_THRESHOLD)
+                        {
+                            text->add(temp_texts[j]);
+                            alreadies.push_back(j);
+//                            text->reLinkOriginIndexes();
+//                            Draw::draw(Draw::drawText(srcImage, text, small, large));
+                            continue;
+                        }
+
+                    }
+                }
+                
+            }
+        }
+        
+        texts.push_back(text);
+        text->reLinkOriginIndexes();
+//        Draw::draw(Draw::drawText(srcImage, text));
+    }
+    
+}
 
 // Set Features to the Object
 void TextDetector::setFeatures(vector<Text*>& texts, vector<Object*>& objects)
@@ -283,75 +357,3 @@ void TextDetector::setFeatures(vector<Text*>& texts, vector<Object*>& objects)
     }
 }
 
-// Merge texts
-void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_texts)
-{
-    vector<int> alreadies;
-    for (int i = 0; i < temp_texts.size(); i++) {
-        
-        if (find(alreadies.begin(), alreadies.end(), i) != alreadies.end())
-            continue;
-        
-        Text *text(temp_texts[i]);
-        Rect rect = temp_texts[i]->rect;
-        
-        for (int j = i+1; j < temp_texts.size(); j++) {
-            
-            if (find(alreadies.begin(), alreadies.end(), j) != alreadies.end())
-                continue;
-            
-            Rect temp_rect = temp_texts[j]->rect;
-            Rect intersect = rect & temp_rect;
-            double wratio_orig = 0, wratio_temp = 0, hratio_orig = 0, hratio_temp = 0;
-            double wratio = 0, hratio = 0;
-            
-            if (intersect.width>0 && intersect.height) {
-                wratio_orig = intersect.width / rect.width;
-                wratio_temp = intersect.width / temp_rect.width;
-                hratio_orig = intersect.height / rect.height;
-                hratio_temp = intersect.height / temp_rect.height;
-                
-                // Almost Containのものをマージする
-                if (rect.area() > temp_rect.area()) {
-                    wratio = wratio_orig;
-                    hratio = hratio_orig;
-                } else {
-                    wratio = wratio_temp;
-                    hratio = hratio_temp;
-                }
-                if (wratio > ALMOST_CONTAIN_THRESHOLD && hratio > ALMOST_CONTAIN_THRESHOLD) {
-                    text->add(temp_texts[j]);
-                    alreadies.push_back(j);
-                    continue;
-                }
-                
-                if (rect.width > rect.height) {
-                    if (temp_rect.width > temp_rect.height) {
-                        if (wratio_orig > RECT_MARGE_THRESHOLD1 || wratio_temp > RECT_MARGE_THRESHOLD1) {
-                            if (hratio_orig > RECT_MARGE_THRESHOLD2 && hratio_temp > RECT_MARGE_THRESHOLD2) {
-                                text->add(temp_texts[j]);
-                                alreadies.push_back(j);
-                                rect = text->rect;
-                                continue;
-                            }
-                        }
-                    }
-                } else {
-                    if (temp_rect.height > temp_rect.width) {
-                        if (hratio_orig > RECT_MARGE_THRESHOLD1 || hratio_temp > RECT_MARGE_THRESHOLD1) {
-                            if (wratio_orig > RECT_MARGE_THRESHOLD2 && wratio_temp > RECT_MARGE_THRESHOLD2) {
-                                text->add(temp_texts[j]);
-                                alreadies.push_back(j);
-                                rect = text->rect;
-                                continue;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        texts.push_back(text);
-    }
-
-}

@@ -73,8 +73,10 @@ public:
     static int isLeftSmall(Object* obj1, Object* obj2) {
         return (obj1->rectArea < obj2->rectArea);
     }
-    static int leftToRight(Object* obj1, Object* obj2) {
-        return (obj1->lp.x < obj2->lp.x);
+    static int LTtoRB(Object* obj1, Object* obj2) {
+        double size1 = sqrt(obj1->centroid.x*obj1->centroid.x + obj1->centroid.y*obj1->centroid.y);
+        double size2 = sqrt(obj2->centroid.x*obj2->centroid.x + obj2->centroid.y*obj2->centroid.y);
+        return size1 < size2;
     }
     bool isParentOf(Object obj);
     bool isChildOf(Object obj);
