@@ -23,6 +23,7 @@ public:
     int mInnerArea = 0, pInnerArea = 0,  innerArea = 0;
     
     double rectRatio = 0, aspectRatio = 0, longLengthRatio = 0, areaRatio = 0;
+    double corrPixelRatio = 0;
     double longLength = 0, Gangle = 0, Fcorr = 0, Echar = 0, CR = 0;
     double strokeWidth = 0, varStrokeWidth = 0;
     
@@ -58,6 +59,7 @@ public:
     vector<Scalar> colors;
     Scalar color;
     Scalar labcolor;
+    double colorsim = 0;
     
     bool didFocused = false;
     vector<Object> neighbors;

@@ -265,7 +265,7 @@ void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_te
         
         if (link_out == false) {
             dst_texts.push_back(src_texts[i]);
-            Draw::draw(Draw::drawText(srcImage, src_texts[i]));
+//            Draw::draw(Draw::drawText(srcImage, src_texts[i]));
         }
     }
 }
@@ -391,7 +391,7 @@ void TextDetector::mergeContainedTexts(vector<Text*>& dst_texts, vector<Text*>& 
         
         text->reLinkOriginIndexes();
         dst_texts.push_back(text);
-        //        Draw::draw(Draw::drawText(srcImage, text));
+//        Draw::draw(Draw::drawText(srcImage, text));
     }
     
 }

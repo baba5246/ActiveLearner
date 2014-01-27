@@ -13,6 +13,11 @@
 using namespace std;
 using namespace cv;
 
+#define ECHAR_FILTERING_THRESHOLD           0.2
+#define CR_FILTERING_THRESHOLD              12
+#define COLOR_SIM_FILTERING_THRESHOLD       13
+#define CORR_PIXEL_RATIO_THRESHOLD          0.1
+
 class ObjectDetector {
     
 public:
@@ -57,7 +62,6 @@ private:
     void setFeatures(vector<Object*>& objects);
     
     Mat_<int> createImageTable(const vector<Object*>& objects);
-    cv::Rect* intersect(const cv::Rect& rect1, const cv::Rect& rect2);
     
     Scalar computeColor(const Mat& srcImage, const vector<cv::Point>& region);
     

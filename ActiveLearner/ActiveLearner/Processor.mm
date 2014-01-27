@@ -508,9 +508,10 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
             if (test == temp[i].label) {
                 e++;
             }
+//            extracts.push_back(temp[i].object);
         }
         
-        Mat src = imread(filepath);
+//        Mat src = imread(filepath);
 //        [self outputImage:Draw::drawObjects(src, extracts)];
         
         components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(extracts)));

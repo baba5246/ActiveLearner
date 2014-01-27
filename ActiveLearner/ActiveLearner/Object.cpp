@@ -13,7 +13,15 @@ inline bool isNotFullIn(Point o, Size s, int x, int y)
 
 inline double distPoints(Point p1, Point p2)
 {
-    return sqrt(p1.x*p2.x + p1.y*p2.y);
+    Point diff = p1 - p2;
+    return sqrt(diff.x*diff.x + diff.y*diff.y);
+}
+inline double similarityColor(Scalar a, Scalar b)
+{
+    double dl = a.val[0]-b.val[0];
+    double da = a.val[1]-b.val[1];
+    double db = a.val[2]-b.val[2];
+    return sqrt(dl*dl+da*da+db*db);
 }
 
 #pragma mark -
@@ -150,17 +158,26 @@ void Object::computeStrokeWidth()
 {
     int mcount = 0, pcount = 0;
     double mtemp = 0, ptemp = 0, sw = 0, var = 0, mave = 0, pave = 0, mvar = 0, pvar = 0;
-    vector<double> msws, psws, sws;
+    double mdiff, pdiff;
+    vector<double> msws, psws, sws, mdiffs, pdiffs, mddiffs, pddiffs, ddiffs;
     for (int i = 0; i < contourPixels.size(); i++)
     {
         if (mCorrPairPixels[i].x>0 || mCorrPairPixels[i].y>0) {
             mtemp = distPoints(contourPixels[i], mCorrPairPixels[i]);
+            if (msws.size()>0) {
+                mdiff = fabs(mtemp - msws[msws.size()-1]);
+                mdiffs.push_back(mdiff);
+            }
             msws.push_back(mtemp);
             mave += mtemp;
             mcount++;
         }
         if (pCorrPairPixels[i].x>0 || pCorrPairPixels[i].y>0) {
             ptemp = distPoints(contourPixels[i], pCorrPairPixels[i]);
+            if (psws.size()>0) {
+                pdiff = fabs(ptemp - psws[psws.size()-1]);
+                pdiffs.push_back(pdiff);
+            }
             psws.push_back(ptemp);
             pave += ptemp;
             pcount++;
@@ -170,9 +187,15 @@ void Object::computeStrokeWidth()
     pave /= pcount;
     for (int i = 0; i < msws.size(); i++) {
         mvar += pow((mave - msws[i]), 2);
+        if (i>0 && i < msws.size()-1) {
+            mddiffs.push_back(fabs(mdiffs[i] - mdiffs[i+1]));
+        }
     }
     for (int i = 0; i < psws.size(); i++) {
         pvar += pow((pave - psws[i]), 2);
+        if (i>0) {
+            pddiffs.push_back(fabs(pdiffs[i] - pdiffs[i+1]));
+        }
     }
     mvar /= mcount;
     pvar /= pcount;
@@ -184,6 +207,7 @@ void Object::computeStrokeWidth()
         corrPairPixels = mCorrPairPixels;
         corrThetas = mCorrThetas;
         innerArea = mInnerArea;
+        ddiffs = mddiffs;
     }
     else {
         sws = psws;
@@ -192,12 +216,17 @@ void Object::computeStrokeWidth()
         corrPairPixels = pCorrPairPixels;
         corrThetas = pCorrThetas;
         innerArea = pInnerArea;
+        ddiffs = pddiffs;
     }
     
     sort(sws.begin(), sws.end());
     if (sws.size()>0) sw = sws[sws.size()/2];
     strokeWidth = sw;
     varStrokeWidth = var;
+    
+    sort(ddiffs.begin(), ddiffs.end());
+    if (ddiffs.size()>0) CR = ddiffs[ddiffs.size()/2] / strokeWidth;
+    
 }
 
 void Object::computeFromInnerAreaMap(Mat& src)
@@ -207,7 +236,9 @@ void Object::computeFromInnerAreaMap(Mat& src)
     cvtColor(src, lab, CV_RGB2Lab);
     
     //
-    double count = 0, srcr = 0, srcg = 0, srcb = 0, labr = 0, labg = 0, labb = 0;
+    double count = 0, srcr = 0, srcg = 0, srcb = 0, labr = 0, labg = 0, labb = 0, sim = 0;
+    vector<Scalar> colors;
+    vector<double> sims;
     for (int y = 0; y < innerAreaMap.rows; y++) {
         for (int x = 0; x < innerAreaMap.cols; x++) {
             
@@ -221,6 +252,12 @@ void Object::computeFromInnerAreaMap(Mat& src)
                 labr += ((Scalar)lab.at<Vec3b>(p+origin))[2];
                 labg += ((Scalar)lab.at<Vec3b>(p+origin))[1];
                 labb += ((Scalar)lab.at<Vec3b>(p+origin))[0];
+                
+                colors.push_back((Scalar)src.at<Vec3b>(p+origin));
+                if (colors.size()>1) {
+                    sim = similarityColor(colors[colors.size()-2], colors[colors.size()-1]);
+                    sims.push_back(sim);
+                }
             }
         }
     }
@@ -229,10 +266,13 @@ void Object::computeFromInnerAreaMap(Mat& src)
         color = CV_RGB(srcr/count, srcg/count, srcb/count);
         labcolor = CV_RGB(floor(labr/count), floor(labg/count), floor(labb/count));
         innerArea = count;
+        sort(sims.begin(), sims.end());
+        if (sims.size()>0) colorsim = sims[sims.size()/2];
     } else {
         color = CV_RGB(0, 0, 0);
         labcolor = CV_RGB(0, 0, 0);
         innerArea = 0;
+        colorsim = 0;
     }
 }
 
@@ -266,7 +306,10 @@ void Object::computeEchar()
         Fcorr = (double)fcpcount / count;
         // Echarの算出
         Echar = (Gangle / M_PI + Fcorr) / 2;
+        // CorrPixelRatio
+        corrPixelRatio = (double)count / contourPixels.size();
     }
+    
     
 }
 

@@ -90,7 +90,7 @@ ObjectDetector::~ObjectDetector()
 
 void ObjectDetector::detect(vector<Object*>& objects)
 {
-    vector<Object*> cadidate_objects;
+    vector<Object*> candidate_objects;
     Mycv mycv(srcImage);
     
     // 各色でグレースケール＆エッジ抽出
@@ -110,8 +110,8 @@ void ObjectDetector::detect(vector<Object*>& objects)
     mycv.contours(edge, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
     
     // 輪郭から Object 作成
-    createObjects(contours, cadidate_objects);
-    cout << cadidate_objects.size() << " objects are created from contours." << endl;
+    createObjects(contours, candidate_objects);
+    cout << candidate_objects.size() << " objects are created from contours." << endl;
     
     // Unsharp Masking からの MSER 抽出
     Mat imgUnsharp;
@@ -120,27 +120,26 @@ void ObjectDetector::detect(vector<Object*>& objects)
     mycv.MSERs(imgUnsharp, msers);
     
     // MSER と包含関係を使って補正
-    mergeApartContours(cadidate_objects, msers);
-    if (cadidate_objects.size() == 0) return;
-    mergeIncludedObjects(cadidate_objects);
+    mergeApartContours(candidate_objects, msers);
+    if (candidate_objects.size() == 0) return;
+    mergeIncludedObjects(candidate_objects);
     
     // SWT と Color 類似度を使って補正
     Mat_<double> gradient = Mat_<double>(srcImage.rows, srcImage.cols);
     mycv.sobelFiltering(ggray, gradient);
     
     // Object の勾配方向計算
-    gradientOfObjects(cadidate_objects, gradient);
+    gradientOfObjects(candidate_objects, gradient);
     
     // Corresponding Pair の探索 と 特徴量計算
-    findCorrPairs(cadidate_objects, gradient);
-    gradientOfCorrPairs(cadidate_objects, gradient);
+    findCorrPairs(candidate_objects, gradient);
+    gradientOfCorrPairs(candidate_objects, gradient);
     
     // 特徴量計算
-    setFeatures(cadidate_objects);           // 特徴量をセット
+    setFeatures(candidate_objects);           // 特徴量をセット
+//    objects = candidate_objects;
     // 特徴量でフィルタリング
-    objectFiltering(objects, cadidate_objects);
-    
-//    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
+    objectFiltering(objects, candidate_objects);
     
 }
 
@@ -188,7 +187,7 @@ void ObjectDetector::mergeApartContours(vector<Object*>& objects, vector<MSERegi
         for (int j = 0; j < msers.size(); j++)
         {
             mserRect = msers[j].rect;
-            interRect = *intersect(objects[i]->rect, msers[j].rect);
+            interRect = objects[i]->rect & msers[j].rect;
             
             objRectRatio = (double)interRect.area() / objRect.area();
             mserRectRatio = (double)interRect.area() / mserRect.area();
@@ -563,15 +562,6 @@ void ObjectDetector::gradientOfCorrPairs(vector<Object*>& objects, const Mat_<do
     }
 }
 
-void ObjectDetector::objectFiltering(vector<Object*>& dst_objects, vector<Object*>& src_objects)
-{
-    for (int i = 0; i < src_objects.size(); i++) {
-        if (src_objects[i]->Echar > 0.5) {
-            dst_objects.push_back(src_objects[i]);
-        }
-    }
-}
-
 // Set Features
 void ObjectDetector::setFeatures(vector<Object*>& objects)
 {
@@ -584,57 +574,63 @@ void ObjectDetector::setFeatures(vector<Object*>& objects)
         vector<double> features;
         
         // Echar
-        /* 0 */ features.push_back(objects[i]->Gangle / M_PI);
+        /* 0 */ features.push_back(objects[i]->Gangle);
         /* 1 */ features.push_back(objects[i]->Fcorr);
         /* 2 */ features.push_back(objects[i]->Echar);
         
         // Color
-        /* 3 */ features.push_back((double)objects[i]->color[0]);
-        /* 4 */ features.push_back((double)objects[i]->color[1]);
-        /* 5 */ features.push_back((double)objects[i]->color[2]);
-        /* 6 */ features.push_back((double)objects[i]->labcolor[0]);
-        /* 7 */ features.push_back((double)objects[i]->labcolor[1]);
-        /* 8 */ features.push_back((double)objects[i]->labcolor[2]);
+        /* 3 */ features.push_back((double)objects[i]->color[0]/BRIGHTNESS);
+        /* 4 */ features.push_back((double)objects[i]->color[1]/BRIGHTNESS);
+        /* 5 */ features.push_back((double)objects[i]->color[2]/BRIGHTNESS);
+        /* 6 */ features.push_back((double)objects[i]->labcolor[0]/BRIGHTNESS);
+        /* 7 */ features.push_back((double)objects[i]->labcolor[1]/BRIGHTNESS);
+        /* 8 */ features.push_back((double)objects[i]->labcolor[2]/BRIGHTNESS);
+        /* 9 */ features.push_back((double)objects[i]->colorsim);
+        
         
         // Stroke width
-        /* 9 */ features.push_back(objects[i]->strokeWidth/objects[i]->width);
-        /* 10 */ features.push_back(objects[i]->varStrokeWidth/objects[i]->width);
+        /* 10 */ features.push_back(objects[i]->strokeWidth/objects[i]->width);
+        /* 11 */ features.push_back(objects[i]->varStrokeWidth);
         
         // TODO: Contour roughness
         
         // Rect ratio
-        /* 11 */ features.push_back(objects[i]->rectRatio);
+        /* 12 */ features.push_back(objects[i]->rectRatio);
         
         // Aspect ratio
-        /* 12 */ features.push_back(objects[i]->aspectRatio);
+        /* 13 */ features.push_back(objects[i]->aspectRatio);
         
         // Long length
-        /* 13 */ features.push_back(objects[i]->longLengthRatio);
+        /* 14 */ features.push_back(objects[i]->longLengthRatio);
         
         // Area ratio
-        /* 14 */ features.push_back(objects[i]->areaRatio);
+        /* 15 */ features.push_back(objects[i]->areaRatio);
+        
+        // Area ratio
+        double r = objects[i]->r;
+        /* 16 */ features.push_back(r*r*M_PI/objects[i]->rectArea);
+        
+        // Contour Roughness
+        /* 17 */ features.push_back(objects[i]->CR);
+        
+        /* 18 */ features.push_back(objects[i]->corrPixelRatio);
         
         // Set features
         objects[i]->features = features;
     }
 }
 
-cv::Rect* ObjectDetector::intersect(const cv::Rect& rect1, const cv::Rect& rect2)
+// Filtering Method
+void ObjectDetector::objectFiltering(vector<Object*>& dst_objects, vector<Object*>& src_objects)
 {
-    cv::Rect *rect = new cv::Rect(0,0,0,0);
-    
-    double sx = max(rect1.x, rect2.x);
-    double sy = max(rect1.y, rect2.y);
-    double ex = min(rect1.x+rect1.width, rect2.x+rect2.width);
-    double ey = min(rect1.y+rect1.height, rect2.y+rect2.height);
-    
-    double w = ex - sx, h = ey - sy;
-    if (w > 0 && h > 0) {
-        delete rect;
-        rect = new cv::Rect(sx, sy, w, h);
+    for (int i = 0; i < src_objects.size(); i++) {
+        if (src_objects[i]->corrPixelRatio >  CORR_PIXEL_RATIO_THRESHOLD &&
+            sqrt(src_objects[i]->varStrokeWidth) <= src_objects[i]->strokeWidth*2)
+        {
+            dst_objects.push_back(src_objects[i]);
+        }
     }
-    
-    return rect;
+    Draw::draw(Draw::drawObjects(srcImage, dst_objects));
 }
 
 void* swt_minus_thread(void* param)
