@@ -143,7 +143,7 @@ void Object::computeFeatures(Mat& srcImage)
     computeEchar();
     
     areaRatio = (double)innerArea / rectArea;
-    longLengthRatio = longLengthRatio / MAX(srcSize.width, srcSize.height);
+    longLengthRatio = longLength / MAX(srcSize.width, srcSize.height);
 }
 
 void Object::computeStrokeWidth()
@@ -240,7 +240,7 @@ void Object::computeEchar()
 {
     double temp = 0, adgd = 0;
     double alpha = 0.6;
-    int fcpcount = 0, count = 0;
+    int fcpcount = 0, count = 0, adgdcount = 0;
     
     for (int j = 0; j < thetas.size(); j++)
     {
@@ -252,16 +252,17 @@ void Object::computeEchar()
             temp = fabs(thetas[j] - corrThetas[j]);
             if (temp > M_PI) temp = 2 * M_PI - temp;
             adgd += temp;
+            adgdcount++;
             if (temp >= M_PI * alpha) fcpcount++;
         }
         
         count++;
     }
     
-    if (count > 0)
+    if (count > 0 && adgdcount > 0)
     {
         // ADGDとFCPの算出
-        Gangle = adgd / fcpcount;
+        Gangle = adgd / adgdcount;
         Fcorr = (double)fcpcount / count;
         // Echarの算出
         Echar = (Gangle / M_PI + Fcorr) / 2;

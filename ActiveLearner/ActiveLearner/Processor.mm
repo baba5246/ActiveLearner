@@ -59,6 +59,7 @@ static Processor* sharedProcessor = nil;
     map<string, vector<Object*>> components = [self trainCCV:ccs];
     map<string, vector<Text*>> cgs = [self trainCGD:components];
     map<string, vector<Text*>> texts = [self trainCGV:cgs];
+    map<string, vector<Text*>> final_texts = [self mergeFinalTexts:texts];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Training 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
 }
@@ -123,6 +124,7 @@ static Processor* sharedProcessor = nil;
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
         Mat srcImage = imread(filepath);
         vector<Object*> objects = components.at(filepath);
+        Draw::draw(Draw::drawObjects(srcImage, objects));
         
         vector<Text*> texts;
         TextDetector detector(srcImage);
@@ -173,6 +175,7 @@ static Processor* sharedProcessor = nil;
     map<string, vector<Object*>> components = [self testCCV:ccs];
     map<string, vector<Text*>> cgs = [self testCGD:components];
     map<string, vector<Text*>> texts = [self testCGV:cgs];
+    [self mergeFinalTexts:texts];
     
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Test 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
 }
@@ -568,7 +571,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         }
         
         Mat src = imread(filepath);
-        [self outputImage:Draw::drawTexts(src, extracts)];
+//        [self outputImage:Draw::drawTexts(src, extracts)];
         texts.insert(map<string, vector<Text*>>::value_type(filepath, vector<Text*>(extracts)));
     }
     
@@ -667,6 +670,26 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     }
     
     Draw::draw(plus, minus);
+}
+
+- (map<string, vector<Text*>>) mergeFinalTexts:(map<string, vector<Text*>>) texts
+{
+    map<string, vector<Text*>> finals;
+    
+	map<string, vector<Text*>>::iterator itr;
+    for (itr=texts.begin(); itr != texts.end(); itr++) {
+        string filepath = itr->first;
+        vector<Text*> cgs = itr->second;
+        vector<Text*> final_texts;
+        
+        Mat src = imread(filepath);
+        TextDetector detector(src);
+        detector.mergeContainedTexts(final_texts, cgs);
+        
+        Draw::draw(Draw::drawTexts(src, final_texts));
+    }
+    
+    return finals;
 }
 
 #pragma mark -

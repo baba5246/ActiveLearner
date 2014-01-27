@@ -53,6 +53,7 @@ private:
     void findPairs(Object*& object, int index, int type, Mat_<int> table);
     void gradientOfCorrPairs(vector<Object*>& objects, const Mat_<double>& gradients);
     
+    void objectFiltering(vector<Object*>& dst_objects, vector<Object*>& src_objects);
     void setFeatures(vector<Object*>& objects);
     
     Mat_<int> createImageTable(const vector<Object*>& objects);

@@ -42,8 +42,18 @@ inline double distanceObjects(Object*& obj1, Object*& obj2)
 
 inline bool isSimilarLab(Object*& obj1, Object*& obj2)
 {
-    Scalar a = obj1->color;
-    Scalar b = obj2->color;
+    Scalar a = obj1->labcolor;
+    Scalar b = obj2->labcolor;
+    double dl = a.val[0]-b.val[0];
+    double da = a.val[1]-b.val[1];
+    double db = a.val[2]-b.val[2];
+    return sqrt(dl*dl+da*da+db*db) < LAB_COLOR_SIMILARITY;
+}
+
+inline bool isSimilarLab(Text*& t1, Text*& t2)
+{
+    Scalar a = t1->labcolor;
+    Scalar b = t2->labcolor;
     double dl = a.val[0]-b.val[0];
     double da = a.val[1]-b.val[1];
     double db = a.val[2]-b.val[2];
@@ -55,21 +65,26 @@ inline bool isSimilarLab(Object*& obj1, Object*& obj2)
 
 void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
 {
-    vector<Text*> temp_texts;
+    vector<Text*> candidate_texts, filtered_texts;
     
     // Group 抽出
-    detectTexts(temp_texts, objects);
+    detectTexts(candidate_texts, objects);
     
     // Group特徴量計算
-    setFeatures(temp_texts, objects);
-
+    setFeatures(candidate_texts, objects);
+    
+    // Linkの数でフィルタリング
+    textFiltering(filtered_texts, candidate_texts);
+    
+    // Draw
+    Draw::draw(Draw::drawTexts(srcImage, filtered_texts));
+    
     // Groupのマージ
-    mergeTempTexts(texts, temp_texts);
+    mergeFilteredTexts(texts, filtered_texts);
     
     // Group特徴量計算
     setFeatures(texts, objects);
     
-    Draw::draw(Draw::drawTexts(srcImage, texts));
 }
 
 
@@ -84,9 +99,6 @@ void TextDetector::detectTexts(vector<Text*>& texts, vector<Object*>& objects)
     // Grouping アルゴリズム
     for (int i = 0; i < objects.size(); i++)
     {
-        // Echarが低すぎるやつは排除
-        if (objects[i]->Echar < 0.50f) continue;
-        
         Object *init = objects[i];
         
         // Find neighbors
@@ -227,26 +239,57 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
     }
 }
 
-// Merge texts
-void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_texts)
+void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_texts)
 {
-    sort(temp_texts.begin(), temp_texts.end(), Text::isLeftLarge);
+    int count = 0;
+    for (int i = 0; i < src_texts.size(); i++)
+    {
+        // Link数でフィルタリング
+        bool link_out = false;
+        
+        vector<int> originIndexes(src_texts[i]->originIndexes);
+        sort(originIndexes.begin(), originIndexes.end());
+        for (int j = 0; j < originIndexes.size()-1; j++)
+        {
+            if (originIndexes[j] == originIndexes[j+1]) {
+                count++;
+            } else {
+                count = 0;
+            }
+            
+            if (count > SAME_LINK_COUNT) {
+                link_out = true;
+                break;
+            }
+        }
+        
+        if (link_out == false) {
+            dst_texts.push_back(src_texts[i]);
+            Draw::draw(Draw::drawText(srcImage, src_texts[i]));
+        }
+    }
+}
+
+// Merge texts
+void TextDetector::mergeFilteredTexts(vector<Text*>& dst_texts, vector<Text*>& src_texts)
+{
+    sort(src_texts.begin(), src_texts.end(), Text::isLeftLarge);
     
     vector<int> alreadies;
-    for (int i = 0; i < temp_texts.size(); i++) {
+    for (int i = 0; i < src_texts.size(); i++) {
         
         if (find(alreadies.begin(), alreadies.end(), i) != alreadies.end())
             continue;
         
-        Text *text(temp_texts[i]);
-        Rect large = temp_texts[i]->rect;
+        Text *text(src_texts[i]);
+        Rect large = src_texts[i]->rect;
         
-        for (int j = i+1; j < temp_texts.size(); j++) {
+        for (int j = i+1; j < src_texts.size(); j++) {
             
             if (find(alreadies.begin(), alreadies.end(), j) != alreadies.end())
                 continue;
             
-            Rect small = temp_texts[j]->rect;
+            Rect small = src_texts[j]->rect;
             Rect intersect = small & large;
             double swratio = 0, lwratio = 0, shratio = 0, lhratio = 0, saratio = 0, laratio = 0;
             
@@ -268,11 +311,12 @@ void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_text
                         if (shratio > RECT_HABA_MARGE_THRESHOLD &&
                             lhratio > RECT_HABA_MARGE_THRESHOLD)
                         {
-                            text->add(temp_texts[j]);
-                            alreadies.push_back(j);
-//                            text->reLinkOriginIndexes();
-//                            Draw::draw(Draw::drawText(srcImage, text, small, large));
-                            continue;
+                            // 平均色が類似している
+                            if (isSimilarLab(src_texts[i], src_texts[j])) {
+                                text->add(src_texts[j]);
+                                alreadies.push_back(j);
+                                continue;
+                            }
                         }
                     }
                     // 縦長いもの同士が対象
@@ -282,11 +326,12 @@ void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_text
                         if (swratio > RECT_HABA_MARGE_THRESHOLD &&
                             lwratio > RECT_HABA_MARGE_THRESHOLD)
                         {
-                            text->add(temp_texts[j]);
-                            alreadies.push_back(j);
-//                            text->reLinkOriginIndexes();
-//                            Draw::draw(Draw::drawText(srcImage, text, small, large));
-                            continue;
+                            // 平均色が類似している
+                            if (isSimilarLab(src_texts[i], src_texts[j])) {
+                                text->add(src_texts[j]);
+                                alreadies.push_back(j);
+                                continue;
+                            }
                         }
 
                     }
@@ -295,9 +340,58 @@ void TextDetector::mergeTempTexts(vector<Text*>& texts, vector<Text*>& temp_text
             }
         }
         
-        texts.push_back(text);
         text->reLinkOriginIndexes();
+        dst_texts.push_back(text);
 //        Draw::draw(Draw::drawText(srcImage, text));
+    }
+    
+}
+
+// Merge texts
+void TextDetector::mergeContainedTexts(vector<Text*>& dst_texts, vector<Text*>& src_texts)
+{
+    sort(src_texts.begin(), src_texts.end(), Text::isLeftLarge);
+    
+    vector<int> alreadies;
+    for (int i = 0; i < src_texts.size(); i++) {
+        
+        if (find(alreadies.begin(), alreadies.end(), i) != alreadies.end())
+            continue;
+        
+        Text *text(src_texts[i]);
+        Rect large = src_texts[i]->rect;
+        
+        for (int j = i+1; j < src_texts.size(); j++) {
+            
+            if (find(alreadies.begin(), alreadies.end(), j) != alreadies.end())
+                continue;
+            
+            Rect small = src_texts[j]->rect;
+            Rect intersect = small & large;
+            double saratio = 0, laratio = 0;
+            
+            if (intersect.width>0 && intersect.height) {
+                saratio = (double)intersect.area() / small.area();
+                laratio = (double)intersect.area() / large.area();
+                
+                // 一部でも重なっているものが対象
+                if (intersect.area()>0)
+                {
+                    // 横長いもの同士が対象
+                    if (saratio > 0.99)
+                    {
+                        text->add(src_texts[j]);
+                        alreadies.push_back(j);
+                        continue;
+                    }
+                }
+                
+            }
+        }
+        
+        text->reLinkOriginIndexes();
+        dst_texts.push_back(text);
+        //        Draw::draw(Draw::drawText(srcImage, text));
     }
     
 }

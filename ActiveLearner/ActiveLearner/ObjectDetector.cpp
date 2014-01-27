@@ -90,6 +90,7 @@ ObjectDetector::~ObjectDetector()
 
 void ObjectDetector::detect(vector<Object*>& objects)
 {
+    vector<Object*> cadidate_objects;
     Mycv mycv(srcImage);
     
     // 各色でグレースケール＆エッジ抽出
@@ -109,8 +110,8 @@ void ObjectDetector::detect(vector<Object*>& objects)
     mycv.contours(edge, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
     
     // 輪郭から Object 作成
-    createObjects(contours, objects);
-    cout << objects.size() << " objects are created from contours." << endl;
+    createObjects(contours, cadidate_objects);
+    cout << cadidate_objects.size() << " objects are created from contours." << endl;
     
     // Unsharp Masking からの MSER 抽出
     Mat imgUnsharp;
@@ -119,23 +120,25 @@ void ObjectDetector::detect(vector<Object*>& objects)
     mycv.MSERs(imgUnsharp, msers);
     
     // MSER と包含関係を使って補正
-    mergeApartContours(objects, msers);
-    if (objects.size() == 0) return;
-    mergeIncludedObjects(objects);
+    mergeApartContours(cadidate_objects, msers);
+    if (cadidate_objects.size() == 0) return;
+    mergeIncludedObjects(cadidate_objects);
     
     // SWT と Color 類似度を使って補正
     Mat_<double> gradient = Mat_<double>(srcImage.rows, srcImage.cols);
     mycv.sobelFiltering(ggray, gradient);
     
     // Object の勾配方向計算
-    gradientOfObjects(objects, gradient);
+    gradientOfObjects(cadidate_objects, gradient);
     
     // Corresponding Pair の探索 と 特徴量計算
-    findCorrPairs(objects, gradient);
-    gradientOfCorrPairs(objects, gradient);
+    findCorrPairs(cadidate_objects, gradient);
+    gradientOfCorrPairs(cadidate_objects, gradient);
     
     // 特徴量計算
-    setFeatures(objects);           // 特徴量をセット
+    setFeatures(cadidate_objects);           // 特徴量をセット
+    // 特徴量でフィルタリング
+    objectFiltering(objects, cadidate_objects);
     
 //    Draw::draw(Draw::drawInnerAreaOfObjects(srcImage, objects)); // Echar描画
     
@@ -560,15 +563,24 @@ void ObjectDetector::gradientOfCorrPairs(vector<Object*>& objects, const Mat_<do
     }
 }
 
-// Set Features to the Object
+void ObjectDetector::objectFiltering(vector<Object*>& dst_objects, vector<Object*>& src_objects)
+{
+    for (int i = 0; i < src_objects.size(); i++) {
+        if (src_objects[i]->Echar > 0.5) {
+            dst_objects.push_back(src_objects[i]);
+        }
+    }
+}
+
+// Set Features
 void ObjectDetector::setFeatures(vector<Object*>& objects)
 {
     for (int i = 0; i < objects.size(); i++) {
         
-        // Compute features
+        // Compute Features
         objects[i]->computeFeatures(srcImage);
         
-        
+        // Set Features
         vector<double> features;
         
         // Echar
@@ -585,8 +597,8 @@ void ObjectDetector::setFeatures(vector<Object*>& objects)
         /* 8 */ features.push_back((double)objects[i]->labcolor[2]);
         
         // Stroke width
-        /* 9 */ features.push_back(objects[i]->strokeWidth);
-        /* 10 */ features.push_back(objects[i]->varStrokeWidth);
+        /* 9 */ features.push_back(objects[i]->strokeWidth/objects[i]->width);
+        /* 10 */ features.push_back(objects[i]->varStrokeWidth/objects[i]->width);
         
         // TODO: Contour roughness
         
@@ -597,7 +609,7 @@ void ObjectDetector::setFeatures(vector<Object*>& objects)
         /* 12 */ features.push_back(objects[i]->aspectRatio);
         
         // Long length
-        /* 13 */ features.push_back(objects[i]->longLength);
+        /* 13 */ features.push_back(objects[i]->longLengthRatio);
         
         // Area ratio
         /* 14 */ features.push_back(objects[i]->areaRatio);

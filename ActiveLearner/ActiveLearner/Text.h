@@ -23,6 +23,7 @@ public:
     double rectArea = 0, objectArea = 0, textArea = 0;
     double objectCount = 0, falseCount = 0;
     cv::Rect rect;
+    cv::RotatedRect rotatedRect;
     cv::Point centroid;
     Scalar color, labcolor;
     

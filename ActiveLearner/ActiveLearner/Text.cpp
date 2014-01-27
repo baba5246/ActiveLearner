@@ -13,7 +13,6 @@ inline double distanceObjects(Object*& obj1, Object*& obj2)
     Point diff = obj1->centroid - obj2->centroid;
     return pointSize(diff);
 }
-
 inline double similarityColor(Scalar a, Scalar b)
 {
     double dl = a.val[0]-b.val[0];
@@ -74,7 +73,7 @@ void Text::add(Text *&text)
                 break;
             }
         }
-        if (findFlag) {
+        if (findFlag == false) {
             temp_objects.push_back(text->objects[i]);
         }
     }
@@ -161,21 +160,31 @@ void Text::countFalseObjects(vector<Object*>& objs)
 
 void Text::computeColor()
 {
-    double r = 0, g = 0, b = 0;
+    Mat lab = srcImage.clone();
+    cvtColor(srcImage, lab, CV_RGB2Lab);
+    
+    double R = 0, G = 0, B = 0, L = 0, a = 0, b=0;
     long length = objects.size();
     
     if (length != 0) {
         for (int i = 0; i < length; i++) {
-            r += objects[i]->color[0];
-            g += objects[i]->color[1];
-            b += objects[i]->color[2];
+            R += objects[i]->color[0];
+            G += objects[i]->color[1];
+            B += objects[i]->color[2];
+            L += objects[i]->labcolor[0];
+            a += objects[i]->labcolor[1];
+            b += objects[i]->labcolor[2];
         }
-        r /= length;
-        g /= length;
+        R /= length;
+        G /= length;
+        B /= length;
+        L /= length;
+        a /= length;
         b /= length;
     }
     
-    color = Scalar(r, g, b);
+    color = Scalar(R, G, B);
+    labcolor = Scalar(L, a, b);
 }
 
 void Text::computeAverageDistance()
@@ -284,7 +293,6 @@ void Text::computeVariantFeatures()
     }
 }
 
-
 void Text::computeRatioFeatures()
 {
     int minx = INFINITY, miny = INFINITY, maxx = 0, maxy = 0;
@@ -352,8 +360,14 @@ double Text::computeTextArea()
     double r1, r2, d, x, a, b, h;
     Object *origin;
     
+    vector<cv::Point> points;
     long size = objects.size();
-    for (int i = 1; i < size; i++) {
+    for (int i = 0; i < size; i++) {
+        
+        // Rotated Rect用のpoints
+        points.insert(points.end(), objects[i]->contourPixels.begin(), objects[i]->contourPixels.end());
+        
+        if (i == 0) continue;
         
         origin = objects[originIndexes[i]];
         r1 = MIN(objects[i]->r, origin->r);
@@ -366,7 +380,14 @@ double Text::computeTextArea()
         textArea += (a + b) * h * 0.5;
         
     }
+    rotatedRect = minAreaRect(points);
     
     return textArea;
 }
+
+
+//double Text:: computeLinkAngle()
+//{
+//    
+//}
 

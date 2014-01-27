@@ -1,7 +1,7 @@
 
 #include "Draw.h"
 
-#define DRAW_WAIT_TIME  2000
+#define DRAW_WAIT_TIME  3000
 
 void Draw::drawImage(const Mat& src)
 {
@@ -291,7 +291,12 @@ Mat Draw::drawText(const cv::Mat &src, Text *&text)
     srand((unsigned int)1);
     Scalar red = CV_RGB(BRIGHTNESS,0,0);
     Scalar blue = CV_RGB(0,0,BRIGHTNESS);
-    rectangle(dst, text->rect, red, 3);
+    Point2f rect_points[4];
+    text->rotatedRect.points( rect_points );
+    for( int j = 0; j < 4; j++ ) {
+        line( dst, rect_points[j], rect_points[(j+1)%4], red, 1, 8 );
+    }
+//    rectangle(dst, text->rect, red, 3);
     
     for (int j = 0; j < text->objects.size(); j++) {
         if (j == 0) circle(dst, text->objects[j]->centroid, 3, red, 3);
@@ -316,9 +321,15 @@ Mat Draw::drawText(const Mat& src, Text*& text, cv::Rect small, cv::Rect large)
     Scalar green = CV_RGB(0,BRIGHTNESS,0);
     Scalar yellow = CV_RGB(BRIGHTNESS,BRIGHTNESS,0);
     Scalar blue = CV_RGB(0,0,BRIGHTNESS);
-    rectangle(dst, text->rect, red, 3);
-    rectangle(dst, small, green, 2);
-    rectangle(dst, large, yellow, 2);
+    
+    Point2f rect_points[4];
+    text->rotatedRect.points( rect_points );
+    for( int j = 0; j < 4; j++ ) {
+        line( dst, rect_points[j], rect_points[(j+1)%4], red, 1, 8 );
+    }
+//    rectangle(dst, text->rect, red, 3);
+//    rectangle(dst, small, green, 2);
+//    rectangle(dst, large, yellow, 2);
     
     for (int j = 0; j < text->objects.size(); j++) {
         if (j == 0) circle(dst, text->objects[j]->centroid, 3, red, 3);

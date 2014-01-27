@@ -15,15 +15,30 @@ void WeakClassifier::train(const vector<Sample>& samples)
 {
     int min_error = INFINITY;
     double min_t = 0;
-    double max_elem = 0, itr = 0;
+    double max_elem = 0, itr = 0, max = 0;
     
-    for (int i = 0; i < samples.size(); i++) {
-        if (max_elem < samples[i].features[featureIndex])
-            max_elem = samples[i].features[featureIndex];
+    if (samples[0].hasObject) {
+        
+        max = 1.0;
+        itr = 0.01;
+        
+    } else {
+        
+        for (int i = 0; i < samples.size(); i++) {
+            if (max_elem < samples[i].features[featureIndex])
+                max_elem = samples[i].features[featureIndex];
+        }
+        for (double i = -3; i < 11; i++) {
+            if (max_elem <= pow(10, i)) {
+                max = pow(10, i);
+                break;
+            }
+        }
+        
+        itr = max * 0.001;
     }
     
-    itr = max_elem * 0.001;
-    for (double t = 0; t < max_elem; t += itr)
+    for (double t = 0; t < max; t += itr)
     {
         int error = 0, error1 = 0, error2 = 0;
         threshold = t;
