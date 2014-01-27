@@ -74,6 +74,7 @@
 
 - (void) console:(NSString *) output
 {
+    NSLog(@"%@", output);
 //    NSRange insertAtEnd=NSMakeRange([[consoleView textStorage] length],0);
 //    [consoleView replaceCharactersInRange:insertAtEnd
 //                          withString:output];

@@ -65,7 +65,7 @@ inline bool isSimilarLab(Text*& t1, Text*& t2)
 
 void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
 {
-    vector<Text*> candidate_texts, filtered_texts;
+    vector<Text*> candidate_texts, filtered_texts, merged_texts;
     
     // Group 抽出
     detectTexts(candidate_texts, objects);
@@ -80,11 +80,22 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     Draw::draw(Draw::drawTexts(srcImage, filtered_texts));
     
     // Groupのマージ
-    mergeFilteredTexts(texts, filtered_texts);
+    mergeFilteredTexts(merged_texts, filtered_texts);
     
     // Group特徴量計算
-    setFeatures(texts, objects);
+    setFeatures(merged_texts, objects);
     
+    Draw::draw(Draw::drawTexts(srcImage, merged_texts));
+    
+    texts = merged_texts;
+//    
+//    // Linkの数でフィルタリング
+//    textFiltering(texts, merged_texts);
+//    
+//    // Group特徴量計算
+//    setFeatures(texts, objects);
+//    
+//    Draw::draw(Draw::drawTexts(srcImage, texts));
 }
 
 
@@ -225,8 +236,10 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
             // Stroke幅比計算
             swratio = MAX(focus->strokeWidth, text->aveSW) / MIN(focus->strokeWidth, text->aveSW);
             
+            
             // 条件判定
-            if (gradient > HIGH_GRADIENT_THRESHOLD && swratio < STROKE_WIDTH_RATIO)
+            if (gradient > HIGH_GRADIENT_THRESHOLD && swratio < STROKE_WIDTH_RATIO &&
+                isSimilarLab(focus, objects[i]))
             {
                 // 追加
                 text->add(objects[i], distance);
@@ -241,11 +254,11 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
 
 void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_texts)
 {
-    int count = 0;
     for (int i = 0; i < src_texts.size(); i++)
     {
         // Link数でフィルタリング
         bool link_out = false;
+        int count = 0;
         
         vector<int> originIndexes(src_texts[i]->originIndexes);
         sort(originIndexes.begin(), originIndexes.end());
@@ -304,37 +317,29 @@ void TextDetector::mergeFilteredTexts(vector<Text*>& dst_texts, vector<Text*>& s
                 // 一部でも重なっているものが対象
                 if (intersect.area()>0)
                 {
-                    // 横長いもの同士が対象
-                    if (small.width>small.height && large.width>large.height)
+                    // 重なってる割合が両方大きい
+                    if (shratio > RECT_HABA_MARGE_THRESHOLD &&
+                        lhratio > RECT_HABA_MARGE_THRESHOLD)
                     {
-                        // 重なってる割合が両方大きい
-                        if (shratio > RECT_HABA_MARGE_THRESHOLD &&
-                            lhratio > RECT_HABA_MARGE_THRESHOLD)
-                        {
-                            // 平均色が類似している
-                            if (isSimilarLab(src_texts[i], src_texts[j])) {
-                                text->add(src_texts[j]);
-                                alreadies.push_back(j);
-                                continue;
-                            }
+                        // 平均色が類似している
+                        if (isSimilarLab(src_texts[i], src_texts[j])) {
+                            text->add(src_texts[j]);
+                            alreadies.push_back(j);
+                            continue;
                         }
                     }
-                    // 縦長いもの同士が対象
-                    else if (small.width<small.height && large.width<large.height)
+                    // 重なってる割合が両方大きい
+                    if (swratio > RECT_HABA_MARGE_THRESHOLD &&
+                        lwratio > RECT_HABA_MARGE_THRESHOLD)
                     {
-                        // 重なってる割合が両方大きい
-                        if (swratio > RECT_HABA_MARGE_THRESHOLD &&
-                            lwratio > RECT_HABA_MARGE_THRESHOLD)
-                        {
-                            // 平均色が類似している
-                            if (isSimilarLab(src_texts[i], src_texts[j])) {
-                                text->add(src_texts[j]);
-                                alreadies.push_back(j);
-                                continue;
-                            }
+                        // 平均色が類似している
+                        if (isSimilarLab(src_texts[i], src_texts[j])) {
+                            text->add(src_texts[j]);
+                            alreadies.push_back(j);
+                            continue;
                         }
+                    }
 
-                    }
                 }
                 
             }

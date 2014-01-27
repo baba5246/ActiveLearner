@@ -349,7 +349,8 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         NSString *nsfilename = [path substringFromIndex:range.location+1];
         
         // Truths
-        NSArray *truths = xmldata[nsfilename];
+        NSMutableDictionary *data = model.getGtXMLData;
+        NSArray *truths = data[nsfilename];
         
         // サンプル作成
         for (int i = 0; i < objects.size(); i++)
@@ -572,7 +573,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         }
         
         Mat src = imread(filepath);
-//        [self outputImage:Draw::drawTexts(src, extracts)];
+        [self outputImage:Draw::drawTexts(src, extracts)];
         texts.insert(map<string, vector<Text*>>::value_type(filepath, vector<Text*>(extracts)));
     }
     

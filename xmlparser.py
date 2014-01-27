@@ -8,29 +8,57 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 # 読み込み先のフォルダを取得
 argvs = sys.argv
 argc = len(argvs)
-if (argc != 2):   # 引数が足りない場合は、その旨を表示
-    print 'Usage: # python %s /dirname' % argvs[0]
+if (argc != 3):   # 引数が足りない場合は、その旨を表示
+    print 'Usage: # python %s ./dirname -DATASET_TYPE' % argvs[0]
     quit()         # プログラムの終了
-dirname = argvs[1]
+dpath = argvs[1]
+dataset_type = argvs[2]
 
 # 取得したい情報
 # images = {'P1110610.JPG':[{'text':'あああ''}, {'rect':'{{1,1},{1,1}}'}], 
 #			'P1110611.JPG':[{'text':'いいい''}, {'rect':'{{2,2},{2,2}}'}]}
 images = {}
 
-# ファイル読み込み
-def importFiles(dirname):
-	# ファイル一覧取得
-	
+# ファイル読み込み関数
+def importFiles(dirpath):
+	# ファイル一覧取得 
+	for root, dirs, files in os.walk(dirpath):
+		xmls = filter(lambda f: f.endswith(".xml"), files)
+		for xml in xmls:
+			print "Start import.. " + os.path.join(root, xml)
 
-	for filename in files:
-		tree = ET.parse(os.path.abspath(os.path.dirname(__file__)) + dirname + filename)
-		for image in tree.getroot():
-			truths = []
-			for truth in image:
-				t = {'text':truth.get('text'), 'rect':truth.get('rect')}
-				truths.append(t);
-			images[image.get('name')] = truths
+			tree = ET.parse(os.path.join(root, xml))
+			# ICDAR
+			if dataset_type == '-ICDAR':
+				for image in tree.getroot():
+					imageName = image.find("imageName")
+					truths = []
+					for tag_rects in image:
+						for truth in tag_rects:
+							t = {"text":"", "rect":"{{"+truth.get("x")+","+truth.get("y")+"},{"+truth.get("width")+","+truth.get("height")+"}}"}
+							truths.append(t);
+					images[imageName.text] = truths
+			# KAIST
+			elif dataset_type == "-KAIST":
+				for image in tree.getroot():
+					imageName = image.find("imageName")
+					truths = []
+					for word in image.find("words"):
+						t = {"text":"", "rect":"{{"+word.get("x")+","+word.get("y")+"},{"+word.get("width")+","+word.get("height")+"}}"}
+						truths.append(t);
+					images[imageName.text] = truths
+			# SVT
+			elif dataset_type == "-SVT":
+				for image in tree.getroot():
+					imageName = image.find("imageName")
+					truths = []
+					for tag_rect in image.find("taggedRectangles"):
+						t = {"text":tag_rect.find("tag").text, "rect":"{{"+tag_rect.get("x")+","+tag_rect.get("y")+"},{"+tag_rect.get("width")+","+tag_rect.get("height")+"}}"}
+						truths.append(t);
+					images[imageName.text] = truths
+
+# ファイル読み込み
+importFiles(dpath)
 
 
 # 書き込みXML構造作成
@@ -51,5 +79,6 @@ stringified = '<?xml version="1.0" encoding="UTF-8"?>' + stringified
 outXml = 'gt.xml'
 
 # ファイルへ書き込み
-with open(os.path.abspath(os.path.dirname(__file__)) + '/' + outXml, 'w') as outfile:
+with open(os.path.abspath(dpath) + '/' + outXml, 'w') as outfile:
     outfile.write(stringified)
+

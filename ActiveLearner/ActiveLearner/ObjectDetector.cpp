@@ -630,7 +630,7 @@ void ObjectDetector::objectFiltering(vector<Object*>& dst_objects, vector<Object
             dst_objects.push_back(src_objects[i]);
         }
     }
-    Draw::draw(Draw::drawObjects(srcImage, dst_objects));
+//    Draw::draw(Draw::drawObjects(srcImage, dst_objects));
 }
 
 void* swt_minus_thread(void* param)

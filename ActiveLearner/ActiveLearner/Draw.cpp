@@ -347,7 +347,8 @@ Mat Draw::drawText(const Mat& src, Text*& text, cv::Rect small, cv::Rect large)
 
 Mat Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
 {
-    Mat dst = Mat(src);
+    Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
+    dst = src.clone();
     
     srand((unsigned int)1);
     Scalar color;
