@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02822.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="11" y="40" width="588" height="279">
+        <character x="11" y="67" width="106" height="151" char="6" />
+        <character x="117" y="148" width="104" height="96" char="세" />
+        <character x="259" y="72" width="148" height="166" char="수" />
+        <character x="407" y="40" width="192" height="279" char="학" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

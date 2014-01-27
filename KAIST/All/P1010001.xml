@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010001.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="49" y="103" width="575" height="115">
+        <character x="49" y="106" width="91" height="112" char="병" />
+        <character x="139" y="103" width="107" height="112" char="천" />
+        <character x="267" y="132" width="53" height="57" char="황" />
+        <character x="319" y="134" width="33" height="53" char="토" />
+        <character x="353" y="133" width="50" height="52" char="방" />
+        <character x="431" y="119" width="84" height="97" char="순" />
+        <character x="525" y="118" width="99" height="87" char="대" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

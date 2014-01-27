@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03070.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="268" y="209" width="131" height="58">
+        <character x="268" y="213" width="31" height="51" char="교" />
+        <character x="297" y="213" width="35" height="54" char="내" />
+        <character x="330" y="214" width="32" height="49" char="서" />
+        <character x="361" y="209" width="38" height="54" char="행" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

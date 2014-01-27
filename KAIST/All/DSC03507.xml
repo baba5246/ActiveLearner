@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03507.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="125" y="42" width="370" height="121">
+        <character x="125" y="43" width="99" height="105" char="곱" />
+        <character x="223" y="42" width="91" height="108" char="창" />
+        <character x="312" y="46" width="88" height="105" char="전" />
+        <character x="400" y="48" width="95" height="115" char="골" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

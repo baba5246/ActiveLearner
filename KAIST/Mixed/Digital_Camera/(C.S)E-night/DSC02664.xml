@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02664.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="120" y="117" width="420" height="133">
+        <character x="120" y="136" width="64" height="101" char="c뉴" />
+        <character x="243" y="136" width="65" height="100" char="월" />
+        <character x="318" y="135" width="69" height="93" char="드" />
+        <character x="399" y="117" width="72" height="121" char="P" />
+        <character x="444" y="145" width="96" height="105" char="C" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

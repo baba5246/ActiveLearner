@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010043.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="236" y="136" width="88" height="67">
+        <character x="236" y="136" width="88" height="67" char="무" />
+      </word>
+      <word x="327" y="142" width="81" height="61">
+        <character x="327" y="142" width="81" height="61" char="료" />
+      </word>
+      <word x="191" y="198" width="84" height="96">
+        <character x="191" y="198" width="84" height="96" char="주" />
+      </word>
+      <word x="276" y="207" width="90" height="75">
+        <character x="276" y="207" width="90" height="75" char="차" />
+      </word>
+      <word x="367" y="211" width="85" height="74">
+        <character x="367" y="211" width="85" height="74" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010054.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="109" y="102" width="533" height="159">
+        <character x="109" y="104" width="123" height="115" char="이" />
+        <character x="235" y="103" width="138" height="118" char="수" />
+        <character x="376" y="102" width="132" height="114" char="락" />
+        <character x="539" y="131" width="103" height="83" char="분" />
+      </word>
+      <word x="287" y="225" width="353" height="36">
+        <character x="287" y="227" width="33" height="33" char="이" />
+        <character x="321" y="227" width="24" height="34" char="수" />
+        <character x="346" y="227" width="27" height="34" char="락" />
+        <character x="389" y="231" width="29" height="27" char="월" />
+        <character x="416" y="231" width="27" height="28" char="평" />
+        <character x="444" y="231" width="29" height="29" char="점" />
+      </word>
+      <word x="488" y="225" width="152" height="36">
+        <character x="488" y="227" width="20" height="33" char="4" />
+        <character x="507" y="227" width="23" height="33" char="8" />
+        <character x="529" y="230" width="26" height="28" char="9" />
+        <character x="564" y="227" width="24" height="28" char="0" />
+        <character x="590" y="227" width="20" height="31" char="5" />
+        <character x="611" y="225" width="14" height="36" char="2" />
+        <character x="624" y="226" width="16" height="30" char="2" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

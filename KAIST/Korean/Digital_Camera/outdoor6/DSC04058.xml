@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04058.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="20" y="123" width="80" height="140">
+        <character x="30" y="123" width="70" height="65" char="강" />
+        <character x="20" y="196" width="70" height="67" char="변" />
+      </word>
+      <word x="106" y="127" width="503" height="124">
+        <character x="106" y="134" width="105" height="111" char="노" />
+        <character x="210" y="130" width="95" height="121" char="래" />
+        <character x="307" y="128" width="104" height="123" char="연" />
+        <character x="409" y="127" width="106" height="122" char="습" />
+        <character x="515" y="129" width="94" height="120" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

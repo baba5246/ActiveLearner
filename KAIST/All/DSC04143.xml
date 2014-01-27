@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04143.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="26" y="219" width="567" height="196">
+        <character x="26" y="219" width="139" height="140" char="하" />
+        <character x="183" y="223" width="136" height="133" char="나" />
+        <character x="317" y="219" width="147" height="141" char="마" />
+        <character x="465" y="236" width="128" height="133" char="트" />
+      </word>
+      <word x="178" y="353" width="266" height="62">
+        <character x="178" y="353" width="46" height="59" char="4" />
+        <character x="225" y="353" width="32" height="57" char="8" />
+        <character x="256" y="355" width="34" height="56" char="5" />
+        <character x="318" y="362" width="34" height="51" char="8" />
+        <character x="352" y="361" width="30" height="46" char="7" />
+        <character x="382" y="357" width="34" height="51" char="8" />
+        <character x="414" y="358" width="30" height="57" char="1" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

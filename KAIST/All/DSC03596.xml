@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03596.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="95" y="135" width="448" height="71">
+        <character x="95" y="138" width="52" height="58" char="대" />
+        <character x="145" y="135" width="50" height="62" char="전" />
+        <character x="195" y="139" width="51" height="64" char="문" />
+        <character x="243" y="139" width="53" height="62" char="화" />
+        <character x="296" y="140" width="47" height="57" char="예" />
+        <character x="346" y="137" width="49" height="66" char="술" />
+        <character x="395" y="140" width="49" height="63" char="의" />
+        <character x="442" y="144" width="51" height="56" char="전" />
+        <character x="494" y="142" width="49" height="64" char="당" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

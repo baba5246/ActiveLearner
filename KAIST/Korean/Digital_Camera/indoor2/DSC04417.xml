@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04417.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="34" y="120" width="593" height="127">
+        <character x="34" y="131" width="89" height="114" char="한" />
+        <character x="122" y="131" width="82" height="116" char="밭" />
+        <character x="199" y="126" width="78" height="116" char="정" />
+        <character x="272" y="120" width="79" height="125" char="보" />
+        <character x="349" y="123" width="80" height="121" char="처" />
+        <character x="429" y="123" width="65" height="114" char="리" />
+        <character x="495" y="124" width="70" height="106" char="학" />
+        <character x="562" y="125" width="65" height="115" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

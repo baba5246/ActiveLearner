@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02776.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="50" y="194" width="532" height="125">
+        <character x="87" y="205" width="71" height="49" char="C" />
+      </word>
+      <word x="274" y="194" width="308" height="92">
+        <character x="499" y="194" width="83" height="72" char="양" />
+        <character x="274" y="216" width="73" height="70" char="인" />
+        <character x="354" y="210" width="71" height="68" char="문" />
+        <character x="426" y="206" width="73" height="58" char="교" />
+      </word>
+      <word x="50" y="263" width="131" height="56">
+        <character x="50" y="267" width="22" height="52" char="1" />
+        <character x="71" y="268" width="35" height="49" char="0" />
+        <character x="107" y="266" width="36" height="50" char="0" />
+        <character x="141" y="263" width="40" height="45" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

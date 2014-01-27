@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03557.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="66" y="106" width="489" height="65">
+        <character x="66" y="109" width="72" height="59" char="주" />
+        <character x="161" y="108" width="81" height="57" char="민" />
+        <character x="266" y="106" width="79" height="57" char="알" />
+        <character x="377" y="108" width="81" height="63" char="림" />
+        <character x="474" y="106" width="81" height="64" char="판" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

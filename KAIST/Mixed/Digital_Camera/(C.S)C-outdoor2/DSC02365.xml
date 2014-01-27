@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02365.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="171" y="77" width="254" height="76">
+        <character x="171" y="94" width="39" height="53" char="M" />
+        <character x="209" y="90" width="26" height="58" char="U" />
+        <character x="234" y="91" width="23" height="55" char="L" />
+        <character x="258" y="90" width="21" height="55" char="T" />
+        <character x="280" y="91" width="11" height="62" char="I" />
+        <character x="305" y="82" width="36" height="52" char="T" />
+        <character x="341" y="77" width="42" height="60" char="W" />
+        <character x="385" y="82" width="40" height="54" char="O" />
+      </word>
+      <word x="200" y="237" width="186" height="82">
+        <character x="200" y="238" width="56" height="81" char="멀" />
+        <character x="261" y="240" width="49" height="49" char="티" />
+        <character x="319" y="237" width="67" height="72" char="투" />
+      </word>
+      <word x="128" y="305" width="492" height="156">
+        <character x="128" y="310" width="158" height="146" char="P" />
+        <character x="287" y="309" width="155" height="152" char="C" />
+        <character x="457" y="305" width="163" height="155" char="방" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010160.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="171" y="52" width="402" height="140">
+        <character x="171" y="58" width="88" height="127" char="가" />
+        <character x="256" y="55" width="89" height="137" char="가" />
+        <character x="347" y="55" width="46" height="79" char="공" />
+        <character x="390" y="54" width="47" height="81" char="인" />
+        <character x="436" y="52" width="42" height="78" char="중" />
+        <character x="479" y="54" width="42" height="76" char="개" />
+        <character x="522" y="53" width="46" height="77" char="사" />
+        <character x="476" y="141" width="35" height="40" char="사" />
+        <character x="511" y="144" width="27" height="34" char="무" />
+        <character x="538" y="142" width="35" height="35" char="소" />
+      </word>
+      <word x="131" y="220" width="429" height="76">
+        <character x="131" y="230" width="60" height="60" char="4" />
+        <character x="191" y="228" width="54" height="67" char="8" />
+        <character x="245" y="226" width="52" height="70" char="9" />
+        <character x="339" y="224" width="35" height="71" char="1" />
+        <character x="378" y="223" width="61" height="71" char="2" />
+        <character x="437" y="222" width="54" height="70" char="3" />
+        <character x="490" y="220" width="70" height="73" char="4" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

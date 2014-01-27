@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090912025.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="2" y="89" width="611" height="126">
+        <character x="2" y="89" width="92" height="126" char="언" />
+        <character x="111" y="99" width="102" height="111" char="어" />
+        <character x="386" y="91" width="118" height="113" char="영" />
+        <character x="521" y="96" width="92" height="111" char="역" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

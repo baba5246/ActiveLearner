@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>097.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="23" y="134" width="576" height="260">
+        <character x="23" y="136" width="156" height="258" char="전" />
+        <character x="181" y="134" width="135" height="235" char="기" />
+        <character x="313" y="152" width="143" height="217" char="공" />
+        <character x="456" y="147" width="143" height="220" char="사" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02553.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="262" y="296" width="219" height="41">
+        <character x="262" y="297" width="26" height="37" char="T" />
+        <character x="303" y="298" width="22" height="35" char="8" />
+        <character x="325" y="296" width="24" height="41" char="6" />
+        <character x="349" y="297" width="22" height="36" char="2" />
+        <character x="393" y="300" width="17" height="33" char="1" />
+        <character x="410" y="298" width="21" height="37" char="2" />
+        <character x="430" y="296" width="25" height="35" char="5" />
+        <character x="456" y="298" width="25" height="37" char="2" />
+      </word>
+      <word x="227" y="166" width="397" height="104">
+        <character x="227" y="182" width="88" height="84" char="노" />
+        <character x="313" y="169" width="84" height="92" char="래" />
+        <character x="399" y="177" width="67" height="92" char="연" />
+        <character x="472" y="166" width="73" height="101" char="습" />
+        <character x="546" y="175" width="78" height="95" char="장" />
+      </word>
+      <word x="7" y="153" width="206" height="138">
+        <character x="7" y="225" width="71" height="66" char="테" />
+        <character x="83" y="178" width="68" height="66" char="크" />
+        <character x="156" y="153" width="57" height="65" char="노" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090912035.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="186" y="66" width="226" height="263">
+        <character x="194" y="111" width="88" height="106" char="김" />
+        <character x="292" y="66" width="120" height="110" char="밥" />
+      </word>
+      <word x="186" y="195" width="225" height="134">
+        <character x="186" y="224" width="110" height="105" char="분" />
+        <character x="297" y="195" width="114" height="110" char="식" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>088.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="141" y="184" width="437" height="102">
+        <character x="141" y="185" width="114" height="101" char="나" />
+        <character x="259" y="184" width="98" height="98" char="가" />
+        <character x="358" y="184" width="99" height="98" char="는" />
+        <character x="471" y="189" width="107" height="92" char="곳" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

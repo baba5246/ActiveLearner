@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03391.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="207" y="232" width="253" height="81">
+        <character x="207" y="235" width="69" height="76" char="액" />
+        <character x="276" y="232" width="56" height="80" char="세" />
+        <character x="329" y="236" width="69" height="76" char="서" />
+        <character x="399" y="236" width="61" height="77" char="리" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

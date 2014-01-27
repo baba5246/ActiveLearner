@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03289.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="339" y="131" width="101" height="172">
+        <character x="344" y="131" width="96" height="93" char="마" />
+        <character x="339" y="220" width="101" height="83" char="듀" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

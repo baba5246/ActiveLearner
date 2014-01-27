@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03590.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="16" y="110" width="606" height="92">
+        <character x="16" y="110" width="60" height="84" char="전" />
+        <character x="77" y="114" width="67" height="75" char="자" />
+        <character x="142" y="115" width="68" height="77" char="교" />
+        <character x="211" y="114" width="68" height="79" char="통" />
+        <character x="281" y="114" width="73" height="86" char="신" />
+        <character x="356" y="112" width="62" height="83" char="호" />
+        <character x="417" y="121" width="73" height="78" char="제" />
+        <character x="488" y="122" width="67" height="80" char="어" />
+        <character x="556" y="123" width="66" height="78" char="기" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

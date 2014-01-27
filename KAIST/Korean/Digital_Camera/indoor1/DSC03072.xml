@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03072.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="154" y="240" width="325" height="59">
+        <character x="154" y="251" width="55" height="48" char="신" />
+        <character x="209" y="245" width="48" height="50" char="착" />
+        <character x="256" y="241" width="52" height="55" char="도" />
+        <character x="307" y="242" width="56" height="45" char="서" />
+        <character x="362" y="241" width="56" height="44" char="안" />
+        <character x="414" y="240" width="65" height="50" char="내" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0622\080119-0031.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="741" y="919" width="63" height="61">
+        <character x="741" y="919" width="63" height="61" char="빛" />
+      </word>
+      <word x="467" y="97" width="174" height="84">
+        <character x="467" y="97" width="55" height="80" char="G" />
+        <character x="524" y="114" width="19" height="65" char="r" />
+        <character x="543" y="120" width="37" height="60" char="e" />
+        <character x="581" y="121" width="38" height="54" char="a" />
+        <character x="620" y="106" width="21" height="75" char="t" />
+      </word>
+      <word x="1179" y="121" width="129" height="86">
+        <character x="1179" y="121" width="64" height="85" char="입" />
+        <character x="1243" y="128" width="65" height="79" char="다" />
+      </word>
+      <word x="837" y="831" width="123" height="72">
+        <character x="837" y="834" width="63" height="65" char="작" />
+        <character x="900" y="831" width="60" height="72" char="품" />
+      </word>
+      <word x="976" y="836" width="174" height="80">
+        <character x="976" y="836" width="59" height="80" char="전" />
+        <character x="1036" y="841" width="56" height="70" char="시" />
+        <character x="1093" y="841" width="57" height="65" char="회" />
+      </word>
+      <word x="820" y="924" width="117" height="61">
+        <character x="820" y="924" width="61" height="59" char="테" />
+        <character x="883" y="925" width="54" height="60" char="마" />
+      </word>
+      <word x="956" y="929" width="172" height="64">
+        <character x="956" y="930" width="57" height="56" char="영" />
+        <character x="1014" y="929" width="54" height="64" char="상" />
+        <character x="1069" y="929" width="59" height="63" char="전" />
+      </word>
+      <word x="805" y="1008" width="168" height="62">
+        <character x="805" y="1008" width="56" height="54" char="메" />
+        <character x="863" y="1009" width="51" height="61" char="시" />
+        <character x="916" y="1012" width="57" height="53" char="지" />
+      </word>
+      <word x="984" y="1011" width="175" height="67">
+        <character x="984" y="1011" width="62" height="53" char="조" />
+        <character x="1046" y="1011" width="51" height="58" char="명" />
+        <character x="1098" y="1012" width="61" height="66" char="전" />
+      </word>
+      <word x="1035" y="118" width="126" height="85">
+        <character x="1095" y="121" width="66" height="82" char="을" />
+        <character x="1035" y="118" width="59" height="85" char="옷" />
+      </word>
+      <word x="653" y="100" width="360" height="102">
+        <character x="786" y="167" width="35" height="35" char="_" />
+        <character x="653" y="100" width="70" height="95" char="광" />
+        <character x="725" y="106" width="62" height="95" char="진" />
+        <character x="825" y="106" width="57" height="90" char="디" />
+        <character x="884" y="111" width="65" height="86" char="자" />
+        <character x="951" y="113" width="62" height="86" char="인" />
+      </word>
+      <word x="382" y="288" width="979" height="246">
+        <character x="382" y="288" width="211" height="223" char="공" />
+        <character x="593" y="299" width="198" height="212" char="공" />
+        <character x="790" y="307" width="173" height="218" char="디" />
+        <character x="966" y="326" width="209" height="203" char="자" />
+        <character x="1175" y="325" width="186" height="209" char="인" />
+      </word>
+      <word x="532" y="820" width="288" height="76">
+        <character x="532" y="820" width="66" height="72" char="공" />
+        <character x="597" y="820" width="56" height="71" char="공" />
+        <character x="654" y="822" width="52" height="70" char="디" />
+        <character x="708" y="830" width="57" height="65" char="자" />
+        <character x="767" y="831" width="53" height="65" char="인" />
+      </word>
+      <word x="546" y="914" width="180" height="64">
+        <character x="670" y="918" width="56" height="60" char="의" />
+        <character x="546" y="914" width="69" height="57" char="도" />
+        <character x="616" y="918" width="52" height="56" char="시" />
+      </word>
+      <word x="516" y="996" width="277" height="69">
+        <character x="516" y="996" width="59" height="58" char="공" />
+        <character x="575" y="996" width="56" height="58" char="공" />
+        <character x="631" y="996" width="47" height="58" char="디" />
+        <character x="680" y="1001" width="55" height="64" char="자" />
+        <character x="736" y="1006" width="57" height="55" char="인" />
+      </word>
+      <word x="441" y="1105" width="234" height="47">
+        <character x="505" y="1134" width="19" height="17" char="_" />
+        <character x="524" y="1107" width="21" height="41" char="2" />
+        <character x="546" y="1114" width="20" height="28" char="0" />
+        <character x="569" y="1113" width="23" height="33" char="0" />
+        <character x="591" y="1105" width="21" height="46" char="8" />
+        <character x="614" y="1136" width="6" height="13" char="." />
+        <character x="621" y="1113" width="11" height="37" char="1" />
+        <character x="635" y="1136" width="6" height="13" char="." />
+        <character x="641" y="1114" width="21" height="38" char="2" />
+        <character x="662" y="1113" width="13" height="39" char="1" />
+        <character x="441" y="1105" width="35" height="41" char="일" />
+        <character x="477" y="1105" width="27" height="44" char="시" />
+      </word>
+      <word x="517" y="0" width="736" height="90">
+        <character x="706" y="5" width="56" height="65" char="공" />
+        <character x="761" y="2" width="56" height="71" char="간" />
+        <character x="646" y="1" width="49" height="72" char="의" />
+        <character x="594" y="1" width="50" height="72" char="민" />
+        <character x="863" y="9" width="55" height="68" char="우" />
+        <character x="919" y="9" width="49" height="69" char="리" />
+        <character x="966" y="11" width="52" height="70" char="도" />
+        <character x="1018" y="7" width="54" height="75" char="시" />
+        <character x="1235" y="25" width="18" height="25" char="'" />
+        <character x="1081" y="21" width="53" height="63" char="만" />
+        <character x="1134" y="19" width="52" height="67" char="들" />
+        <character x="1189" y="18" width="42" height="72" char="기" />
+        <character x="545" y="0" width="45" height="68" char="시" />
+        <character x="517" y="0" width="31" height="31" char="`" />
+      </word>
+      <word x="728" y="1114" width="496" height="55">
+        <character x="728" y="1119" width="26" height="37" char="2" />
+        <character x="755" y="1142" width="8" height="15" char="." />
+        <character x="761" y="1118" width="11" height="42" char="1" />
+        <character x="774" y="1121" width="15" height="37" char="1" />
+        <character x="795" y="1114" width="28" height="50" char="/" />
+        <character x="894" y="1139" width="19" height="30" char="_" />
+        <character x="913" y="1121" width="27" height="40" char="2" />
+        <character x="830" y="1118" width="34" height="43" char="장" />
+        <character x="866" y="1119" width="26" height="40" char="소" />
+        <character x="941" y="1118" width="32" height="50" char="호" />
+        <character x="972" y="1118" width="37" height="48" char="선" />
+        <character x="1013" y="1120" width="45" height="42" char="강" />
+        <character x="1057" y="1120" width="35" height="39" char="변" />
+        <character x="1094" y="1119" width="32" height="44" char="역" />
+        <character x="1127" y="1119" width="35" height="46" char="사" />
+        <character x="1168" y="1123" width="21" height="40" char="1" />
+        <character x="1189" y="1120" width="35" height="47" char="층" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>english,korean,number</tag>
+  </image>
+</images>

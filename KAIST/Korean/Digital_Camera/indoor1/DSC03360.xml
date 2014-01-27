@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03360.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="101" y="292" width="476" height="85">
+        <character x="101" y="304" width="75" height="52" char="카" />
+        <character x="176" y="301" width="65" height="56" char="페" />
+        <character x="239" y="306" width="65" height="54" char="트" />
+        <character x="327" y="296" width="58" height="80" char="특" />
+        <character x="384" y="292" width="68" height="84" char="설" />
+        <character x="452" y="307" width="57" height="52" char="매" />
+        <character x="507" y="307" width="70" height="70" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

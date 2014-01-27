@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03288.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="719" y="462" width="4" height="9">
+        <character x="719" y="462" width="4" height="9" char="" />
+      </word>
+      <word x="39" y="58" width="595" height="306">
+        <character x="39" y="232" width="180" height="121" char="라" />
+        <character x="195" y="247" width="129" height="117" char="멘" />
+        <character x="318" y="197" width="104" height="106" char="만" />
+        <character x="427" y="175" width="207" height="160" char="땅" />
+      </word>
+      <word x="331" y="58" width="286" height="84">
+        <character x="331" y="89" width="72" height="53" char="가" />
+        <character x="400" y="76" width="71" height="60" char="브" />
+        <character x="472" y="58" width="67" height="69" char="리" />
+        <character x="539" y="61" width="78" height="57" char="엘" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03607.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="22" y="96" width="604" height="340">
+        <character x="77" y="96" width="48" height="57" char="3" />
+        <character x="69" y="162" width="32" height="50" char="2" />
+        <character x="99" y="161" width="32" height="49" char="8" />
+        <character x="561" y="98" width="27" height="65" char="1" />
+        <character x="588" y="102" width="35" height="55" char="0" />
+      </word>
+      <word x="33" y="262" width="400" height="87">
+        <character x="33" y="262" width="66" height="87" char="만" />
+        <character x="99" y="267" width="66" height="80" char="년" />
+        <character x="163" y="265" width="75" height="78" char="동" />
+        <character x="237" y="270" width="67" height="69" char="사" />
+        <character x="305" y="272" width="63" height="68" char="무" />
+        <character x="363" y="272" width="70" height="61" char="소" />
+      </word>
+      <word x="22" y="344" width="604" height="92">
+        <character x="22" y="353" width="75" height="77" char="만" />
+        <character x="97" y="356" width="68" height="74" char="년" />
+        <character x="164" y="355" width="71" height="81" char="동" />
+        <character x="236" y="354" width="69" height="77" char="주" />
+        <character x="301" y="350" width="69" height="80" char="민" />
+        <character x="366" y="351" width="71" height="77" char="자" />
+        <character x="436" y="353" width="64" height="75" char="치" />
+        <character x="501" y="350" width="64" height="76" char="센" />
+        <character x="564" y="344" width="62" height="85" char="터" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

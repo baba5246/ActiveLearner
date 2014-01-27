@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03861.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="191" y="40" width="212" height="426">
+        <character x="200" y="41" width="64" height="64" char="가" />
+        <character x="268" y="40" width="67" height="62" char="마" />
+        <character x="338" y="44" width="65" height="66" char="솥" />
+      </word>
+      <word x="191" y="298" width="198" height="69">
+        <character x="191" y="298" width="60" height="60" char="요" />
+        <character x="251" y="302" width="62" height="65" char="리" />
+        <character x="313" y="302" width="76" height="64" char="집" />
+      </word>
+      <word x="270" y="417" width="56" height="49">
+        <character x="270" y="417" width="26" height="46" char="1" />
+        <character x="295" y="425" width="31" height="41" char="F" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

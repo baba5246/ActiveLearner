@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03021.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="9" y="17" width="621" height="136">
+        <character x="9" y="17" width="104" height="128" char="우" />
+        <character x="172" y="36" width="127" height="98" char="리" />
+        <character x="337" y="23" width="128" height="127" char="포" />
+        <character x="480" y="30" width="150" height="123" char="차" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

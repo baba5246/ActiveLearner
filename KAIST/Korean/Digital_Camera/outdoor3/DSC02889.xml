@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02889.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="35" y="396" width="559" height="73">
+        <character x="35" y="396" width="95" height="66" char="한" />
+        <character x="138" y="400" width="100" height="66" char="아" />
+        <character x="268" y="400" width="89" height="65" char="름" />
+        <character x="385" y="403" width="89" height="61" char="상" />
+        <character x="494" y="406" width="100" height="63" char="가" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

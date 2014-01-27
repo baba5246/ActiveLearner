@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>118.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="82" y="109" width="511" height="134">
+        <character x="82" y="109" width="132" height="115" char="홍" />
+        <character x="227" y="121" width="117" height="112" char="인" />
+        <character x="355" y="131" width="116" height="109" char="의" />
+        <character x="476" y="144" width="117" height="99" char="원" />
+      </word>
+      <word x="73" y="247" width="540" height="102">
+        <character x="73" y="247" width="74" height="99" char="피" />
+        <character x="160" y="251" width="70" height="98" char="부" />
+        <character x="237" y="256" width="76" height="89" char="과" />
+        <character x="360" y="265" width="68" height="81" char="비" />
+        <character x="425" y="265" width="63" height="79" char="뇨" />
+        <character x="490" y="265" width="56" height="83" char="기" />
+        <character x="548" y="268" width="65" height="79" char="과" />
+      </word>
+      <word x="296" y="357" width="212" height="37">
+        <character x="296" y="359" width="28" height="33" char="t" />
+        <character x="334" y="357" width="19" height="36" char="8" />
+        <character x="353" y="361" width="22" height="32" char="2" />
+        <character x="376" y="360" width="23" height="31" char="5" />
+        <character x="399" y="358" width="20" height="33" char="-" />
+        <character x="418" y="357" width="25" height="37" char="6" />
+        <character x="445" y="361" width="17" height="33" char="7" />
+        <character x="462" y="361" width="21" height="29" char="8" />
+        <character x="483" y="360" width="25" height="33" char="9" />
+      </word>
+      <word x="580" y="359" width="46" height="36">
+        <character x="580" y="364" width="20" height="29" char="F" />
+        <character x="600" y="359" width="26" height="36" char="2" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

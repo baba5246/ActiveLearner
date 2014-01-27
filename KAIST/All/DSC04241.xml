@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04241.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="98" y="248" width="438" height="97">
+        <character x="98" y="248" width="73" height="92" char="인" />
+        <character x="169" y="251" width="66" height="85" char="문" />
+        <character x="237" y="249" width="72" height="96" char="학" />
+        <character x="341" y="259" width="68" height="73" char="이" />
+        <character x="404" y="258" width="67" height="69" char="야" />
+        <character x="467" y="255" width="69" height="73" char="기" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

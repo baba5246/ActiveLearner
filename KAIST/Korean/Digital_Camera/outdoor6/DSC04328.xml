@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04328.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="174" y="17" width="451" height="110">
+        <character x="174" y="22" width="67" height="74" char="위" />
+        <character x="240" y="17" width="49" height="88" char="싱" />
+        <character x="289" y="20" width="65" height="107" char="웰" />
+        <character x="354" y="19" width="47" height="76" char="영" />
+        <character x="400" y="19" width="46" height="77" char="어" />
+        <character x="446" y="21" width="43" height="78" char="전" />
+        <character x="489" y="22" width="42" height="80" char="문" />
+        <character x="531" y="19" width="45" height="78" char="학" />
+        <character x="574" y="19" width="51" height="84" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

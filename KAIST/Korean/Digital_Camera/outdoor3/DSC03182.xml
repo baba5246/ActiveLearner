@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03182.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="83" y="29" width="455" height="369">
+        <character x="83" y="29" width="87" height="106" char="일" />
+        <character x="182" y="35" width="81" height="99" char="반" />
+        <character x="288" y="38" width="76" height="98" char="쓰" />
+        <character x="370" y="37" width="80" height="101" char="레" />
+        <character x="457" y="38" width="81" height="97" char="기" />
+      </word>
+      <word x="131" y="194" width="352" height="204">
+        <character x="131" y="203" width="91" height="192" char="더" />
+        <character x="221" y="201" width="84" height="194" char="리" />
+        <character x="303" y="199" width="92" height="199" char="치" />
+        <character x="391" y="194" width="92" height="202" char="빌" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

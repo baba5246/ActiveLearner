@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04067.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="124" y="175" width="472" height="79">
+        <character x="124" y="184" width="51" height="69" char="주" />
+        <character x="209" y="175" width="56" height="74" char="동" />
+        <character x="276" y="179" width="51" height="68" char="인" />
+        <character x="337" y="182" width="67" height="62" char="바" />
+        <character x="405" y="179" width="59" height="69" char="이" />
+        <character x="467" y="179" width="60" height="62" char="오" />
+        <character x="527" y="180" width="69" height="74" char="텍" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

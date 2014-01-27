@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03623.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="112" y="104" width="450" height="223">
+        <character x="112" y="115" width="82" height="91" char="학" />
+        <character x="192" y="111" width="80" height="89" char="교" />
+        <character x="298" y="107" width="76" height="96" char="교" />
+        <character x="374" y="108" width="75" height="94" char="문" />
+        <character x="482" y="104" width="80" height="96" char="앞" />
+      </word>
+      <word x="139" y="231" width="407" height="96">
+        <character x="139" y="234" width="97" height="93" char="주" />
+        <character x="238" y="232" width="104" height="87" char="차" />
+        <character x="339" y="231" width="101" height="91" char="금" />
+        <character x="440" y="231" width="106" height="89" char="지" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

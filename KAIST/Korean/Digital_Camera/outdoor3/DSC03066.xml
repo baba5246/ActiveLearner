@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03066.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="179" y="168" width="318" height="236">
+        <character x="179" y="240" width="161" height="164" char="3" />
+        <character x="337" y="235" width="160" height="166" char="0" />
+      </word>
+      <word x="190" y="168" width="287" height="72">
+        <character x="190" y="168" width="77" height="67" char="안" />
+        <character x="267" y="171" width="73" height="69" char="전" />
+        <character x="340" y="174" width="64" height="65" char="속" />
+        <character x="399" y="178" width="78" height="55" char="도" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

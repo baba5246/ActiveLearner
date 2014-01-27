@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03746.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="89" y="35" width="501" height="368">
+        <character x="96" y="35" width="79" height="96" char="입" />
+        <character x="192" y="42" width="76" height="89" char="주" />
+        <character x="282" y="42" width="88" height="88" char="자" />
+        <character x="376" y="42" width="88" height="90" char="외" />
+      </word>
+      <word x="89" y="147" width="501" height="152">
+        <character x="89" y="151" width="121" height="145" char="주" />
+        <character x="210" y="151" width="125" height="142" char="차" />
+        <character x="335" y="152" width="126" height="147" char="금" />
+        <character x="460" y="147" width="130" height="152" char="지" />
+      </word>
+      <word x="101" y="316" width="483" height="87">
+        <character x="101" y="318" width="67" height="79" char="엘" />
+        <character x="178" y="325" width="79" height="70" char="지" />
+        <character x="273" y="316" width="49" height="44" char="공" />
+        <character x="344" y="319" width="40" height="41" char="인" />
+        <character x="408" y="320" width="44" height="42" char="중" />
+        <character x="471" y="324" width="50" height="37" char="개" />
+        <character x="537" y="319" width="46" height="41" char="사" />
+      </word>
+      <word x="275" y="359" width="309" height="44">
+        <character x="275" y="362" width="45" height="41" char="주" />
+        <character x="365" y="361" width="46" height="39" char="택" />
+        <character x="453" y="359" width="41" height="43" char="관" />
+        <character x="538" y="359" width="46" height="41" char="리" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

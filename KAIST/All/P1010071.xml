@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010071.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="24" y="148" width="572" height="170">
+        <character x="24" y="148" width="123" height="126" char="둔" />
+        <character x="176" y="170" width="145" height="123" char="산" />
+        <character x="339" y="191" width="119" height="115" char="신" />
+        <character x="471" y="201" width="125" height="117" char="협" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

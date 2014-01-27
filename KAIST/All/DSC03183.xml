@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03183.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="238" y="71" width="310" height="338">
+        <character x="238" y="329" width="77" height="80" char="주" />
+        <character x="319" y="335" width="73" height="71" char="차" />
+        <character x="394" y="337" width="72" height="69" char="금" />
+        <character x="466" y="336" width="82" height="70" char="지" />
+        <character x="289" y="75" width="43" height="58" char="감" />
+        <character x="331" y="77" width="35" height="54" char="시" />
+        <character x="366" y="76" width="35" height="56" char="용" />
+        <character x="410" y="74" width="47" height="57" char="카" />
+        <character x="456" y="74" width="36" height="55" char="메" />
+        <character x="491" y="71" width="42" height="62" char="라" />
+      </word>
+      <word x="299" y="141" width="219" height="68">
+        <character x="299" y="141" width="70" height="66" char="녹" />
+        <character x="370" y="145" width="75" height="59" char="화" />
+        <character x="447" y="143" width="71" height="66" char="중" />
+      </word>
+      <word x="254" y="267" width="265" height="60">
+        <character x="254" y="269" width="74" height="57" char="외" />
+        <character x="331" y="270" width="58" height="57" char="부" />
+        <character x="393" y="267" width="61" height="58" char="차" />
+        <character x="455" y="267" width="64" height="59" char="량" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

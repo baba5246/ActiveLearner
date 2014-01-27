@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?> 
+<images>
+  <image>
+    <imageName>image\1-1\3.bmp</imageName> 
+    <resolution x="798" y="270" /> 
+    <words>
+      <word x="220" y="78" width="154" height="149">
+        <character x="220" y="78" width="154" height="149" char="닭" /> 
+      </word>
+      <word x="681" y="189" width="15" height="18">
+        <character x="681" y="189" width="15" height="18" char="3" /> 
+      </word>
+      <word x="697" y="189" width="7" height="18">
+        <character x="697" y="189" width="7" height="18" char="3" /> 
+      </word>
+      <word x="706" y="188" width="9" height="21">
+        <character x="706" y="188" width="9" height="21" char="3" /> 
+      </word>
+      <word x="716" y="192" width="4" height="9">
+        <character x="716" y="192" width="4" height="9" char="-" /> 
+      </word>
+      <word x="721" y="185" width="8" height="23">
+        <character x="721" y="185" width="8" height="23" char="5" /> 
+      </word>
+      <word x="730" y="189" width="9" height="19">
+        <character x="730" y="189" width="9" height="19" char="9" /> 
+      </word>
+      <word x="740" y="184" width="9" height="20">
+        <character x="740" y="184" width="9" height="20" char="2" /> 
+      </word>
+      <word x="751" y="186" width="8" height="20">
+        <character x="751" y="186" width="8" height="20" char="1" /> 
+      </word>
+      <word x="280" y="24" width="152" height="36">
+        <character x="280" y="28" width="21" height="32" char="I" /> 
+        <character x="303" y="28" width="19" height="29" char="Z" /> 
+        <character x="323" y="28" width="23" height="28" char="A" /> 
+        <character x="347" y="27" width="22" height="28" char="K" /> 
+        <character x="371" y="26" width="21" height="30" char="A" /> 
+        <character x="387" y="25" width="23" height="29" char="Y" /> 
+        <character x="408" y="24" width="24" height="31" char="A" /> 
+      </word>
+      <word x="360" y="87" width="119" height="98">
+        <character x="360" y="98" width="69" height="87" char="익" /> 
+        <character x="424" y="87" width="55" height="90" char="는" /> 
+      </word>
+      <word x="481" y="65" width="182" height="145">
+        <character x="481" y="88" width="108" height="96" char="마" /> 
+        <character x="578" y="65" width="85" height="145" char="을" /> 
+      </word>
+      <word x="709" y="160" width="48" height="24">
+        <character x="709" y="163" width="16" height="21" char="연" /> 
+        <character x="725" y="164" width="15" height="18" char="대" /> 
+        <character x="741" y="160" width="16" height="24" char="점" /> 
+      </word>
+    </words>
+    <illumination>yes</illumination> 
+    <difficulty>5</difficulty> 
+    <tag>number,korean,english</tag>
+  </image>
+</images>
+  

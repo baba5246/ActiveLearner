@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02735.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="18" y="252" width="606" height="215">
+        <character x="18" y="307" width="130" height="157" char="맛" />
+        <character x="144" y="310" width="137" height="157" char="있" />
+        <character x="281" y="309" width="119" height="146" char="는" />
+        <character x="400" y="310" width="106" height="111" char="요" />
+        <character x="504" y="314" width="120" height="105" char="리" />
+      </word>
+      <word x="272" y="252" width="325" height="54">
+        <character x="272" y="254" width="38" height="42" char="오" />
+        <character x="311" y="254" width="32" height="52" char="늘" />
+        <character x="344" y="252" width="32" height="53" char="은" />
+        <character x="385" y="256" width="46" height="41" char="뭐" />
+        <character x="430" y="255" width="44" height="38" char="해" />
+        <character x="474" y="252" width="37" height="53" char="먹" />
+        <character x="511" y="254" width="36" height="50" char="을" />
+        <character x="549" y="258" width="48" height="33" char="까" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

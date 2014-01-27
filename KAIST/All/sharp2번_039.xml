@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>sharp2번_039.jpg</imageName>
+    <resolution x="320" y="240" />
+    <words>
+      <word x="156" y="103" width="156" height="51">
+        <character x="278" y="103" width="34" height="51" char="점" />
+        <character x="156" y="105" width="32" height="45" char="전" />
+        <character x="189" y="103" width="29" height="49" char="골" />
+        <character x="217" y="103" width="32" height="50" char="전" />
+        <character x="248" y="103" width="32" height="48" char="문" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

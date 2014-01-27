@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03356.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="160" y="132" width="275" height="118">
+        <character x="160" y="134" width="76" height="109" char="제" />
+        <character x="235" y="135" width="66" height="109" char="빵" />
+        <character x="299" y="133" width="66" height="112" char="용" />
+        <character x="365" y="132" width="70" height="118" char="품" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

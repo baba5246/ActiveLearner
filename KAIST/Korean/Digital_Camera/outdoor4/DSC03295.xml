@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03295.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="116" y="289" width="515" height="145">
+        <character x="116" y="300" width="84" height="92" char="김" />
+        <character x="210" y="292" width="106" height="98" char="밥" />
+        <character x="336" y="291" width="94" height="104" char="천" />
+        <character x="430" y="289" width="90" height="112" char="국" />
+      </word>
+      <word x="219" y="400" width="165" height="34">
+        <character x="219" y="403" width="22" height="30" char="4" />
+        <character x="241" y="401" width="19" height="31" char="8" />
+        <character x="260" y="400" width="22" height="31" char="2" />
+        <character x="293" y="402" width="18" height="31" char="2" />
+        <character x="312" y="400" width="23" height="31" char="0" />
+        <character x="335" y="400" width="21" height="32" char="4" />
+        <character x="359" y="403" width="25" height="31" char="0" />
+      </word>
+      <word x="545" y="301" width="86" height="88">
+        <character x="545" y="303" width="32" height="36" char="즉" />
+        <character x="589" y="301" width="42" height="40" char="석" />
+      </word>
+      <word x="545" y="345" width="83" height="44">
+        <character x="545" y="345" width="33" height="37" char="김" />
+        <character x="586" y="347" width="42" height="42" char="밥" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

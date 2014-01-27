@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02802.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="23" y="207" width="542" height="114">
+        <character x="23" y="267" width="36" height="54" char="5" />
+        <character x="60" y="268" width="31" height="49" char="0" />
+        <character x="92" y="267" width="33" height="52" char="0" />
+        <character x="126" y="268" width="35" height="50" char="0" />
+        <character x="65" y="207" width="62" height="50" char="C" />
+      </word>
+      <word x="203" y="229" width="362" height="72">
+        <character x="203" y="229" width="68" height="67" char="미" />
+        <character x="488" y="236" width="77" height="65" char="술" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

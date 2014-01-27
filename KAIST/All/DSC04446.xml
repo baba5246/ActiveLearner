@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04446.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="195" y="117" width="292" height="308">
+        <character x="229" y="274" width="89" height="151" char="3" />
+        <character x="317" y="268" width="95" height="155" char="0" />
+        <character x="414" y="337" width="64" height="83" char="석" />
+      </word>
+      <word x="195" y="117" width="292" height="80">
+        <character x="195" y="120" width="67" height="75" char="완" />
+        <character x="260" y="123" width="58" height="72" char="전" />
+        <character x="315" y="123" width="54" height="72" char="금" />
+        <character x="368" y="120" width="60" height="70" char="연" />
+        <character x="426" y="117" width="61" height="80" char="석" />
+      </word>
+      <word x="219" y="194" width="238" height="73">
+        <character x="219" y="198" width="70" height="67" char="플" />
+        <character x="287" y="200" width="56" height="62" char="라" />
+        <character x="341" y="197" width="54" height="67" char="워" />
+        <character x="395" y="194" width="62" height="73" char="존" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

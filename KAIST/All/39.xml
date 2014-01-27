@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>039.jpg</imageName>
+    <resolution x="320" y="197" />
+    <words>
+      <word x="133" y="38" width="128" height="35">
+        <character x="133" y="45" width="30" height="27" char="커" />
+        <character x="161" y="40" width="27" height="33" char="피" />
+        <character x="186" y="39" width="25" height="30" char="전" />
+        <character x="208" y="41" width="26" height="31" char="문" />
+        <character x="233" y="38" width="28" height="33" char="점" />
+      </word>
+      <word x="93" y="67" width="183" height="99">
+        <character x="93" y="70" width="36" height="58" char="잃" />
+        <character x="125" y="67" width="36" height="52" char="어" />
+        <character x="161" y="77" width="33" height="37" char="버" />
+        <character x="193" y="75" width="51" height="50" char="린" />
+      </word>
+      <word x="125" y="115" width="181" height="52">
+        <character x="195" y="126" width="31" height="41" char="을" />
+        <character x="278" y="123" width="28" height="40" char="서" />
+        <character x="125" y="115" width="32" height="40" char="시" />
+        <character x="155" y="119" width="41" height="47" char="간" />
+        <character x="225" y="127" width="27" height="34" char="찾" />
+        <character x="253" y="123" width="23" height="40" char="아" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

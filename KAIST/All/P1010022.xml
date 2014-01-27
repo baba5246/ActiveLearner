@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010022.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="118" y="80" width="503" height="77">
+        <character x="118" y="83" width="72" height="73" char="월" />
+        <character x="201" y="85" width="71" height="69" char="평" />
+        <character x="293" y="84" width="70" height="69" char="정" />
+        <character x="374" y="80" width="74" height="77" char="형" />
+        <character x="456" y="81" width="77" height="71" char="외" />
+        <character x="543" y="83" width="78" height="68" char="과" />
+      </word>
+      <word x="133" y="256" width="280" height="34">
+        <character x="133" y="258" width="29" height="28" char="3" />
+        <character x="162" y="258" width="29" height="32" char="6" />
+        <character x="190" y="258" width="25" height="30" char="5" />
+        <character x="214" y="260" width="33" height="29" char="일" />
+        <character x="263" y="261" width="33" height="27" char="야" />
+        <character x="299" y="261" width="37" height="28" char="간" />
+        <character x="338" y="256" width="37" height="34" char="진" />
+        <character x="376" y="261" width="37" height="29" char="료" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

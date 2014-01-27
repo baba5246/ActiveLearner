@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010073.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="39" y="140" width="556" height="204">
+        <character x="77" y="140" width="76" height="55" char="법" />
+        <character x="70" y="197" width="78" height="65" char="무" />
+        <character x="39" y="270" width="110" height="74" char="사" />
+      </word>
+      <word x="243" y="180" width="352" height="122">
+        <character x="243" y="180" width="106" height="117" char="이" />
+        <character x="375" y="190" width="102" height="112" char="명" />
+        <character x="491" y="192" width="104" height="101" char="숙" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

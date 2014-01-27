@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03494.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="93" y="261" width="463" height="147">
+        <character x="93" y="310" width="67" height="98" char="전" />
+        <character x="160" y="299" width="65" height="100" char="주" />
+        <character x="224" y="288" width="76" height="104" char="향" />
+        <character x="300" y="281" width="75" height="103" char="비" />
+        <character x="370" y="278" width="89" height="100" char="빔" />
+        <character x="458" y="261" width="98" height="106" char="밥" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

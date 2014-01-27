@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090831086.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="24" y="15" width="489" height="103">
+        <character x="24" y="32" width="70" height="75" char="우" />
+        <character x="91" y="34" width="61" height="77" char="리" />
+        <character x="165" y="15" width="80" height="103" char="생" />
+        <character x="247" y="15" width="85" height="95" char="활" />
+        <character x="341" y="35" width="33" height="72" char="1" />
+        <character x="377" y="40" width="35" height="64" char="0" />
+        <character x="411" y="40" width="43" height="69" char="0" />
+        <character x="453" y="37" width="60" height="68" char="년" />
+      </word>
+      <word x="566" y="44" width="52" height="69">
+        <character x="566" y="44" width="52" height="69" char="옷" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

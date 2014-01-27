@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>124.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="118" y="159" width="512" height="87">
+        <character x="330" y="162" width="94" height="81" char="양" />
+        <character x="442" y="159" width="85" height="82" char="복" />
+        <character x="544" y="160" width="86" height="83" char="점" />
+        <character x="118" y="174" width="72" height="70" char="현" />
+        <character x="205" y="170" width="78" height="76" char="대" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

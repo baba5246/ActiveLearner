@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04190.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="30" y="205" width="559" height="126">
+        <character x="30" y="205" width="117" height="106" char="플" />
+        <character x="147" y="206" width="108" height="111" char="라" />
+        <character x="256" y="205" width="110" height="107" char="스" />
+        <character x="366" y="208" width="111" height="120" char="틱" />
+        <character x="475" y="216" width="114" height="115" char="류" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

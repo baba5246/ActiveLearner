@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03377.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="62" y="115" width="399" height="244">
+        <character x="139" y="115" width="126" height="116" char="특" />
+        <character x="264" y="115" width="124" height="114" char="별" />
+      </word>
+      <word x="62" y="240" width="399" height="119">
+        <character x="62" y="250" width="106" height="109" char="행" />
+        <character x="167" y="246" width="101" height="93" char="사" />
+        <character x="267" y="244" width="103" height="96" char="상" />
+        <character x="368" y="240" width="93" height="94" char="품" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

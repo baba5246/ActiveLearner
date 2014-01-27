@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03762.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="157" y="171" width="287" height="236">
+        <character x="157" y="178" width="88" height="92" char="갈" />
+        <character x="240" y="173" width="71" height="95" char="아" />
+        <character x="311" y="174" width="73" height="89" char="만" />
+        <character x="385" y="171" width="59" height="93" char="든" />
+      </word>
+      <word x="228" y="273" width="200" height="134">
+        <character x="228" y="273" width="200" height="134" char="배" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

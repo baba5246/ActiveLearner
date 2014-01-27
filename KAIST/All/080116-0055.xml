@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+    <image>
+        <imageName>image\1-1\080116-0055.jpg</imageName>
+        <resolution x="800" y="600" />
+        <words>
+          <word x="51" y="275" width="701" height="103">
+            <character x="535" y="346" width="17" height="19" char="." />
+            <character x="51" y="275" width="64" height="73" char="N" />
+            <character x="110" y="280" width="25" height="60" char="i" />
+            <character x="134" y="278" width="46" height="64" char="k" />
+            <character x="180" y="301" width="46" height="44" char="e" />
+            <character x="222" y="289" width="72" height="58" char="W" />
+            <character x="299" y="303" width="50" height="51" char="o" />
+            <character x="352" y="303" width="77" height="56" char="m" />
+            <character x="432" y="312" width="52" height="47" char="e" />
+            <character x="489" y="311" width="46" height="52" char="n" />
+            <character x="557" y="315" width="55" height="54" char="c" />
+            <character x="617" y="323" width="50" height="47" char="o" />
+            <character x="670" y="314" width="82" height="64" char="m" />
+          </word>
+        </words>
+        <illumination>no</illumination>
+        <difficulty>1</difficulty>
+        <tag>english</tag>
+    </image>
+</images>

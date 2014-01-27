@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03589.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="209" y="189" width="198" height="68">
+        <character x="209" y="192" width="32" height="48" char="만" />
+        <character x="241" y="189" width="32" height="55" char="년" />
+        <character x="274" y="196" width="33" height="52" char="동" />
+        <character x="303" y="198" width="35" height="57" char="안" />
+        <character x="337" y="201" width="32" height="52" char="내" />
+        <character x="370" y="206" width="37" height="51" char="도" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

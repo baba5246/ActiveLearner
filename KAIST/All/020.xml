@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>020.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="390" y="90" width="215" height="56">
+        <character x="390" y="98" width="33" height="46" char="빌" />
+        <character x="567" y="90" width="38" height="56" char="딩" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

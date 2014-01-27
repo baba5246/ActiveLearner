@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03252.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="35" y="271" width="581" height="185">
+        <character x="35" y="407" width="32" height="49" char="실" />
+        <character x="71" y="415" width="37" height="31" char="라" />
+        <character x="164" y="307" width="95" height="129" char="부" />
+        <character x="289" y="312" width="159" height="100" char="대" />
+        <character x="465" y="271" width="151" height="166" char="촌" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02541.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="37" y="278" width="558" height="108">
+        <character x="37" y="280" width="88" height="101" char="임" />
+        <character x="123" y="279" width="72" height="106" char="시" />
+        <character x="194" y="281" width="82" height="104" char="공" />
+        <character x="277" y="281" width="75" height="105" char="영" />
+        <character x="360" y="278" width="69" height="105" char="주" />
+        <character x="436" y="285" width="79" height="95" char="차" />
+        <character x="522" y="285" width="73" height="101" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

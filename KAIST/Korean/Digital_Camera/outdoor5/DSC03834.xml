@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03834.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="92" y="18" width="397" height="323">
+        <character x="154" y="305" width="29" height="35" char="2" />
+        <character x="185" y="301" width="38" height="38" char="시" />
+        <character x="226" y="299" width="43" height="42" char="간" />
+        <character x="271" y="299" width="39" height="40" char="무" />
+        <character x="311" y="300" width="39" height="37" char="료" />
+        <character x="348" y="299" width="46" height="37" char="주" />
+        <character x="393" y="296" width="42" height="38" char="차" />
+      </word>
+      <word x="92" y="18" width="397" height="80">
+        <character x="92" y="23" width="79" height="72" char="동" />
+        <character x="421" y="18" width="68" height="80" char="경" />
+      </word>
+      <word x="103" y="118" width="382" height="74">
+        <character x="103" y="122" width="77" height="70" char="어" />
+        <character x="419" y="118" width="66" height="74" char="촌" />
+      </word>
+      <word x="111" y="218" width="368" height="71">
+        <character x="111" y="218" width="69" height="71" char="농" />
+        <character x="185" y="218" width="74" height="69" char="가" />
+        <character x="263" y="221" width="64" height="66" char="월" />
+        <character x="343" y="219" width="60" height="67" char="령" />
+        <character x="416" y="223" width="63" height="64" char="가" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

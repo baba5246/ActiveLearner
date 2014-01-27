@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03362.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="52" y="253" width="573" height="100">
+        <character x="167" y="277" width="62" height="75" char="김" />
+        <character x="229" y="271" width="56" height="79" char="치" />
+        <character x="286" y="268" width="52" height="75" char="냉" />
+        <character x="338" y="269" width="57" height="69" char="장" />
+        <character x="395" y="269" width="53" height="63" char="고" />
+        <character x="448" y="265" width="65" height="71" char="대" />
+        <character x="510" y="256" width="51" height="83" char="축" />
+        <character x="562" y="253" width="63" height="82" char="제" />
+      </word>
+      <word x="68" y="275" width="99" height="40">
+        <character x="68" y="280" width="17" height="32" char="2" />
+        <character x="85" y="281" width="12" height="34" char="0" />
+        <character x="97" y="278" width="10" height="34" char="1" />
+        <character x="107" y="276" width="14" height="36" char="0" />
+        <character x="122" y="276" width="19" height="35" char="년" />
+        <character x="146" y="275" width="21" height="36" char="형" />
+      </word>
+      <word x="52" y="313" width="109" height="40">
+        <character x="52" y="313" width="44" height="40" char="신" />
+        <character x="97" y="316" width="33" height="37" char="상" />
+        <character x="131" y="315" width="30" height="31" char="품" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

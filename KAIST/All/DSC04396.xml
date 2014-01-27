@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04396.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="94" y="74" width="432" height="87">
+        <character x="94" y="88" width="62" height="73" char="비" />
+        <character x="154" y="87" width="66" height="71" char="와" />
+        <character x="218" y="84" width="68" height="74" char="혜" />
+        <character x="284" y="79" width="56" height="76" char="선" />
+        <character x="340" y="78" width="57" height="71" char="이" />
+        <character x="396" y="78" width="70" height="75" char="처" />
+        <character x="462" y="74" width="64" height="75" char="럼" />
+      </word>
+      <word x="63" y="148" width="461" height="96">
+        <character x="63" y="162" width="68" height="77" char="예" />
+        <character x="131" y="161" width="55" height="68" char="쁘" />
+        <character x="188" y="155" width="58" height="89" char="게" />
+        <character x="253" y="150" width="63" height="81" char="활" />
+        <character x="318" y="149" width="44" height="79" char="용" />
+        <character x="364" y="148" width="58" height="83" char="하" />
+        <character x="418" y="148" width="59" height="85" char="세" />
+        <character x="476" y="149" width="48" height="75" char="요" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

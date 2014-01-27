@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010065.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="83" y="111" width="505" height="348">
+        <character x="83" y="390" width="84" height="69" char="수" />
+        <character x="491" y="387" width="97" height="69" char="육" />
+      </word>
+      <word x="110" y="111" width="460" height="66">
+        <character x="110" y="118" width="66" height="59" char="설" />
+        <character x="297" y="117" width="73" height="60" char="렁" />
+        <character x="486" y="111" width="84" height="57" char="탕" />
+      </word>
+      <word x="101" y="171" width="470" height="69">
+        <character x="101" y="187" width="72" height="53" char="냉" />
+        <character x="491" y="171" width="80" height="65" char="면" />
+      </word>
+      <word x="120" y="243" width="456" height="68">
+        <character x="120" y="252" width="61" height="59" char="암" />
+        <character x="216" y="247" width="75" height="61" char="돼" />
+        <character x="307" y="249" width="76" height="58" char="지" />
+        <character x="402" y="248" width="81" height="59" char="갈" />
+        <character x="495" y="243" width="81" height="60" char="비" />
+      </word>
+      <word x="85" y="309" width="497" height="74">
+        <character x="85" y="317" width="85" height="63" char="도" />
+        <character x="178" y="321" width="83" height="62" char="가" />
+        <character x="269" y="316" width="78" height="62" char="니" />
+        <character x="364" y="314" width="76" height="65" char="찜" />
+        <character x="492" y="309" width="90" height="69" char="탕" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

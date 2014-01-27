@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04225.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="140" y="83" width="371" height="98">
+        <character x="140" y="83" width="91" height="81" char="오" />
+        <character x="228" y="85" width="95" height="96" char="안" />
+        <character x="324" y="86" width="87" height="92" char="네" />
+        <character x="409" y="83" width="102" height="80" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010002.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="132" y="153" width="73" height="94">
+        <character x="132" y="153" width="73" height="94" char="골" />
+      </word>
+      <word x="213" y="153" width="75" height="90">
+        <character x="213" y="153" width="75" height="90" char="드" />
+      </word>
+      <word x="306" y="104" width="137" height="135">
+        <character x="306" y="104" width="137" height="135" char="2" />
+      </word>
+      <word x="404" y="158" width="137" height="145">
+        <character x="404" y="158" width="137" height="145" char="5" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

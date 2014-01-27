@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03448.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="59" y="326" width="505" height="96">
+        <character x="59" y="326" width="101" height="83" char="퍼" />
+        <character x="159" y="327" width="99" height="87" char="스" />
+        <character x="256" y="329" width="102" height="83" char="트" />
+        <character x="374" y="346" width="95" height="71" char="서" />
+        <character x="468" y="347" width="96" height="75" char="구" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

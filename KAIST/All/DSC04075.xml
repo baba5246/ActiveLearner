@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04075.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="143" y="405" width="151" height="46">
+        <character x="143" y="405" width="40" height="46" char="느" />
+        <character x="184" y="407" width="34" height="42" char="티" />
+        <character x="218" y="408" width="35" height="40" char="나" />
+        <character x="253" y="405" width="41" height="43" char="무" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

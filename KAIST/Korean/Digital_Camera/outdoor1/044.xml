@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>044.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="71" y="162" width="507" height="123">
+        <character x="71" y="172" width="108" height="113" char="유" />
+        <character x="189" y="172" width="117" height="108" char="성" />
+        <character x="323" y="164" width="121" height="110" char="농" />
+        <character x="457" y="162" width="121" height="119" char="협" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

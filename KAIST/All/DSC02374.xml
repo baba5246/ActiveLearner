@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02374.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="14" y="152" width="624" height="192">
+        <character x="14" y="207" width="118" height="109" char="전" />
+        <character x="158" y="190" width="117" height="111" char="원" />
+        <character x="298" y="171" width="156" height="119" char="슈" />
+        <character x="496" y="152" width="142" height="135" char="퍼" />
+      </word>
+      <word x="206" y="287" width="240" height="57">
+        <character x="206" y="305" width="20" height="39" char="T" />
+        <character x="244" y="301" width="19" height="42" char="8" />
+        <character x="265" y="300" width="21" height="43" char="2" />
+        <character x="287" y="299" width="27" height="45" char="2" />
+        <character x="337" y="296" width="22" height="40" char="4" />
+        <character x="360" y="292" width="27" height="43" char="6" />
+        <character x="391" y="294" width="24" height="41" char="8" />
+        <character x="411" y="287" width="35" height="50" char="5" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

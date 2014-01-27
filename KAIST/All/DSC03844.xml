@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03844.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="196" y="154" width="229" height="132">
+        <character x="250" y="159" width="53" height="60" char="자" />
+        <character x="305" y="158" width="53" height="59" char="전" />
+        <character x="357" y="154" width="56" height="61" char="거" />
+      </word>
+      <word x="196" y="228" width="229" height="58">
+        <character x="196" y="230" width="47" height="53" char="분" />
+        <character x="240" y="228" width="47" height="54" char="실" />
+        <character x="335" y="234" width="41" height="52" char="주" />
+        <character x="374" y="234" width="51" height="51" char="의" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

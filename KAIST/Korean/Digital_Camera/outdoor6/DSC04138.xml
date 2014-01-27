@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04138.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="58" y="48" width="550" height="137">
+        <character x="58" y="82" width="92" height="72" char="만" />
+        <character x="148" y="81" width="85" height="76" char="년" />
+        <character x="232" y="80" width="98" height="75" char="어" />
+        <character x="331" y="76" width="88" height="78" char="린" />
+        <character x="416" y="75" width="91" height="87" char="이" />
+        <character x="509" y="75" width="99" height="91" char="집" />
+      </word>
+      <word x="118" y="48" width="188" height="37">
+        <character x="118" y="49" width="31" height="32" char="꿈" />
+        <character x="149" y="48" width="25" height="37" char="이" />
+        <character x="174" y="50" width="21" height="34" char="익" />
+        <character x="195" y="49" width="25" height="33" char="어" />
+        <character x="228" y="50" width="28" height="28" char="가" />
+        <character x="256" y="52" width="23" height="31" char="는" />
+        <character x="280" y="50" width="26" height="33" char="곳" />
+      </word>
+      <word x="241" y="152" width="225" height="33">
+        <character x="241" y="153" width="33" height="32" char="4" />
+        <character x="274" y="152" width="28" height="31" char="8" />
+        <character x="302" y="153" width="28" height="31" char="6" />
+        <character x="354" y="156" width="27" height="29" char="6" />
+        <character x="381" y="155" width="28" height="30" char="4" />
+        <character x="409" y="153" width="27" height="32" char="2" />
+        <character x="436" y="155" width="30" height="29" char="8" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

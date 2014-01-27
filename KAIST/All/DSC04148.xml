@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04148.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="210" y="111" width="258" height="60">
+        <character x="210" y="115" width="60" height="54" char="예" />
+        <character x="268" y="111" width="67" height="59" char="배" />
+        <character x="334" y="114" width="61" height="55" char="시" />
+        <character x="395" y="116" width="73" height="55" char="간" />
+      </word>
+      <word x="179" y="200" width="296" height="48">
+        <character x="179" y="202" width="41" height="43" char="주" />
+        <character x="264" y="200" width="41" height="42" char="일" />
+        <character x="319" y="205" width="36" height="39" char="오" />
+        <character x="355" y="202" width="40" height="46" char="전" />
+        <character x="395" y="201" width="19" height="45" char="1" />
+        <character x="414" y="202" width="20" height="42" char="1" />
+        <character x="434" y="200" width="41" height="48" char="시" />
+      </word>
+      <word x="175" y="250" width="340" height="51">
+        <character x="175" y="252" width="32" height="41" char="수" />
+        <character x="206" y="252" width="37" height="44" char="요" />
+        <character x="243" y="251" width="30" height="48" char="기" />
+        <character x="269" y="250" width="33" height="46" char="도" />
+        <character x="301" y="250" width="32" height="45" char="회" />
+        <character x="343" y="255" width="30" height="46" char="저" />
+        <character x="370" y="255" width="30" height="41" char="녁" />
+        <character x="398" y="251" width="22" height="42" char="7" />
+        <character x="418" y="251" width="28" height="47" char="시" />
+        <character x="445" y="255" width="17" height="40" char="3" />
+        <character x="463" y="257" width="16" height="32" char="0" />
+        <character x="479" y="251" width="36" height="49" char="분" />
+      </word>
+      <word x="171" y="300" width="336" height="58">
+        <character x="171" y="303" width="41" height="46" char="금" />
+        <character x="212" y="305" width="37" height="45" char="요" />
+        <character x="250" y="306" width="41" height="42" char="기" />
+        <character x="289" y="305" width="37" height="44" char="도" />
+        <character x="328" y="304" width="38" height="46" char="회" />
+        <character x="372" y="300" width="39" height="49" char="저" />
+        <character x="411" y="305" width="37" height="47" char="녁" />
+        <character x="448" y="303" width="23" height="44" char="9" />
+        <character x="471" y="305" width="36" height="53" char="시" />
+      </word>
+      <word x="166" y="361" width="254" height="54">
+        <character x="166" y="362" width="39" height="52" char="갯" />
+        <character x="207" y="364" width="35" height="51" char="세" />
+        <character x="242" y="363" width="36" height="48" char="마" />
+        <character x="278" y="362" width="33" height="51" char="네" />
+        <character x="311" y="365" width="36" height="44" char="기" />
+        <character x="344" y="361" width="39" height="46" char="도" />
+        <character x="383" y="361" width="37" height="43" char="회" />
+      </word>
+      <word x="305" y="405" width="204" height="51">
+        <character x="305" y="410" width="41" height="45" char="매" />
+        <character x="346" y="405" width="36" height="48" char="일" />
+        <character x="382" y="406" width="34" height="50" char="저" />
+        <character x="415" y="406" width="38" height="48" char="녁" />
+        <character x="450" y="406" width="24" height="46" char="9" />
+        <character x="471" y="409" width="38" height="45" char="시" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

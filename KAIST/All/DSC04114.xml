@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04114.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="2" y="337" width="524" height="107">
+        <character x="2" y="343" width="60" height="101" char="주" />
+        <character x="68" y="344" width="56" height="88" char="유" />
+        <character x="131" y="339" width="59" height="77" char="소" />
+        <character x="203" y="343" width="45" height="64" char="정" />
+        <character x="246" y="342" width="50" height="63" char="통" />
+        <character x="297" y="341" width="73" height="88" char="생" />
+        <character x="368" y="338" width="84" height="94" char="맥" />
+        <character x="453" y="337" width="73" height="89" char="주" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

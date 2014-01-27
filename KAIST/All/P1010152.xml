@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010152.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="48" y="62" width="296" height="130">
+        <character x="286" y="65" width="58" height="56" char="사" />
+        <character x="48" y="62" width="62" height="66" char="공" />
+        <character x="115" y="65" width="55" height="64" char="인" />
+        <character x="172" y="64" width="56" height="57" char="중" />
+        <character x="231" y="64" width="52" height="63" char="개" />
+        <character x="88" y="137" width="66" height="55" char="사" />
+        <character x="178" y="137" width="53" height="54" char="무" />
+        <character x="249" y="140" width="54" height="49" char="소" />
+      </word>
+      <word x="362" y="67" width="258" height="109">
+        <character x="362" y="67" width="127" height="107" char="백" />
+        <character x="489" y="69" width="131" height="107" char="합" />
+      </word>
+      <word x="113" y="217" width="473" height="80">
+        <character x="509" y="217" width="77" height="75" char="4" />
+        <character x="113" y="228" width="57" height="69" char="T" />
+        <character x="194" y="228" width="52" height="66" char="4" />
+        <character x="244" y="222" width="50" height="74" char="7" />
+        <character x="292" y="220" width="44" height="71" char="1" />
+        <character x="378" y="218" width="56" height="77" char="9" />
+        <character x="436" y="217" width="34" height="76" char="1" />
+        <character x="467" y="222" width="42" height="68" char="1" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

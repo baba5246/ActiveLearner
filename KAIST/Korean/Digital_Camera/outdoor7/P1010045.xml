@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010045.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="154" y="25" width="33" height="35">
+        <character x="154" y="25" width="33" height="35" char="세" />
+      </word>
+      <word x="190" y="28" width="30" height="30">
+        <character x="190" y="28" width="30" height="30" char="브" />
+      </word>
+      <word x="220" y="28" width="31" height="33">
+        <character x="220" y="28" width="31" height="33" char="란" />
+      </word>
+      <word x="253" y="31" width="38" height="28">
+        <character x="253" y="31" width="38" height="28" char="스" />
+      </word>
+      <word x="148" y="67" width="80" height="90">
+        <character x="148" y="67" width="80" height="90" char="성" />
+      </word>
+      <word x="254" y="61" width="85" height="96">
+        <character x="254" y="61" width="85" height="96" char="형" />
+      </word>
+      <word x="383" y="56" width="62" height="99">
+        <character x="383" y="56" width="62" height="99" char="외" />
+      </word>
+      <word x="474" y="65" width="73" height="83">
+        <character x="474" y="65" width="73" height="83" char="과" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

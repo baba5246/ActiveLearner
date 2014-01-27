@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03232.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="41" y="182" width="588" height="141">
+        <character x="63" y="208" width="68" height="76" char="효" />
+        <character x="130" y="203" width="81" height="80" char="성" />
+        <character x="214" y="202" width="82" height="75" char="컴" />
+        <character x="293" y="199" width="74" height="79" char="퓨" />
+        <character x="372" y="194" width="76" height="80" char="터" />
+        <character x="459" y="184" width="90" height="84" char="학" />
+        <character x="550" y="182" width="79" height="85" char="원" />
+      </word>
+      <word x="41" y="271" width="576" height="52">
+        <character x="41" y="291" width="32" height="32" char="교" />
+        <character x="71" y="294" width="35" height="29" char="육" />
+        <character x="105" y="294" width="36" height="28" char="문" />
+        <character x="141" y="292" width="36" height="30" char="의" />
+        <character x="188" y="285" width="32" height="37" char="4" />
+        <character x="220" y="288" width="25" height="34" char="8" />
+        <character x="247" y="288" width="23" height="35" char="9" />
+        <character x="299" y="284" width="22" height="30" char="5" />
+        <character x="322" y="277" width="24" height="36" char="7" />
+        <character x="347" y="283" width="27" height="32" char="8" />
+        <character x="377" y="282" width="25" height="25" char="8" />
+        <character x="409" y="279" width="33" height="28" char="아" />
+        <character x="442" y="276" width="24" height="30" char="베" />
+        <character x="467" y="274" width="29" height="31" char="스" />
+        <character x="494" y="274" width="30" height="31" char="빌" />
+        <character x="525" y="271" width="27" height="36" char="딩" />
+        <character x="564" y="272" width="24" height="33" char="5" />
+        <character x="590" y="271" width="27" height="31" char="층" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

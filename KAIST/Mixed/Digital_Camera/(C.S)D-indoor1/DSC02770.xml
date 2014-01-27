@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02770.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="140" y="152" width="403" height="264">
+        <character x="140" y="152" width="170" height="161" char="문" />
+        <character x="370" y="163" width="163" height="163" char="학" />
+      </word>
+      <word x="211" y="339" width="332" height="77">
+        <character x="211" y="339" width="48" height="69" char="L" />
+        <character x="259" y="342" width="19" height="74" char="i" />
+        <character x="281" y="342" width="21" height="62" char="t" />
+        <character x="304" y="358" width="42" height="52" char="e" />
+        <character x="346" y="358" width="26" height="48" char="r" />
+        <character x="372" y="357" width="40" height="54" char="a" />
+        <character x="414" y="356" width="23" height="57" char="t" />
+        <character x="438" y="360" width="38" height="51" char="u" />
+        <character x="473" y="357" width="25" height="53" char="r" />
+        <character x="497" y="360" width="46" height="55" char="e" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

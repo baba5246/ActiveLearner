@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02302.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="43" y="341" width="78" height="41">
+        <character x="43" y="341" width="30" height="35" char="참" />
+        <character x="67" y="358" width="25" height="24" char="스" />
+        <character x="92" y="347" width="29" height="32" char="민" />
+      </word>
+      <word x="251" y="254" width="270" height="124">
+        <character x="251" y="254" width="112" height="94" char="참" />
+        <character x="348" y="281" width="95" height="97" char="스" />
+        <character x="419" y="259" width="102" height="97" char="민" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

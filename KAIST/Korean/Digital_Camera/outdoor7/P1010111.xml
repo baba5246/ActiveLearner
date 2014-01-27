@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010011.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="177" y="106" width="438" height="126">
+        <character x="177" y="108" width="87" height="81" char="부" />
+        <character x="267" y="110" width="80" height="76" char="동" />
+        <character x="356" y="106" width="80" height="81" char="산" />
+        <character x="441" y="106" width="81" height="81" char="써" />
+        <character x="528" y="108" width="87" height="74" char="브" />
+      </word>
+      <word x="28" y="211" width="611" height="63">
+        <character x="28" y="212" width="32" height="53" char="양" />
+        <character x="59" y="217" width="32" height="46" char="지" />
+        <character x="92" y="216" width="29" height="47" char="마" />
+        <character x="123" y="214" width="26" height="53" char="을" />
+        <character x="150" y="215" width="31" height="50" char="공" />
+        <character x="183" y="218" width="32" height="45" char="인" />
+        <character x="215" y="218" width="29" height="50" char="중" />
+        <character x="244" y="218" width="36" height="47" char="개" />
+        <character x="281" y="219" width="35" height="49" char="사" />
+        <character x="324" y="234" width="22" height="20" char="무" />
+        <character x="321" y="255" width="24" height="19" char="소" />
+        <character x="321" y="211" width="27" height="21" char="사" />
+      </word>
+      <word x="349" y="216" width="290" height="56">
+        <character x="349" y="216" width="29" height="52" char="4" />
+        <character x="381" y="220" width="35" height="48" char="8" />
+        <character x="418" y="218" width="33" height="51" char="8" />
+        <character x="488" y="221" width="40" height="43" char="8" />
+        <character x="527" y="219" width="36" height="48" char="3" />
+        <character x="564" y="223" width="36" height="45" char="0" />
+        <character x="600" y="222" width="39" height="50" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

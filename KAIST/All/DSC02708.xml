@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02708.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="187" y="254" width="361" height="103">
+        <character x="187" y="257" width="62" height="92" char="카" />
+        <character x="249" y="254" width="50" height="98" char="메" />
+        <character x="298" y="254" width="66" height="96" char="라" />
+        <character x="375" y="256" width="62" height="92" char="작" />
+        <character x="436" y="256" width="54" height="101" char="동" />
+        <character x="490" y="254" width="58" height="101" char="중" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

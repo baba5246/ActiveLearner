@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>117.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="163" y="135" width="145" height="57">
+        <character x="163" y="135" width="38" height="50" char="젊" />
+        <character x="200" y="137" width="37" height="49" char="은" />
+        <character x="237" y="140" width="31" height="49" char="식" />
+        <character x="270" y="136" width="38" height="56" char="당" />
+      </word>
+      <word x="178" y="260" width="226" height="86">
+        <character x="178" y="264" width="51" height="76" char="보" />
+        <character x="233" y="260" width="50" height="84" char="통" />
+        <character x="282" y="273" width="61" height="62" char="사" />
+        <character x="344" y="265" width="60" height="81" char="람" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

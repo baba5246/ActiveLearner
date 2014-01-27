@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>040.jpg</imageName>
+    <resolution x="367" y="308" />
+    <words>
+      <word x="7" y="18" width="112" height="122">
+        <character x="7" y="18" width="46" height="68" char="B" />
+        <character x="53" y="52" width="20" height="30" char="a" />
+        <character x="88" y="55" width="31" height="85" char="y" />
+      </word>
+      <word x="254" y="56" width="58" height="61">
+        <character x="254" y="56" width="28" height="61" char="발" />
+        <character x="282" y="65" width="30" height="36" char="리" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

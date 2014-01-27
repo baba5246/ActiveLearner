@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0622\2007-12-09-day-exterior-007.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="25" y="327" width="124" height="54">
+        <character x="25" y="337" width="46" height="37" char="전" />
+        <character x="71" y="331" width="43" height="45" char="문" />
+        <character x="114" y="327" width="35" height="54" char="점" />
+      </word>
+      <word x="373" y="272" width="876" height="467">
+        <character x="714" y="272" width="535" height="467" char="죽" />
+        <character x="373" y="292" width="341" height="309" char="본" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03853.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="181" y="91" width="298" height="283">
+        <character x="181" y="147" width="37" height="36" char="발" />
+        <character x="202" y="124" width="31" height="34" char="효" />
+        <character x="225" y="101" width="34" height="40" char="진" />
+        <character x="256" y="91" width="34" height="41" char="미" />
+      </word>
+      <word x="378" y="116" width="90" height="38">
+        <character x="378" y="116" width="29" height="35" char="장" />
+        <character x="407" y="117" width="23" height="37" char="맛" />
+        <character x="428" y="117" width="16" height="32" char="3" />
+        <character x="444" y="116" width="24" height="36" char="대" />
+      </word>
+      <word x="243" y="192" width="236" height="113">
+        <character x="243" y="198" width="113" height="102" char="고" />
+        <character x="354" y="192" width="125" height="113" char="향" />
+      </word>
+      <word x="328" y="305" width="141" height="69">
+        <character x="328" y="307" width="66" height="66" char="쌈" />
+        <character x="392" y="305" width="77" height="69" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

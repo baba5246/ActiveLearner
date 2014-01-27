@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02734.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="41" y="232" width="553" height="110">
+        <character x="41" y="232" width="98" height="110" char="베" />
+        <character x="172" y="238" width="95" height="97" char="스" />
+        <character x="307" y="242" width="85" height="92" char="트" />
+        <character x="415" y="243" width="86" height="91" char="셀" />
+        <character x="521" y="248" width="73" height="84" char="러" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

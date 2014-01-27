@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0622\2007-12-08-day-114.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="117" y="356" width="1401" height="360">
+        <character x="117" y="405" width="302" height="262" char="에" />
+        <character x="452" y="356" width="261" height="360" char="델" />
+        <character x="737" y="419" width="257" height="249" char="바" />
+        <character x="1014" y="421" width="246" height="263" char="이" />
+        <character x="1320" y="376" width="198" height="304" char="스" />
+      </word>
+      <word x="244" y="158" width="452" height="136">
+        <character x="440" y="171" width="84" height="119" char="&amp;" />
+        <character x="244" y="158" width="100" height="124" char="맥" />
+        <character x="345" y="163" width="79" height="120" char="주" />
+        <character x="524" y="181" width="92" height="113" char="양" />
+        <character x="615" y="176" width="81" height="113" char="주" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>korean</tag>
+  </image>
+</images>

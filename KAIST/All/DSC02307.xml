@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02307.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="13" y="184" width="591" height="125">
+        <character x="13" y="184" width="120" height="123" char="김" />
+        <character x="135" y="193" width="120" height="104" char="과" />
+        <character x="254" y="193" width="118" height="111" char="밥" />
+        <character x="363" y="202" width="120" height="88" char="사" />
+        <character x="484" y="199" width="120" height="110" char="이" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02960.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="24" y="118" width="557" height="166">
+        <character x="24" y="121" width="156" height="158" char="흙" />
+        <character x="196" y="182" width="116" height="85" char="과" />
+        <character x="328" y="118" width="139" height="158" char="일" />
+        <character x="469" y="126" width="112" height="158" char="촌" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04136.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="92" y="164" width="464" height="218">
+        <character x="92" y="252" width="96" height="83" char="작" />
+        <character x="221" y="165" width="84" height="76" char="은" />
+        <character x="376" y="164" width="80" height="97" char="마" />
+        <character x="475" y="256" width="81" height="91" char="을" />
+      </word>
+      <word x="224" y="327" width="189" height="55">
+        <character x="224" y="328" width="41" height="46" char="만" />
+        <character x="265" y="328" width="31" height="48" char="년" />
+        <character x="295" y="327" width="35" height="52" char="동" />
+        <character x="331" y="327" width="21" height="49" char="1" />
+        <character x="350" y="328" width="26" height="49" char="3" />
+        <character x="375" y="328" width="38" height="54" char="8" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

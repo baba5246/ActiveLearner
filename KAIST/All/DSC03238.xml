@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03238.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="248" y="283" width="154" height="54">
+        <character x="248" y="287" width="44" height="50" char="육" />
+        <character x="289" y="286" width="42" height="49" char="회" />
+        <character x="331" y="288" width="34" height="47" char="지" />
+        <character x="366" y="283" width="36" height="53" char="존" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

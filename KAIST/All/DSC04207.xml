@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04207.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="60" y="27" width="480" height="197">
+        <character x="60" y="29" width="112" height="129" char="제" />
+        <character x="199" y="27" width="93" height="127" char="한" />
+        <character x="324" y="98" width="105" height="126" char="구" />
+        <character x="434" y="96" width="106" height="125" char="역" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

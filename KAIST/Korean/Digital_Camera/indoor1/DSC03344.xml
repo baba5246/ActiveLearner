@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03344.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="77" y="153" width="400" height="131">
+        <character x="77" y="160" width="105" height="110" char="코" />
+        <character x="181" y="159" width="96" height="124" char="닝" />
+        <character x="275" y="156" width="103" height="126" char="웨" />
+        <character x="377" y="153" width="100" height="131" char="어" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

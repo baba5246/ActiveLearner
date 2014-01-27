@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03771.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="44" y="84" width="547" height="127">
+        <character x="44" y="84" width="96" height="111" char="만" />
+        <character x="148" y="93" width="99" height="109" char="년" />
+        <character x="257" y="101" width="103" height="108" char="노" />
+        <character x="368" y="94" width="106" height="117" char="래" />
+        <character x="480" y="93" width="111" height="118" char="방" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

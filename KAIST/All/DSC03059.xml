@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03059.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="275" y="165" width="219" height="49">
+        <character x="275" y="167" width="44" height="42" char="프" />
+        <character x="330" y="168" width="42" height="39" char="로" />
+        <character x="398" y="168" width="34" height="46" char="방" />
+        <character x="461" y="165" width="33" height="41" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

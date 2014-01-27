@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>021.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="250" y="133" width="265" height="105">
+        <character x="250" y="175" width="53" height="61" char="하" />
+        <character x="305" y="174" width="53" height="62" char="나" />
+        <character x="360" y="174" width="49" height="64" char="은" />
+        <character x="413" y="174" width="49" height="59" char="행" />
+      </word>
+      <word x="440" y="133" width="75" height="40">
+        <character x="440" y="139" width="24" height="25" char="M" />
+        <character x="466" y="140" width="12" height="24" char="a" />
+        <character x="475" y="138" width="17" height="35" char="g" />
+        <character x="492" y="136" width="8" height="30" char="i" />
+        <character x="501" y="133" width="14" height="32" char="c" />
+      </word>
+      <word x="465" y="206" width="46" height="27">
+        <character x="465" y="206" width="14" height="25" char="A" />
+        <character x="481" y="207" width="11" height="26" char="T" />
+        <character x="492" y="207" width="19" height="26" char="M" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

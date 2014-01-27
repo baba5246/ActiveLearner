@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03523.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="66" y="268" width="469" height="93">
+        <character x="66" y="274" width="67" height="83" char="여" />
+        <character x="147" y="282" width="62" height="71" char="기" />
+        <character x="219" y="280" width="64" height="73" char="가" />
+        <character x="321" y="268" width="61" height="93" char="좋" />
+        <character x="390" y="271" width="78" height="90" char="겠" />
+        <character x="469" y="275" width="66" height="84" char="네" />
+      </word>
+      <word x="544" y="284" width="88" height="45">
+        <character x="544" y="285" width="46" height="44" char="포" />
+        <character x="588" y="284" width="44" height="43" char="차" />
+      </word>
+      <word x="550" y="332" width="87" height="47">
+        <character x="550" y="333" width="20" height="44" char="1" />
+        <character x="570" y="334" width="34" height="45" char="번" />
+        <character x="603" y="332" width="34" height="46" char="가" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010038.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="274" y="106" width="193" height="156">
+        <character x="274" y="106" width="193" height="156" char="선" />
+      </word>
+      <word x="468" y="102" width="156" height="156">
+        <character x="468" y="102" width="156" height="156" char="사" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090903084.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="338" y="6" width="262" height="402">
+        <character x="512" y="331" width="42" height="77" char="1" />
+        <character x="447" y="6" width="153" height="148" char="톰" />
+        <character x="338" y="155" width="125" height="132" char="존" />
+        <character x="419" y="231" width="142" height="100" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

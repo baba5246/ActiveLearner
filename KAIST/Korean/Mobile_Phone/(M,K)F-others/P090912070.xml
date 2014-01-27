@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090912070.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="239" y="54" width="65" height="270">
+        <character x="244" y="54" width="53" height="65" char="포" />
+        <character x="240" y="143" width="64" height="54" char="챠" />
+        <character x="239" y="218" width="52" height="61" char="오" />
+        <character x="239" y="289" width="27" height="33" char="2" />
+        <character x="265" y="288" width="23" height="36" char="F" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03779.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="174" y="351" width="132" height="45">
+        <character x="174" y="355" width="47" height="34" char="빠" />
+        <character x="222" y="359" width="39" height="29" char="떼" />
+        <character x="261" y="351" width="45" height="45" char="루" />
+      </word>
+      <word x="347" y="235" width="273" height="49">
+        <character x="347" y="240" width="32" height="43" char="만" />
+        <character x="379" y="239" width="31" height="41" char="년" />
+        <character x="411" y="235" width="35" height="49" char="점" />
+        <character x="460" y="241" width="25" height="34" char="4" />
+        <character x="487" y="240" width="19" height="38" char="8" />
+        <character x="505" y="238" width="18" height="40" char="5" />
+        <character x="544" y="245" width="24" height="29" char="6" />
+        <character x="569" y="242" width="9" height="34" char="1" />
+        <character x="578" y="244" width="23" height="32" char="2" />
+        <character x="601" y="246" width="19" height="32" char="1" />
+      </word>
+      <word x="88" y="84" width="455" height="142">
+        <character x="88" y="99" width="163" height="109" char="빠" />
+        <character x="255" y="117" width="124" height="82" char="떼" />
+        <character x="382" y="84" width="161" height="142" char="루" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

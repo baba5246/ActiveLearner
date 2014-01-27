@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02593.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="117" y="277" width="497" height="171">
+        <character x="133" y="277" width="91" height="86" char="피" />
+        <character x="233" y="279" width="93" height="85" char="쉬" />
+        <character x="401" y="339" width="113" height="87" char="그" />
+        <character x="519" y="341" width="95" height="107" char="릴" />
+      </word>
+      <word x="21" y="382" width="198" height="55">
+        <character x="21" y="382" width="36" height="49" char="퓨" />
+        <character x="58" y="384" width="30" height="46" char="전" />
+        <character x="85" y="382" width="32" height="46" char="포" />
+        <character x="117" y="382" width="27" height="55" char="장" />
+        <character x="142" y="383" width="29" height="43" char="마" />
+        <character x="170" y="383" width="49" height="49" char="차" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

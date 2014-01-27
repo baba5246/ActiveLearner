@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04452.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="74" y="75" width="455" height="371">
+        <character x="74" y="80" width="125" height="154" char="힘" />
+        <character x="197" y="78" width="127" height="149" char="내" />
+        <character x="323" y="75" width="127" height="164" char="라" />
+      </word>
+      <word x="143" y="284" width="386" height="162">
+        <character x="143" y="284" width="135" height="162" char="충" />
+        <character x="276" y="285" width="127" height="152" char="남" />
+        <character x="401" y="284" width="128" height="153" char="대" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

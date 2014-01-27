@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02533.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="43" y="103" width="438" height="70">
+        <character x="43" y="111" width="56" height="62" char="기" />
+        <character x="100" y="112" width="53" height="58" char="독" />
+        <character x="156" y="115" width="53" height="53" char="교" />
+        <character x="210" y="105" width="62" height="64" char="한" />
+        <character x="273" y="103" width="46" height="65" char="국" />
+        <character x="327" y="107" width="53" height="57" char="침" />
+        <character x="384" y="107" width="43" height="58" char="례" />
+        <character x="429" y="106" width="52" height="55" char="회" />
+      </word>
+      <word x="26" y="186" width="477" height="159">
+        <character x="26" y="197" width="121" height="148" char="드" />
+        <character x="155" y="188" width="103" height="154" char="림" />
+        <character x="272" y="196" width="109" height="129" char="교" />
+        <character x="391" y="186" width="112" height="156" char="회" />
+      </word>
+      <word x="241" y="362" width="68" height="40">
+        <character x="241" y="362" width="34" height="39" char="6" />
+        <character x="278" y="362" width="31" height="40" char="F" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

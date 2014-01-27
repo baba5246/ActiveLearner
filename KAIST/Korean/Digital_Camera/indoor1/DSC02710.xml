@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02710.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="18" y="60" width="603" height="408">
+        <character x="18" y="397" width="56" height="62" char="홈" />
+        <character x="73" y="397" width="47" height="68" char="플" />
+        <character x="120" y="400" width="47" height="61" char="러" />
+        <character x="168" y="400" width="51" height="56" char="스" />
+        <character x="224" y="402" width="57" height="62" char="인" />
+        <character x="282" y="404" width="47" height="53" char="터" />
+        <character x="329" y="405" width="54" height="63" char="넷" />
+        <character x="394" y="400" width="56" height="53" char="쇼" />
+        <character x="446" y="399" width="51" height="66" char="핑" />
+        <character x="497" y="401" width="53" height="63" char="몰" />
+      </word>
+      <word x="239" y="60" width="382" height="301">
+        <character x="264" y="249" width="108" height="111" char="그" />
+        <character x="374" y="244" width="118" height="117" char="대" />
+        <character x="487" y="245" width="118" height="111" char="로" />
+      </word>
+      <word x="239" y="60" width="382" height="187">
+        <character x="239" y="97" width="129" height="150" char="신" />
+        <character x="367" y="97" width="114" height="140" char="선" />
+        <character x="481" y="60" width="140" height="178" char="함" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

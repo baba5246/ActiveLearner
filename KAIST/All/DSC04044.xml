@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04044.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="6" y="293" width="612" height="181">
+        <character x="21" y="295" width="56" height="49" char="당" />
+        <character x="75" y="293" width="48" height="50" char="신" />
+        <character x="122" y="293" width="50" height="49" char="의" />
+        <character x="540" y="365" width="34" height="41" char="쓰" />
+        <character x="563" y="365" width="33" height="37" char="레" />
+        <character x="589" y="356" width="29" height="42" char="기" />
+      </word>
+      <word x="416" y="297" width="80" height="49">
+        <character x="416" y="297" width="42" height="43" char="양" />
+        <character x="459" y="299" width="37" height="47" char="심" />
+      </word>
+      <word x="6" y="416" width="354" height="58">
+        <character x="6" y="421" width="50" height="53" char="버" />
+        <character x="55" y="417" width="51" height="53" char="리" />
+        <character x="107" y="419" width="50" height="53" char="시" />
+        <character x="156" y="419" width="50" height="51" char="겠" />
+        <character x="204" y="418" width="52" height="54" char="습" />
+        <character x="256" y="416" width="47" height="54" char="니" />
+        <character x="304" y="418" width="56" height="51" char="까" />
+      </word>
+      <word x="15" y="347" width="288" height="68">
+        <character x="15" y="347" width="76" height="67" char="양" />
+        <character x="86" y="349" width="70" height="66" char="심" />
+        <character x="157" y="350" width="46" height="60" char="이" />
+        <character x="203" y="354" width="47" height="53" char="라" />
+        <character x="252" y="357" width="51" height="51" char="면" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

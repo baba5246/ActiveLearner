@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02751.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="52" y="187" width="501" height="112">
+        <character x="203" y="252" width="48" height="41" char="고" />
+        <character x="254" y="252" width="46" height="40" char="등" />
+        <character x="302" y="248" width="50" height="37" char="학" />
+        <character x="352" y="248" width="48" height="39" char="교" />
+        <character x="401" y="246" width="54" height="37" char="문" />
+        <character x="453" y="243" width="48" height="38" char="제" />
+        <character x="499" y="238" width="54" height="46" char="집" />
+      </word>
+      <word x="206" y="187" width="337" height="55">
+        <character x="206" y="195" width="42" height="47" char="고" />
+        <character x="253" y="203" width="44" height="39" char="등" />
+        <character x="300" y="197" width="43" height="41" char="학" />
+        <character x="347" y="193" width="48" height="44" char="교" />
+        <character x="393" y="191" width="49" height="43" char="자" />
+        <character x="444" y="192" width="46" height="40" char="습" />
+        <character x="490" y="187" width="53" height="42" char="서" />
+      </word>
+      <word x="90" y="202" width="58" height="46">
+        <character x="90" y="202" width="58" height="46" char="B" />
+      </word>
+      <word x="52" y="253" width="125" height="46">
+        <character x="52" y="254" width="34" height="45" char="7" />
+        <character x="86" y="254" width="26" height="42" char="0" />
+        <character x="107" y="253" width="33" height="42" char="0" />
+        <character x="140" y="256" width="37" height="41" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

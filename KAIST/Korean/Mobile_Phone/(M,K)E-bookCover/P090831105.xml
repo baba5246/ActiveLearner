@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090831105.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="3" y="96" width="614" height="126">
+        <character x="3" y="104" width="70" height="105" char="대" />
+        <character x="80" y="99" width="81" height="115" char="동" />
+        <character x="163" y="99" width="86" height="113" char="운" />
+        <character x="255" y="101" width="79" height="121" char="부" />
+        <character x="344" y="98" width="72" height="117" char="군" />
+        <character x="432" y="96" width="76" height="121" char="옥" />
+        <character x="521" y="97" width="39" height="104" char="1" />
+        <character x="563" y="96" width="54" height="110" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

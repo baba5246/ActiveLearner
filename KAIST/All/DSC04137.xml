@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04137.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="96" y="400" width="479" height="53">
+        <character x="96" y="404" width="60" height="46" char="플" />
+        <character x="155" y="401" width="59" height="49" char="러" />
+        <character x="214" y="403" width="65" height="47" char="스" />
+        <character x="307" y="403" width="64" height="50" char="인" />
+        <character x="381" y="402" width="56" height="47" char="테" />
+        <character x="447" y="401" width="58" height="49" char="리" />
+        <character x="518" y="400" width="57" height="51" char="어" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

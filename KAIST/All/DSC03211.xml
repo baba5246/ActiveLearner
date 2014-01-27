@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03211.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="122" y="52" width="254" height="87">
+        <character x="122" y="52" width="102" height="87" char="청" />
+        <character x="242" y="54" width="134" height="80" char="녹" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

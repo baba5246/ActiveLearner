@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090831027.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="69" y="158" width="531" height="209">
+        <character x="69" y="175" width="132" height="192" char="향" />
+        <character x="207" y="179" width="110" height="172" char="기" />
+        <character x="339" y="165" width="132" height="183" char="자" />
+        <character x="479" y="158" width="121" height="175" char="욱" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

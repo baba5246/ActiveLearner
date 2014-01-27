@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010019.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="90" y="247" width="56" height="47">
+        <character x="90" y="247" width="56" height="47" char="전" />
+      </word>
+      <word x="177" y="249" width="55" height="43">
+        <character x="177" y="249" width="55" height="43" char="용" />
+      </word>
+      <word x="255" y="246" width="50" height="41">
+        <character x="255" y="246" width="50" height="41" char="주" />
+      </word>
+      <word x="326" y="243" width="44" height="41">
+        <character x="326" y="243" width="44" height="41" char="차" />
+      </word>
+      <word x="391" y="243" width="41" height="40">
+        <character x="391" y="243" width="41" height="40" char="장" />
+      </word>
+      <word x="14" y="139" width="73" height="84">
+        <character x="14" y="139" width="73" height="84" char="갈" />
+      </word>
+      <word x="86" y="149" width="72" height="69">
+        <character x="86" y="149" width="72" height="69" char="비" />
+      </word>
+      <word x="216" y="154" width="63" height="68">
+        <character x="216" y="154" width="63" height="68" char="양" />
+      </word>
+      <word x="279" y="157" width="52" height="70">
+        <character x="279" y="157" width="52" height="70" char="" />
+      </word>
+      <word x="330" y="158" width="58" height="73">
+        <character x="330" y="158" width="58" height="73" char="" />
+      </word>
+      <word x="387" y="161" width="53" height="58">
+        <character x="387" y="161" width="53" height="58" char="" />
+      </word>
+      <word x="440" y="158" width="44" height="70">
+        <character x="440" y="158" width="44" height="70" char="" />
+      </word>
+      <word x="486" y="168" width="43" height="57">
+        <character x="486" y="168" width="43" height="57" char="" />
+      </word>
+      <word x="529" y="171" width="38" height="53">
+        <character x="529" y="171" width="38" height="53" char="" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

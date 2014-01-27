@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03049.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="63" y="186" width="529" height="98">
+        <character x="63" y="186" width="88" height="98" char="밝" />
+        <character x="200" y="193" width="96" height="89" char="은" />
+        <character x="421" y="209" width="65" height="72" char="안" />
+        <character x="510" y="213" width="82" height="62" char="과" />
+        <character x="328" y="186" width="54" height="44" char="의" />
+        <character x="326" y="228" width="58" height="45" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

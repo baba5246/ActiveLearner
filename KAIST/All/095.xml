@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>095.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="40" y="147" width="588" height="161">
+        <character x="40" y="173" width="176" height="135" char="수" />
+        <character x="421" y="147" width="207" height="137" char="양" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

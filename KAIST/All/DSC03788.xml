@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03788.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="2" y="16" width="629" height="145">
+        <character x="2" y="16" width="107" height="134" char="순" />
+        <character x="118" y="22" width="111" height="129" char="전" />
+        <character x="234" y="22" width="133" height="139" char="한" />
+        <character x="379" y="26" width="128" height="117" char="교" />
+        <character x="513" y="25" width="118" height="134" char="회" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

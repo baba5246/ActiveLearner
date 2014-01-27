@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>046.jpg</imageName>
+    <resolution x="363" y="256" />
+    <words>
+      <word x="72" y="62" width="104" height="53">
+        <character x="72" y="62" width="50" height="53" char="윈" />
+        <character x="124" y="62" width="52" height="52" char="저" />
+      </word>
+      <word x="71" y="111" width="97" height="42">
+        <character x="71" y="114" width="27" height="35" char="프" />
+        <character x="95" y="115" width="24" height="35" char="리" />
+        <character x="119" y="111" width="21" height="42" char="미" />
+        <character x="140" y="113" width="28" height="36" char="어" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

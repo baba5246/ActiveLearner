@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010006.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="38" y="89" width="569" height="171">
+        <character x="38" y="95" width="138" height="165" char="투" />
+        <character x="195" y="103" width="128" height="148" char="자" />
+        <character x="349" y="95" width="122" height="152" char="상" />
+        <character x="499" y="89" width="108" height="157" char="담" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

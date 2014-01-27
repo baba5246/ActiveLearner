@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-09-day-exterior-006.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="338" y="371" width="167" height="207">
+        <character x="338" y="371" width="167" height="207" char="참" />
+      </word>
+      <word x="1495" y="576" width="87" height="54">
+        <character x="1495" y="576" width="36" height="50" char="T" />
+        <character x="1532" y="576" width="25" height="52" char="E" />
+        <character x="1554" y="580" width="28" height="50" char="L" />
+      </word>
+      <word x="84" y="577" width="123" height="52">
+        <character x="84" y="577" width="40" height="50" char="스" />
+        <character x="126" y="578" width="36" height="48" char="민" />
+        <character x="163" y="579" width="44" height="50" char="집" />
+      </word>
+      <word x="11" y="124" width="363" height="169">
+        <character x="11" y="124" width="165" height="142" char="고" />
+        <character x="205" y="139" width="169" height="154" char="기" />
+      </word>
+      <word x="582" y="202" width="478" height="171">
+        <character x="582" y="202" width="152" height="139" char="돌" />
+        <character x="750" y="219" width="141" height="128" char="솥" />
+        <character x="904" y="238" width="156" height="135" char="밥" />
+      </word>
+      <word x="677" y="343" width="776" height="298">
+        <character x="677" y="343" width="337" height="264" char="스" />
+        <character x="1152" y="388" width="301" height="253" char="민" />
+      </word>
+      <word x="1213" y="269" width="387" height="140">
+        <character x="1213" y="269" width="122" height="113" char="생" />
+        <character x="1355" y="280" width="124" height="125" char="고" />
+        <character x="1482" y="289" width="118" height="120" char="기" />
+      </word>
+      <word x="674" y="603" width="340" height="72">
+        <character x="674" y="603" width="67" height="60" char="분" />
+        <character x="743" y="605" width="51" height="64" char="식" />
+        <character x="795" y="604" width="58" height="67" char="전" />
+        <character x="852" y="612" width="54" height="58" char="문" />
+        <character x="907" y="615" width="51" height="56" char="타" />
+        <character x="961" y="620" width="53" height="55" char="운" />
+      </word>
+      <word x="1" y="577" width="72" height="47">
+        <character x="1" y="578" width="33" height="44" char="가" />
+        <character x="35" y="577" width="38" height="47" char="득" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

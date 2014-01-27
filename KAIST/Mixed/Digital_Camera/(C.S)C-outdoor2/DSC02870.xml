@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02870.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="175" y="172" width="200" height="190">
+        <character x="175" y="274" width="53" height="69" char="S" />
+        <character x="224" y="277" width="45" height="69" char="T" />
+        <character x="267" y="276" width="53" height="73" char="O" />
+        <character x="319" y="274" width="51" height="88" char="P" />
+      </word>
+      <word x="196" y="172" width="179" height="94">
+        <character x="196" y="172" width="72" height="86" char="정" />
+        <character x="285" y="172" width="90" height="94" char="지" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

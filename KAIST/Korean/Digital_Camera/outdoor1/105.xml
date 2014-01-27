@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>105.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="48" y="143" width="558" height="155">
+        <character x="48" y="143" width="113" height="147" char="세" />
+        <character x="166" y="144" width="114" height="149" char="계" />
+        <character x="282" y="143" width="114" height="155" char="부" />
+        <character x="397" y="144" width="101" height="147" char="동" />
+        <character x="495" y="158" width="111" height="131" char="산" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

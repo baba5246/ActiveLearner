@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-08-day-129.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="892" y="667" width="137" height="92">
+        <character x="892" y="672" width="71" height="82" char="지" />
+        <character x="963" y="667" width="66" height="92" char="하" />
+      </word>
+      <word x="481" y="450" width="588" height="217">
+        <character x="481" y="450" width="161" height="214" char="대" />
+        <character x="653" y="475" width="147" height="191" char="성" />
+        <character x="808" y="496" width="142" height="166" char="상" />
+        <character x="953" y="510" width="116" height="157" char="사" />
+      </word>
+    </words>
+    <illumination>yes</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

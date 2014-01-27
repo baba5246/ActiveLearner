@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090831150.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="7" y="33" width="573" height="153">
+        <character x="7" y="46" width="83" height="125" char="신" />
+        <character x="89" y="62" width="94" height="82" char="기" />
+        <character x="184" y="45" width="99" height="128" char="한" />
+        <character x="302" y="40" width="90" height="123" char="별" />
+        <character x="394" y="37" width="91" height="149" char="똥" />
+        <character x="485" y="33" width="95" height="120" char="별" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

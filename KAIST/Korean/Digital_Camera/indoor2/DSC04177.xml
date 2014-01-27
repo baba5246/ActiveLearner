@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04177.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="97" y="89" width="441" height="112">
+        <character x="97" y="89" width="112" height="107" char="캔" />
+        <character x="279" y="91" width="92" height="109" char="병" />
+        <character x="444" y="94" width="94" height="107" char="류" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

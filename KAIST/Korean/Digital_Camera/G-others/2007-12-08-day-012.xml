@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-08-day-012.jpg</imageName>
+    <resolution x="1200" y="1600" />
+    <words>
+      <word x="486" y="215" width="226" height="1361">
+        <character x="501" y="937" width="189" height="192" char="연" />
+        <character x="499" y="740" width="213" height="201" char="자" />
+        <character x="492" y="1129" width="205" height="231" char="구" />
+        <character x="504" y="1359" width="198" height="217" char="소" />
+        <character x="505" y="560" width="166" height="180" char="전" />
+        <character x="486" y="400" width="205" height="158" char="보" />
+        <character x="489" y="215" width="196" height="176" char="정" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

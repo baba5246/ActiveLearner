@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\한글\41.JPG</imageName>
+    <resolution x="576" y="768" />
+    <words>
+      <word x="119" y="635" width="251" height="55">
+        <character x="119" y="635" width="36" height="44" char="8" />
+        <character x="154" y="637" width="39" height="44" char="6" />
+        <character x="191" y="636" width="35" height="44" char="7" />
+        <character x="227" y="653" width="23" height="18" char="-" />
+        <character x="253" y="644" width="24" height="41" char="1" />
+        <character x="285" y="645" width="28" height="45" char="7" />
+        <character x="313" y="646" width="25" height="41" char="8" />
+        <character x="340" y="648" width="30" height="37" char="2" />
+      </word>
+      <word x="140" y="74" width="207" height="555">
+        <character x="151" y="464" width="196" height="165" char="을" />
+        <character x="140" y="327" width="189" height="134" char="고" />
+        <character x="149" y="206" width="165" height="123" char="창" />
+        <character x="147" y="74" width="170" height="137" char="막" />
+      </word>
+    </words>
+    <illumination>yes</illumination>
+    <difficulty>2</difficulty>
+    <tag>korean,number</tag>
+  </image>
+</images>

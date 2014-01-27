@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04345.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="73" y="168" width="499" height="91">
+        <character x="73" y="170" width="74" height="89" char="임" />
+        <character x="146" y="168" width="67" height="82" char="실" />
+        <character x="310" y="177" width="69" height="73" char="치" />
+        <character x="377" y="176" width="66" height="72" char="즈" />
+        <character x="441" y="175" width="62" height="68" char="피" />
+        <character x="503" y="172" width="69" height="79" char="자" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

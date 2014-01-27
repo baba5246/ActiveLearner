@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02612.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="9" y="186" width="622" height="205">
+        <character x="9" y="191" width="163" height="200" char="비" />
+        <character x="171" y="187" width="157" height="204" char="어" />
+        <character x="332" y="186" width="154" height="190" char="캐" />
+        <character x="491" y="217" width="140" height="172" char="빈" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

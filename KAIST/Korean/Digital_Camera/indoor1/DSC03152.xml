@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03152.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="95" y="218" width="377" height="92">
+        <character x="95" y="221" width="60" height="81" char="장" />
+        <character x="153" y="218" width="56" height="82" char="학" />
+        <character x="228" y="225" width="54" height="76" char="기" />
+        <character x="281" y="221" width="60" height="79" char="타" />
+        <character x="352" y="229" width="56" height="81" char="정" />
+        <character x="410" y="229" width="62" height="76" char="보" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

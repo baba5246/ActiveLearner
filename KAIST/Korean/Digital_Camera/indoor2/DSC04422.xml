@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04422.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="157" y="225" width="347" height="86">
+        <character x="252" y="225" width="51" height="80" char="영" />
+        <character x="301" y="228" width="55" height="51" char="토" />
+        <character x="356" y="227" width="47" height="58" char="어" />
+        <character x="404" y="225" width="47" height="72" char="학" />
+        <character x="449" y="226" width="55" height="73" char="원" />
+      </word>
+      <word x="157" y="226" width="88" height="85">
+        <character x="202" y="265" width="43" height="46" char="토" />
+        <character x="157" y="226" width="46" height="48" char="영" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

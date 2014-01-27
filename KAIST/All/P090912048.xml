@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090912048.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="33" y="89" width="506" height="192">
+        <character x="33" y="184" width="53" height="90" char="뷰" />
+        <character x="81" y="184" width="47" height="79" char="티" />
+        <character x="127" y="179" width="58" height="97" char="몰" />
+        <character x="202" y="158" width="104" height="123" char="화" />
+        <character x="309" y="144" width="105" height="124" char="장" />
+        <character x="409" y="133" width="130" height="127" char="품" />
+      </word>
+      <word x="74" y="89" width="352" height="81">
+        <character x="74" y="125" width="49" height="44" char="피" />
+        <character x="122" y="114" width="41" height="56" char="부" />
+        <character x="165" y="120" width="33" height="38" char="맞" />
+        <character x="197" y="108" width="37" height="46" char="춤" />
+        <character x="253" y="107" width="40" height="35" char="피" />
+        <character x="294" y="101" width="41" height="38" char="부" />
+        <character x="336" y="96" width="43" height="36" char="관" />
+        <character x="381" y="89" width="45" height="34" char="리" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

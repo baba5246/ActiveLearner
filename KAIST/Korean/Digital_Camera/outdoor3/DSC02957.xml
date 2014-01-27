@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02957.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="1" y="220" width="615" height="238">
+        <character x="215" y="398" width="36" height="46" char="4" />
+        <character x="253" y="401" width="32" height="46" char="8" />
+        <character x="285" y="400" width="31" height="50" char="8" />
+        <character x="349" y="406" width="29" height="41" char="4" />
+        <character x="381" y="408" width="24" height="45" char="1" />
+        <character x="407" y="406" width="20" height="47" char="1" />
+        <character x="427" y="404" width="28" height="50" char="1" />
+      </word>
+      <word x="500" y="421" width="116" height="37">
+        <character x="500" y="423" width="29" height="30" char="일" />
+        <character x="530" y="424" width="21" height="30" char="반" />
+        <character x="550" y="424" width="22" height="31" char="음" />
+        <character x="571" y="424" width="22" height="31" char="식" />
+        <character x="593" y="421" width="23" height="37" char="점" />
+      </word>
+      <word x="1" y="220" width="608" height="183">
+        <character x="1" y="220" width="126" height="170" char="라" />
+        <character x="128" y="234" width="142" height="154" char="면" />
+        <character x="338" y="246" width="138" height="148" char="김" />
+        <character x="476" y="256" width="133" height="147" char="밥" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03453.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="42" y="358" width="502" height="110">
+        <character x="42" y="358" width="84" height="110" char="돌" />
+        <character x="125" y="361" width="96" height="105" char="려" />
+        <character x="218" y="367" width="74" height="93" char="드" />
+        <character x="295" y="368" width="89" height="100" char="립" />
+        <character x="388" y="370" width="78" height="72" char="니" />
+        <character x="468" y="369" width="76" height="73" char="다" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

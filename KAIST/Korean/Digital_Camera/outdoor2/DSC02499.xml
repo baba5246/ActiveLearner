@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02499.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="38" y="0" width="556" height="49">
+        <character x="38" y="1" width="69" height="46" char="기" />
+        <character x="170" y="2" width="66" height="42" char="특" />
+        <character x="305" y="0" width="62" height="49" char="성" />
+        <character x="419" y="1" width="60" height="47" char="화" />
+        <character x="528" y="1" width="66" height="48" char="교" />
+      </word>
+      <word x="7" y="123" width="580" height="130">
+        <character x="7" y="125" width="118" height="128" char="남" />
+        <character x="141" y="126" width="104" height="116" char="문" />
+        <character x="256" y="125" width="115" height="116" char="해" />
+        <character x="371" y="125" width="108" height="111" char="장" />
+        <character x="477" y="123" width="110" height="110" char="국" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

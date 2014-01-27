@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090911051.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="276" y="163" width="233" height="141">
+        <character x="276" y="163" width="111" height="109" char="모" />
+        <character x="384" y="171" width="125" height="133" char="닝" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

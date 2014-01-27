@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02474.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="10" y="151" width="608" height="136">
+        <character x="10" y="153" width="91" height="133" char="유" />
+        <character x="106" y="154" width="98" height="133" char="성" />
+        <character x="215" y="157" width="91" height="129" char="구" />
+        <character x="318" y="151" width="99" height="130" char="우" />
+        <character x="425" y="153" width="90" height="125" char="편" />
+        <character x="534" y="155" width="84" height="125" char="물" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

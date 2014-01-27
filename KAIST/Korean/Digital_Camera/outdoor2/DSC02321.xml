@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02321.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="53" y="223" width="401" height="190">
+        <character x="163" y="239" width="98" height="82" char="래" />
+        <character x="260" y="223" width="112" height="138" char="날" />
+        <character x="374" y="242" width="80" height="83" char="래" />
+        <character x="53" y="226" width="107" height="144" char="날" />
+      </word>
+      <word x="184" y="376" width="186" height="37">
+        <character x="184" y="379" width="23" height="29" char="8" />
+        <character x="208" y="377" width="23" height="31" char="2" />
+        <character x="233" y="377" width="21" height="35" char="2" />
+        <character x="273" y="378" width="23" height="31" char="4" />
+        <character x="294" y="378" width="24" height="33" char="9" />
+        <character x="340" y="378" width="30" height="33" char="8" />
+        <character x="320" y="376" width="18" height="37" char="8" />
+      </word>
+      <word x="470" y="233" width="114" height="134">
+        <character x="470" y="233" width="52" height="62" char="분" />
+        <character x="531" y="235" width="52" height="58" char="식" />
+        <character x="477" y="307" width="49" height="60" char="한" />
+        <character x="537" y="308" width="47" height="59" char="식" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

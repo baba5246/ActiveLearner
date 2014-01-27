@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010051.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="207" y="179" width="269" height="258">
+        <character x="247" y="282" width="190" height="155" char="약" />
+      </word>
+      <word x="207" y="179" width="269" height="86">
+        <character x="207" y="184" width="80" height="81" char="뜰" />
+        <character x="285" y="186" width="96" height="76" char="약" />
+        <character x="387" y="179" width="89" height="80" char="국" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

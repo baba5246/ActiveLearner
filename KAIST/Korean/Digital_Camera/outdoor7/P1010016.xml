@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010016.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="177" y="57" width="268" height="141">
+        <character x="177" y="57" width="122" height="134" char="본" />
+        <character x="307" y="61" width="138" height="137" char="향" />
+      </word>
+      <word x="493" y="73" width="126" height="38">
+        <character x="493" y="73" width="42" height="38" char="들" />
+        <character x="538" y="76" width="36" height="33" char="깨" />
+        <character x="580" y="74" width="39" height="37" char="수" />
+      </word>
+      <word x="496" y="114" width="142" height="39">
+        <character x="496" y="117" width="42" height="30" char="바" />
+        <character x="538" y="116" width="32" height="34" char="지" />
+        <character x="572" y="116" width="33" height="33" char="락" />
+        <character x="606" y="114" width="32" height="39" char="칼" />
+      </word>
+      <word x="500" y="157" width="129" height="42">
+        <character x="500" y="161" width="40" height="37" char="새" />
+        <character x="550" y="161" width="35" height="38" char="싹" />
+        <character x="591" y="157" width="38" height="40" char="보" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

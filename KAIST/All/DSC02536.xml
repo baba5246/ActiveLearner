@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02536.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="25" y="172" width="552" height="115">
+        <character x="25" y="179" width="86" height="108" char="소" />
+        <character x="125" y="177" width="82" height="103" char="나" />
+        <character x="217" y="172" width="78" height="108" char="타" />
+        <character x="315" y="181" width="82" height="98" char="피" />
+        <character x="403" y="174" width="75" height="106" char="아" />
+        <character x="496" y="176" width="81" height="99" char="노" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

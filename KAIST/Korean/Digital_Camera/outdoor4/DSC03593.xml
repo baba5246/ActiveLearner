@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03593.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="91" y="164" width="409" height="96">
+        <character x="91" y="164" width="92" height="92" char="갑" />
+        <character x="183" y="164" width="76" height="96" char="천" />
+        <character x="259" y="166" width="86" height="93" char="삼" />
+        <character x="346" y="168" width="73" height="87" char="거" />
+        <character x="420" y="167" width="80" height="90" char="리" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

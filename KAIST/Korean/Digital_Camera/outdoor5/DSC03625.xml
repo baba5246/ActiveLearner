@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03625.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="203" y="66" width="386" height="384">
+        <character x="204" y="71" width="67" height="131" char="어" />
+        <character x="271" y="70" width="81" height="135" char="린" />
+        <character x="351" y="66" width="78" height="139" char="이" />
+        <character x="427" y="66" width="85" height="143" char="보" />
+        <character x="512" y="71" width="77" height="137" char="호" />
+      </word>
+      <word x="203" y="309" width="358" height="141">
+        <character x="203" y="311" width="69" height="128" char="서" />
+        <character x="277" y="309" width="77" height="136" char="행" />
+        <character x="381" y="315" width="47" height="120" char="과" />
+        <character x="427" y="312" width="47" height="138" char="속" />
+        <character x="474" y="316" width="40" height="121" char="금" />
+        <character x="515" y="312" width="46" height="121" char="지" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

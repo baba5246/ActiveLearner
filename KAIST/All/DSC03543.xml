@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03543.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="81" y="37" width="466" height="320">
+        <character x="81" y="41" width="83" height="96" char="좋" />
+        <character x="160" y="41" width="90" height="93" char="은" />
+        <character x="243" y="41" width="81" height="86" char="아" />
+        <character x="324" y="37" width="81" height="89" char="침" />
+      </word>
+      <word x="140" y="171" width="303" height="82">
+        <character x="140" y="175" width="77" height="75" char="웃" />
+        <character x="217" y="173" width="73" height="80" char="는" />
+        <character x="294" y="175" width="73" height="78" char="얼" />
+        <character x="367" y="171" width="76" height="74" char="굴" />
+      </word>
+      <word x="198" y="270" width="349" height="87">
+        <character x="198" y="280" width="68" height="77" char="즐" />
+        <character x="267" y="281" width="71" height="66" char="거" />
+        <character x="338" y="281" width="66" height="62" char="운" />
+        <character x="417" y="273" width="65" height="64" char="하" />
+        <character x="482" y="270" width="65" height="71" char="루" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

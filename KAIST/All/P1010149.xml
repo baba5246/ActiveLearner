@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010149.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="144" y="194" width="380" height="72">
+        <character x="144" y="199" width="67" height="66" char="김" />
+        <character x="211" y="198" width="60" height="68" char="도" />
+        <character x="276" y="199" width="63" height="63" char="형" />
+        <character x="343" y="194" width="64" height="66" char="치" />
+        <character x="410" y="195" width="71" height="68" char="과" />
+        <character x="488" y="199" width="33" height="26" char="의" />
+      </word>
+      <word x="491" y="228" width="138" height="43">
+        <character x="533" y="241" width="16" height="30" char="4" />
+        <character x="549" y="242" width="11" height="25" char="8" />
+        <character x="560" y="242" width="16" height="22" char="6" />
+        <character x="577" y="237" width="13" height="28" char="7" />
+        <character x="588" y="241" width="15" height="26" char="5" />
+        <character x="603" y="242" width="9" height="21" char="7" />
+        <character x="612" y="242" width="17" height="25" char="2" />
+        <character x="491" y="228" width="33" height="30" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

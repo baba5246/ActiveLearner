@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02464.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="18" y="185" width="607" height="130">
+        <character x="18" y="199" width="99" height="115" char="자" />
+        <character x="123" y="197" width="87" height="113" char="전" />
+        <character x="219" y="191" width="89" height="122" char="거" />
+        <character x="342" y="193" width="89" height="122" char="보" />
+        <character x="439" y="190" width="95" height="117" char="관" />
+        <character x="539" y="185" width="86" height="118" char="대" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

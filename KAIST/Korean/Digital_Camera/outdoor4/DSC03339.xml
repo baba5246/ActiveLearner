@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03339.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="158" y="190" width="310" height="97">
+        <character x="158" y="198" width="48" height="88" char="임" />
+        <character x="203" y="199" width="56" height="70" char="마" />
+        <character x="259" y="201" width="48" height="73" char="누" />
+        <character x="307" y="190" width="53" height="97" char="엘" />
+        <character x="361" y="203" width="51" height="56" char="교" />
+        <character x="411" y="195" width="57" height="66" char="회" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090831144.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="11" y="17" width="401" height="101">
+        <character x="11" y="25" width="60" height="84" char="오" />
+        <character x="69" y="29" width="64" height="68" char="토" />
+        <character x="131" y="26" width="71" height="76" char="카" />
+        <character x="222" y="27" width="75" height="91" char="왕" />
+        <character x="295" y="26" width="55" height="85" char="국" />
+        <character x="345" y="17" width="67" height="69" char="의" />
+      </word>
+      <word x="362" y="74" width="239" height="165">
+        <character x="362" y="98" width="76" height="141" char="지" />
+        <character x="441" y="74" width="83" height="104" char="휘" />
+        <character x="522" y="96" width="79" height="118" char="봉" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

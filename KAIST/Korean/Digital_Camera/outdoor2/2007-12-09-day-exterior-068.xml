@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-09-day-exterior-068.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="465" y="532" width="594" height="151">
+        <character x="465" y="538" width="143" height="145" char="숙" />
+        <character x="630" y="535" width="132" height="140" char="이" />
+        <character x="793" y="535" width="110" height="134" char="식" />
+        <character x="932" y="532" width="127" height="128" char="당" />
+      </word>
+      <word x="540" y="918" width="192" height="109">
+        <character x="540" y="955" width="57" height="72" char="O" />
+        <character x="584" y="937" width="49" height="76" char="P" />
+        <character x="630" y="924" width="49" height="73" char="E" />
+        <character x="671" y="918" width="61" height="82" char="N" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02826.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="31" y="195" width="557" height="190">
+        <character x="31" y="225" width="94" height="145" char="2" />
+        <character x="126" y="294" width="79" height="74" char="세" />
+        <character x="211" y="199" width="147" height="186" char="첫" />
+        <character x="355" y="203" width="94" height="128" char="수" />
+        <character x="447" y="195" width="141" height="184" char="학" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

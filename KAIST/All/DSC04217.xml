@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04217.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="60" y="62" width="518" height="123">
+        <character x="60" y="68" width="91" height="75" char="도" />
+        <character x="151" y="67" width="82" height="80" char="서" />
+        <character x="231" y="66" width="93" height="78" char="관" />
+        <character x="324" y="64" width="82" height="88" char="학" />
+        <character x="405" y="62" width="84" height="123" char="통" />
+        <character x="489" y="63" width="89" height="88" char="론" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

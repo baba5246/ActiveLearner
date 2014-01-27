@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02932.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="26" y="111" width="560" height="116">
+        <character x="26" y="111" width="92" height="82" char="둔" />
+        <character x="118" y="122" width="63" height="77" char="산" />
+        <character x="182" y="124" width="64" height="71" char="라" />
+        <character x="249" y="132" width="54" height="73" char="이" />
+        <character x="304" y="137" width="62" height="68" char="프" />
+        <character x="369" y="138" width="56" height="74" char="종" />
+        <character x="424" y="145" width="57" height="73" char="합" />
+        <character x="484" y="155" width="48" height="72" char="상" />
+        <character x="535" y="156" width="51" height="65" char="가" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

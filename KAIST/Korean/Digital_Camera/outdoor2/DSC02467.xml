@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02467.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="54" y="150" width="502" height="145">
+        <character x="54" y="153" width="98" height="96" char="세" />
+        <character x="152" y="150" width="64" height="104" char="종" />
+        <character x="218" y="164" width="64" height="86" char="음" />
+        <character x="280" y="164" width="87" height="89" char="악" />
+        <character x="373" y="162" width="89" height="96" char="학" />
+        <character x="463" y="169" width="93" height="86" char="원" />
+      </word>
+      <word x="212" y="253" width="170" height="42">
+        <character x="212" y="257" width="35" height="30" char="8" />
+        <character x="246" y="255" width="22" height="40" char="6" />
+        <character x="269" y="253" width="19" height="36" char="3" />
+        <character x="295" y="256" width="26" height="30" char="0" />
+        <character x="323" y="257" width="17" height="37" char="8" />
+        <character x="339" y="258" width="21" height="31" char="2" />
+        <character x="360" y="256" width="22" height="37" char="2" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

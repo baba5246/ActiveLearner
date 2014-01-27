@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03600.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="215" y="177" width="350" height="181">
+        <character x="215" y="178" width="64" height="75" char="만" />
+        <character x="278" y="180" width="53" height="66" char="년" />
+        <character x="331" y="185" width="57" height="60" char="고" />
+        <character x="390" y="177" width="54" height="75" char="등" />
+        <character x="448" y="178" width="53" height="70" char="학" />
+        <character x="500" y="181" width="65" height="64" char="교" />
+      </word>
+      <word x="326" y="270" width="40" height="88">
+        <character x="328" y="270" width="38" height="52" char="9" />
+      </word>
+      <word x="326" y="328" width="39" height="30">
+        <character x="326" y="328" width="17" height="26" char="4" />
+        <character x="343" y="329" width="22" height="29" char="9" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

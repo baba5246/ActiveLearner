@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02538.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="160" y="171" width="323" height="105">
+        <character x="160" y="175" width="108" height="101" char="갈" />
+        <character x="280" y="171" width="91" height="103" char="비" />
+        <character x="393" y="172" width="90" height="98" char="살" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

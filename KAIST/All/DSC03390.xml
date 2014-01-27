@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03390.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="93" y="300" width="294" height="90">
+        <character x="93" y="304" width="77" height="86" char="썬" />
+        <character x="170" y="302" width="72" height="79" char="바" />
+        <character x="240" y="303" width="70" height="79" char="이" />
+        <character x="306" y="300" width="81" height="81" char="져" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

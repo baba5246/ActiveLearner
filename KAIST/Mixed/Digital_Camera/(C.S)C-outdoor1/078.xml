@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>078.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="291" y="41" width="132" height="50">
+        <character x="291" y="45" width="42" height="45" char="P" />
+        <character x="335" y="42" width="42" height="49" char="C" />
+        <character x="378" y="41" width="45" height="43" char="방" />
+      </word>
+      <word x="69" y="171" width="538" height="93">
+        <character x="69" y="179" width="99" height="82" char="형" />
+        <character x="200" y="177" width="102" height="85" char="제" />
+        <character x="346" y="174" width="122" height="86" char="약" />
+        <character x="497" y="171" width="110" height="93" char="국" />
+      </word>
+      <word x="20" y="55" width="53" height="42">
+        <character x="20" y="55" width="53" height="42" char="방" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

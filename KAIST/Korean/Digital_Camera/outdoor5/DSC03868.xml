@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03868.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="12" y="224" width="603" height="248">
+        <character x="12" y="224" width="77" height="125" char="국" />
+        <character x="84" y="226" width="80" height="117" char="민" />
+        <character x="163" y="228" width="75" height="112" char="주" />
+        <character x="237" y="230" width="76" height="105" char="택" />
+        <character x="310" y="234" width="75" height="106" char="기" />
+        <character x="381" y="230" width="79" height="111" char="금" />
+        <character x="458" y="229" width="77" height="115" char="업" />
+        <character x="532" y="228" width="83" height="115" char="무" />
+      </word>
+      <word x="153" y="350" width="316" height="122">
+        <character x="153" y="355" width="83" height="112" char="취" />
+        <character x="236" y="353" width="74" height="107" char="급" />
+        <character x="309" y="350" width="76" height="110" char="개" />
+        <character x="384" y="353" width="85" height="119" char="시" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03508.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="183" y="29" width="251" height="115">
+        <character x="183" y="29" width="97" height="111" char="냉" />
+        <character x="347" y="36" width="87" height="108" char="면" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

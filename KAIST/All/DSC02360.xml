@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02360.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="10" y="219" width="567" height="121">
+        <character x="10" y="232" width="54" height="84" char="돌" />
+        <character x="86" y="237" width="72" height="70" char="아" />
+        <character x="183" y="241" width="57" height="73" char="온" />
+        <character x="270" y="219" width="81" height="107" char="김" />
+        <character x="366" y="219" width="99" height="109" char="삿" />
+        <character x="489" y="222" width="88" height="118" char="갓" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

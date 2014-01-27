@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02723.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="6" y="142" width="616" height="293">
+        <character x="6" y="312" width="78" height="123" char="홈" />
+        <character x="86" y="308" width="74" height="119" char="플" />
+        <character x="162" y="325" width="68" height="89" char="러" />
+        <character x="230" y="321" width="73" height="85" char="스" />
+        <character x="321" y="329" width="78" height="99" char="문" />
+        <character x="399" y="328" width="76" height="83" char="화" />
+        <character x="473" y="327" width="76" height="104" char="센" />
+        <character x="550" y="327" width="72" height="87" char="터" />
+      </word>
+      <word x="134" y="142" width="233" height="72">
+        <character x="134" y="142" width="60" height="68" char="가" />
+        <character x="194" y="144" width="59" height="70" char="을" />
+        <character x="255" y="145" width="54" height="66" char="학" />
+        <character x="306" y="144" width="61" height="63" char="기" />
+      </word>
+      <word x="160" y="218" width="246" height="85">
+        <character x="160" y="218" width="65" height="70" char="회" />
+        <character x="225" y="218" width="55" height="85" char="원" />
+        <character x="280" y="225" width="64" height="62" char="모" />
+        <character x="344" y="225" width="62" height="72" char="집" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

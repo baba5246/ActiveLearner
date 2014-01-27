@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03997.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="4" y="53" width="622" height="272">
+        <character x="127" y="69" width="190" height="250" char="책" />
+        <character x="330" y="62" width="99" height="142" char="비" />
+        <character x="428" y="62" width="97" height="150" char="디" />
+        <character x="522" y="63" width="104" height="149" char="오" />
+      </word>
+      <word x="418" y="221" width="169" height="89">
+        <character x="418" y="228" width="71" height="80" char="지" />
+        <character x="507" y="221" width="80" height="89" char="하" />
+      </word>
+      <word x="4" y="53" width="115" height="272">
+        <character x="8" y="53" width="111" height="120" char="강" />
+        <character x="4" y="208" width="103" height="117" char="변" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

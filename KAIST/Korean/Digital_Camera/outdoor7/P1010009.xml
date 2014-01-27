@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010009.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="266" y="83" width="292" height="54">
+        <character x="266" y="84" width="40" height="44" char="참" />
+        <character x="306" y="85" width="46" height="48" char="숯" />
+        <character x="372" y="83" width="48" height="46" char="대" />
+        <character x="420" y="85" width="46" height="52" char="청" />
+        <character x="467" y="86" width="46" height="39" char="마" />
+        <character x="515" y="85" width="43" height="47" char="루" />
+      </word>
+      <word x="39" y="150" width="546" height="77">
+        <character x="39" y="151" width="75" height="72" char="대" />
+        <character x="114" y="150" width="67" height="77" char="덕" />
+        <character x="177" y="150" width="76" height="68" char="종" />
+        <character x="254" y="152" width="68" height="71" char="합" />
+        <character x="321" y="155" width="67" height="66" char="인" />
+        <character x="389" y="155" width="67" height="69" char="테" />
+        <character x="455" y="157" width="61" height="62" char="리" />
+        <character x="516" y="157" width="69" height="66" char="어" />
+      </word>
+      <word x="377" y="263" width="231" height="44">
+        <character x="377" y="269" width="34" height="34" char="8" />
+        <character x="411" y="267" width="31" height="40" char="2" />
+        <character x="444" y="263" width="25" height="42" char="3" />
+        <character x="487" y="267" width="32" height="40" char="9" />
+        <character x="516" y="267" width="28" height="39" char="0" />
+        <character x="546" y="266" width="28" height="37" char="7" />
+        <character x="577" y="265" width="31" height="39" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

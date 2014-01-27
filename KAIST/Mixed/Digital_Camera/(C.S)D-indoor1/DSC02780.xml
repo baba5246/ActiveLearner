@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02780.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="82" y="215" width="467" height="102">
+        <character x="82" y="273" width="23" height="44" char="1" />
+        <character x="106" y="268" width="27" height="47" char="0" />
+        <character x="133" y="265" width="27" height="47" char="0" />
+        <character x="162" y="265" width="24" height="43" char="0" />
+      </word>
+      <word x="228" y="215" width="321" height="93">
+        <character x="228" y="234" width="96" height="74" char="종" />
+        <character x="437" y="215" width="112" height="81" char="교" />
+      </word>
+      <word x="108" y="226" width="78" height="41">
+        <character x="108" y="226" width="78" height="41" char="C" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

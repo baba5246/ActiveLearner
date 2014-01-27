@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02506.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="97" y="54" width="82" height="46">
+        <character x="97" y="57" width="33" height="43" char="전" />
+        <character x="130" y="55" width="27" height="40" char="민" />
+        <character x="157" y="54" width="22" height="44" char="동" />
+      </word>
+      <word x="75" y="78" width="394" height="108">
+        <character x="329" y="78" width="50" height="77" char="원" />
+        <character x="75" y="103" width="54" height="83" char="벨" />
+        <character x="132" y="101" width="44" height="45" char="리" />
+        <character x="176" y="100" width="49" height="61" char="댄" />
+        <character x="223" y="95" width="40" height="53" char="스" />
+        <character x="278" y="79" width="48" height="59" char="회" />
+        <character x="379" y="79" width="36" height="59" char="모" />
+        <character x="416" y="79" width="53" height="75" char="집" />
+      </word>
+      <word x="102" y="317" width="501" height="108">
+        <character x="102" y="318" width="88" height="107" char="디" />
+        <character x="213" y="317" width="90" height="106" char="딤" />
+        <character x="310" y="322" width="93" height="101" char="돌" />
+        <character x="413" y="317" width="86" height="97" char="학" />
+        <character x="508" y="320" width="95" height="102" char="원" />
+      </word>
+      <word x="241" y="432" width="199" height="36">
+        <character x="241" y="439" width="29" height="29" char="8" />
+        <character x="268" y="439" width="33" height="26" char="6" />
+        <character x="300" y="437" width="18" height="28" char="1" />
+        <character x="333" y="434" width="29" height="34" char="0" />
+        <character x="362" y="435" width="26" height="27" char="8" />
+        <character x="387" y="432" width="28" height="35" char="0" />
+        <character x="413" y="438" width="27" height="26" char="8" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

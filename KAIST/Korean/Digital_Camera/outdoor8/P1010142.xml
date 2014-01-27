@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010042.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="44" y="78" width="567" height="248">
+        <character x="54" y="91" width="79" height="73" char="갈" />
+        <character x="131" y="90" width="80" height="73" char="매" />
+        <character x="208" y="92" width="83" height="71" char="기" />
+        <character x="290" y="84" width="86" height="81" char="살" />
+        <character x="435" y="81" width="81" height="76" char="부" />
+        <character x="515" y="78" width="91" height="74" char="속" />
+      </word>
+      <word x="347" y="168" width="264" height="148">
+        <character x="347" y="172" width="82" height="87" char="전" />
+        <character x="429" y="172" width="87" height="80" char="문" />
+        <character x="510" y="168" width="101" height="86" char="점" />
+      </word>
+      <word x="44" y="277" width="406" height="49">
+        <character x="44" y="278" width="41" height="48" char="둔" />
+        <character x="85" y="283" width="38" height="42" char="산" />
+        <character x="124" y="281" width="30" height="38" char="점" />
+        <character x="177" y="282" width="23" height="38" char="0" />
+        <character x="199" y="281" width="24" height="37" char="4" />
+        <character x="223" y="279" width="21" height="41" char="2" />
+        <character x="260" y="281" width="25" height="39" char="4" />
+        <character x="285" y="281" width="22" height="37" char="8" />
+        <character x="306" y="282" width="27" height="37" char="7" />
+        <character x="355" y="280" width="22" height="37" char="8" />
+        <character x="377" y="277" width="25" height="43" char="6" />
+        <character x="426" y="279" width="24" height="39" char="8" />
+        <character x="404" y="278" width="21" height="38" char="8" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

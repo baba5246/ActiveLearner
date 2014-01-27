@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03602.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="95" y="150" width="346" height="202">
+        <character x="95" y="150" width="76" height="77" char="초" />
+        <character x="170" y="160" width="66" height="74" char="원" />
+        <character x="232" y="158" width="69" height="77" char="아" />
+        <character x="299" y="159" width="62" height="73" char="파" />
+        <character x="360" y="165" width="81" height="69" char="트" />
+      </word>
+      <word x="214" y="248" width="97" height="56">
+        <character x="214" y="248" width="31" height="48" char="1" />
+        <character x="274" y="249" width="37" height="55" char="1" />
+      </word>
+      <word x="246" y="311" width="49" height="41">
+        <character x="246" y="311" width="49" height="41" char="6" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

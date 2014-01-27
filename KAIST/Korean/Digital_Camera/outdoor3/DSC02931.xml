@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02931.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="151" y="34" width="285" height="103">
+        <character x="154" y="82" width="54" height="55" char="산" />
+        <character x="151" y="34" width="55" height="49" char="둔" />
+        <character x="216" y="42" width="77" height="87" char="꽃" />
+        <character x="295" y="43" width="69" height="86" char="시" />
+        <character x="366" y="38" width="70" height="90" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

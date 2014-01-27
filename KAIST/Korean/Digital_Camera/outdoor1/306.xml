@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>006.jpg</imageName>
+    <resolution x="330" y="190" />
+    <words>
+      <word x="55" y="58" width="200" height="84">
+        <character x="55" y="70" width="59" height="43" char="피" />
+        <character x="115" y="67" width="39" height="40" char="카" />
+        <character x="154" y="76" width="28" height="46" char="소" />
+        <character x="183" y="81" width="25" height="32" char="의" />
+        <character x="212" y="58" width="43" height="84" char="꿈" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

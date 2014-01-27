@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02433.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="37" y="165" width="294" height="100">
+        <character x="37" y="165" width="43" height="100" char="S" />
+        <character x="78" y="191" width="36" height="59" char="u" />
+        <character x="112" y="188" width="42" height="62" char="n" />
+        <character x="182" y="197" width="55" height="52" char="m" />
+        <character x="233" y="196" width="43" height="52" char="a" />
+        <character x="276" y="194" width="28" height="54" char="r" />
+        <character x="308" y="186" width="23" height="60" char="t" />
+      </word>
+      <word x="372" y="261" width="146" height="41">
+        <character x="372" y="266" width="28" height="32" char="썬" />
+        <character x="400" y="264" width="24" height="33" char="마" />
+        <character x="424" y="265" width="24" height="34" char="트" />
+        <character x="451" y="261" width="22" height="38" char="궁" />
+        <character x="475" y="263" width="21" height="37" char="동" />
+        <character x="497" y="262" width="21" height="40" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03754.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="206" y="380" width="362" height="73">
+        <character x="206" y="380" width="85" height="71" char="전" />
+        <character x="293" y="380" width="91" height="73" char="통" />
+        <character x="389" y="380" width="84" height="73" char="무" />
+        <character x="478" y="380" width="90" height="69" char="예" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

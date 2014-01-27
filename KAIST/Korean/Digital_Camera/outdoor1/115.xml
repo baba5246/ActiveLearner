@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>115.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="2" y="221" width="79" height="51">
+        <character x="2" y="221" width="79" height="51" char="석" />
+      </word>
+      <word x="226" y="284" width="104" height="74">
+        <character x="226" y="284" width="49" height="70" char="리" />
+        <character x="275" y="293" width="55" height="65" char="데" />
+      </word>
+      <word x="259" y="87" width="22" height="24">
+        <character x="259" y="87" width="22" height="24" char="전" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

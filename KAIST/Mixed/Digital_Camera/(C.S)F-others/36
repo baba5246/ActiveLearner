@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\한글\36.bmp</imageName>
+    <resolution x="576" y="642" />
+    <words>
+      <word x="219" y="253" width="192" height="71">
+        <character x="219" y="254" width="93" height="70" char=" 하" />
+        <character x="313" y="253" width="98" height="71" char=" 나" />
+      </word>
+      <word x="227" y="329" width="170" height="169">
+        <character x="227" y="425" width="170" height="73" char=" C" />
+        <character x="229" y="329" width="167" height="70" char=" P" />
+      </word>
+      <word x="213" y="503" width="203" height="86">
+        <character x="213" y="504" width="99" height="84" char="랜" />
+        <character x="312" y="503" width="104" height="86" char=" 드" />
+      </word>
+    </words>
+    <illumination>yes</illumination>
+    <difficulty>1</difficulty>
+    <tag>korean,number</tag>
+  </image>
+</images>

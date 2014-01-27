@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02707.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="31" y="129" width="518" height="83">
+        <character x="31" y="131" width="70" height="74" char="증" />
+        <character x="102" y="132" width="68" height="74" char="명" />
+        <character x="171" y="129" width="68" height="76" char="서" />
+        <character x="260" y="133" width="67" height="68" char="나" />
+        <character x="326" y="137" width="66" height="69" char="오" />
+        <character x="395" y="129" width="72" height="83" char="는" />
+        <character x="485" y="138" width="64" height="70" char="곳" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

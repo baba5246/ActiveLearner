@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010012.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="105" y="48" width="484" height="215">
+        <character x="105" y="58" width="108" height="129" char="충" />
+        <character x="221" y="55" width="110" height="131" char="남" />
+        <character x="340" y="51" width="115" height="133" char="마" />
+        <character x="465" y="48" width="124" height="135" char="트" />
+      </word>
+      <word x="207" y="219" width="240" height="44">
+        <character x="207" y="221" width="41" height="41" char="8" />
+        <character x="250" y="220" width="28" height="42" char="2" />
+        <character x="281" y="220" width="24" height="42" char="5" />
+        <character x="327" y="220" width="29" height="40" char="5" />
+        <character x="359" y="219" width="27" height="43" char="6" />
+        <character x="389" y="220" width="25" height="40" char="2" />
+        <character x="415" y="221" width="32" height="42" char="3" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04101.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="117" y="360" width="346" height="98">
+        <character x="117" y="367" width="76" height="91" char="주" />
+        <character x="191" y="366" width="71" height="87" char="사" />
+        <character x="262" y="366" width="68" height="86" char="랑" />
+        <character x="327" y="366" width="73" height="79" char="교" />
+        <character x="398" y="360" width="65" height="88" char="회" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

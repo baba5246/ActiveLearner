@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02426.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="476" y="8" width="152" height="44">
+        <character x="476" y="8" width="47" height="44" char="충" />
+        <character x="524" y="10" width="46" height="40" char="대" />
+        <character x="580" y="9" width="48" height="43" char="과" />
+      </word>
+      <word x="30" y="65" width="596" height="200">
+        <character x="30" y="75" width="127" height="134" char="특" />
+        <character x="165" y="76" width="148" height="133" char="수" />
+        <character x="319" y="68" width="150" height="132" char="부" />
+        <character x="473" y="65" width="153" height="134" char="위" />
+      </word>
+      <word x="12" y="210" width="608" height="57">
+        <character x="12" y="219" width="46" height="48" char="체" />
+        <character x="101" y="221" width="43" height="46" char="점" />
+        <character x="58" y="225" width="42" height="40" char="인" />
+        <character x="143" y="225" width="40" height="40" char="개" />
+        <character x="186" y="219" width="42" height="44" char="설" />
+        <character x="228" y="215" width="40" height="49" char="문" />
+        <character x="267" y="216" width="45" height="41" char="의" />
+        <character x="330" y="219" width="34" height="34" char="0" />
+        <character x="363" y="220" width="23" height="34" char="4" />
+        <character x="388" y="221" width="27" height="33" char="2" />
+        <character x="437" y="217" width="27" height="39" char="5" />
+        <character x="466" y="217" width="25" height="34" char="2" />
+        <character x="491" y="220" width="26" height="31" char="8" />
+        <character x="531" y="215" width="29" height="34" char="0" />
+        <character x="562" y="215" width="27" height="31" char="5" />
+        <character x="590" y="210" width="30" height="38" char="3" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

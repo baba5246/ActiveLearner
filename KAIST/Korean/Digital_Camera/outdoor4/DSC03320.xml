@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03320.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="157" y="134" width="365" height="332">
+        <character x="157" y="227" width="110" height="112" char="조" />
+        <character x="284" y="227" width="106" height="114" char="희" />
+        <character x="406" y="228" width="116" height="117" char="연" />
+      </word>
+      <word x="228" y="134" width="222" height="72">
+        <character x="228" y="134" width="75" height="68" char="변" />
+        <character x="304" y="135" width="72" height="66" char="호" />
+        <character x="373" y="136" width="77" height="70" char="사" />
+      </word>
+      <word x="169" y="379" width="328" height="87">
+        <character x="169" y="379" width="61" height="83" char="2" />
+        <character x="229" y="379" width="62" height="84" char="0" />
+        <character x="294" y="380" width="51" height="84" char="3" />
+        <character x="381" y="383" width="34" height="81" char="1" />
+        <character x="416" y="384" width="81" height="82" char="호" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

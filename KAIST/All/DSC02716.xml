@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02716.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="176" y="142" width="253" height="68">
+        <character x="176" y="145" width="56" height="62" char="패" />
+        <character x="232" y="146" width="49" height="63" char="스" />
+        <character x="277" y="142" width="53" height="65" char="트" />
+        <character x="328" y="145" width="49" height="64" char="푸" />
+        <character x="377" y="151" width="52" height="59" char="드" />
+      </word>
+      <word x="60" y="202" width="378" height="77">
+        <character x="60" y="204" width="56" height="68" char="사" />
+        <character x="114" y="203" width="51" height="67" char="진" />
+        <character x="163" y="202" width="55" height="74" char="관" />
+        <character x="232" y="212" width="50" height="58" char="대" />
+        <character x="280" y="210" width="54" height="69" char="형" />
+        <character x="334" y="211" width="50" height="59" char="서" />
+        <character x="381" y="208" width="57" height="65" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>045.jpg</imageName>
+    <resolution x="373" y="253" />
+    <words>
+      <word x="139" y="48" width="131" height="29">
+        <character x="139" y="48" width="22" height="24" char="멀" />
+        <character x="171" y="48" width="20" height="22" char="티" />
+        <character x="199" y="51" width="14" height="19" char="서" />
+        <character x="222" y="53" width="18" height="19" char="비" />
+        <character x="246" y="58" width="24" height="19" char="스" />
+      </word>
+      <word x="141" y="70" width="199" height="54">
+        <character x="141" y="73" width="33" height="40" char="블" />
+        <character x="177" y="73" width="28" height="44" char="루" />
+        <character x="207" y="70" width="31" height="47" char="힐" />
+        <character x="237" y="78" width="34" height="41" char="백" />
+        <character x="272" y="79" width="34" height="43" char="화" />
+        <character x="308" y="81" width="32" height="43" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

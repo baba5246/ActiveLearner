@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02757.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="83" y="151" width="468" height="167">
+        <character x="83" y="185" width="108" height="133" char="학" />
+        <character x="190" y="183" width="81" height="129" char="습" />
+        <character x="269" y="183" width="104" height="104" char="베" />
+        <character x="373" y="186" width="86" height="103" char="스" />
+        <character x="458" y="205" width="93" height="95" char="트" />
+      </word>
+      <word x="314" y="151" width="106" height="46">
+        <character x="314" y="153" width="31" height="44" char="학" />
+        <character x="344" y="151" width="19" height="45" char="습" />
+        <character x="368" y="154" width="27" height="40" char="만" />
+        <character x="393" y="154" width="27" height="28" char="세" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

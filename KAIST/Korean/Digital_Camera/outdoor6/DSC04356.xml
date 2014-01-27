@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04356.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="97" y="287" width="431" height="133">
+        <character x="97" y="296" width="77" height="110" char="첨" />
+        <character x="169" y="292" width="79" height="115" char="단" />
+        <character x="246" y="290" width="69" height="117" char="경" />
+        <character x="316" y="290" width="71" height="126" char="비" />
+        <character x="385" y="287" width="73" height="133" char="구" />
+        <character x="457" y="308" width="71" height="98" char="역" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

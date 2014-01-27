@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03481.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="81" y="17" width="487" height="86">
+        <character x="81" y="22" width="60" height="81" char="즐" />
+        <character x="138" y="19" width="51" height="74" char="거" />
+        <character x="188" y="17" width="56" height="81" char="운" />
+        <character x="254" y="26" width="48" height="65" char="쇼" />
+        <character x="300" y="22" width="55" height="74" char="핑" />
+        <character x="366" y="24" width="55" height="69" char="되" />
+        <character x="423" y="22" width="44" height="74" char="십" />
+        <character x="468" y="28" width="53" height="65" char="시" />
+        <character x="521" y="29" width="47" height="67" char="오" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

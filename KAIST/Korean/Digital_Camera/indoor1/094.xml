@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>094.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="442" y="83" width="120" height="254">
+        <character x="442" y="83" width="120" height="69" char="지" />
+        <character x="449" y="165" width="109" height="77" char="리" />
+        <character x="459" y="250" width="97" height="87" char="산" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>052.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="80" y="180" width="534" height="186">
+        <character x="80" y="185" width="144" height="127" char="수" />
+        <character x="278" y="187" width="137" height="126" char="채" />
+        <character x="458" y="180" width="156" height="135" char="화" />
+      </word>
+      <word x="236" y="317" width="234" height="49">
+        <character x="236" y="318" width="28" height="44" char="8" />
+        <character x="270" y="319" width="25" height="44" char="6" />
+        <character x="301" y="317" width="19" height="49" char="3" />
+        <character x="325" y="324" width="20" height="38" char="-" />
+        <character x="350" y="321" width="24" height="42" char="2" />
+        <character x="379" y="319" width="26" height="42" char="7" />
+        <character x="408" y="320" width="26" height="40" char="5" />
+        <character x="439" y="322" width="31" height="40" char="3" />
+      </word>
+      <word x="475" y="330" width="76" height="34">
+        <character x="475" y="332" width="17" height="30" char="일" />
+        <character x="491" y="331" width="15" height="32" char="반" />
+        <character x="507" y="330" width="13" height="34" char="음" />
+        <character x="521" y="332" width="14" height="28" char="식" />
+        <character x="536" y="330" width="15" height="31" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

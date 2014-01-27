@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02487.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="4" y="100" width="344" height="218">
+        <character x="4" y="105" width="193" height="197" char="마" />
+        <character x="190" y="100" width="158" height="218" char="루" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

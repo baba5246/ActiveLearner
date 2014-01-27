@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\한글\2.JPG</imageName>
+    <resolution x="576" y="768" />
+    <words>
+      <word x="181" y="129" width="139" height="424" language="Korean">
+        <character x="181" y="129" width="129" height="138" char="우" />
+        <character x="182" y="278" width="132" height="132" char="림" />
+        <character x="189" y="418" width="131" height="135" char="옥" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>korean</tag>
+  </image>
+</images>

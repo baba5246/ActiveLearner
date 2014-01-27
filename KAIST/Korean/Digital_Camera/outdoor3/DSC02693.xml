@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02693.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="2147483647" y="2147483647" width="-2147483647" height="-2147483647" />
+      <word x="2147483647" y="2147483647" width="-2147483647" height="-2147483647" />
+      <word x="40" y="275" width="541" height="94">
+        <character x="40" y="284" width="81" height="76" char="자" />
+        <character x="123" y="284" width="52" height="73" char="전" />
+        <character x="176" y="285" width="66" height="77" char="거" />
+        <character x="249" y="277" width="86" height="83" char="초" />
+        <character x="336" y="275" width="79" height="94" char="특" />
+        <character x="417" y="276" width="77" height="92" char="가" />
+        <character x="492" y="277" width="89" height="89" char="전" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

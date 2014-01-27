@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03659.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="72" y="33" width="432" height="272">
+        <character x="72" y="33" width="74" height="76" char="거" />
+        <character x="146" y="33" width="65" height="81" char="주" />
+        <character x="212" y="36" width="70" height="75" char="자" />
+        <character x="285" y="36" width="65" height="70" char="외" />
+      </word>
+      <word x="81" y="115" width="423" height="112">
+        <character x="81" y="115" width="91" height="92" char="주" />
+        <character x="179" y="124" width="91" height="87" char="차" />
+        <character x="291" y="122" width="94" height="103" char="금" />
+        <character x="406" y="124" width="98" height="103" char="지" />
+      </word>
+      <word x="103" y="211" width="377" height="94">
+        <character x="103" y="215" width="67" height="71" char="다" />
+        <character x="168" y="211" width="66" height="79" char="세" />
+        <character x="231" y="212" width="73" height="87" char="대" />
+        <character x="338" y="228" width="71" height="71" char="거" />
+        <character x="411" y="233" width="69" height="72" char="주" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

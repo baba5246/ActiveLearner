@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-09-day-exterior-009.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="529" y="697" width="133" height="75">
+        <character x="529" y="702" width="58" height="70" char="전" />
+        <character x="589" y="697" width="73" height="61" char="화" />
+      </word>
+      <word x="699" y="652" width="305" height="99">
+        <character x="699" y="684" width="41" height="67" char="8" />
+        <character x="741" y="677" width="38" height="70" char="6" />
+        <character x="778" y="673" width="41" height="71" char="2" />
+        <character x="821" y="693" width="46" height="27" char="-" />
+        <character x="865" y="661" width="32" height="71" char="1" />
+        <character x="897" y="662" width="42" height="71" char="9" />
+        <character x="937" y="652" width="24" height="83" char="1" />
+        <character x="962" y="652" width="42" height="77" char="5" />
+      </word>
+      <word x="638" y="1058" width="176" height="160">
+        <character x="638" y="1058" width="176" height="160" char="이" />
+      </word>
+      <word x="388" y="505" width="302" height="205">
+        <character x="388" y="529" width="166" height="181" char="한" />
+        <character x="547" y="505" width="143" height="191" char="빛" />
+      </word>
+      <word x="689" y="433" width="467" height="237">
+        <character x="689" y="484" width="141" height="186" char="이" />
+        <character x="825" y="471" width="162" height="190" char="용" />
+        <character x="984" y="433" width="172" height="211" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

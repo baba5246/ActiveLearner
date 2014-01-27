@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02385.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="281" y="147" width="290" height="117">
+        <character x="281" y="182" width="41" height="82" char="I" />
+        <character x="325" y="180" width="60" height="76" char="N" />
+        <character x="396" y="178" width="51" height="72" char="T" />
+        <character x="451" y="166" width="55" height="73" char="E" />
+        <character x="513" y="164" width="58" height="73" char="R" />
+      </word>
+      <word x="233" y="255" width="353" height="136">
+        <character x="233" y="268" width="116" height="111" char="프" />
+        <character x="351" y="268" width="114" height="123" char="렌" />
+        <character x="466" y="255" width="120" height="109" char="즈" />
+      </word>
+      <word x="2147483647" y="2147483647" width="-2147483647" height="-2147483647" />
+      <word x="344" y="133" width="223" height="49">
+        <character x="344" y="153" width="21" height="29" char="N" />
+        <character x="441" y="138" width="12" height="34" char="k" />
+        <character x="453" y="139" width="7" height="30" char="i" />
+        <character x="476" y="146" width="18" height="29" char="g" />
+        <character x="498" y="137" width="18" height="34" char="A" />
+        <character x="515" y="136" width="14" height="26" char="r" />
+        <character x="532" y="133" width="13" height="32" char="e" />
+        <character x="546" y="137" width="21" height="23" char="a" />
+        <character x="366" y="154" width="15" height="23" char="o" />
+        <character x="385" y="147" width="15" height="33" char="S" />
+        <character x="401" y="151" width="22" height="24" char="m" />
+        <character x="426" y="148" width="12" height="22" char="o" />
+        <character x="461" y="147" width="15" height="23" char="n" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

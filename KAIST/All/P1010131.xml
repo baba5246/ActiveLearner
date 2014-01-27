@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010131.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="94" y="107" width="529" height="115">
+        <character x="94" y="116" width="52" height="76" char="동" />
+        <character x="161" y="110" width="73" height="96" char="원" />
+        <character x="253" y="107" width="109" height="110" char="손" />
+        <character x="394" y="113" width="74" height="109" char="칼" />
+        <character x="484" y="111" width="62" height="109" char="국" />
+        <character x="560" y="122" width="63" height="85" char="수" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

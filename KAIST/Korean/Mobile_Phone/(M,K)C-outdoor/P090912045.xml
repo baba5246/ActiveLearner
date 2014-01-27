@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090912045.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="18" y="89" width="301" height="88">
+        <character x="18" y="95" width="82" height="71" char="청" />
+        <character x="99" y="92" width="72" height="76" char="정" />
+        <character x="169" y="92" width="73" height="79" char="유" />
+        <character x="236" y="89" width="83" height="88" char="성" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

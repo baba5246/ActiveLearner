@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02530.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="83" y="148" width="438" height="89">
+        <character x="83" y="170" width="90" height="66" char="바" />
+        <character x="199" y="162" width="84" height="65" char="이" />
+        <character x="302" y="155" width="78" height="82" char="올" />
+        <character x="417" y="148" width="104" height="73" char="렛" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

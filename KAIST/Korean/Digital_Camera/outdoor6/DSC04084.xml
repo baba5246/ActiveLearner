@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04084.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="113" y="183" width="411" height="84">
+        <character x="113" y="188" width="68" height="75" char="패" />
+        <character x="179" y="185" width="72" height="82" char="밀" />
+        <character x="250" y="183" width="63" height="75" char="리" />
+        <character x="309" y="185" width="74" height="69" char="하" />
+        <character x="381" y="189" width="71" height="72" char="우" />
+        <character x="449" y="190" width="75" height="67" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

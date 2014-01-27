@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090903020.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="198" y="180" width="252" height="115">
+        <character x="198" y="180" width="90" height="115" char="닥" />
+        <character x="287" y="187" width="71" height="97" char="터" />
+        <character x="357" y="188" width="93" height="99" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

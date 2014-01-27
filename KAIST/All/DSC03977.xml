@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03977.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="34" y="77" width="575" height="121">
+        <character x="34" y="77" width="89" height="117" char="슬" />
+        <character x="127" y="87" width="97" height="83" char="기" />
+        <character x="225" y="86" width="120" height="93" char="바" />
+        <character x="346" y="86" width="92" height="109" char="둑" />
+        <character x="436" y="85" width="90" height="113" char="교" />
+        <character x="525" y="85" width="84" height="110" char="실" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

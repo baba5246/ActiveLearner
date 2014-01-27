@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03198.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="21" y="128" width="407" height="137">
+        <character x="21" y="198" width="56" height="67" char="4" />
+        <character x="75" y="198" width="45" height="64" char="8" />
+        <character x="121" y="195" width="47" height="67" char="5" />
+        <character x="220" y="200" width="44" height="61" char="3" />
+        <character x="265" y="199" width="53" height="66" char="0" />
+        <character x="319" y="206" width="53" height="59" char="0" />
+        <character x="373" y="204" width="55" height="54" char="0" />
+      </word>
+      <word x="144" y="128" width="180" height="68">
+        <character x="144" y="128" width="55" height="68" char="둔" />
+        <character x="201" y="131" width="62" height="64" char="산" />
+        <character x="262" y="131" width="62" height="62" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

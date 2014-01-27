@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02654.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="47" y="284" width="581" height="121">
+        <character x="47" y="310" width="62" height="76" char="알" />
+        <character x="107" y="307" width="57" height="73" char="근" />
+        <character x="163" y="312" width="75" height="70" char="이" />
+        <character x="277" y="287" width="123" height="114" char="떡" />
+        <character x="400" y="284" width="113" height="121" char="볶" />
+        <character x="513" y="285" width="115" height="99" char="이" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

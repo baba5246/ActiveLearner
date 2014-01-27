@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02478.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="204" y="86" width="423" height="185">
+        <character x="204" y="86" width="136" height="177" char="원" />
+        <character x="346" y="128" width="86" height="129" char="당" />
+        <character x="440" y="136" width="83" height="125" char="구" />
+        <character x="535" y="135" width="92" height="136" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

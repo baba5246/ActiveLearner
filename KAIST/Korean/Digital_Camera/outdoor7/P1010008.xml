@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010008.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="99" y="161" width="459" height="95">
+        <character x="99" y="162" width="88" height="92" char="금" />
+        <character x="200" y="161" width="85" height="86" char="호" />
+        <character x="285" y="165" width="83" height="91" char="렌" />
+        <character x="372" y="164" width="85" height="84" char="터" />
+        <character x="461" y="165" width="97" height="83" char="카" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

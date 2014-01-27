@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090911008.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="29" y="98" width="554" height="206">
+        <character x="29" y="101" width="172" height="203" char="덧" />
+        <character x="201" y="98" width="129" height="205" char="셈" />
+        <character x="342" y="110" width="130" height="184" char="뺄" />
+        <character x="470" y="106" width="113" height="186" char="셈" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

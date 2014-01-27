@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010115.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="169" y="75" width="331" height="102">
+        <character x="169" y="75" width="85" height="91" char="회" />
+        <character x="278" y="79" width="92" height="98" char="덮" />
+        <character x="410" y="84" width="90" height="89" char="밥" />
+      </word>
+      <word x="176" y="185" width="322" height="102">
+        <character x="176" y="185" width="63" height="91" char="우" />
+        <character x="418" y="187" width="80" height="100" char="동" />
+      </word>
+      <word x="170" y="296" width="343" height="105">
+        <character x="170" y="299" width="70" height="102" char="구" />
+        <character x="248" y="296" width="81" height="88" char="이" />
+        <character x="343" y="302" width="74" height="90" char="요" />
+        <character x="428" y="310" width="85" height="82" char="리" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

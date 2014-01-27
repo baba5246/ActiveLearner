@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\한글\45.JPG</imageName>
+    <resolution x="768" y="576" />
+    <words>
+      <word x="49" y="203" width="322" height="157">
+        <character x="49" y="203" width="152" height="149" char="신" />
+        <character x="218" y="212" width="153" height="148" char="성" />
+      </word>
+      <word x="389" y="217" width="310" height="150">
+        <character x="389" y="217" width="148" height="141" char="수" />
+        <character x="551" y="221" width="148" height="146" char="선" />
+      </word>
+      <word x="213" y="361" width="334" height="47">
+        <character x="213" y="361" width="41" height="41" char="T" />
+        <character x="255" y="386" width="11" height="16" char="." />
+        <character x="269" y="364" width="37" height="39" char="8" />
+        <character x="307" y="367" width="34" height="36" char="6" />
+        <character x="343" y="366" width="24" height="40" char="1" />
+        <character x="368" y="379" width="38" height="19" char="-" />
+        <character x="407" y="363" width="37" height="44" char="0" />
+        <character x="446" y="369" width="35" height="39" char="2" />
+        <character x="484" y="364" width="24" height="43" char="1" />
+        <character x="509" y="369" width="38" height="39" char="2" />
+      </word>
+    </words>
+    <illumination>yes</illumination>
+    <difficulty>2</difficulty>
+    <tag>korean,number,english</tag>
+  </image>
+</images>

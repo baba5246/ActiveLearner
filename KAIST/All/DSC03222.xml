@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03222.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="166" y="169" width="207" height="291">
+        <character x="166" y="358" width="81" height="90" char="3" />
+        <character x="244" y="355" width="47" height="105" char="6" />
+        <character x="280" y="378" width="57" height="69" char="5" />
+        <character x="309" y="415" width="27" height="34" char="코" />
+        <character x="337" y="417" width="36" height="28" char="너" />
+      </word>
+      <word x="183" y="169" width="174" height="83">
+        <character x="183" y="169" width="82" height="83" char="신" />
+        <character x="263" y="173" width="94" height="79" char="협" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

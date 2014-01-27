@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010052.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="59" y="125" width="528" height="100">
+        <character x="59" y="125" width="110" height="90" char="신" />
+        <character x="203" y="128" width="116" height="97" char="화" />
+        <character x="330" y="135" width="115" height="88" char="빌" />
+        <character x="480" y="133" width="107" height="91" char="딩" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

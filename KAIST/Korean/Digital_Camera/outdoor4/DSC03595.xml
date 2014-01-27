@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03595.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="172" y="173" width="374" height="66">
+        <character x="172" y="181" width="49" height="58" char="평" />
+        <character x="220" y="178" width="49" height="59" char="송" />
+        <character x="267" y="179" width="46" height="59" char="수" />
+        <character x="313" y="177" width="51" height="60" char="련" />
+        <character x="366" y="178" width="43" height="57" char="원" />
+        <character x="409" y="177" width="45" height="57" char="삼" />
+        <character x="455" y="173" width="42" height="58" char="거" />
+        <character x="498" y="174" width="48" height="55" char="리" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

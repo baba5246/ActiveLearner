@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02871.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="19" y="141" width="575" height="91">
+        <character x="19" y="141" width="98" height="71" char="안" />
+        <character x="139" y="149" width="101" height="67" char="전" />
+        <character x="370" y="151" width="101" height="74" char="제" />
+        <character x="503" y="159" width="91" height="73" char="일" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

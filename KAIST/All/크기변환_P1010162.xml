@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>크기변환_P1010162.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="96" y="77" width="536" height="122">
+        <character x="96" y="77" width="55" height="76" char="E" />
+        <character x="159" y="80" width="88" height="111" char="안" />
+        <character x="252" y="82" width="115" height="102" char="경" />
+        <character x="373" y="84" width="80" height="70" char="매" />
+        <character x="464" y="88" width="86" height="61" char="니" />
+        <character x="563" y="86" width="69" height="69" char="져" />
+      </word>
+      <word x="458" y="157" width="129" height="42">
+        <character x="458" y="160" width="38" height="30" char="월" />
+        <character x="503" y="162" width="37" height="32" char="평" />
+        <character x="546" y="157" width="41" height="42" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

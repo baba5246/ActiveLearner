@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>060.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="532" y="194" width="83" height="77">
+        <character x="532" y="194" width="83" height="77" char="킨" />
+      </word>
+      <word x="144" y="195" width="390" height="85">
+        <character x="144" y="209" width="63" height="70" char="가" />
+        <character x="206" y="202" width="80" height="78" char="야" />
+        <character x="299" y="197" width="78" height="77" char="숯" />
+        <character x="377" y="197" width="79" height="79" char="불" />
+        <character x="456" y="195" width="78" height="77" char="치" />
+      </word>
+      <word x="59" y="380" width="56" height="88">
+        <character x="59" y="380" width="56" height="46" char="숯" />
+        <character x="59" y="427" width="55" height="41" char="불" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

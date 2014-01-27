@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>106.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="98" y="156" width="491" height="119">
+        <character x="98" y="158" width="106" height="117" char="별" />
+        <character x="211" y="156" width="117" height="117" char="셋" />
+        <character x="471" y="166" width="118" height="97" char="구" />
+        <character x="347" y="161" width="101" height="103" char="문" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

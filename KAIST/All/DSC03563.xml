@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03563.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="108" y="236" width="399" height="118">
+        <character x="108" y="236" width="60" height="116" char="화" />
+        <character x="172" y="237" width="64" height="110" char="장" />
+        <character x="235" y="237" width="57" height="117" char="품" />
+        <character x="294" y="237" width="57" height="115" char="랜" />
+        <character x="353" y="238" width="67" height="114" char="드" />
+        <character x="433" y="260" width="50" height="55" char="2" />
+        <character x="482" y="257" width="25" height="53" char="1" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04126.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="82" y="203" width="500" height="208">
+        <character x="82" y="269" width="105" height="142" char="청" />
+        <character x="185" y="271" width="97" height="136" char="솔" />
+        <character x="282" y="269" width="102" height="142" char="독" />
+        <character x="381" y="271" width="101" height="122" char="우" />
+        <character x="484" y="270" width="98" height="113" char="회" />
+      </word>
+      <word x="124" y="203" width="374" height="67">
+        <character x="124" y="225" width="38" height="40" char="철" />
+        <character x="162" y="212" width="32" height="43" char="학" />
+        <character x="197" y="211" width="29" height="41" char="있" />
+        <character x="226" y="206" width="30" height="44" char="는" />
+        <character x="272" y="203" width="30" height="48" char="세" />
+        <character x="303" y="208" width="31" height="48" char="계" />
+        <character x="333" y="218" width="33" height="51" char="적" />
+        <character x="376" y="227" width="30" height="43" char="인" />
+        <character x="404" y="225" width="34" height="41" char="재" />
+        <character x="437" y="215" width="30" height="46" char="양" />
+        <character x="465" y="204" width="33" height="46" char="성" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

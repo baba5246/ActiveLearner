@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03983.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="279" y="321" width="162" height="43">
+        <character x="279" y="325" width="24" height="36" char="8" />
+        <character x="304" y="324" width="23" height="40" char="6" />
+        <character x="326" y="323" width="17" height="37" char="1" />
+        <character x="351" y="324" width="21" height="34" char="1" />
+        <character x="371" y="322" width="24" height="37" char="4" />
+        <character x="395" y="321" width="20" height="38" char="7" />
+        <character x="415" y="322" width="26" height="37" char="6" />
+      </word>
+      <word x="246" y="278" width="218" height="45">
+        <character x="246" y="283" width="49" height="40" char="피" />
+        <character x="294" y="282" width="41" height="40" char="부" />
+        <character x="333" y="280" width="47" height="39" char="관" />
+        <character x="379" y="278" width="39" height="43" char="리" />
+        <character x="418" y="282" width="46" height="40" char="실" />
+      </word>
+      <word x="197" y="195" width="311" height="84">
+        <character x="197" y="205" width="94" height="52" char="에" />
+        <character x="290" y="201" width="61" height="70" char="스" />
+        <character x="349" y="198" width="87" height="72" char="테" />
+        <character x="434" y="195" width="74" height="84" char="닉" />
+      </word>
+      <word x="270" y="132" width="164" height="61">
+        <character x="270" y="137" width="76" height="56" char="서" />
+        <character x="350" y="132" width="84" height="60" char="애" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

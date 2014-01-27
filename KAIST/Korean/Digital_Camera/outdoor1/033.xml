@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>033.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="190" y="195" width="314" height="66">
+        <character x="438" y="200" width="66" height="60" char="름" />
+        <character x="190" y="197" width="64" height="60" char="제" />
+        <character x="254" y="195" width="63" height="64" char="일" />
+        <character x="317" y="198" width="63" height="62" char="참" />
+        <character x="379" y="199" width="60" height="62" char="기" />
+      </word>
+      <word x="505" y="195" width="110" height="37">
+        <character x="505" y="197" width="36" height="33" char="한" />
+        <character x="541" y="195" width="36" height="37" char="빛" />
+        <character x="577" y="198" width="38" height="33" char="점" />
+      </word>
+      <word x="39" y="189" width="147" height="27">
+        <character x="39" y="191" width="29" height="23" char="들" />
+        <character x="108" y="189" width="36" height="25" char="가" />
+        <character x="153" y="191" width="33" height="25" char="루" />
+        <character x="69" y="193" width="39" height="20" char="깨" />
+      </word>
+      <word x="38" y="215" width="148" height="23">
+        <character x="38" y="215" width="32" height="23" char="고" />
+        <character x="72" y="215" width="36" height="23" char="추" />
+        <character x="158" y="216" width="28" height="22" char="루" />
+        <character x="115" y="215" width="35" height="22" char="가" />
+      </word>
+      <word x="38" y="238" width="148" height="27">
+        <character x="38" y="238" width="33" height="22" char="미" />
+        <character x="72" y="239" width="33" height="26" char="수" />
+        <character x="120" y="241" width="27" height="20" char="가" />
+        <character x="158" y="242" width="28" height="22" char="루" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

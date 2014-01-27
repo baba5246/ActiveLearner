@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090911059.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="205" y="109" width="315" height="104">
+        <character x="205" y="109" width="110" height="95" char="제" />
+        <character x="322" y="122" width="89" height="85" char="니" />
+        <character x="418" y="124" width="102" height="89" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

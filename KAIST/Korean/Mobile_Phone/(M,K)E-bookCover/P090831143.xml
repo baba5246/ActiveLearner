@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090831143.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="31" y="21" width="560" height="140">
+        <character x="31" y="25" width="96" height="136" char="달" />
+        <character x="160" y="26" width="86" height="128" char="탐" />
+        <character x="255" y="27" width="101" height="119" char="험" />
+        <character x="376" y="40" width="117" height="104" char="계" />
+        <character x="493" y="21" width="98" height="138" char="획" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010029.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="77" y="243" width="506" height="192">
+        <character x="511" y="392" width="32" height="43" char="2" />
+        <character x="541" y="388" width="42" height="43" char="층" />
+        <character x="77" y="336" width="88" height="96" char="해" />
+        <character x="162" y="336" width="88" height="95" char="물" />
+        <character x="251" y="336" width="91" height="87" char="칼" />
+        <character x="340" y="335" width="91" height="93" char="국" />
+        <character x="431" y="333" width="85" height="88" char="수" />
+      </word>
+      <word x="87" y="243" width="341" height="86">
+        <character x="87" y="245" width="76" height="81" char="평" />
+        <character x="171" y="248" width="82" height="80" char="양" />
+        <character x="256" y="246" width="86" height="79" char="보" />
+        <character x="342" y="243" width="86" height="86" char="쌈" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

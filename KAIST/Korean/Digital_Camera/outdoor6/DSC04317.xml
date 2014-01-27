@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04317.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="186" y="162" width="299" height="81">
+        <character x="186" y="162" width="77" height="81" char="썬" />
+        <character x="276" y="170" width="74" height="73" char="하" />
+        <character x="350" y="166" width="64" height="75" char="우" />
+        <character x="413" y="166" width="72" height="77" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

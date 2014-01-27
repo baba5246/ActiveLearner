@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03251.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="117" y="269" width="409" height="88">
+        <character x="117" y="269" width="54" height="83" char="부" />
+        <character x="171" y="270" width="52" height="81" char="대" />
+        <character x="222" y="274" width="56" height="74" char="찌" />
+        <character x="278" y="273" width="54" height="84" char="개" />
+        <character x="350" y="274" width="60" height="77" char="전" />
+        <character x="409" y="269" width="53" height="79" char="문" />
+        <character x="463" y="274" width="63" height="77" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

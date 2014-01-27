@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>131.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="212" y="208" width="201" height="64">
+        <character x="212" y="214" width="43" height="54" char="L" />
+        <character x="254" y="212" width="49" height="59" char="G" />
+        <character x="301" y="209" width="60" height="63" char="이" />
+        <character x="367" y="208" width="46" height="61" char="숍" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

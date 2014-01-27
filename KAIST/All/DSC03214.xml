@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03214.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="103" y="78" width="362" height="171">
+        <character x="103" y="91" width="128" height="148" char="꼭" />
+        <character x="251" y="78" width="75" height="82" char="주" />
+        <character x="326" y="88" width="72" height="75" char="차" />
+        <character x="400" y="89" width="65" height="73" char="권" />
+      </word>
+      <word x="252" y="172" width="213" height="77">
+        <character x="252" y="172" width="43" height="70" char="받" />
+        <character x="294" y="176" width="40" height="68" char="아" />
+        <character x="343" y="174" width="41" height="69" char="가" />
+        <character x="381" y="173" width="43" height="73" char="세" />
+        <character x="425" y="183" width="40" height="66" char="요" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04222.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="76" y="55" width="477" height="81">
+        <character x="76" y="55" width="52" height="67" char="사" />
+        <character x="151" y="60" width="44" height="60" char="회" />
+        <character x="226" y="62" width="44" height="60" char="과" />
+        <character x="295" y="60" width="48" height="69" char="학" />
+        <character x="369" y="60" width="43" height="73" char="정" />
+        <character x="435" y="63" width="47" height="69" char="보" />
+        <character x="504" y="71" width="49" height="65" char="론" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

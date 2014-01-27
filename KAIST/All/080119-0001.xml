@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0622\080119-0001.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="439" y="327" width="209" height="402">
+        <character x="442" y="327" width="194" height="196" char="헌" />
+        <character x="439" y="529" width="209" height="200" char="혈" />
+      </word>
+      <word x="724" y="355" width="688" height="257">
+        <character x="724" y="375" width="220" height="237" char="접" />
+        <character x="1002" y="355" width="213" height="257" char="수" />
+        <character x="1247" y="363" width="165" height="231" char="처" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>korean</tag>
+  </image>
+</images>

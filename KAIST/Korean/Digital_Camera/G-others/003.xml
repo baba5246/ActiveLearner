@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>003.jpg</imageName>
+    <resolution x="413" y="286" />
+    <words>
+      <word x="61" y="148" width="318" height="49">
+        <character x="61" y="153" width="47" height="36" char="산" />
+        <character x="107" y="148" width="31" height="34" char="채" />
+        <character x="138" y="156" width="23" height="33" char="우" />
+        <character x="164" y="154" width="31" height="38" char="동" />
+        <character x="205" y="150" width="40" height="42" char="모" />
+        <character x="241" y="156" width="49" height="40" char="밀" />
+        <character x="298" y="153" width="35" height="38" char="전" />
+        <character x="332" y="150" width="17" height="47" char="통" />
+        <character x="350" y="152" width="29" height="34" char="차" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

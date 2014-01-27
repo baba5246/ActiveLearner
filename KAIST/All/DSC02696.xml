@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02696.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="57" y="9" width="452" height="383">
+        <character x="57" y="301" width="76" height="82" char="H" />
+        <character x="131" y="307" width="54" height="70" char="o" />
+        <character x="184" y="314" width="78" height="62" char="m" />
+        <character x="260" y="314" width="53" height="64" char="e" />
+        <character x="323" y="320" width="54" height="72" char="p" />
+        <character x="375" y="305" width="30" height="70" char="l" />
+        <character x="404" y="311" width="53" height="61" char="u" />
+        <character x="456" y="307" width="43" height="67" char="s" />
+      </word>
+      <word x="399" y="9" width="110" height="231">
+        <character x="401" y="9" width="108" height="113" char="민" />
+        <character x="399" y="124" width="102" height="116" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

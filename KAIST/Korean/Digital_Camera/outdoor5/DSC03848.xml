@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03848.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="131" y="58" width="373" height="206">
+        <character x="131" y="58" width="95" height="117" char="만" />
+        <character x="228" y="60" width="97" height="116" char="촌" />
+        <character x="324" y="80" width="62" height="88" char="주" />
+        <character x="387" y="82" width="57" height="88" char="차" />
+        <character x="444" y="83" width="60" height="85" char="장" />
+      </word>
+      <word x="230" y="192" width="259" height="72">
+        <character x="230" y="195" width="41" height="64" char="입" />
+        <character x="272" y="192" width="37" height="70" char="구" />
+        <character x="323" y="200" width="37" height="64" char="옆" />
+        <character x="359" y="195" width="39" height="66" char="건" />
+        <character x="398" y="197" width="37" height="61" char="물" />
+        <character x="433" y="196" width="17" height="59" char="1" />
+        <character x="448" y="194" width="41" height="68" char="층" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

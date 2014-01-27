@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090911052.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="42" y="1" width="585" height="236">
+        <character x="42" y="17" width="115" height="137" char="달" />
+        <character x="160" y="34" width="85" height="111" char="려" />
+        <character x="247" y="1" width="105" height="112" char="라" />
+        <character x="287" y="96" width="120" height="141" char="라" />
+        <character x="402" y="71" width="119" height="115" char="로" />
+        <character x="522" y="101" width="105" height="130" char="스" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

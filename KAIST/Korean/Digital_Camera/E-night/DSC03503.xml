@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03503.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="27" y="77" width="597" height="169">
+        <character x="27" y="77" width="120" height="141" char="애" />
+        <character x="159" y="89" width="130" height="136" char="완" />
+        <character x="295" y="92" width="115" height="143" char="동" />
+        <character x="413" y="104" width="111" height="142" char="물" />
+        <character x="524" y="116" width="100" height="128" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

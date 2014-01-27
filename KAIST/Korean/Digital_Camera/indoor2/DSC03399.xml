@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03399.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="129" y="223" width="429" height="104">
+        <character x="129" y="259" width="50" height="68" char="삼" />
+        <character x="179" y="255" width="37" height="70" char="천" />
+        <character x="217" y="253" width="36" height="64" char="리" />
+        <character x="254" y="252" width="39" height="69" char="자" />
+        <character x="292" y="252" width="43" height="65" char="전" />
+        <character x="336" y="253" width="34" height="64" char="거" />
+        <character x="369" y="256" width="42" height="68" char="특" />
+        <character x="406" y="243" width="51" height="66" char="설" />
+        <character x="448" y="243" width="56" height="40" char="매" />
+        <character x="500" y="223" width="58" height="58" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

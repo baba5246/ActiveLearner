@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>크기변환_P1010029.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="13" y="7" width="343" height="50">
+        <character x="13" y="13" width="19" height="32" char="2" />
+        <character x="32" y="7" width="15" height="40" char="0" />
+        <character x="48" y="14" width="10" height="32" char="1" />
+        <character x="57" y="11" width="22" height="36" char="0" />
+        <character x="80" y="10" width="20" height="37" char="G" />
+        <character x="97" y="16" width="16" height="29" char="r" />
+        <character x="111" y="19" width="17" height="27" char="e" />
+        <character x="127" y="21" width="15" height="25" char="a" />
+        <character x="143" y="17" width="9" height="35" char="t" />
+        <character x="157" y="16" width="22" height="30" char="B" />
+        <character x="178" y="21" width="14" height="24" char="a" />
+        <character x="193" y="21" width="15" height="24" char="e" />
+        <character x="211" y="11" width="11" height="40" char="k" />
+        <character x="220" y="14" width="11" height="43" char="j" />
+        <character x="233" y="15" width="18" height="29" char="e" />
+        <character x="251" y="14" width="19" height="30" char="F" />
+        <character x="272" y="23" width="13" height="21" char="e" />
+        <character x="284" y="24" width="16" height="20" char="s" />
+        <character x="300" y="13" width="9" height="37" char="t" />
+        <character x="310" y="13" width="7" height="34" char="i" />
+        <character x="317" y="18" width="13" height="27" char="v" />
+        <character x="330" y="20" width="15" height="26" char="a" />
+        <character x="345" y="12" width="11" height="45" char="l" />
+      </word>
+      <word x="114" y="100" width="125" height="37">
+        <character x="114" y="101" width="36" height="32" char="제" />
+        <character x="149" y="102" width="18" height="35" char="5" />
+        <character x="169" y="100" width="21" height="35" char="5" />
+        <character x="190" y="100" width="49" height="35" char="회" />
+      </word>
+      <word x="103" y="127" width="479" height="108">
+        <character x="295" y="127" width="66" height="108" char="문" />
+        <character x="103" y="139" width="94" height="93" char="백" />
+        <character x="201" y="136" width="91" height="92" char="제" />
+        <character x="362" y="128" width="95" height="97" char="화" />
+        <character x="455" y="135" width="127" height="82" char="제" />
+      </word>
+      <word x="110" y="258" width="456" height="71">
+        <character x="110" y="259" width="36" height="53" char="0" />
+        <character x="147" y="259" width="35" height="56" char="9" />
+        <character x="209" y="258" width="23" height="60" char="1" />
+        <character x="232" y="260" width="39" height="59" char="0" />
+        <character x="298" y="259" width="36" height="58" char="9" />
+        <character x="391" y="261" width="33" height="68" char="1" />
+        <character x="423" y="258" width="40" height="66" char="0" />
+        <character x="485" y="264" width="28" height="61" char="1" />
+        <character x="509" y="264" width="57" height="60" char="8" />
+      </word>
+      <word x="171" y="322" width="393" height="65">
+        <character x="171" y="323" width="38" height="55" char="충" />
+        <character x="211" y="322" width="31" height="58" char="청" />
+        <character x="241" y="327" width="37" height="54" char="남" />
+        <character x="278" y="331" width="33" height="53" char="도" />
+        <character x="318" y="332" width="38" height="50" char="공" />
+        <character x="354" y="331" width="36" height="53" char="주" />
+        <character x="390" y="337" width="37" height="48" char="시" />
+        <character x="439" y="334" width="40" height="50" char="부" />
+        <character x="479" y="335" width="38" height="52" char="여ㅑ" />
+        <character x="518" y="335" width="46" height="52" char="군" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03683.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="169" y="39" width="409" height="256">
+        <character x="169" y="107" width="108" height="131" char="창" />
+        <character x="276" y="106" width="97" height="129" char="대" />
+        <character x="372" y="107" width="99" height="121" char="교" />
+        <character x="469" y="104" width="109" height="122" char="회" />
+      </word>
+      <word x="177" y="39" width="381" height="62">
+        <character x="177" y="46" width="46" height="49" char="기" />
+        <character x="221" y="39" width="49" height="56" char="독" />
+        <character x="268" y="46" width="54" height="52" char="교" />
+        <character x="338" y="51" width="42" height="47" char="대" />
+        <character x="377" y="47" width="47" height="54" char="한" />
+        <character x="424" y="48" width="41" height="53" char="감" />
+        <character x="463" y="46" width="46" height="53" char="리" />
+        <character x="506" y="49" width="52" height="48" char="회" />
+      </word>
+      <word x="211" y="231" width="321" height="64">
+        <character x="211" y="237" width="54" height="51" char="개" />
+        <character x="265" y="234" width="57" height="61" char="혁" />
+        <character x="321" y="238" width="54" height="52" char="연" />
+        <character x="372" y="234" width="56" height="51" char="합" />
+        <character x="473" y="240" width="27" height="43" char="지" />
+        <character x="504" y="231" width="28" height="54" char="하" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

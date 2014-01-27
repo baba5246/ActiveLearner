@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-08-day-139.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="424" y="630" width="191" height="97">
+        <character x="424" y="630" width="97" height="97" char="컵" />
+        <character x="523" y="636" width="92" height="87" char="을" />
+      </word>
+      <word x="657" y="627" width="196" height="103">
+        <character x="657" y="627" width="95" height="100" char="꽂" />
+        <character x="754" y="634" width="99" height="96" char="아" />
+      </word>
+      <word x="891" y="635" width="294" height="98">
+        <character x="891" y="635" width="91" height="93" char="주" />
+        <character x="980" y="635" width="95" height="98" char="세" />
+        <character x="1076" y="645" width="109" height="86" char="요" />
+      </word>
+      <word x="625" y="406" width="598" height="107">
+        <character x="625" y="410" width="103" height="102" char="수" />
+        <character x="727" y="406" width="97" height="107" char="거" />
+        <character x="824" y="410" width="99" height="99" char="중" />
+        <character x="925" y="410" width="92" height="101" char="입" />
+        <character x="1022" y="413" width="94" height="99" char="니" />
+        <character x="1118" y="410" width="105" height="102" char="다" />
+      </word>
+      <word x="384" y="409" width="198" height="102">
+        <character x="384" y="409" width="101" height="99" char="분" />
+        <character x="488" y="410" width="94" height="101" char="리" />
+      </word>
+      <word x="420" y="354" width="138" height="34">
+        <character x="420" y="354" width="28" height="34" char="B" />
+        <character x="450" y="355" width="21" height="30" char="U" />
+        <character x="472" y="354" width="20" height="33" char="R" />
+        <character x="493" y="355" width="24" height="31" char="G" />
+        <character x="518" y="356" width="16" height="31" char="E" />
+        <character x="534" y="355" width="24" height="31" char="R" />
+      </word>
+      <word x="561" y="350" width="88" height="41">
+        <character x="561" y="353" width="25" height="34" char="K" />
+        <character x="586" y="354" width="10" height="33" char="I" />
+        <character x="595" y="350" width="25" height="39" char="N" />
+        <character x="620" y="354" width="29" height="37" char="G" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

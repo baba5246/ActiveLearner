@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090912042.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="223" y="156" width="353" height="129">
+        <character x="223" y="193" width="46" height="70" char="구" />
+        <character x="267" y="181" width="56" height="70" char="암" />
+        <character x="323" y="180" width="62" height="75" char="도" />
+        <character x="389" y="172" width="50" height="75" char="매" />
+        <character x="444" y="166" width="63" height="76" char="마" />
+        <character x="510" y="156" width="66" height="86" char="트" />
+      </word>
+      <word x="347" y="247" width="117" height="38">
+        <character x="347" y="256" width="18" height="28" char="8" />
+        <character x="366" y="256" width="13" height="29" char="2" />
+        <character x="381" y="256" width="13" height="27" char="5" />
+        <character x="404" y="248" width="15" height="36" char="3" />
+        <character x="418" y="249" width="13" height="36" char="3" />
+        <character x="431" y="247" width="17" height="31" char="7" />
+        <character x="448" y="250" width="16" height="31" char="3" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

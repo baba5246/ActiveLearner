@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04229.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="63" y="29" width="501" height="122">
+        <character x="63" y="33" width="103" height="114" char="불" />
+        <character x="164" y="32" width="100" height="112" char="가" />
+        <character x="262" y="31" width="102" height="120" char="사" />
+        <character x="358" y="29" width="97" height="116" char="의" />
+        <character x="455" y="30" width="109" height="116" char="한" />
+      </word>
+      <word x="52" y="164" width="521" height="132">
+        <character x="52" y="169" width="75" height="126" char="1" />
+        <character x="125" y="165" width="92" height="120" char="0" />
+        <character x="220" y="164" width="78" height="129" char="0" />
+        <character x="297" y="165" width="79" height="130" char="0" />
+        <character x="376" y="164" width="99" height="131" char="가" />
+        <character x="474" y="164" width="99" height="132" char="지" />
+      </word>
+      <word x="51" y="321" width="297" height="121">
+        <character x="51" y="323" width="96" height="118" char="이" />
+        <character x="147" y="321" width="103" height="119" char="야" />
+        <character x="249" y="321" width="99" height="121" char="기" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

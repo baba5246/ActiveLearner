@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-08-day-108.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="494" y="383" width="236" height="210">
+        <character x="494" y="383" width="129" height="175" char="원" />
+        <character x="622" y="423" width="108" height="170" char="룸" />
+      </word>
+      <word x="798" y="504" width="189" height="186">
+        <character x="798" y="504" width="99" height="159" char="투" />
+        <character x="891" y="531" width="96" height="159" char="룸" />
+      </word>
+      <word x="559" y="574" width="429" height="205">
+        <character x="559" y="574" width="52" height="90" char="0" />
+        <character x="611" y="589" width="40" height="93" char="4" />
+        <character x="653" y="607" width="41" height="84" char="2" />
+        <character x="695" y="617" width="28" height="88" char=")" />
+        <character x="728" y="632" width="44" height="82" char="8" />
+        <character x="770" y="647" width="40" height="86" char="2" />
+        <character x="801" y="662" width="43" height="80" char="2" />
+        <character x="839" y="699" width="24" height="39" char="-" />
+        <character x="858" y="678" width="39" height="80" char="0" />
+        <character x="887" y="685" width="36" height="74" char="7" />
+        <character x="919" y="697" width="39" height="79" char="8" />
+        <character x="947" y="708" width="41" height="71" char="7" />
+      </word>
+      <word x="568" y="676" width="444" height="193">
+        <character x="568" y="676" width="56" height="101" char="0" />
+        <character x="623" y="687" width="30" height="91" char="1" />
+        <character x="651" y="695" width="43" height="92" char="9" />
+        <character x="695" y="743" width="30" height="34" char="-" />
+        <character x="725" y="716" width="43" height="97" char="4" />
+        <character x="769" y="733" width="38" height="91" char="4" />
+        <character x="808" y="745" width="39" height="80" char="8" />
+        <character x="848" y="783" width="22" height="34" char="-" />
+        <character x="870" y="761" width="39" height="82" char="0" />
+        <character x="903" y="772" width="34" height="79" char="7" />
+        <character x="938" y="783" width="41" height="75" char="8" />
+        <character x="965" y="789" width="47" height="80" char="7" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

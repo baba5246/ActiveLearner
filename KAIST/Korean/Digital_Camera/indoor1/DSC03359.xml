@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03359.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="95" y="256" width="491" height="95">
+        <character x="95" y="262" width="72" height="83" char="카" />
+        <character x="167" y="261" width="64" height="83" char="페" />
+        <character x="231" y="256" width="71" height="88" char="트" />
+        <character x="316" y="260" width="72" height="84" char="특" />
+        <character x="388" y="260" width="66" height="87" char="설" />
+        <character x="456" y="263" width="61" height="82" char="매" />
+        <character x="517" y="261" width="69" height="90" char="장" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>4</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

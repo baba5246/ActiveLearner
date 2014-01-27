@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>074.jpg</imageName>
+    <resolution x="490" y="363" />
+    <words>
+      <word x="122" y="79" width="245" height="157">
+        <character x="122" y="79" width="75" height="69" char="영" />
+        <character x="206" y="79" width="65" height="69" char="파" />
+        <character x="283" y="83" width="76" height="69" char="워" />
+        <character x="156" y="156" width="70" height="72" char="노" />
+        <character x="229" y="159" width="63" height="72" char="래" />
+        <character x="295" y="158" width="72" height="78" char="방" />
+      </word>
+      <word x="179" y="260" width="137" height="48">
+        <character x="261" y="265" width="25" height="43" char="소" />
+        <character x="289" y="265" width="27" height="42" char="주" />
+        <character x="179" y="260" width="26" height="46" char="맥" />
+        <character x="210" y="261" width="25" height="45" char="주" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

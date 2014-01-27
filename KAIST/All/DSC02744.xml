@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02744.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="21" y="202" width="530" height="181">
+        <character x="21" y="202" width="121" height="181" char="영" />
+        <character x="141" y="215" width="126" height="124" char="어" />
+        <character x="269" y="207" width="123" height="137" char="회" />
+        <character x="390" y="206" width="161" height="138" char="화" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

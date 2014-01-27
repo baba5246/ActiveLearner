@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03220.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="27" y="36" width="589" height="200">
+        <character x="27" y="103" width="39" height="49" char="돼" />
+        <character x="63" y="97" width="44" height="48" char="지" />
+        <character x="104" y="97" width="46" height="49" char="고" />
+        <character x="152" y="89" width="43" height="49" char="기" />
+        <character x="201" y="78" width="53" height="53" char="특" />
+        <character x="255" y="72" width="50" height="55" char="수" />
+        <character x="305" y="68" width="52" height="57" char="부" />
+        <character x="356" y="64" width="65" height="50" char="위" />
+        <character x="429" y="53" width="56" height="59" char="전" />
+        <character x="490" y="51" width="61" height="52" char="문" />
+        <character x="552" y="36" width="64" height="64" char="점" />
+      </word>
+      <word x="141" y="160" width="252" height="76">
+        <character x="141" y="160" width="88" height="76" char="구" />
+        <character x="229" y="183" width="50" height="44" char="이" />
+        <character x="288" y="176" width="105" height="54" char="엔" />
+      </word>
+      <word x="486" y="188" width="129" height="45">
+        <character x="486" y="195" width="30" height="38" char="둔" />
+        <character x="518" y="191" width="30" height="39" char="산" />
+        <character x="544" y="188" width="38" height="38" char="본" />
+        <character x="583" y="191" width="32" height="38" char="점" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

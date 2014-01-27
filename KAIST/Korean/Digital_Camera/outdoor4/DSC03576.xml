@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03576.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="212" y="200" width="220" height="162">
+        <character x="269" y="202" width="40" height="41" char="투" />
+        <character x="310" y="200" width="32" height="44" char="입" />
+        <character x="341" y="200" width="39" height="45" char="구" />
+      </word>
+      <word x="212" y="317" width="220" height="45">
+        <character x="212" y="318" width="43" height="39" char="폐" />
+        <character x="255" y="319" width="29" height="39" char="건" />
+        <character x="285" y="319" width="26" height="41" char="전" />
+        <character x="310" y="320" width="29" height="37" char="지" />
+        <character x="340" y="317" width="34" height="41" char="수" />
+        <character x="375" y="321" width="27" height="40" char="거" />
+        <character x="402" y="322" width="30" height="40" char="함" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

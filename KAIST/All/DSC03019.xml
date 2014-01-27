@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03019.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="62" y="156" width="444" height="115">
+        <character x="62" y="161" width="80" height="61" char="해" />
+        <character x="141" y="156" width="72" height="115" char="물" />
+        <character x="214" y="170" width="73" height="94" char="떡" />
+        <character x="281" y="170" width="67" height="95" char="짐" />
+        <character x="351" y="185" width="40" height="50" char="0" />
+        <character x="392" y="178" width="41" height="56" char="4" />
+        <character x="432" y="177" width="26" height="60" char="1" />
+        <character x="457" y="180" width="49" height="51" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

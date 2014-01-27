@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010075.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="46" y="172" width="561" height="153">
+        <character x="46" y="252" width="63" height="69" char="정" />
+        <character x="111" y="255" width="64" height="64" char="음" />
+        <character x="175" y="252" width="66" height="69" char="국" />
+        <character x="242" y="252" width="64" height="69" char="제" />
+        <character x="306" y="254" width="62" height="65" char="기" />
+        <character x="368" y="252" width="63" height="73" char="술" />
+        <character x="433" y="255" width="56" height="62" char="거" />
+        <character x="489" y="257" width="61" height="63" char="래" />
+        <character x="551" y="255" width="56" height="61" char="소" />
+      </word>
+      <word x="60" y="172" width="528" height="68">
+        <character x="60" y="174" width="68" height="65" char="성" />
+        <character x="130" y="183" width="78" height="53" char="문" />
+        <character x="211" y="175" width="73" height="63" char="행" />
+        <character x="300" y="178" width="63" height="62" char="정" />
+        <character x="373" y="182" width="67" height="57" char="대" />
+        <character x="449" y="172" width="64" height="65" char="서" />
+        <character x="518" y="188" width="70" height="48" char="소" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-09-day-exterior-084.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="459" y="429" width="726" height="358">
+        <character x="459" y="513" width="163" height="178" char="닭" />
+        <character x="630" y="491" width="120" height="137" char="한" />
+        <character x="758" y="473" width="124" height="132" char="마" />
+        <character x="888" y="452" width="134" height="142" char="리" />
+        <character x="1030" y="429" width="155" height="148" char="랑" />
+      </word>
+      <word x="722" y="789" width="294" height="57">
+        <character x="722" y="806" width="42" height="40" char="8" />
+        <character x="769" y="802" width="32" height="43" char="6" />
+        <character x="803" y="801" width="34" height="37" char="3" />
+        <character x="840" y="808" width="25" height="18" char="-" />
+        <character x="865" y="794" width="39" height="50" char="7" />
+        <character x="906" y="790" width="34" height="52" char="5" />
+        <character x="941" y="789" width="38" height="48" char="5" />
+        <character x="981" y="791" width="35" height="46" char="1" />
+      </word>
+      <word x="618" y="595" width="566" height="192">
+        <character x="618" y="639" width="132" height="148" char="칼" />
+        <character x="807" y="616" width="140" height="146" char="국" />
+        <character x="1038" y="595" width="146" height="153" char="수" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

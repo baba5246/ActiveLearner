@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02313.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="180" y="8" width="350" height="41">
+        <character x="180" y="13" width="38" height="32" char="당" />
+        <character x="217" y="13" width="45" height="36" char="구" />
+        <character x="261" y="13" width="50" height="28" char="장" />
+        <character x="394" y="8" width="41" height="33" char="당" />
+        <character x="435" y="11" width="43" height="32" char="구" />
+        <character x="478" y="11" width="52" height="34" char="장" />
+      </word>
+      <word x="54" y="106" width="562" height="130">
+        <character x="54" y="115" width="103" height="117" char="매" />
+        <character x="181" y="113" width="132" height="123" char="일" />
+        <character x="337" y="106" width="121" height="127" char="마" />
+        <character x="489" y="111" width="127" height="124" char="트" />
+      </word>
+      <word x="538" y="353" width="62" height="101">
+        <character x="538" y="353" width="60" height="54" char="매" />
+        <character x="541" y="410" width="59" height="44" char="일" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

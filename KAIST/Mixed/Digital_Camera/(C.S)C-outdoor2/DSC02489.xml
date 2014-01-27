@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02489.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="17" y="131" width="608" height="168">
+        <character x="17" y="131" width="92" height="125" char="후" />
+        <character x="113" y="135" width="95" height="112" char="루" />
+        <character x="214" y="139" width="85" height="109" char="룩" />
+        <character x="307" y="132" width="113" height="113" char="칼" />
+        <character x="420" y="133" width="100" height="121" char="국" />
+        <character x="521" y="136" width="104" height="107" char="수" />
+      </word>
+      <word x="221" y="258" width="199" height="41">
+        <character x="221" y="262" width="26" height="36" char="T" />
+        <character x="262" y="262" width="18" height="34" char="8" />
+        <character x="278" y="261" width="23" height="36" char="6" />
+        <character x="301" y="263" width="20" height="35" char="3" />
+        <character x="338" y="260" width="21" height="37" char="0" />
+        <character x="359" y="260" width="20" height="36" char="0" />
+        <character x="378" y="260" width="18" height="35" char="1" />
+        <character x="396" y="258" width="24" height="41" char="8" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

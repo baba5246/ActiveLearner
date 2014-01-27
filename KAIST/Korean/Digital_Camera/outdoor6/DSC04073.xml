@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04073.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="45" y="30" width="558" height="71">
+        <character x="45" y="33" width="54" height="61" char="동" />
+        <character x="99" y="34" width="47" height="59" char="성" />
+        <character x="146" y="33" width="47" height="64" char="주" />
+        <character x="191" y="32" width="50" height="67" char="택" />
+        <character x="239" y="31" width="51" height="67" char="관" />
+        <character x="292" y="30" width="49" height="66" char="리" />
+        <character x="361" y="32" width="35" height="65" char="5" />
+        <character x="395" y="30" width="28" height="67" char="2" />
+        <character x="424" y="30" width="30" height="64" char="8" />
+        <character x="481" y="35" width="34" height="59" char="0" />
+        <character x="515" y="34" width="27" height="61" char="5" />
+        <character x="540" y="33" width="31" height="66" char="0" />
+        <character x="572" y="32" width="31" height="69" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

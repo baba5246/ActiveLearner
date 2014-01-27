@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>013.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="354" y="192" width="114" height="77">
+        <character x="354" y="196" width="35" height="26" char="쁘" />
+        <character x="389" y="192" width="37" height="33" char="와" />
+        <character x="427" y="192" width="41" height="29" char="종" />
+      </word>
+      <word x="358" y="248" width="99" height="21">
+        <character x="358" y="254" width="17" height="15" char="8" />
+        <character x="378" y="253" width="8" height="15" char="6" />
+        <character x="389" y="252" width="11" height="13" char="3" />
+        <character x="405" y="251" width="9" height="16" char="8" />
+        <character x="419" y="249" width="8" height="20" char="0" />
+        <character x="429" y="249" width="10" height="17" char="6" />
+        <character x="441" y="248" width="16" height="18" char="6" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

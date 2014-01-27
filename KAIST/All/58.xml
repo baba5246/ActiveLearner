@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\한글\58.bmp</imageName>
+    <resolution x="499" y="764" />
+    <words>
+      <word x="19" y="166" width="192" height="81">
+        <character x="19" y="167" width="43" height="65" char="L" />
+        <character x="61" y="166" width="45" height="67" char="O" />
+        <character x="107" y="170" width="58" height="77" char="TT" />
+        <character x="166" y="179" width="45" height="58" char="O" />
+      </word>
+      <word x="37" y="259" width="172" height="332">
+        <character x="38" y="259" width="157" height="112" char="성" />
+        <character x="37" y="372" width="159" height="111" char="원" />
+        <character x="38" y="487" width="171" height="104" char="당" />
+      </word>
+      <word x="16" y="593" width="199" height="57">
+        <character x="16" y="593" width="30" height="57" char="금" />
+        <character x="56" y="597" width="28" height="47" char="은" />
+        <character x="94" y="599" width="30" height="40" char="보" />
+        <character x="124" y="599" width="25" height="44" char="석" />
+        <character x="161" y="597" width="27" height="48" char="시" />
+        <character x="186" y="594" width="29" height="54" char="계" />
+        <character x="46" y="616" width="10" height="32" char="." />
+        <character x="85" y="622" width="12" height="21" char="." />
+        <character x="150" y="627" width="12" height="18" char="." />
+      </word>
+    </words>
+    <illumination>yes</illumination>
+    <difficulty>2</difficulty>
+    <tag>english,korean</tag>
+  </image>
+</images>

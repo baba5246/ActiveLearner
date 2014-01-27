@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02523.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="92" y="220" width="270" height="114">
+        <character x="92" y="220" width="131" height="114" char="스" />
+        <character x="227" y="227" width="135" height="104" char="시" />
+      </word>
+      <word x="2147483647" y="2147483647" width="-2147483647" height="-2147483647" />
+      <word x="379" y="334" width="241" height="48">
+        <character x="379" y="338" width="28" height="36" char="0" />
+        <character x="406" y="338" width="20" height="37" char="4" />
+        <character x="428" y="338" width="15" height="37" char="2" />
+        <character x="456" y="337" width="18" height="39" char="8" />
+        <character x="476" y="334" width="20" height="43" char="6" />
+        <character x="496" y="334" width="20" height="48" char="1" />
+        <character x="535" y="338" width="24" height="37" char="5" />
+        <character x="557" y="339" width="22" height="37" char="0" />
+        <character x="579" y="340" width="19" height="38" char="8" />
+        <character x="597" y="339" width="23" height="36" char="4" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

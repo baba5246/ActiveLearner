@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02470.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="172" y="173" width="189" height="40">
+        <character x="172" y="184" width="25" height="28" char="8" />
+        <character x="200" y="182" width="20" height="28" char="6" />
+        <character x="221" y="182" width="22" height="31" char="2" />
+        <character x="265" y="177" width="21" height="31" char="3" />
+        <character x="288" y="175" width="25" height="29" char="9" />
+        <character x="313" y="174" width="21" height="29" char="3" />
+        <character x="334" y="173" width="27" height="33" char="9" />
+      </word>
+      <word x="165" y="27" width="452" height="162">
+        <character x="165" y="68" width="72" height="100" char="박" />
+        <character x="242" y="64" width="67" height="101" char="혜" />
+        <character x="309" y="60" width="75" height="102" char="자" />
+        <character x="385" y="48" width="74" height="105" char="피" />
+        <character x="459" y="33" width="81" height="110" char="아" />
+        <character x="541" y="27" width="76" height="106" char="노" />
+      </word>
+      <word x="460" y="155" width="108" height="39">
+        <character x="460" y="166" width="28" height="28" char="상" />
+        <character x="520" y="164" width="14" height="29" char="1" />
+        <character x="488" y="165" width="31" height="24" char="가" />
+        <character x="534" y="155" width="34" height="32" char="" />
+      </word>
+      <word x="40" y="244" width="495" height="120">
+        <character x="40" y="265" width="69" height="99" char="부" />
+        <character x="114" y="266" width="67" height="96" char="동" />
+        <character x="186" y="263" width="81" height="97" char="산" />
+        <character x="272" y="257" width="87" height="105" char="팔" />
+        <character x="365" y="255" width="71" height="98" char="구" />
+        <character x="442" y="244" width="93" height="109" char="사" />
+      </word>
+      <word x="19" y="369" width="518" height="71">
+        <character x="19" y="377" width="39" height="63" char="공" />
+        <character x="59" y="377" width="35" height="60" char="인" />
+        <character x="95" y="379" width="30" height="57" char="중" />
+        <character x="127" y="382" width="37" height="55" char="개" />
+        <character x="165" y="376" width="34" height="62" char="사" />
+        <character x="258" y="374" width="34" height="60" char="8" />
+        <character x="292" y="377" width="33" height="57" char="6" />
+        <character x="327" y="373" width="34" height="65" char="2" />
+        <character x="361" y="376" width="33" height="55" char="0" />
+        <character x="417" y="371" width="39" height="63" char="8" />
+        <character x="457" y="373" width="39" height="64" char="9" />
+        <character x="494" y="369" width="43" height="67" char="4" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

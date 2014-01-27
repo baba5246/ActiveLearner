@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03622.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="103" y="238" width="509" height="67">
+        <character x="103" y="257" width="30" height="47" char="꿈" />
+        <character x="132" y="254" width="32" height="49" char="을" />
+        <character x="167" y="254" width="28" height="49" char="키" />
+        <character x="198" y="250" width="26" height="52" char="우" />
+        <character x="227" y="250" width="27" height="55" char="는" />
+        <character x="257" y="253" width="30" height="41" char="교" />
+        <character x="286" y="251" width="32" height="47" char="실" />
+        <character x="324" y="248" width="33" height="50" char="미" />
+        <character x="357" y="247" width="31" height="51" char="래" />
+        <character x="387" y="246" width="29" height="50" char="를" />
+        <character x="422" y="245" width="27" height="50" char="여" />
+        <character x="450" y="240" width="33" height="59" char="는" />
+        <character x="484" y="240" width="32" height="54" char="만" />
+        <character x="515" y="240" width="33" height="57" char="년" />
+        <character x="546" y="238" width="35" height="52" char="교" />
+        <character x="580" y="239" width="32" height="52" char="육" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03599.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="173" y="105" width="382" height="247">
+        <character x="173" y="111" width="70" height="89" char="만" />
+        <character x="239" y="110" width="75" height="91" char="년" />
+        <character x="315" y="108" width="74" height="89" char="중" />
+        <character x="386" y="108" width="77" height="91" char="학" />
+        <character x="461" y="105" width="94" height="88" char="교" />
+      </word>
+      <word x="266" y="230" width="103" height="67">
+        <character x="266" y="234" width="37" height="63" char="2" />
+        <character x="302" y="232" width="31" height="62" char="4" />
+        <character x="331" y="230" width="38" height="64" char="6" />
+      </word>
+      <word x="296" y="306" width="43" height="46">
+        <character x="296" y="308" width="21" height="44" char="만" />
+        <character x="317" y="306" width="22" height="46" char="7" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

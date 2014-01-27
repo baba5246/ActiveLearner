@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02665.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="80" y="127" width="479" height="269">
+        <character x="80" y="240" width="161" height="156" char="노" />
+        <character x="249" y="240" width="135" height="156" char="래" />
+        <character x="407" y="230" width="152" height="158" char="방" />
+      </word>
+      <word x="286" y="127" width="185" height="91">
+        <character x="286" y="138" width="93" height="80" char="팡" />
+        <character x="377" y="127" width="94" height="84" char="팡" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

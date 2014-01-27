@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03558.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="123" y="166" width="360" height="134">
+        <character x="123" y="166" width="83" height="126" char="초" />
+        <character x="211" y="169" width="91" height="127" char="원" />
+        <character x="306" y="171" width="85" height="129" char="세" />
+        <character x="393" y="170" width="90" height="128" char="탁" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

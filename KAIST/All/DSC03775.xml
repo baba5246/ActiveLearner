@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03775.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="135" y="119" width="405" height="117">
+        <character x="135" y="122" width="88" height="114" char="승" />
+        <character x="233" y="121" width="96" height="113" char="진" />
+        <character x="333" y="119" width="90" height="113" char="슈" />
+        <character x="437" y="120" width="103" height="114" char="퍼" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

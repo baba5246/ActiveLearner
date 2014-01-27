@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03352.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="135" y="226" width="270" height="110">
+        <character x="135" y="233" width="98" height="91" char="보" />
+        <character x="230" y="230" width="90" height="106" char="온" />
+        <character x="319" y="226" width="86" height="108" char="병" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

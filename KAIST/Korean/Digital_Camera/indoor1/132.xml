@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>132.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="142" y="219" width="356" height="83">
+        <character x="142" y="219" width="89" height="72" char="타" />
+        <character x="263" y="226" width="83" height="73" char="는" />
+        <character x="410" y="232" width="88" height="70" char="곳" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

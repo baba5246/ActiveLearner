@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>085.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="1" y="178" width="627" height="111">
+        <character x="1" y="194" width="88" height="81" char="드" />
+        <character x="113" y="195" width="91" height="94" char="림" />
+        <character x="238" y="181" width="104" height="87" char="화" />
+        <character x="384" y="183" width="106" height="103" char="장" />
+        <character x="531" y="178" width="97" height="106" char="품" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

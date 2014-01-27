@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02472.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="7" y="126" width="605" height="139">
+        <character x="7" y="131" width="186" height="134" char="우" />
+        <character x="454" y="126" width="158" height="131" char="편" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

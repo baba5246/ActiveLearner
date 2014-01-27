@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02310.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="39" y="103" width="550" height="138">
+        <character x="39" y="109" width="107" height="90" char="순" />
+        <character x="186" y="103" width="120" height="96" char="대" />
+        <character x="335" y="115" width="121" height="86" char="박" />
+        <character x="477" y="113" width="112" height="88" char="사" />
+      </word>
+      <word x="197" y="208" width="251" height="37">
+        <character x="347" y="211" width="32" height="32" char="2" />
+        <character x="377" y="211" width="33" height="33" char="3" />
+        <character x="409" y="209" width="39" height="36" char="2" />
+        <character x="197" y="209" width="33" height="32" char="8" />
+        <character x="231" y="209" width="28" height="30" char="2" />
+        <character x="259" y="208" width="33" height="32" char="6" />
+        <character x="321" y="211" width="27" height="29" char="0" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

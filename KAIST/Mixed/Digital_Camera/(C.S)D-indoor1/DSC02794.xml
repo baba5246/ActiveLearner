@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC02794.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="55" y="247" width="460" height="121">
+        <character x="55" y="322" width="24" height="46" char="4" />
+        <character x="80" y="320" width="23" height="45" char="0" />
+        <character x="104" y="318" width="22" height="45" char="0" />
+        <character x="128" y="317" width="24" height="50" char="0" />
+      </word>
+      <word x="85" y="275" width="61" height="40">
+        <character x="85" y="275" width="61" height="40" char="D" />
+      </word>
+      <word x="185" y="247" width="330" height="90">
+        <character x="185" y="275" width="63" height="62" char="주" />
+        <character x="434" y="247" width="81" height="64" char="드" />
+        <character x="258" y="265" width="62" height="60" char="식" />
+        <character x="352" y="259" width="63" height="57" char="펀" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

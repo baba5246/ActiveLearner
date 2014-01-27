@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03419.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="26" y="72" width="592" height="200">
+        <character x="61" y="79" width="139" height="130" char="생" />
+        <character x="201" y="74" width="133" height="132" char="활" />
+        <character x="334" y="74" width="131" height="132" char="정" />
+        <character x="463" y="72" width="149" height="135" char="보" />
+      </word>
+      <word x="26" y="210" width="592" height="62">
+        <character x="26" y="212" width="55" height="50" char="대" />
+        <character x="80" y="214" width="51" height="49" char="전" />
+        <character x="131" y="218" width="50" height="44" char="광" />
+        <character x="181" y="215" width="49" height="51" char="역" />
+        <character x="229" y="212" width="49" height="52" char="시" />
+        <character x="392" y="211" width="50" height="55" char="구" />
+        <character x="441" y="210" width="49" height="58" char="청" />
+        <character x="514" y="213" width="49" height="55" char="승" />
+        <character x="563" y="213" width="55" height="59" char="인" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

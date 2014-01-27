@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\한글\35.JPG</imageName>
+    <resolution x="576" y="768" />
+    <words>
+      <word x="167" y="119" width="235" height="102">
+        <character x="167" y="122" width="106" height="94" char="경" />
+        <character x="293" y="119" width="109" height="102" char=" 품" />
+      </word>
+      <word x="215" y="228" width="134" height="287">
+        <character x="215" y="401" width="132" height="114" char="장" />
+        <character x="217" y="317" width="132" height="79" char=" 임" />
+        <character x="219" y="228" width="127" height="84" char=" 게" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>korean</tag>
+  </image>
+</images>

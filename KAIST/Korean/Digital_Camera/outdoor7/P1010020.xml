@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P1010020.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="136" y="40" width="417" height="165">
+        <character x="143" y="40" width="85" height="74" char="칼" />
+        <character x="241" y="44" width="96" height="68" char="라" />
+        <character x="350" y="47" width="83" height="71" char="복" />
+        <character x="447" y="49" width="90" height="74" char="사" />
+      </word>
+      <word x="136" y="122" width="417" height="83">
+        <character x="136" y="122" width="88" height="76" char="칼" />
+        <character x="242" y="123" width="95" height="73" char="라" />
+        <character x="351" y="128" width="91" height="75" char="출" />
+        <character x="456" y="132" width="97" height="73" char="력" />
+      </word>
+      <word x="131" y="205" width="432" height="87">
+        <character x="131" y="207" width="85" height="81" char="디" />
+        <character x="217" y="207" width="84" height="83" char="지" />
+        <character x="301" y="205" width="89" height="87" char="털" />
+        <character x="390" y="210" width="80" height="82" char="복" />
+        <character x="469" y="216" width="94" height="75" char="사" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

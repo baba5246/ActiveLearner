@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04333.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="126" y="110" width="477" height="125">
+        <character x="126" y="110" width="109" height="89" char="광" />
+        <character x="234" y="118" width="94" height="89" char="림" />
+        <character x="326" y="136" width="94" height="79" char="한" />
+        <character x="417" y="138" width="89" height="67" char="의" />
+        <character x="506" y="154" width="97" height="81" char="원" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

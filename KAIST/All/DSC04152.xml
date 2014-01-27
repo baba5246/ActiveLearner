@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04152.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="67" y="95" width="503" height="75">
+        <character x="67" y="101" width="60" height="69" char="낮" />
+        <character x="123" y="98" width="55" height="63" char="시" />
+        <character x="177" y="101" width="68" height="67" char="간" />
+        <character x="259" y="97" width="59" height="68" char="커" />
+        <character x="316" y="96" width="64" height="68" char="피" />
+        <character x="395" y="99" width="59" height="62" char="됩" />
+        <character x="455" y="98" width="50" height="64" char="니" />
+        <character x="505" y="95" width="65" height="63" char="다" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>크기변환_%BD%C7%B3%BB%B0%A3%C6%C7_moon8481.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="125" y="39" width="372" height="119">
+        <character x="125" y="39" width="96" height="119" char="문" />
+        <character x="221" y="45" width="87" height="113" char="피" />
+        <character x="302" y="43" width="96" height="115" char="오" />
+        <character x="395" y="50" width="102" height="108" char="피" />
+      </word>
+      <word x="17" y="153" width="550" height="163">
+        <character x="17" y="213" width="111" height="89" char="예" />
+        <character x="100" y="153" width="101" height="119" char="쁜" />
+        <character x="222" y="181" width="96" height="114" char="손" />
+        <character x="344" y="179" width="91" height="137" char="글" />
+        <character x="460" y="219" width="107" height="88" char="씨" />
+      </word>
+      <word x="72" y="330" width="497" height="100">
+        <character x="72" y="341" width="57" height="88" char="0" />
+        <character x="131" y="340" width="25" height="89" char="1" />
+        <character x="159" y="336" width="43" height="91" char="0" />
+        <character x="208" y="335" width="50" height="86" char="4" />
+        <character x="254" y="330" width="37" height="95" char="7" />
+        <character x="282" y="340" width="50" height="79" char="0" />
+        <character x="330" y="335" width="47" height="83" char="2" />
+        <character x="383" y="338" width="49" height="86" char="8" />
+        <character x="433" y="339" width="42" height="84" char="4" />
+        <character x="474" y="342" width="44" height="82" char="8" />
+        <character x="515" y="341" width="54" height="89" char="1" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

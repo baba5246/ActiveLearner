@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090903031.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="28" y="63" width="563" height="175">
+        <character x="28" y="86" width="130" height="151" char="안" />
+        <character x="154" y="85" width="115" height="153" char="네" />
+        <character x="273" y="108" width="70" height="110" char="의" />
+        <character x="371" y="63" width="115" height="168" char="일" />
+        <character x="489" y="76" width="102" height="132" char="기" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>image\0623\2007-12-08-day-132.jpg</imageName>
+    <resolution x="1600" y="1200" />
+    <words>
+      <word x="402" y="508" width="422" height="250">
+        <character x="402" y="508" width="90" height="217" char="(" />
+        <character x="435" y="517" width="101" height="209" char="주" />
+        <character x="495" y="517" width="76" height="214" char=")" />
+        <character x="552" y="532" width="102" height="207" char="소" />
+        <character x="620" y="539" width="117" height="212" char="리" />
+        <character x="708" y="542" width="116" height="216" char="샘" />
+      </word>
+      <word x="838" y="549" width="428" height="287">
+        <character x="838" y="549" width="107" height="230" char="연" />
+        <character x="935" y="565" width="108" height="233" char="예" />
+        <character x="1041" y="577" width="105" height="235" char="기" />
+        <character x="1146" y="577" width="120" height="259" char="획" />
+      </word>
+      <word x="18" y="10" width="109" height="87">
+        <character x="18" y="10" width="58" height="83" char="회" />
+        <character x="69" y="14" width="58" height="83" char="관" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>1</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

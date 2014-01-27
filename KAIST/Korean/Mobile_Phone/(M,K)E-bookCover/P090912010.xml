@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090912010.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="451" y="57" width="125" height="62">
+        <character x="451" y="64" width="44" height="50" char="씽" />
+        <character x="497" y="70" width="39" height="43" char="크" />
+        <character x="533" y="57" width="43" height="62" char="몰" />
+      </word>
+      <word x="216" y="87" width="171" height="98">
+        <character x="216" y="87" width="67" height="98" char="열" />
+        <character x="280" y="99" width="56" height="62" char="꼬" />
+        <character x="336" y="100" width="51" height="62" char="마" />
+      </word>
+      <word x="126" y="184" width="357" height="87">
+        <character x="126" y="186" width="56" height="85" char="인" />
+        <character x="184" y="196" width="47" height="52" char="디" />
+        <character x="230" y="190" width="49" height="73" char="언" />
+        <character x="282" y="195" width="44" height="60" char="과" />
+        <character x="332" y="186" width="50" height="75" char="추" />
+        <character x="381" y="184" width="51" height="80" char="장" />
+        <character x="430" y="184" width="53" height="81" char="님" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

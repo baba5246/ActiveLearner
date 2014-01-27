@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC03343.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="70" y="175" width="430" height="150">
+        <character x="70" y="175" width="117" height="135" char="후" />
+        <character x="185" y="179" width="101" height="137" char="라" />
+        <character x="289" y="187" width="98" height="134" char="이" />
+        <character x="387" y="193" width="113" height="132" char="팬" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>2</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

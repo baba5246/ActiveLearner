@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>P090911024.jpg</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="93" y="44" width="426" height="161">
+        <character x="93" y="109" width="88" height="78" char="희" />
+        <character x="182" y="95" width="80" height="104" char="망" />
+        <character x="266" y="108" width="96" height="75" char="사" />
+        <character x="358" y="99" width="75" height="106" char="진" />
+        <character x="433" y="98" width="86" height="89" char="관" />
+      </word>
+      <word x="198" y="44" width="227" height="47">
+        <character x="198" y="49" width="32" height="42" char="한" />
+        <character x="230" y="48" width="33" height="42" char="승" />
+        <character x="265" y="46" width="34" height="40" char="원" />
+        <character x="318" y="46" width="32" height="35" char="소" />
+        <character x="349" y="44" width="36" height="35" char="설" />
+        <character x="386" y="45" width="39" height="37" char="집" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>5</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>

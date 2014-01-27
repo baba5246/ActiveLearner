@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<images>
+  <image>
+    <imageName>DSC04230.JPG</imageName>
+    <resolution x="640" y="480" />
+    <words>
+      <word x="35" y="174" width="554" height="99">
+        <character x="35" y="179" width="56" height="81" char="강" />
+        <character x="88" y="174" width="53" height="91" char="박" />
+        <character x="139" y="175" width="54" height="63" char="사" />
+        <character x="192" y="177" width="48" height="71" char="의" />
+        <character x="257" y="186" width="51" height="70" char="초" />
+        <character x="305" y="186" width="55" height="61" char="과" />
+        <character x="361" y="188" width="50" height="83" char="학" />
+        <character x="422" y="191" width="49" height="75" char="산" />
+        <character x="468" y="189" width="55" height="80" char="책" />
+        <character x="551" y="227" width="38" height="46" char="하" />
+      </word>
+    </words>
+    <illumination>no</illumination>
+    <difficulty>3</difficulty>
+    <tag>
+    </tag>
+  </image>
+</images>
