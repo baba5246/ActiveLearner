@@ -21,7 +21,8 @@
 #define OUTPUT                  @"output"
 #define IMAGE_OUTPUT            @"image-output"
 #define IMAGE_DATA              @"image-data"
-
+#define UPDATE_IMAGE_NAME       @"update-image-name"
+#define FILEPATH                @"filepath"
 
 #pragma mark -
 #pragma mark Processor Constants

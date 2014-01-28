@@ -512,7 +512,8 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         }
         
 //        Mat src = imread(filepath);
-//        [self outputImage:Draw::drawObjects(src, extracts)];
+//        NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
+//        [self outputImage:Draw::drawObjects(src, extracts) filepath:nsfilepath];
         
         components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(extracts)));
     }
@@ -567,7 +568,8 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         }
         
         Mat src = imread(filepath);
-        [self outputImage:Draw::drawTexts(src, extracts)];
+        NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
+        [self outputImage:Draw::drawTexts(src, extracts) filepath:nsfilepath];
         texts.insert(map<string, vector<Text*>>::value_type(filepath, vector<Text*>(extracts)));
     }
     
@@ -685,7 +687,10 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         detector.mergeContainedTexts(merged_texts, cgs);
         detector.textFiltering(final_texts, merged_texts);
         
-        [self outputImage:Draw::drawTexts(src, final_texts)];
+        NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
+        [self outputImage:Draw::drawTexts(src, final_texts) filepath:nsfilepath];
+        
+        finals.insert(map<string, vector<Text*>>::value_type(filepath, vector<Text*>(final_texts)));
     }
     
     return finals;
@@ -704,8 +709,12 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     
 }
 
-- (void) outputImage:(const Mat&)src
+- (void) outputImage:(const Mat&)src filepath:(NSString*)filepath
 {
+    // 画像パス表示を変更
+    [n sendNotification:UPDATE_IMAGE_NAME objectsAndKeys:filepath, FILEPATH, nil];
+    
+    //
     NSImage *image = [NSImage imageWithCVMat:src];
     NSData *data = [image TIFFRepresentation];
     NSBitmapImageRep *bitmapImageRep = [NSBitmapImageRep imageRepWithData:data];

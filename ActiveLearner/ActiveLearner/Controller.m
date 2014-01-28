@@ -26,6 +26,7 @@
         [n.nc addObserver:self selector:@selector(updatePathLabelDidLoad:) name:DID_LOAD_DIRECTORY object:nil];
         [n.nc addObserver:self selector:@selector(consoleMethod:) name:CONSOLE_OUTPUT object:nil];
         [n.nc addObserver:self selector:@selector(outputImage:) name:IMAGE_OUTPUT object:nil];
+        [n.nc addObserver:self selector:@selector(updateImagePathLabel:) name:UPDATE_IMAGE_NAME object:nil];
         
     }
     return self;
@@ -62,6 +63,12 @@
     [self console:@"読み込みが完了しました．"];
 }
 
+- (void) updateImagePathLabel:(NSNotification*)n
+{
+    NSString *path = n.userInfo[FILEPATH];
+    [fileNameLbl setStringValue:path];
+}
+
 
 #pragma mark -
 #pragma mark Console Writing Methods
@@ -87,9 +94,12 @@
 
 - (void) outputImage:(NSNotification *)n
 {
+    NSData *data = nil;
+    NSImage *image = nil;
     [imageView setImage:nil];
-    NSData *data = n.userInfo[IMAGE_DATA];
-    NSImage *image = [[NSImage alloc] initWithData:data];
+    
+    data = n.userInfo[IMAGE_DATA];
+    image = [[NSImage alloc] initWithData:data];
     [imageView setImage:image];
 }
 
