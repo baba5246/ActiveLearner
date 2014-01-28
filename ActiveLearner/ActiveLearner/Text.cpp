@@ -98,13 +98,13 @@ void Text::reLinkOriginIndexes()
         if (i == 0) continue;
         
         p1 = objects[i]->centroid;
-        old_diff = p1 - objects[origins[i]]->centroid;
+        old_diff = objects[origins[i]]->centroid - p1;
         
         for (int j =i+1; j < objects.size(); j++) {
             p2 = objects[j]->centroid;
             new_diff = p2 - p1;
             double gradient = acos(old_diff.ddot(new_diff) / (pointSize(old_diff) * pointSize(new_diff)));
-            if (fabs(gradient) < M_PI_1_8) {
+            if (fabs(gradient) > HIGH_GRADIENT_THRESHOLD) {
                 origins[j] = i;
             }
         }

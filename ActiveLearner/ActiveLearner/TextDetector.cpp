@@ -88,14 +88,14 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     Draw::draw(Draw::drawTexts(srcImage, merged_texts));
     
     texts = merged_texts;
-//    
-//    // Linkの数でフィルタリング
-//    textFiltering(texts, merged_texts);
-//    
-//    // Group特徴量計算
-//    setFeatures(texts, objects);
-//    
-//    Draw::draw(Draw::drawTexts(srcImage, texts));
+    
+    // Linkの数でフィルタリング
+    textFiltering(texts, merged_texts);
+    
+    // Group特徴量計算
+    setFeatures(texts, objects);
+    
+    Draw::draw(Draw::drawTexts(srcImage, texts));
 }
 
 

@@ -50,7 +50,7 @@ static Processor* sharedProcessor = nil;
 
 - (void) trainWhole
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Training 全プロセス実行 開始！ ********** \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"********** Training 全プロセス実行 開始！ **********", OUTPUT, nil];
     
     BOOL isTraining = YES;
     [self loadGtXMLData:isTraining];
@@ -61,12 +61,12 @@ static Processor* sharedProcessor = nil;
     map<string, vector<Text*>> texts = [self trainCGV:cgs];
     map<string, vector<Text*>> final_texts = [self mergeFinalTexts:texts];
     
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Training 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"********** Training 全プロセス実行 終了！ **********", OUTPUT, nil];
 }
 
 - (map<string, vector<Object*>>) trainCCD
 {
-    NSString *output = @"\n --- オブジェクト抽出開始 --- \n";
+    NSString *output = @"--- オブジェクト抽出開始 ---";
     LOG(@"%@", output);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
@@ -83,7 +83,7 @@ static Processor* sharedProcessor = nil;
         
         ccs.insert(map<string, vector<Object*>>::value_type(filepath, objects));
 
-        output = [NSString stringWithFormat:@"\n---- Filename:%@, Components:%ld ----", path, objects.size()];
+        output = [NSString stringWithFormat:@"---- Filename:%@, Components:%ld ----", path, objects.size()];
         LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
@@ -93,7 +93,7 @@ static Processor* sharedProcessor = nil;
 
 - (map<string, vector<Object*>>) trainCCV:(const map<string, vector<Object*>>&) ccs
 {
-    NSString *output = @"\n --- オブジェクト学習開始 --- \n";
+    NSString *output = @"--- オブジェクト学習開始 ---";
     LOG(@"%@", output);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
@@ -112,7 +112,7 @@ static Processor* sharedProcessor = nil;
 
 - (map<string, vector<Text*>>) trainCGD:(map<string, vector<Object*>>&) components
 {
-    NSString *output = @"\n --- グループ抽出開始 --- \n";
+    NSString *output = @"--- グループ抽出開始 ---";
     LOG(@"%@", output);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
@@ -132,7 +132,7 @@ static Processor* sharedProcessor = nil;
         
         cgs.insert(map<string, vector<Text*>>::value_type(filepath, texts));
         
-        output = [NSString stringWithFormat:@"\n---- Filename:%@, Texts:%ld", path, texts.size()];
+        output = [NSString stringWithFormat:@"---- Filename:%@, Texts:%ld", path, texts.size()];
         LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
         
@@ -144,7 +144,7 @@ static Processor* sharedProcessor = nil;
 
 - (map<string, vector<Text*>>) trainCGV:(map<string, vector<Text*>>&) cgs
 {
-    NSString *output = @"\n --- グループ学習開始 --- \n";
+    NSString *output = @"--- グループ学習開始 ---";
     LOG(@"%@", output);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
@@ -166,7 +166,7 @@ static Processor* sharedProcessor = nil;
 
 - (void) testWhole
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Test 全プロセス実行 開始！ ********** \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"********** Test 全プロセス実行 開始！ **********", OUTPUT, nil];
     
     BOOL isTraining = NO;
     [self loadGtXMLData:isTraining];
@@ -177,13 +177,13 @@ static Processor* sharedProcessor = nil;
     map<string, vector<Text*>> texts = [self testCGV:cgs];
     [self mergeFinalTexts:texts];
     
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n ********** Test 全プロセス実行 終了！ ********** \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"********** Test 全プロセス実行 終了！ **********", OUTPUT, nil];
 }
 
 - (map<string, vector<Object*>>) testCCD
 {
     [n sendNotification:CONSOLE_OUTPUT
-         objectsAndKeys:@"\n --- オブジェクト抽出開始 --- \n", OUTPUT, nil];
+         objectsAndKeys:@"--- オブジェクト抽出開始 ---", OUTPUT, nil];
     
     map<string, vector<Object*>> ccs;
     
@@ -209,7 +209,7 @@ static Processor* sharedProcessor = nil;
 - (map<string, vector<Object*>>) testCCV:(map<string, vector<Object*>>&) ccs
 {
     [n sendNotification:CONSOLE_OUTPUT
-         objectsAndKeys:@"\n --- オブジェクト分類開始 --- \n", OUTPUT, nil];
+         objectsAndKeys:@"--- オブジェクト分類開始 ---", OUTPUT, nil];
     
     map<string, vector<Object*>> components;
     
@@ -222,7 +222,7 @@ static Processor* sharedProcessor = nil;
 
 - (map<string, vector<Text*>>) testCGD:(map<string, vector<Object*>>&) components
 {
-    NSString *output = @"\n --- グループ抽出開始 --- \n";
+    NSString *output = @"--- グループ抽出開始 ---";
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
     map<string, vector<Text*>> cgs;
@@ -241,7 +241,7 @@ static Processor* sharedProcessor = nil;
         
         cgs.insert(map<string, vector<Text*>>::value_type(filepath, texts));
         
-        output = [NSString stringWithFormat:@"\n---- Filename:%@, Texts:%ld", path, texts.size()];
+        output = [NSString stringWithFormat:@"---- Filename:%@, Texts:%ld", path, texts.size()];
         LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
         
@@ -253,7 +253,7 @@ static Processor* sharedProcessor = nil;
 
 - (map<string, vector<Text*>>) testCGV:(map<string, vector<Text*>>&) cgs
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- グループ分類開始 --- \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- グループ分類開始 ---", OUTPUT, nil];
     
     map<string, vector<Text*>> texts;
     
@@ -326,7 +326,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
 
 - (map<string, vector<Sample>>) makeCCSamples:(const map<string, vector<Object*>>&) ccs isTraining:(BOOL) isTraining
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- ラベリング開始 ---", OUTPUT, nil];
     
     map<string, vector<Sample>> samples;
     
@@ -388,14 +388,14 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         
     }
     
-    LOG(@"\n --- サンプル抽出結果 Total:%ld（正：%ld, 負：%ld）--- \n", plabel+mlabel, plabel, mlabel);
+    LOG(@"--- サンプル抽出結果 Total:%ld（正：%ld, 負：%ld）---", plabel+mlabel, plabel, mlabel);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return samples;
 }
 
 - (map<string, vector<Sample>>) makeCGSamples:(const map<string, vector<Text*>>&) cgs isTraining:(BOOL)isTraining
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- ラベリング開始 --- \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- ラベリング開始 ---", OUTPUT, nil];
     
     map<string, vector<Sample>> samples;
     
@@ -451,14 +451,14 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
     }
     
-    LOG(@"\n --- サンプル抽出結果 Total:%ld（正：%ld, 負：%ld）--- \n", plabel+mlabel, plabel, mlabel);
+    LOG(@"--- サンプル抽出結果 Total:%ld（正：%ld, 負：%ld）---", plabel+mlabel, plabel, mlabel);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"OK", OUTPUT, nil];
     return samples;
 }
 
 - (AdaBoost) learnFeaturesWithAdaBoost:(const map<string, vector<Sample>>&) samples
 {
-    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"\n --- AdaBoost学習開始 --- \n", OUTPUT, nil];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:@"--- AdaBoost学習開始 ---", OUTPUT, nil];
     
     vector<Sample> trainSamples;
     
@@ -482,7 +482,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
 {
     map<string, vector<Object*>> components;
     
-    int e = 0, E = 0, T = 0, size = 0;
+    int e = 0, E = 0, T = 0;
     double precision = 0, recall = 0, f = 0;
     
     // 全列挙
@@ -503,7 +503,6 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
             
             // 母数を計算
             E++;
-            size++;
             
             // 正解個数を算出
             if (test == temp[i].label) {
@@ -529,14 +528,9 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     recall = (double)e / T;
     f = 2 * precision * recall / (precision + recall);
     
-    NSString *result = [NSString stringWithFormat:@"\n --- 候補オブジェクト分類結果 --- \n Precision:%f, Recall:%f, F:%f",
-                        precision, recall, f];
-//    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:result, OUTPUT, nil];
-    
-    cout << "--- 候補オブジェクト分類結果 ---" << endl;
-    cout << "size:" << size << ", e:" << e << ", E:" << E << ", T:" << T << endl;
-    cout << "precision:" << precision << ", recall:" << recall << ", f:" << f << endl;
-    cout << result << endl;
+    NSString *result = [NSString stringWithFormat:@"--- 候補オブジェクト分類結果 --- \n Precision:%f, Recall:%f, F:%f, e:%d, E:%d, T:%d",
+                        precision, recall, f, e, E, T];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:result, OUTPUT, nil];
     
     return components;
 }
@@ -588,13 +582,9 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     recall = (double)e / T;
     f = 2 * precision * recall / (precision + recall);
     
-    NSString *result = [NSString stringWithFormat:@"\n --- 候補オブジェクト分類結果 --- \n Precision:%f, Recall:%f, F:%f", precision, recall, f];
-    //    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:result, OUTPUT, nil];
-    
-    cout << "--- 候補オブジェクト分類結果 ---" << endl;
-    cout << "size:" << samples.size() << "e:" << e << ", E:" << E << ", T:" << T << endl;
-    cout << "precision:" << precision << ", recall:" << recall << ", f:" << f << endl;
-    cout << result << endl;
+    NSString *result = [NSString stringWithFormat:@"--- 候補オブジェクト分類結果 --- \n Precision:%f, Recall:%f, F:%f, e:%d, E:%d, T:%d",
+                        precision, recall, f, e, E, T];
+    [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:result, OUTPUT, nil];
     
     return texts;
 }
@@ -618,6 +608,9 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
             [ccv setObject:wc forKey:key];
         }
         [adaboostResult setObject:ccv forKey:CCV];
+        
+        NSString *result = [NSString stringWithFormat:@"CCVの学習結果を保存しました."];
+        [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:result, OUTPUT, nil];
     }
     else if ([type isEqualToString:CGV])
     {
@@ -634,6 +627,9 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     
         // modelに保存
         [model setAdaBoostXMLData:adaboostResult];
+        
+        NSString *result = [NSString stringWithFormat:@"CGVの学習結果を保存しました."];
+        [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:result, OUTPUT, nil];
     }
     else {
         ERROR(@"Type:%@ は不明なタイプです.", type);
@@ -682,13 +678,14 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     for (itr=texts.begin(); itr != texts.end(); itr++) {
         string filepath = itr->first;
         vector<Text*> cgs = itr->second;
-        vector<Text*> final_texts;
+        vector<Text*> merged_texts, final_texts;
         
         Mat src = imread(filepath);
         TextDetector detector(src);
-        detector.mergeContainedTexts(final_texts, cgs);
+        detector.mergeContainedTexts(merged_texts, cgs);
+        detector.textFiltering(final_texts, merged_texts);
         
-        Draw::draw(Draw::drawTexts(src, final_texts));
+        [self outputImage:Draw::drawTexts(src, final_texts)];
     }
     
     return finals;

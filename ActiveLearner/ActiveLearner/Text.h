@@ -6,6 +6,10 @@
 using namespace std;
 using namespace cv;
 
+
+#define HIGH_GRADIENT_THRESHOLD     M_PI_5_6
+
+
 class Text
 {
     
