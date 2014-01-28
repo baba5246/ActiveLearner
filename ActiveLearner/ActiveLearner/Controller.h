@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "ImageView.h"
 
 @class Model;
 
@@ -15,9 +16,10 @@
     NSTableView *performTable;
 }
 
-@property (weak) IBOutlet NSImageView *imageView;
 @property (unsafe_unretained) IBOutlet NSTextView *consoleView;
 @property (weak) IBOutlet NSScrollView *textScrollView;
+@property (weak) IBOutlet NSTextField *imageNameLbl;
+@property (weak) IBOutlet ImageView *imageView;
 
 
 #pragma mark -

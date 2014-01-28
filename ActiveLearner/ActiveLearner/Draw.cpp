@@ -26,7 +26,7 @@ void Draw::drawImage(const Mat& src1, const Mat& src2)
         namedWindow( "Display src2", CV_WINDOW_AUTOSIZE );
         imshow( "Display src1", src1);
         imshow( "Display src2", src2);
-        waitKey(10000);
+        waitKey(DRAW_WAIT_TIME);
         destroyWindow("Display src1");
         destroyWindow("Display src2");
     }
@@ -296,7 +296,6 @@ Mat Draw::drawText(const cv::Mat &src, Text *&text)
     for( int j = 0; j < 4; j++ ) {
         line( dst, rect_points[j], rect_points[(j+1)%4], red, 1, 8 );
     }
-//    rectangle(dst, text->rect, red, 3);
     
     for (int j = 0; j < text->objects.size(); j++) {
         if (j == 0) circle(dst, text->objects[j]->centroid, 3, red, 3);
@@ -318,8 +317,6 @@ Mat Draw::drawText(const Mat& src, Text*& text, cv::Rect small, cv::Rect large)
     
     srand((unsigned int)1);
     Scalar red = CV_RGB(BRIGHTNESS,0,0);
-    Scalar green = CV_RGB(0,BRIGHTNESS,0);
-    Scalar yellow = CV_RGB(BRIGHTNESS,BRIGHTNESS,0);
     Scalar blue = CV_RGB(0,0,BRIGHTNESS);
     
     Point2f rect_points[4];
@@ -370,6 +367,48 @@ Mat Draw::drawTexts(const Mat& src, const vector<Text*>& texts)
     }
     
     return dst;
+}
+
+
+void Draw::drawTexts(const Mat& src, Text*& text1, Text*& text2)
+{
+    Mat dst1 = src.clone();
+    Mat dst2 = src.clone();
+    
+    Scalar red = CV_RGB(BRIGHTNESS,0,0);
+    Scalar blue = CV_RGB(0,0,BRIGHTNESS);
+    
+    Point2f rect_points1[4], rect_points2[4];
+    text1->rotatedRect.points( rect_points1);
+    text2->rotatedRect.points( rect_points2);
+    for( int j = 0; j < 4; j++ ) {
+        line( dst1, rect_points1[j], rect_points1[(j+1)%4], red, 1, 8 );
+        line( dst2, rect_points2[j], rect_points2[(j+1)%4], red, 1, 8 );
+    }
+    
+    for (int j = 0; j < text1->objects.size(); j++) {
+        if (j == 0) circle(dst1, text1->objects[j]->centroid, 3, red, 3);
+        else if (j == text1->focusedIndex) circle(dst1, text1->objects[j]->centroid, 3, blue);
+        else circle(dst1, text1->objects[j]->centroid, 3, red);
+        
+        if (text1->originIndexes[j] >= 0) {
+            line(dst1, text1->objects[j]->centroid,
+                 text1->objects[text1->originIndexes[j]]->centroid, red);
+        }
+    }
+    
+    for (int j = 0; j < text2->objects.size(); j++) {
+        if (j == 0) circle(dst2, text2->objects[j]->centroid, 3, red, 3);
+        else if (j == text2->focusedIndex) circle(dst2, text2->objects[j]->centroid, 3, blue);
+        else circle(dst2, text2->objects[j]->centroid, 3, red);
+        
+        if (text2->originIndexes[j] >= 0) {
+            line(dst2, text2->objects[j]->centroid,
+                 text2->objects[text2->originIndexes[j]]->centroid, red);
+        }
+    }
+    
+    drawImage(dst1, dst2);
 }
 
 Mat Draw::drawSWT(const Mat& swt, const double max)

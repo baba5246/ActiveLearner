@@ -73,7 +73,7 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     // Group特徴量計算
     setFeatures(candidate_texts, objects);
     
-    // Linkの数でフィルタリング
+    // Linkの数と面積比でフィルタリング
     textFiltering(filtered_texts, candidate_texts);
     
     // Draw
@@ -256,7 +256,7 @@ void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_te
 {
     for (int i = 0; i < src_texts.size(); i++)
     {
-        // Link数でフィルタリング
+        // Link数と面積比でフィルタリング
         bool link_out = false;
         int count = 0;
         
@@ -277,8 +277,11 @@ void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_te
         }
         
         if (link_out == false) {
-            dst_texts.push_back(src_texts[i]);
-//            Draw::draw(Draw::drawText(srcImage, src_texts[i]));
+            
+            if (src_texts[i]->objAreaRatio > 0.4) {
+                dst_texts.push_back(src_texts[i]);
+//                Draw::draw(Draw::drawText(srcImage, src_texts[i]));
+            }
         }
     }
 }
@@ -294,7 +297,7 @@ void TextDetector::mergeFilteredTexts(vector<Text*>& dst_texts, vector<Text*>& s
         if (find(alreadies.begin(), alreadies.end(), i) != alreadies.end())
             continue;
         
-        Text *text(src_texts[i]);
+        Text *text = new Text(*src_texts[i]);
         Rect large = src_texts[i]->rect;
         
         for (int j = i+1; j < src_texts.size(); j++) {
@@ -317,26 +320,30 @@ void TextDetector::mergeFilteredTexts(vector<Text*>& dst_texts, vector<Text*>& s
                 // 一部でも重なっているものが対象
                 if (intersect.area()>0)
                 {
-                    // 重なってる割合が両方大きい
-                    if (shratio > RECT_HABA_MARGE_THRESHOLD &&
-                        lhratio > RECT_HABA_MARGE_THRESHOLD)
-                    {
-                        // 平均色が類似している
-                        if (isSimilarLab(src_texts[i], src_texts[j])) {
-                            text->add(src_texts[j]);
-                            alreadies.push_back(j);
-                            continue;
+                    if (large.width > large.height) {
+                        // 重なってる割合が両方大きい
+                        if (shratio > RECT_HABA_MARGE_THRESHOLD &&
+                            lhratio > RECT_HABA_MARGE_THRESHOLD)
+                        {
+                            // 平均色が類似している
+                            if (isSimilarLab(src_texts[i], src_texts[j])) {
+                                text->add(src_texts[j]);
+                                alreadies.push_back(j);
+                                continue;
+                            }
                         }
                     }
-                    // 重なってる割合が両方大きい
-                    if (swratio > RECT_HABA_MARGE_THRESHOLD &&
-                        lwratio > RECT_HABA_MARGE_THRESHOLD)
-                    {
-                        // 平均色が類似している
-                        if (isSimilarLab(src_texts[i], src_texts[j])) {
-                            text->add(src_texts[j]);
-                            alreadies.push_back(j);
-                            continue;
+                    else if (large.width < large.height) {
+                        // 重なってる割合が両方大きい
+                        if (swratio > RECT_HABA_MARGE_THRESHOLD &&
+                            lwratio > RECT_HABA_MARGE_THRESHOLD)
+                        {
+                            // 平均色が類似している
+                            if (isSimilarLab(src_texts[i], src_texts[j])) {
+                                text->add(src_texts[j]);
+                                alreadies.push_back(j);
+                                continue;
+                            }
                         }
                     }
 

@@ -8,7 +8,7 @@
 }
 
 @synthesize consoleView, textScrollView;
-@synthesize imageView;
+@synthesize imageView, imageNameLbl;
 
 -(id) init
 {
@@ -66,7 +66,7 @@
 - (void) updateImagePathLabel:(NSNotification*)n
 {
     NSString *path = n.userInfo[FILEPATH];
-    [fileNameLbl setStringValue:path];
+    [imageNameLbl setStringValue:path];
 }
 
 
@@ -81,7 +81,7 @@
 
 - (void) console:(NSString *) output
 {
-    NSLog(@"%@", output);
+    LOG(@"%@", output);
 //    NSRange insertAtEnd=NSMakeRange([[consoleView textStorage] length],0);
 //    [consoleView replaceCharactersInRange:insertAtEnd
 //                          withString:output];

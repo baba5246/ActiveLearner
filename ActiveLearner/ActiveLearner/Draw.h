@@ -31,6 +31,7 @@ public:
     static Mat drawText(const Mat& src, Text*& text);
     static Mat drawText(const Mat& src, Text*& text, cv::Rect small, cv::Rect large);
     static Mat drawTexts(const Mat& src, const vector<Text*>& texts);
+    static void drawTexts(const Mat& src, Text*& text1, Text*& text2);
     static Mat drawSWT(const Mat& swt, const double max);
     static Mat drawSWTObjects(const Mat_<double>& swt,
                                const vector<SWTObject>& swtobjects);

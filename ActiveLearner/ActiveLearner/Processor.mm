@@ -67,7 +67,6 @@ static Processor* sharedProcessor = nil;
 - (map<string, vector<Object*>>) trainCCD
 {
     NSString *output = @"--- オブジェクト抽出開始 ---";
-    LOG(@"%@", output);
     [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     
     map<string, vector<Object*>> ccs;
@@ -84,7 +83,6 @@ static Processor* sharedProcessor = nil;
         ccs.insert(map<string, vector<Object*>>::value_type(filepath, objects));
 
         output = [NSString stringWithFormat:@"---- Filename:%@, Components:%ld ----", path, objects.size()];
-        LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
     }
     
@@ -684,7 +682,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         
         Mat src = imread(filepath);
         TextDetector detector(src);
-        detector.mergeContainedTexts(merged_texts, cgs);
+        detector.mergeFilteredTexts(merged_texts, cgs);
         detector.textFiltering(final_texts, merged_texts);
         
         NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
@@ -714,6 +712,9 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     // 画像パス表示を変更
     [n sendNotification:UPDATE_IMAGE_NAME objectsAndKeys:filepath, FILEPATH, nil];
     
+    // 遅いのでこっちにも出す
+    Draw::draw(src);
+    
     //
     NSImage *image = [NSImage imageWithCVMat:src];
     NSData *data = [image TIFFRepresentation];
@@ -724,6 +725,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
                                         properties:properties];
     [n sendNotification:IMAGE_OUTPUT objectsAndKeys:data, IMAGE_DATA, nil];
     waitKey(DRAW_WAIT_TIME);
+    
 }
 
 - (void) checkSamplesId:(map<string,vector<Sample>>) samples
