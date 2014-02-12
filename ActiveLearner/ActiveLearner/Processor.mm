@@ -122,7 +122,7 @@ static Processor* sharedProcessor = nil;
         string filepath = [path cStringUsingEncoding:NSUTF8StringEncoding];
         Mat srcImage = imread(filepath);
         vector<Object*> objects = components.at(filepath);
-        Draw::draw(Draw::drawObjects(srcImage, objects));
+        if (DEBUG) Draw::draw(Draw::drawObjects(srcImage, objects));
         
         vector<Text*> texts;
         TextDetector detector(srcImage);
@@ -240,7 +240,6 @@ static Processor* sharedProcessor = nil;
         cgs.insert(map<string, vector<Text*>>::value_type(filepath, texts));
         
         output = [NSString stringWithFormat:@"---- Filename:%@, Texts:%ld", path, texts.size()];
-        LOG(@"%@", output);
         [n sendNotification:CONSOLE_OUTPUT objectsAndKeys:output, OUTPUT, nil];
         
     }
@@ -319,7 +318,9 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     double iarea = intersect.size.width * intersect.size.height;
     double rratio = iarea / ((double)rect.size.width * rect.size.height);
     double tratio = iarea / ((double)trect.size.width * trect.size.height);
-    return (rratio >= 0.7f && tratio >= 0.6f);// || (rratio >= 0.6f && tratio >= 0.6f);
+
+    bool sameaspect = (trect.size.width<=trect.size.height && rect.size.width<=rect.size.height) || (trect.size.width>=trect.size.height && rect.size.width>=rect.size.height);
+    return (rratio >= 0.6f && tratio >= 0.8f && sameaspect);// || (rratio >= 0.6f && tratio >= 0.6f);
 }
 
 - (map<string, vector<Sample>>) makeCCSamples:(const map<string, vector<Object*>>&) ccs isTraining:(BOOL) isTraining
@@ -380,7 +381,6 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
             
             temp.push_back(s);
         }
-        
         vector<Sample> copy(temp);
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
         
@@ -443,9 +443,14 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
             temp.push_back(s);
         }
         
-        vector<Sample> copy(temp);
         Mat src = imread(filepath);
-//        [self outputImage:Draw::drawSamples(src, temp)];
+        Mat labeled = Draw::drawSamples(src, temp);
+        Draw::draw(labeled);
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Documents/shuron_modified/Fig/success.png", labeled);
+        
+        vector<Sample> copy(temp);
+//        Mat src = imread(filepath);
+//        if (DEBUG) [self outputImage:Draw::drawSamples(src, temp), ];
         samples.insert(map<string, vector<Sample>>::value_type(filepath, copy));
     }
     
@@ -509,9 +514,11 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
 //            extracts.push_back(temp[i].object);
         }
         
-//        Mat src = imread(filepath);
-//        NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
-//        [self outputImage:Draw::drawObjects(src, extracts) filepath:nsfilepath];
+        Mat src = imread(filepath);
+        NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
+        Mat obj = Draw::drawObjects(src, extracts);
+        Draw::draw(obj);
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Slides/140212-諮問会練習/component-regions-2.png", obj);
         
         components.insert(map<string, vector<Object*>>::value_type(filepath, vector<Object*>(extracts)));
     }
@@ -567,7 +574,8 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         
         Mat src = imread(filepath);
         NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
-        [self outputImage:Draw::drawTexts(src, extracts) filepath:nsfilepath];
+        Draw::draw(Draw::drawTexts(src, extracts));
+//        if (DEBUG) [self outputImage: filepath:nsfilepath];
         texts.insert(map<string, vector<Text*>>::value_type(filepath, vector<Text*>(extracts)));
     }
     
@@ -667,7 +675,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         line(minus, cv::Point(i, max), cv::Point(i, max-minushist[i]), blue);
     }
     
-    Draw::draw(plus, minus);
+    if (DEBUG) Draw::draw(plus, minus);
 }
 
 - (map<string, vector<Text*>>) mergeFinalTexts:(map<string, vector<Text*>>) texts
@@ -683,7 +691,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
         Mat src = imread(filepath);
         TextDetector detector(src);
         detector.mergeFilteredTexts(merged_texts, cgs);
-        detector.textFiltering(final_texts, merged_texts);
+        detector.textFiltering(final_texts, merged_texts, 0.7);
         
         NSString *nsfilepath = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
         [self outputImage:Draw::drawTexts(src, final_texts) filepath:nsfilepath];
@@ -713,7 +721,7 @@ inline bool CGRectGroupContains(CGRect trect, CGRect rect)
     [n sendNotification:UPDATE_IMAGE_NAME objectsAndKeys:filepath, FILEPATH, nil];
     
     // 遅いのでこっちにも出す
-    Draw::draw(src);
+    if (DEBUG) Draw::draw(src);
     
     //
     NSImage *image = [NSImage imageWithCVMat:src];

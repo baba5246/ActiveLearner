@@ -1,5 +1,6 @@
 #pragma once
 
+#define DEBUG               false
 
 #define BRIGHTNESS          256
 #define HALF_BRIGHTNESS     128

@@ -39,7 +39,7 @@ public:
     void detect(vector<Object*>& objects, vector<Text*>& texts);
     void mergeFilteredTexts(vector<Text*>& dst_texts, vector<Text*>& src_texts);
     void mergeContainedTexts(vector<Text*>& dst_texts, vector<Text*>& src_texts);
-    void textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_texts);
+    void textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_texts, double threshold);
     
 private:
     

@@ -74,28 +74,39 @@ void TextDetector::detect(vector<Object*>& objects, vector<Text*>& texts)
     setFeatures(candidate_texts, objects);
     
     // Linkの数と面積比でフィルタリング
-    textFiltering(filtered_texts, candidate_texts);
+    textFiltering(filtered_texts, candidate_texts, 0.3);
     
+    Mat temp = imread("/Users/babajun/Dropbox/Lab/Research/Documents/shuron_modified/Fig/whole1.png");
     // Draw
-    Draw::draw(Draw::drawTexts(srcImage, filtered_texts));
-    
+    if (DEBUG) {
+        Mat enumerated_texts = Draw::drawTexts(srcImage, filtered_texts);
+        Draw::draw(enumerated_texts);
+    }
+
     // Groupのマージ
     mergeFilteredTexts(merged_texts, filtered_texts);
     
     // Group特徴量計算
     setFeatures(merged_texts, objects);
     
-    Draw::draw(Draw::drawTexts(srcImage, merged_texts));
+    if (DEBUG) {
+        Mat merged_text_mat = Draw::drawTexts(srcImage, merged_texts);
+        Draw::draw(merged_text_mat);
+    }
     
     texts = merged_texts;
     
     // Linkの数でフィルタリング
-    textFiltering(texts, merged_texts);
+    textFiltering(texts, merged_texts, 0.5);
     
     // Group特徴量計算
     setFeatures(texts, objects);
     
-    Draw::draw(Draw::drawTexts(srcImage, texts));
+    if (DEBUG){
+        Mat text_mat = Draw::drawTexts(srcImage, texts);
+        Draw::draw(text_mat);
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Sludes/140212-諮問会練習/_temp-final.png", text_mat);
+    }
 }
 
 
@@ -113,6 +124,7 @@ void TextDetector::detectTexts(vector<Text*>& texts, vector<Object*>& objects)
         Object *init = objects[i];
         
         // Find neighbors
+        vector<Text*> init_texts;
         vector<Object*> neighbors = findInitNeighbors(init, objects);
         
         // For all neighbors
@@ -132,7 +144,31 @@ void TextDetector::detectTexts(vector<Text*>& texts, vector<Object*>& objects)
             groupingObjects(text, objects);
             
             // Add as a candidate
-            texts.push_back(text);
+            init_texts.push_back(text);
+            
+        }
+        
+        for (int k = 0; k < init_texts.size(); k++) {
+            if (init_texts[k]->isMerged) continue;
+            Text* base = init_texts[k];
+            
+            for (int l = k+1; l < init_texts.size(); l++) {
+                if (init_texts[l]->isMerged) continue;
+                Text* temp = init_texts[l];
+                
+                Point vec_base = base->objects[1]->centroid - init->centroid;
+                Point vec_temp = temp->objects[1]->centroid - init->centroid;
+                double gradient = acos(vec_base.ddot(vec_temp) / (pointSize(vec_base) * pointSize(vec_temp)));
+                if (gradient > HIGH_GRADIENT_THRESHOLD) {
+                    base->add(temp);
+                    base->reLinkOriginIndexes();
+                    temp->isMerged = true;
+                }
+            }
+            
+//            Mat temptext = Draw::drawText(srcImage, base);
+//            Draw::draw(temptext);
+            texts.push_back(base);
         }
     }
 }
@@ -252,10 +288,15 @@ void TextDetector::addNeighbors(Text*& text, vector<Object*>& objects)
     }
 }
 
-void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_texts)
+void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_texts, double threshold)
 {
     for (int i = 0; i < src_texts.size(); i++)
     {
+        
+//        Mat temptext = Draw::drawText(srcImage, src_texts[i]);
+//        Draw::draw(temptext);
+//        imwrite("/Users/babajun/Dropbox/Lab/Research/Documents/shuron_modified/Fig/_temp_text.png", temptext);
+        
         // Link数と面積比でフィルタリング
         bool link_out = false;
         int count = 0;
@@ -278,7 +319,7 @@ void TextDetector::textFiltering(vector<Text*>& dst_texts, vector<Text*>& src_te
         
         if (link_out == false) {
             
-            if (src_texts[i]->objAreaRatio > 0.4) {
+            if (src_texts[i]->objAreaRatio > threshold) {
                 dst_texts.push_back(src_texts[i]);
 //                Draw::draw(Draw::drawText(srcImage, src_texts[i]));
             }

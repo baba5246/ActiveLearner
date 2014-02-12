@@ -1,0 +1,48 @@
+<?xml version="1.0" standalone="no"?>
+<root>
+	<dataset path="/Users/babajun/Desktop/AL/jp-train-dataset"></dataset>
+	<ccv>
+		<wc0 findex="18" alpha="1.210467" threshold="0.994000"></wc0>
+		<wc1 findex="15" alpha="0.267269" threshold="0.356000"></wc1>
+		<wc2 findex="7" alpha="0.079695" threshold="0.520000"></wc2>
+		<wc17 findex="7" alpha="0.000000" threshold="0.520000"></wc17>
+		<wc8 findex="7" alpha="0.000000" threshold="0.520000"></wc8>
+		<wc3 findex="7" alpha="0.000000" threshold="0.520000"></wc3>
+		<wc16 findex="7" alpha="0.000000" threshold="0.520000"></wc16>
+		<wc12 findex="7" alpha="0.000000" threshold="0.520000"></wc12>
+		<wc6 findex="7" alpha="0.000000" threshold="0.520000"></wc6>
+		<wc9 findex="7" alpha="0.000000" threshold="0.520000"></wc9>
+		<wc11 findex="7" alpha="0.000000" threshold="0.520000"></wc11>
+		<wc4 findex="7" alpha="0.000000" threshold="0.520000"></wc4>
+		<wc15 findex="7" alpha="0.000000" threshold="0.520000"></wc15>
+		<wc7 findex="7" alpha="0.000000" threshold="0.520000"></wc7>
+		<wc10 findex="7" alpha="0.000000" threshold="0.520000"></wc10>
+		<wc14 findex="7" alpha="0.000000" threshold="0.520000"></wc14>
+		<wc18 findex="7" alpha="0.000000" threshold="0.520000"></wc18>
+		<wc5 findex="7" alpha="0.000000" threshold="0.520000"></wc5>
+		<wc13 findex="7" alpha="0.000000" threshold="0.520000"></wc13>
+	</ccv>
+	<cgv>
+		<wc0 findex="18" alpha="0.943219" threshold="6.500000"></wc0>
+		<wc10 findex="18" alpha="0.000000" threshold="6.500000"></wc10>
+		<wc1 findex="18" alpha="0.000000" threshold="6.500000"></wc1>
+		<wc15 findex="18" alpha="0.000000" threshold="6.500000"></wc15>
+		<wc6 findex="18" alpha="0.000000" threshold="6.500000"></wc6>
+		<wc2 findex="18" alpha="0.000000" threshold="6.500000"></wc2>
+		<wc13 findex="18" alpha="0.000000" threshold="6.500000"></wc13>
+		<wc18 findex="18" alpha="0.000000" threshold="6.500000"></wc18>
+		<wc7 findex="18" alpha="0.000000" threshold="6.500000"></wc7>
+		<wc11 findex="18" alpha="0.000000" threshold="6.500000"></wc11>
+		<wc3 findex="18" alpha="0.000000" threshold="6.500000"></wc3>
+		<wc16 findex="18" alpha="0.000000" threshold="6.500000"></wc16>
+		<wc8 findex="18" alpha="0.000000" threshold="6.500000"></wc8>
+		<wc20 findex="18" alpha="0.000000" threshold="6.500000"></wc20>
+		<wc14 findex="18" alpha="0.000000" threshold="6.500000"></wc14>
+		<wc4 findex="18" alpha="0.000000" threshold="6.500000"></wc4>
+		<wc19 findex="18" alpha="0.000000" threshold="6.500000"></wc19>
+		<wc9 findex="18" alpha="0.000000" threshold="6.500000"></wc9>
+		<wc12 findex="18" alpha="0.000000" threshold="6.500000"></wc12>
+		<wc17 findex="18" alpha="0.000000" threshold="6.500000"></wc17>
+		<wc5 findex="18" alpha="0.000000" threshold="6.500000"></wc5>
+	</cgv>
+</root>

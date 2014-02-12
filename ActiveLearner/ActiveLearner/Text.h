@@ -44,6 +44,8 @@ public:
     int focusedIndex = -1;
     vector<double> features;
     
+    bool isMerged = false;
+    
 private:
     
     

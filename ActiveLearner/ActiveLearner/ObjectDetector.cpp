@@ -103,6 +103,9 @@ void ObjectDetector::detect(vector<Object*>& objects)
 //    mycv.canny(bgray, bedge);
 //    mycv.mergeEdges(redge, gedge, bedge, edge);
     edge = gedge;
+    if (DEBUG)
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Slides/140212-諮問会練習/canny-detected.png", edge);
+    
     
     // 輪郭抽出
     cv::vector<cv::Vec4i> hierarchy;
@@ -112,17 +115,32 @@ void ObjectDetector::detect(vector<Object*>& objects)
     // 輪郭から Object 作成
     createObjects(contours, candidate_objects);
     cout << candidate_objects.size() << " objects are created from contours." << endl;
+    if (DEBUG) {
+        Mat contour_candidate_image = Draw::drawObjects(srcImage, candidate_objects);
+        Draw::draw(contour_candidate_image);
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Slides/140212-諮問会練習/first_candidates.jpg", contour_candidate_image);
+    }
     
     // Unsharp Masking からの MSER 抽出
     Mat imgUnsharp;
     mycv.unsharpMasking(srcImage, imgUnsharp, 1);
     vector<MSERegion> msers;
     mycv.MSERs(imgUnsharp, msers);
-    
+    if (DEBUG) {
+        Mat mser = Draw::drawMSERs(srcImage, msers);
+        Draw::draw(mser);
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Documents/140212-諮問会練習Fig/mser-detected.png", mser);
+    }
     // MSER と包含関係を使って補正
     mergeApartContours(candidate_objects, msers);
     if (candidate_objects.size() == 0) return;
     mergeIncludedObjects(candidate_objects);
+    
+    if (DEBUG) {
+        Mat correct_candidate_image = Draw::drawObjects(srcImage, candidate_objects);
+        Draw::draw(correct_candidate_image);
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Slides/140212-諮問会練習/corrected-components.png", correct_candidate_image);
+    }
     
     // SWT と Color 類似度を使って補正
     Mat_<double> gradient = Mat_<double>(srcImage.rows, srcImage.cols);
@@ -141,6 +159,11 @@ void ObjectDetector::detect(vector<Object*>& objects)
     // 特徴量でフィルタリング
     objectFiltering(objects, candidate_objects);
     
+    if (DEBUG) {
+        Mat filtered_candidate_image = Draw::drawInnerAreaOfObjects(srcImage, objects);
+        Draw::draw(filtered_candidate_image);
+        imwrite("/Users/babajun/Dropbox/Lab/Research/Slides/140212-諮問会練習/filtered-components.png", filtered_candidate_image);
+    }
 }
 
 
@@ -625,7 +648,7 @@ void ObjectDetector::objectFiltering(vector<Object*>& dst_objects, vector<Object
 {
     for (int i = 0; i < src_objects.size(); i++) {
         if (src_objects[i]->corrPixelRatio >  CORR_PIXEL_RATIO_THRESHOLD &&
-            sqrt(src_objects[i]->varStrokeWidth) <= src_objects[i]->strokeWidth*2)
+            sqrt(src_objects[i]->varStrokeWidth) <= 2*src_objects[i]->strokeWidth)
         {
             dst_objects.push_back(src_objects[i]);
         }

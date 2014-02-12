@@ -9,7 +9,7 @@ void Draw::drawImage(const Mat& src)
         cout <<  "Could not open or find the image" << endl ;
     } else {
         stringstream ss;
-        int random = rand() % DRAW_WAIT_TIME;
+        int random = DRAW_WAIT_TIME;
         ss << random;
         namedWindow( "Display window" + ss.str(), CV_WINDOW_AUTOSIZE );
         imshow( "Display window" + ss.str(), src);
@@ -119,7 +119,7 @@ Mat Draw::drawMSERs(const Mat& src, const vector<MSERegion >& msers)
         {
             circle(dst, msers[i].mseregion[j], 1, color);
         }
-        ellipse(dst, fitEllipse(msers[i].mseregion), CV_RGB(255, 0, 0));
+//        ellipse(dst, fitEllipse(msers[i].mseregion), CV_RGB(255, 0, 0));
     }
     
     return dst;
@@ -128,12 +128,12 @@ Mat Draw::drawMSERs(const Mat& src, const vector<MSERegion >& msers)
 Mat Draw::drawObjects(const Mat& src, const vector<Object*>& objects)
 {
     Mat dst = Mat::zeros(src.rows, src.cols, CV_8UC3);
-    dst = CV_RGB(100, 100, 100);
-    
+    dst = CV_RGB(0, 0, 0);
+    srand((unsigned int)2);
     for (int i = 0; i < objects.size(); i++)
     {
         vector<cv::Point> pixels(objects[i]->contourPixels);
-//        vector<cv::Point> corrPixels(objects[i]->corrPairPixels);
+        vector<cv::Point> corrPixels(objects[i]->corrPairPixels);
         Scalar color = CV_RGB(rand()&255, rand()&255, rand()&255);
 //        if (objects[i]->colors.size()>0) color = objects[i]->color;
         
@@ -294,13 +294,13 @@ Mat Draw::drawText(const cv::Mat &src, Text *&text)
     Point2f rect_points[4];
     text->rotatedRect.points( rect_points );
     for( int j = 0; j < 4; j++ ) {
-        line( dst, rect_points[j], rect_points[(j+1)%4], red, 1, 8 );
+        line( dst, rect_points[j], rect_points[(j+1)%4], red, 3, 8 );
     }
     
     for (int j = 0; j < text->objects.size(); j++) {
-        if (j == 0) circle(dst, text->objects[j]->centroid, 3, red, 3);
-        else if (j == text->focusedIndex) circle(dst, text->objects[j]->centroid, 3, blue);
-        else circle(dst, text->objects[j]->centroid, 3, red);
+        if (j == 0) circle(dst, text->objects[j]->centroid, 5, red, 3);
+        else if (j == text->focusedIndex) circle(dst, text->objects[j]->centroid, 3, blue, 3);
+        else circle(dst, text->objects[j]->centroid, 3, red, 3);
         
         if (text->originIndexes[j] >= 0) {
             line(dst, text->objects[j]->centroid,
